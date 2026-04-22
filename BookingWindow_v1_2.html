@@ -1,0 +1,2347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Booking Window — Club Med Price Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f5f0e8;
+      --teal: #1a4a42;
+      --teal-light: #e8f0ee;
+      --amber: #8a6a2a;
+      --amber-light: #f5edd8;
+      --grey: #6b6b6b;
+      --grey-light: #f0ede8;
+      --card-bg: #faf8f4;
+      --border: #ddd8ce;
+      --text: #2a2520;
+      --text-muted: #7a736a;
+      --image-placeholder: #e0d8cc;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5, .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    /* ── Layout ── */
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+    .section { padding: 96px 0; }
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .logo span {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 24px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      border-radius: 2px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--teal);
+      color: #fff;
+    }
+
+    .btn-primary:hover { background: #153d36; }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--teal);
+      border: 1.5px solid var(--teal);
+    }
+
+    .btn-outline:hover { background: var(--teal-light); }
+
+    /* ── Hero ── */
+    #signals-hero {
+      padding: 80px 0 72px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .hero-left {}
+
+    .hero-headline {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 46px;
+      font-weight: 500;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      margin-bottom: 24px;
+      color: var(--text);
+    }
+
+    .hero-headline em {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      font-size: 16px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 480px;
+    }
+
+    .hero-quote {
+      border-left: 2px solid var(--teal);
+      padding-left: 20px;
+      margin-top: 8px;
+    }
+
+    .hero-quote p {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-style: italic;
+      line-height: 1.6;
+      color: var(--text-muted);
+    }
+
+    /* ── Hero search form ── */
+    .hero-form-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      padding: 36px;
+    }
+
+    .hero-form-wrap h3 {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .form-group select,
+    .form-group input {
+      width: 100%;
+      padding: 11px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a736a' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    .form-group input { background-image: none; }
+
+    .form-group select:focus,
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+
+    .form-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    .form-confirmation {
+      display: none;
+      background: var(--teal-light);
+      border: 1px solid var(--teal);
+      color: var(--teal);
+      padding: 14px 16px;
+      font-size: 14px;
+      font-weight: 500;
+      border-radius: 2px;
+      margin-top: 12px;
+    }
+
+    /* ── Signal dashboard ── */
+    #signals {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .signals-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 40px;
+    }
+
+    .signals-header-left {}
+
+    .signals-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .signals-sub {
+      font-size: 14px;
+      color: var(--text-muted);
+      max-width: 540px;
+      line-height: 1.6;
+    }
+
+    /* ── Party size filter ── */
+    .filter-bar {
+      display: flex;
+      gap: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      padding: 2px;
+      align-self: flex-start;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-radius: 1px;
+      cursor: pointer;
+      transition: all 0.15s;
+      white-space: nowrap;
+    }
+
+    .filter-btn.active {
+      background: #fff;
+      color: var(--teal);
+      font-weight: 500;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+
+    /* ── Resort grid ── */
+    .resort-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    /* ── Resort card ── */
+    .resort-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .resort-card:hover {
+      box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    .card-image {
+      position: relative;
+      height: 160px;
+      background: var(--image-placeholder);
+      overflow: hidden;
+    }
+
+    .card-region {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 13px;
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+
+    .card-body { padding: 20px; }
+
+    .card-name-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.2;
+    }
+
+    /* ── Signal badges ── */
+    .signal-badge {
+      flex-shrink: 0;
+      display: inline-block;
+      padding: 4px 10px;
+      font-family: 'Inter', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border-radius: 1px;
+    }
+
+    .signal-book-now { background: var(--teal); color: #fff; }
+    .signal-watch { background: var(--amber); color: #fff; }
+    .signal-hold { background: #bbb5aa; color: #fff; }
+
+    .card-location {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .card-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .card-price-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    .price-movement {
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    .price-down { color: var(--teal); }
+    .price-up { color: var(--amber); }
+    .price-stable { color: var(--grey); }
+
+    .sparkline-wrap {
+      height: 44px;
+      margin-bottom: 10px;
+    }
+
+    .sparkline-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .departure-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+      font-style: italic;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+    }
+
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .avail-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .avail-limited { background: var(--teal); }
+    .avail-moderate { background: var(--amber); }
+    .avail-good { background: #bbb5aa; }
+
+    .card-updated {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* ── Signal guide ── */
+    #signal-guide {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .guide-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 500;
+      margin-bottom: 48px;
+    }
+
+    .guide-panels {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .guide-panel {
+      padding: 32px;
+    }
+
+    .guide-panel-teal { background: #e6efed; }
+    .guide-panel-amber { background: #f5edd8; }
+    .guide-panel-grey { background: #f0ede8; }
+
+    .guide-panel-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .guide-panel-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    .guide-panel-lead {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 16px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      line-height: 1.55;
+    }
+
+    .guide-panel-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* ── Alert signup ── */
+    #alerts {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .alerts-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+
+    .alerts-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 40px;
+      font-weight: 500;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .alerts-heading em {
+      color: var(--teal);
+      font-style: italic;
+    }
+
+    .alerts-copy {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 20px;
+    }
+
+    .alerts-note {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      border-left: 2px solid var(--border);
+      padding-left: 14px;
+    }
+
+    .alert-form-note {
+      font-size: 12px;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+
+    /* ── How it works ── */
+    #how-it-works {
+      padding: 80px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .method-heading {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 500;
+      margin-bottom: 56px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 48px;
+    }
+
+    .step {}
+
+    .step-number {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 72px;
+      font-weight: 600;
+      color: var(--border);
+      line-height: 1;
+      margin-bottom: 16px;
+    }
+
+    .step-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 20px;
+      font-weight: 500;
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .step-body {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 36px 0;
+    }
+
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-copy {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ── Modal ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30, 25, 20, 0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      max-width: 680px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .modal-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .modal-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 26px;
+      font-weight: 500;
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: var(--text-muted);
+      line-height: 1;
+      padding: 2px 4px;
+      flex-shrink: 0;
+    }
+
+    .modal-close:hover { color: var(--text); }
+
+    .modal-body { padding: 28px 32px; }
+
+    .modal-meta {
+      display: flex;
+      gap: 24px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .modal-meta-item {}
+    .modal-meta-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    .modal-meta-value {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+    }
+
+    .modal-chart-wrap {
+      height: 180px;
+      background: #fff;
+      border: 1px solid var(--border);
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .modal-chart-wrap svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .modal-analysis {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+      padding: 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .modal-cta {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .btn-lg {
+      padding: 14px 32px;
+      font-size: 14px;
+    }
+
+    /* ── Search results modal ── */
+    .search-modal {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      max-width: 780px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+    }
+
+    .search-modal-header {
+      padding: 28px 32px 20px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .search-modal-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 24px;
+      font-weight: 500;
+      margin-bottom: 4px;
+    }
+
+    .search-modal-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .search-modal-body { padding: 28px 32px; }
+
+    /* Best date highlight */
+    .best-date-banner {
+      background: #e6efed;
+      border: 1px solid var(--teal);
+      padding: 20px 24px;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .best-date-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--teal);
+      margin-bottom: 6px;
+    }
+
+    .best-date-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 36px;
+      font-weight: 400;
+      color: var(--teal);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .best-date-week {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px;
+      font-style: italic;
+      color: var(--text-muted);
+    }
+
+    /* Date rows table */
+    .date-rows-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .date-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+
+    .date-row:last-child { border-bottom: none; }
+
+    .date-row-week {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 17px;
+      font-weight: 400;
+      min-width: 160px;
+    }
+
+    .date-row-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      min-width: 90px;
+      text-align: right;
+    }
+
+    .date-row-move {
+      font-size: 12px;
+      font-weight: 500;
+      min-width: 120px;
+      text-align: right;
+    }
+
+    .date-row-signal { min-width: 90px; text-align: right; }
+
+    .date-row-book { min-width: 110px; text-align: right; }
+
+    .date-row.best-row {
+      background: #f2f8f6;
+      margin: 0 -8px;
+      padding: 14px 8px;
+      border-radius: 2px;
+    }
+
+    /* Alternative months strip */
+    .alt-months {
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .alt-months-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    .alt-months-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .alt-month-pill {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 10px 16px;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .alt-month-pill:hover {
+      border-color: var(--teal);
+      background: #f2f8f6;
+    }
+
+    .alt-month-name {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .alt-month-price {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 16px;
+      color: var(--text-muted);
+    }
+
+    .alt-month-saving {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    /* ── Utility ── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">Booking <span>Window</span></a>
+    <ul class="nav-links">
+      <li><a href="#signals">Signals</a></li>
+      <li><a href="#how-it-works">How it Works</a></li>
+      <li><a href="#alerts">Alerts</a></li>
+    </ul>
+    <a href="#alerts" class="btn btn-primary">Set Alert</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section id="signals-hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <p class="section-label">Club Med Price Intelligence</p>
+        <h1 class="hero-headline">Knowing <em>when</em> to book is as important as knowing where.</h1>
+        <p class="hero-sub">We track Club Med resort pricing across every ski season — building the historical context that tells you whether today's price is an opportunity, or whether patience pays.</p>
+        <blockquote class="hero-quote">
+          <p>Two families. Same Club Med resort. Same chalet week. One paid £1,600 more than the other. The difference wasn't luck. It was timing.</p>
+        </blockquote>
+      </div>
+      <div class="hero-right">
+        <div class="hero-form-wrap">
+          <h3>Check your booking signal</h3>
+          <form id="hero-form" autocomplete="off">
+            <div class="form-group">
+              <label for="hero-resort">Resort</label>
+              <select id="hero-resort" name="resort">
+                <option value="">Any resort — show all</option>
+                <option value="tignes-val-claret">Tignes Val Claret</option>
+                <option value="les-arcs">Les Arcs Panorama</option>
+                <option value="peisey-vallandry">Peisey-Vallandry</option>
+                <option value="valmorel">Valmorel</option>
+                <option value="alpe-dhuez">Alpe d'Huez</option>
+                <option value="la-rosiere">La Rosière</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="hero-month">Departure Month</label>
+              <select id="hero-month" name="month">
+                <option value="">Select month</option>
+                <option>January 2027</option>
+                <option>February 2027</option>
+                <option>March 2027</option>
+                <option>April 2027</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="hero-party">Party Size</label>
+              <select id="hero-party" name="partySize">
+                <option value="2A">2 Adults</option>
+                <option value="2A1C">2 Adults + 1 Child</option>
+                <option value="2A2C">2 Adults + 2 Children</option>
+              </select>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Show Booking Windows</button>
+            <p class="form-note">Select a resort and month to see all Saturday departures ranked by price, with booking signals and alternative month comparisons.</p>
+            <div id="hero-confirmation" class="form-confirmation">
+              Signal checked. Scroll down to see current signals for your selection.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Signal Dashboard ── -->
+<section id="signals" class="section" style="padding:80px 0;">
+  <div class="container">
+    <div class="signals-header">
+      <div class="signals-header-left">
+        <p class="section-label">Live Signals</p>
+        <h2 class="signals-title">Current booking signals across Club Med ski resorts</h2>
+        <p class="signals-sub">Updated twice daily. All prices shown for 7 nights accommodation, Saturday departure. Click any resort for full price history.</p>
+      </div>
+      <div class="filter-bar" role="group" aria-label="Party size filter">
+        <button class="filter-btn active" data-party="2A">2 Adults</button>
+        <button class="filter-btn" data-party="2A1C">+1 Child</button>
+        <button class="filter-btn" data-party="2A2C">+2 Children</button>
+      </div>
+    </div>
+    <div class="resort-grid" id="resort-grid">
+      <!-- Cards injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- ── Signal Guide ── -->
+<section id="signal-guide" class="section" style="padding:80px 0;">
+  <div class="container">
+    <p class="section-label">Signal Guide</p>
+    <h2 class="guide-heading">What each signal means</h2>
+    <div class="guide-panels">
+      <div class="guide-panel guide-panel-teal">
+        <div class="guide-panel-header">
+          <span class="signal-badge signal-book-now">Book Now</span>
+        </div>
+        <p class="guide-panel-lead">"The window is open. Conditions are in your favour."</p>
+        <p class="guide-panel-body">Price has moved to a historically favourable level, availability is tightening, or both. The data suggests this combination has reached its optimal booking point. Acting now is rational.</p>
+      </div>
+      <div class="guide-panel guide-panel-amber">
+        <div class="guide-panel-header">
+          <span class="signal-badge signal-watch">Watch</span>
+        </div>
+        <p class="guide-panel-lead">"Something is shifting. Worth revisiting within days."</p>
+        <p class="guide-panel-body">We are observing meaningful movement in price or availability — but the picture isn't yet clear enough to signal either way. Check back in the next few days as the pattern resolves.</p>
+      </div>
+      <div class="guide-panel guide-panel-grey">
+        <div class="guide-panel-header">
+          <span class="signal-badge signal-hold">Hold</span>
+        </div>
+        <p class="guide-panel-lead">"Stable conditions. No urgency in either direction."</p>
+        <p class="guide-panel-body">Price is stable and availability is comfortable relative to historical norms. There's no compelling reason to act immediately. We'll alert you if conditions change.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Alert Signup ── -->
+<section id="alerts" class="section" style="padding:80px 0;">
+  <div class="container">
+    <div class="alerts-inner">
+      <div class="alerts-left">
+        <p class="section-label">Booking Alerts</p>
+        <h2 class="alerts-heading">We'll tell you when the <em>window opens.</em></h2>
+        <p class="alerts-copy">Leave your search with us. When the booking signal shifts in your favour — we'll let you know. No noise. No daily emails. Just the signal, when it matters.</p>
+        <p class="alerts-note">We email only when the signal changes to Book Now, or when a Watch resolves. You will not hear from us until the data justifies it.</p>
+      </div>
+      <div class="alerts-right">
+        <form id="alert-form" autocomplete="off">
+          <div class="form-group">
+            <label for="alert-resort">Resort</label>
+            <select id="alert-resort" name="resort">
+              <option value="">Any resort — show all</option>
+              <option value="tignes-val-claret">Tignes Val Claret</option>
+              <option value="les-arcs">Les Arcs Panorama</option>
+              <option value="peisey-vallandry">Peisey-Vallandry</option>
+              <option value="valmorel">Valmorel</option>
+              <option value="alpe-dhuez">Alpe d'Huez</option>
+              <option value="la-rosiere">La Rosière</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="alert-month">Travel Month</label>
+            <select id="alert-month" name="month">
+              <option value="">Select month</option>
+              <option>January 2027</option>
+              <option>February 2027</option>
+              <option>March 2027</option>
+              <option>April 2027</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="alert-party">Party Size</label>
+            <select id="alert-party" name="partySize">
+              <option value="2A">2 Adults</option>
+              <option value="2A1C">2 Adults + 1 Child</option>
+              <option value="2A2C">2 Adults + 2 Children</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="alert-email">Email Address</label>
+            <input type="email" id="alert-email" name="email" placeholder="you@example.com">
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
+          <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above — we'll begin tracking your combination immediately.</p>
+          <div id="alert-confirmation" class="form-confirmation">
+            Alert set. We'll email you when the signal shifts in your favour.
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How It Works ── -->
+<section id="how-it-works" class="section" style="padding:80px 0;">
+  <div class="container">
+    <p class="section-label">The Method</p>
+    <h2 class="method-heading">How Booking Window works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3 class="step-title">We track live Club Med pricing, twice daily.</h3>
+        <p class="step-body">Every major ski resort. Every Saturday departure across the season. Standard party sizes. We've been building this price history since autumn 2025 — and it compounds in value with every passing week.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3 class="step-title">We analyse trends and availability over time.</h3>
+        <p class="step-body">A raw price is just a number. Context is what makes it actionable. We measure price direction, velocity of change, and availability tightening — the signals that Club Med's own site cannot give you.</p>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3 class="step-title">We tell you whether to book now, watch, or hold.</h3>
+        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated at 06:00 and 18:00 each day. The decision is always yours — we just make sure you're making it with the right information.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Drop Media Ltd</span>
+  </div>
+</footer>
+
+<!-- ── Search Results Modal ── -->
+<div class="modal-overlay" id="search-modal-overlay" role="dialog" aria-modal="true" aria-labelledby="search-modal-title">
+  <div class="search-modal" id="search-modal">
+    <div class="search-modal-header">
+      <div>
+        <h2 class="search-modal-title" id="search-modal-title">Tignes Val Claret — February 2027</h2>
+        <p class="search-modal-subtitle" id="search-modal-subtitle">2 Adults · Saturday departures · 7 nights accommodation</p>
+      </div>
+      <button class="modal-close" id="search-modal-close" aria-label="Close">&times;</button>
+    </div>
+    <div class="search-modal-body">
+      <div id="search-modal-best-banner"></div>
+      <p class="date-rows-label">All Saturday departures — ranked cheapest first</p>
+      <div id="search-modal-date-rows"></div>
+      <div class="alt-months" id="search-modal-alt-months"></div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div id="modal-signal-badge" style="margin-bottom:10px;"></div>
+        <h2 class="modal-title" id="modal-title">Resort Name</h2>
+        <p style="font-size:13px;color:var(--text-muted);margin-top:4px;" id="modal-subtitle"></p>
+      </div>
+      <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-chart-wrap">
+        <svg id="modal-chart" viewBox="0 0 600 140" preserveAspectRatio="none"></svg>
+      </div>
+      <div class="modal-analysis" id="modal-analysis"></div>
+      <div class="modal-cta">
+        <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Book now on Club Med</a>
+        <button class="btn btn-outline" id="modal-set-alert-btn">Set alert for this resort</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// RESORT DATA — single source of truth
+// Python price checker writes to this array.
+// Each resort has departures[] covering every Saturday
+// in the tracked season. The search modal reads across
+// all departures; the cards show the best signal only.
+// ═══════════════════════════════════════════════════
+
+// Helper: generate a 14-entry price history ending at a given price,
+// with a given 14-day delta (negative = drop, positive = rise)
+function makeHistory(endPrice, delta, endDate) {
+  const startPrice = endPrice - delta;
+  const d = new Date(endDate);
+  d.setDate(d.getDate() - 13);
+  return Array.from({length: 14}, (_, i) => {
+    const p = Math.round(startPrice + (delta / 13) * i);
+    const dd = new Date(d);
+    dd.setDate(d.getDate() + i);
+    return { date: dd.toISOString().slice(0,10), price: p };
+  });
+}
+
+const RESORT_DATA = [
+  {
+    id: "tignes-val-claret",
+    name: "Tignes Val Claret",
+    region: "French Alps",
+    altitude: "2100m",
+    resortCode: "TIGC_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2840, previousPrice: 2900, priceHistory: makeHistory(2840, -60,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2990, previousPrice: 3020, priceHistory: makeHistory(2990, -30,  "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3080, previousPrice: 3080, priceHistory: makeHistory(3080, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3150, previousPrice: 3220, priceHistory: makeHistory(3150, -70,  "2027-01-22"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3190, previousPrice: 3190, priceHistory: makeHistory(3190, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3240, previousPrice: 3560, priceHistory: makeHistory(3240, -320, "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3890, previousPrice: 3810, priceHistory: makeHistory(3890, 80,   "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3760, previousPrice: 3760, priceHistory: makeHistory(3760, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3420, previousPrice: 3500, priceHistory: makeHistory(3420, -80,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3180, previousPrice: 3380, priceHistory: makeHistory(3180, -200, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3050, previousPrice: 3050, priceHistory: makeHistory(3050, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2980, previousPrice: 3040, priceHistory: makeHistory(2980, -60,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2820, previousPrice: 2820, priceHistory: makeHistory(2820, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2740, previousPrice: 2800, priceHistory: makeHistory(2740, -60,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2690, previousPrice: 2750, priceHistory: makeHistory(2690, -60,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2580, previousPrice: 2640, priceHistory: makeHistory(2580, -60,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        ]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3240, previousPrice: 3300, priceHistory: makeHistory(3240, -60,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 3390, previousPrice: 3420, priceHistory: makeHistory(3390, -30,  "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3480, previousPrice: 3480, priceHistory: makeHistory(3480, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3550, previousPrice: 3620, priceHistory: makeHistory(3550, -70,  "2027-01-22"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3590, previousPrice: 3590, priceHistory: makeHistory(3590, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3640, previousPrice: 3960, priceHistory: makeHistory(3640, -320, "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 4290, previousPrice: 4210, priceHistory: makeHistory(4290, 80,   "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 4160, previousPrice: 4160, priceHistory: makeHistory(4160, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3820, previousPrice: 3900, priceHistory: makeHistory(3820, -80,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3580, previousPrice: 3780, priceHistory: makeHistory(3580, -200, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3450, previousPrice: 3450, priceHistory: makeHistory(3450, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 3380, previousPrice: 3440, priceHistory: makeHistory(3380, -60,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 3220, previousPrice: 3220, priceHistory: makeHistory(3220, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 3140, previousPrice: 3200, priceHistory: makeHistory(3140, -60,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 3090, previousPrice: 3150, priceHistory: makeHistory(3090, -60,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2980, previousPrice: 3040, priceHistory: makeHistory(2980, -60,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        ]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3590, previousPrice: 3650, priceHistory: makeHistory(3590, -60,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 3740, previousPrice: 3770, priceHistory: makeHistory(3740, -30,  "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3830, previousPrice: 3830, priceHistory: makeHistory(3830, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3900, previousPrice: 3970, priceHistory: makeHistory(3900, -70,  "2027-01-22"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3940, previousPrice: 3940, priceHistory: makeHistory(3940, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3990, previousPrice: 4310, priceHistory: makeHistory(3990, -320, "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 4640, previousPrice: 4560, priceHistory: makeHistory(4640, 80,   "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 4510, previousPrice: 4510, priceHistory: makeHistory(4510, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 4170, previousPrice: 4250, priceHistory: makeHistory(4170, -80,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3930, previousPrice: 4130, priceHistory: makeHistory(3930, -200, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3800, previousPrice: 3800, priceHistory: makeHistory(3800, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 3730, previousPrice: 3790, priceHistory: makeHistory(3730, -60,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 3570, previousPrice: 3570, priceHistory: makeHistory(3570, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 3490, previousPrice: 3550, priceHistory: makeHistory(3490, -60,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 3440, previousPrice: 3500, priceHistory: makeHistory(3440, -60,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 3330, previousPrice: 3390, priceHistory: makeHistory(3330, -60,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "les-arcs",
+    name: "Les Arcs Panorama",
+    region: "French Alps",
+    altitude: "1950m",
+    resortCode: "ARPC_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2540, previousPrice: 2570, priceHistory: makeHistory(2540, -30,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2680, previousPrice: 2680, priceHistory: makeHistory(2680, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 2750, previousPrice: 2750, priceHistory: makeHistory(2750, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 2820, previousPrice: 2820, priceHistory: makeHistory(2820, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 2860, previousPrice: 2860, priceHistory: makeHistory(2860, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 2890, previousPrice: 2700, priceHistory: makeHistory(2890, 190,  "2027-02-05"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3180, previousPrice: 3180, priceHistory: makeHistory(3180, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3090, previousPrice: 3090, priceHistory: makeHistory(3090, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 2940, previousPrice: 2980, priceHistory: makeHistory(2940, -40,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2760, previousPrice: 2960, priceHistory: makeHistory(2760, -200, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 2650, previousPrice: 2650, priceHistory: makeHistory(2650, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2590, previousPrice: 2620, priceHistory: makeHistory(2590, -30,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2490, previousPrice: 2490, priceHistory: makeHistory(2490, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2420, previousPrice: 2450, priceHistory: makeHistory(2420, -30,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2380, previousPrice: 2410, priceHistory: makeHistory(2380, -30,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2290, previousPrice: 2320, priceHistory: makeHistory(2290, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        ]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2940, previousPrice: 2970, priceHistory: makeHistory(2940, -30,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 3080, previousPrice: 3080, priceHistory: makeHistory(3080, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3150, previousPrice: 3150, priceHistory: makeHistory(3150, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3220, previousPrice: 3220, priceHistory: makeHistory(3220, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3260, previousPrice: 3260, priceHistory: makeHistory(3260, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3290, previousPrice: 3100, priceHistory: makeHistory(3290, 190,  "2027-02-05"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3580, previousPrice: 3580, priceHistory: makeHistory(3580, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3490, previousPrice: 3490, priceHistory: makeHistory(3490, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3340, previousPrice: 3380, priceHistory: makeHistory(3340, -40,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3160, previousPrice: 3360, priceHistory: makeHistory(3160, -200, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3050, previousPrice: 3050, priceHistory: makeHistory(3050, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2990, previousPrice: 3020, priceHistory: makeHistory(2990, -30,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2890, previousPrice: 2890, priceHistory: makeHistory(2890, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2820, previousPrice: 2850, priceHistory: makeHistory(2820, -30,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2780, previousPrice: 2810, priceHistory: makeHistory(2780, -30,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2690, previousPrice: 2720, priceHistory: makeHistory(2690, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        ]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3290, previousPrice: 3320, priceHistory: makeHistory(3290, -30,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 3430, previousPrice: 3430, priceHistory: makeHistory(3430, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3500, previousPrice: 3500, priceHistory: makeHistory(3500, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3570, previousPrice: 3570, priceHistory: makeHistory(3570, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3610, previousPrice: 3610, priceHistory: makeHistory(3610, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3640, previousPrice: 3450, priceHistory: makeHistory(3640, 190,  "2027-02-05"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3930, previousPrice: 3930, priceHistory: makeHistory(3930, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3840, previousPrice: 3840, priceHistory: makeHistory(3840, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3690, previousPrice: 3730, priceHistory: makeHistory(3690, -40,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3510, previousPrice: 3710, priceHistory: makeHistory(3510, -200, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3400, previousPrice: 3400, priceHistory: makeHistory(3400, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 3340, previousPrice: 3370, priceHistory: makeHistory(3340, -30,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 3240, previousPrice: 3240, priceHistory: makeHistory(3240, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 3170, previousPrice: 3200, priceHistory: makeHistory(3170, -30,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 3130, previousPrice: 3160, priceHistory: makeHistory(3130, -30,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 3040, previousPrice: 3070, priceHistory: makeHistory(3040, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "peisey-vallandry",
+    name: "Peisey-Vallandry",
+    region: "Paradiski, French Alps",
+    altitude: "1600m",
+    resortCode: "PVAC_WINTER",
+    combinations: [
+      { partySize: "2A",   adults: 2, children: 0, birthdates: [],                              departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2340, previousPrice: 2340, priceHistory: makeHistory(2340, 0,   "2027-01-01"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2440, previousPrice: 2440, priceHistory: makeHistory(2440, 0,   "2027-01-08"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 2500, previousPrice: 2500, priceHistory: makeHistory(2500, 0,   "2027-01-15"), availability: "moderate", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 2560, previousPrice: 2560, priceHistory: makeHistory(2560, 0,   "2027-01-22"), availability: "moderate", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 2590, previousPrice: 2590, priceHistory: makeHistory(2590, 0,   "2027-01-29"), availability: "moderate", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 2620, previousPrice: 2620, priceHistory: makeHistory(2620, 0,   "2027-02-05"), availability: "moderate", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 2640, previousPrice: 2640, priceHistory: makeHistory(2640, 0,   "2027-02-12"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 2600, previousPrice: 2600, priceHistory: makeHistory(2600, 0,   "2027-02-19"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 2530, previousPrice: 2530, priceHistory: makeHistory(2530, 0,   "2027-02-26"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2460, previousPrice: 2460, priceHistory: makeHistory(2460, 0,   "2027-03-05"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 2390, previousPrice: 2390, priceHistory: makeHistory(2390, 0,   "2027-03-12"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2320, previousPrice: 2320, priceHistory: makeHistory(2320, 0,   "2027-03-19"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2240, previousPrice: 2240, priceHistory: makeHistory(2240, 0,   "2027-03-26"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2180, previousPrice: 2180, priceHistory: makeHistory(2180, 0,   "2027-04-02"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2140, previousPrice: 2140, priceHistory: makeHistory(2140, 0,   "2027-04-09"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2060, previousPrice: 2060, priceHistory: makeHistory(2060, 0,   "2027-04-16"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],                  departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2740, previousPrice: 2740, priceHistory: makeHistory(2740, 0,   "2027-01-01"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3020, previousPrice: 3020, priceHistory: makeHistory(3020, 0,   "2027-02-05"), availability: "moderate", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3040, previousPrice: 3040, priceHistory: makeHistory(3040, 0,   "2027-02-12"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2860, previousPrice: 2860, priceHistory: makeHistory(2860, 0,   "2027-03-05"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2460, previousPrice: 2460, priceHistory: makeHistory(2460, 0,   "2027-04-16"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],      departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3090, previousPrice: 3090, priceHistory: makeHistory(3090, 0,   "2027-01-01"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3370, previousPrice: 3370, priceHistory: makeHistory(3370, 0,   "2027-02-05"), availability: "moderate", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3390, previousPrice: 3390, priceHistory: makeHistory(3390, 0,   "2027-02-12"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3210, previousPrice: 3210, priceHistory: makeHistory(3210, 0,   "2027-03-05"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2810, previousPrice: 2810, priceHistory: makeHistory(2810, 0,   "2027-04-16"), availability: "good",     availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+    ]
+  },
+  {
+    id: "valmorel",
+    name: "Valmorel",
+    region: "French Alps",
+    altitude: "1460m",
+    resortCode: "VMOC_WINTER",
+    combinations: [
+      { partySize: "2A",   adults: 2, children: 0, birthdates: [],                              departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2640, previousPrice: 2680, priceHistory: makeHistory(2640, -40,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2760, previousPrice: 2760, priceHistory: makeHistory(2760, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 2830, previousPrice: 2830, priceHistory: makeHistory(2830, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 2900, previousPrice: 2970, priceHistory: makeHistory(2900, -70,  "2027-01-22"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 2940, previousPrice: 2940, priceHistory: makeHistory(2940, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 2980, previousPrice: 3280, priceHistory: makeHistory(2980, -300, "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3420, previousPrice: 3340, priceHistory: makeHistory(3420, 80,   "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3280, previousPrice: 3280, priceHistory: makeHistory(3280, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3090, previousPrice: 3130, priceHistory: makeHistory(3090, -40,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2870, previousPrice: 3050, priceHistory: makeHistory(2870, -180, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 2760, previousPrice: 2760, priceHistory: makeHistory(2760, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2700, previousPrice: 2730, priceHistory: makeHistory(2700, -30,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2590, previousPrice: 2590, priceHistory: makeHistory(2590, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2520, previousPrice: 2550, priceHistory: makeHistory(2520, -30,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2470, previousPrice: 2500, priceHistory: makeHistory(2470, -30,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2380, previousPrice: 2410, priceHistory: makeHistory(2380, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],                  departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3040, previousPrice: 3080, priceHistory: makeHistory(3040, -40,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3380, previousPrice: 3680, priceHistory: makeHistory(3380, -300, "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3820, previousPrice: 3740, priceHistory: makeHistory(3820, 80,   "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3270, previousPrice: 3450, priceHistory: makeHistory(3270, -180, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2780, previousPrice: 2810, priceHistory: makeHistory(2780, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],      departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3390, previousPrice: 3430, priceHistory: makeHistory(3390, -40,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3730, previousPrice: 4030, priceHistory: makeHistory(3730, -300, "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 4170, previousPrice: 4090, priceHistory: makeHistory(4170, 80,   "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3620, previousPrice: 3800, priceHistory: makeHistory(3620, -180, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 3130, previousPrice: 3160, priceHistory: makeHistory(3130, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+    ]
+  },
+  {
+    id: "alpe-dhuez",
+    name: "Alpe d'Huez",
+    region: "French Alps",
+    altitude: "1860m",
+    resortCode: "ALHC_WINTER",
+    combinations: [
+      { partySize: "2A",   adults: 2, children: 0, birthdates: [],                              departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2720, previousPrice: 2720, priceHistory: makeHistory(2720, 0,    "2027-01-01"), availability: "good",     availabilityTrend: "stable", signal: "hold",  lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2850, previousPrice: 2850, priceHistory: makeHistory(2850, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable", signal: "hold",  lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 2920, previousPrice: 2920, priceHistory: makeHistory(2920, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable", signal: "hold",  lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 2980, previousPrice: 2980, priceHistory: makeHistory(2980, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable", signal: "hold",  lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3020, previousPrice: 3020, priceHistory: makeHistory(3020, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable", signal: "hold",  lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3110, previousPrice: 3020, priceHistory: makeHistory(3110, 90,   "2027-02-05"), availability: "moderate", availabilityTrend: "tightening", signal: "watch", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3380, previousPrice: 3380, priceHistory: makeHistory(3380, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3290, previousPrice: 3290, priceHistory: makeHistory(3290, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3140, previousPrice: 3180, priceHistory: makeHistory(3140, -40,  "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2960, previousPrice: 3130, priceHistory: makeHistory(2960, -170, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 2860, previousPrice: 2860, priceHistory: makeHistory(2860, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2800, previousPrice: 2830, priceHistory: makeHistory(2800, -30,  "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2690, previousPrice: 2690, priceHistory: makeHistory(2690, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2620, previousPrice: 2650, priceHistory: makeHistory(2620, -30,  "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2580, previousPrice: 2610, priceHistory: makeHistory(2580, -30,  "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2490, previousPrice: 2520, priceHistory: makeHistory(2490, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],                  departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3120, previousPrice: 3120, priceHistory: makeHistory(3120, 0,    "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3510, previousPrice: 3420, priceHistory: makeHistory(3510, 90,   "2027-02-05"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3780, previousPrice: 3780, priceHistory: makeHistory(3780, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3360, previousPrice: 3530, priceHistory: makeHistory(3360, -170, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2890, previousPrice: 2920, priceHistory: makeHistory(2890, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],      departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3470, previousPrice: 3470, priceHistory: makeHistory(3470, 0,    "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3860, previousPrice: 3770, priceHistory: makeHistory(3860, 90,   "2027-02-05"), availability: "moderate", availabilityTrend: "tightening", signal: "watch",    lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 4130, previousPrice: 4130, priceHistory: makeHistory(4130, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3710, previousPrice: 3880, priceHistory: makeHistory(3710, -170, "2027-03-05"), availability: "moderate", availabilityTrend: "easing",     signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 3240, previousPrice: 3270, priceHistory: makeHistory(3240, -30,  "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+    ]
+  },
+  {
+    id: "la-rosiere",
+    name: "La Rosière",
+    region: "French Alps",
+    altitude: "1850m",
+    resortCode: "LROC_WINTER",
+    combinations: [
+      { partySize: "2A",   adults: 2, children: 0, birthdates: [],                              departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2180, previousPrice: 2180, priceHistory: makeHistory(2180, 0,   "2027-01-01"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2280, previousPrice: 2280, priceHistory: makeHistory(2280, 0,   "2027-01-08"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 2340, previousPrice: 2340, priceHistory: makeHistory(2340, 0,   "2027-01-15"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 2390, previousPrice: 2390, priceHistory: makeHistory(2390, 0,   "2027-01-22"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 2430, previousPrice: 2430, priceHistory: makeHistory(2430, 0,   "2027-01-29"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 2460, previousPrice: 2460, priceHistory: makeHistory(2460, 0,   "2027-02-05"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 2480, previousPrice: 2480, priceHistory: makeHistory(2480, 0,   "2027-02-12"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 2450, previousPrice: 2450, priceHistory: makeHistory(2450, 0,   "2027-02-19"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 2390, previousPrice: 2390, priceHistory: makeHistory(2390, 0,   "2027-02-26"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2310, previousPrice: 2310, priceHistory: makeHistory(2310, 0,   "2027-03-05"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 2250, previousPrice: 2250, priceHistory: makeHistory(2250, 0,   "2027-03-12"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2190, previousPrice: 2190, priceHistory: makeHistory(2190, 0,   "2027-03-19"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2110, previousPrice: 2110, priceHistory: makeHistory(2110, 0,   "2027-03-26"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2060, previousPrice: 2060, priceHistory: makeHistory(2060, 0,   "2027-04-02"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2010, previousPrice: 2010, priceHistory: makeHistory(2010, 0,   "2027-04-09"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 1940, previousPrice: 1940, priceHistory: makeHistory(1940, 0,   "2027-04-16"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],                  departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2580, previousPrice: 2580, priceHistory: makeHistory(2580, 0,   "2027-01-01"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 2860, previousPrice: 2860, priceHistory: makeHistory(2860, 0,   "2027-02-05"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 2880, previousPrice: 2880, priceHistory: makeHistory(2880, 0,   "2027-02-12"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2710, previousPrice: 2710, priceHistory: makeHistory(2710, 0,   "2027-03-05"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2340, previousPrice: 2340, priceHistory: makeHistory(2340, 0,   "2027-04-16"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+      { partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],      departures: [
+        { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2930, previousPrice: 2930, priceHistory: makeHistory(2930, 0,   "2027-01-01"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3210, previousPrice: 3210, priceHistory: makeHistory(3210, 0,   "2027-02-05"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3230, previousPrice: 3230, priceHistory: makeHistory(3230, 0,   "2027-02-12"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3060, previousPrice: 3060, priceHistory: makeHistory(3060, 0,   "2027-03-05"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+        { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2690, previousPrice: 2690, priceHistory: makeHistory(2690, 0,   "2027-04-16"), availability: "good", availabilityTrend: "stable", signal: "hold", lastUpdated: "2026-04-21T06:00:00Z" },
+      ]},
+    ]
+  },
+];
+          priceHistory: [
+            { date: "2027-01-30", price: 2700 }, { date: "2027-01-31", price: 2715 },
+            { date: "2027-02-01", price: 2730 }, { date: "2027-02-02", price: 2745 },
+            { date: "2027-02-03", price: 2760 }, { date: "2027-02-04", price: 2780 },
+            { date: "2027-02-05", price: 2800 }, { date: "2027-02-06", price: 2820 },
+            { date: "2027-02-07", price: 2835 }, { date: "2027-02-08", price: 2848 },
+            { date: "2027-02-09", price: 2858 }, { date: "2027-02-10", price: 2868 },
+            { date: "2027-02-11", price: 2878 }, { date: "2027-02-12", price: 2890 }
+          ],
+          availability: "moderate", availabilityTrend: "stable",
+          signal: "watch", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3290, previousPrice: 3100,
+          priceHistory: [
+            { date: "2027-01-30", price: 3100 }, { date: "2027-01-31", price: 3115 },
+            { date: "2027-02-01", price: 3130 }, { date: "2027-02-02", price: 3145 },
+            { date: "2027-02-03", price: 3160 }, { date: "2027-02-04", price: 3180 },
+            { date: "2027-02-05", price: 3200 }, { date: "2027-02-06", price: 3220 },
+            { date: "2027-02-07", price: 3235 }, { date: "2027-02-08", price: 3248 },
+            { date: "2027-02-09", price: 3258 }, { date: "2027-02-10", price: 3268 },
+            { date: "2027-02-11", price: 3278 }, { date: "2027-02-12", price: 3290 }
+          ],
+          availability: "moderate", availabilityTrend: "stable",
+          signal: "watch", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3640, previousPrice: 3450,
+          priceHistory: [
+            { date: "2027-01-30", price: 3450 }, { date: "2027-01-31", price: 3465 },
+            { date: "2027-02-01", price: 3480 }, { date: "2027-02-02", price: 3495 },
+            { date: "2027-02-03", price: 3510 }, { date: "2027-02-04", price: 3530 },
+            { date: "2027-02-05", price: 3550 }, { date: "2027-02-06", price: 3570 },
+            { date: "2027-02-07", price: 3585 }, { date: "2027-02-08", price: 3598 },
+            { date: "2027-02-09", price: 3608 }, { date: "2027-02-10", price: 3618 },
+            { date: "2027-02-11", price: 3628 }, { date: "2027-02-12", price: 3640 }
+          ],
+          availability: "moderate", availabilityTrend: "stable",
+          signal: "watch", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      }
+    ]
+  },
+  {
+    id: "peisey-vallandry",
+    name: "Peisey-Vallandry",
+    region: "Paradiski, French Alps",
+    altitude: "1600m",
+    resortCode: "PVAC_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 2640, previousPrice: 2640,
+          priceHistory: [
+            { date: "2027-01-30", price: 2650 }, { date: "2027-01-31", price: 2645 },
+            { date: "2027-02-01", price: 2645 }, { date: "2027-02-02", price: 2640 },
+            { date: "2027-02-03", price: 2642 }, { date: "2027-02-04", price: 2638 },
+            { date: "2027-02-05", price: 2640 }, { date: "2027-02-06", price: 2642 },
+            { date: "2027-02-07", price: 2638 }, { date: "2027-02-08", price: 2640 },
+            { date: "2027-02-09", price: 2641 }, { date: "2027-02-10", price: 2639 },
+            { date: "2027-02-11", price: 2640 }, { date: "2027-02-12", price: 2640 }
+          ],
+          availability: "good", availabilityTrend: "stable",
+          signal: "hold", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3040, previousPrice: 3040,
+          priceHistory: [
+            { date: "2027-01-30", price: 3050 }, { date: "2027-01-31", price: 3045 },
+            { date: "2027-02-01", price: 3045 }, { date: "2027-02-02", price: 3040 },
+            { date: "2027-02-03", price: 3042 }, { date: "2027-02-04", price: 3038 },
+            { date: "2027-02-05", price: 3040 }, { date: "2027-02-06", price: 3042 },
+            { date: "2027-02-07", price: 3038 }, { date: "2027-02-08", price: 3040 },
+            { date: "2027-02-09", price: 3041 }, { date: "2027-02-10", price: 3039 },
+            { date: "2027-02-11", price: 3040 }, { date: "2027-02-12", price: 3040 }
+          ],
+          availability: "good", availabilityTrend: "stable",
+          signal: "hold", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3390, previousPrice: 3390,
+          priceHistory: [
+            { date: "2027-01-30", price: 3400 }, { date: "2027-01-31", price: 3395 },
+            { date: "2027-02-01", price: 3395 }, { date: "2027-02-02", price: 3390 },
+            { date: "2027-02-03", price: 3392 }, { date: "2027-02-04", price: 3388 },
+            { date: "2027-02-05", price: 3390 }, { date: "2027-02-06", price: 3392 },
+            { date: "2027-02-07", price: 3388 }, { date: "2027-02-08", price: 3390 },
+            { date: "2027-02-09", price: 3391 }, { date: "2027-02-10", price: 3389 },
+            { date: "2027-02-11", price: 3390 }, { date: "2027-02-12", price: 3390 }
+          ],
+          availability: "good", availabilityTrend: "stable",
+          signal: "hold", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      }
+    ]
+  },
+  {
+    id: "valmorel",
+    name: "Valmorel",
+    region: "French Alps",
+    altitude: "1460m",
+    resortCode: "VMOC_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 2980, previousPrice: 3280,
+          priceHistory: [
+            { date: "2027-01-30", price: 3280 }, { date: "2027-01-31", price: 3258 },
+            { date: "2027-02-01", price: 3235 }, { date: "2027-02-02", price: 3210 },
+            { date: "2027-02-03", price: 3188 }, { date: "2027-02-04", price: 3165 },
+            { date: "2027-02-05", price: 3142 }, { date: "2027-02-06", price: 3118 },
+            { date: "2027-02-07", price: 3095 }, { date: "2027-02-08", price: 3072 },
+            { date: "2027-02-09", price: 3048 }, { date: "2027-02-10", price: 3025 },
+            { date: "2027-02-11", price: 3002 }, { date: "2027-02-12", price: 2980 }
+          ],
+          availability: "limited", availabilityTrend: "tightening",
+          signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3380, previousPrice: 3680,
+          priceHistory: [
+            { date: "2027-01-30", price: 3680 }, { date: "2027-01-31", price: 3658 },
+            { date: "2027-02-01", price: 3635 }, { date: "2027-02-02", price: 3610 },
+            { date: "2027-02-03", price: 3588 }, { date: "2027-02-04", price: 3565 },
+            { date: "2027-02-05", price: 3542 }, { date: "2027-02-06", price: 3518 },
+            { date: "2027-02-07", price: 3495 }, { date: "2027-02-08", price: 3472 },
+            { date: "2027-02-09", price: 3448 }, { date: "2027-02-10", price: 3425 },
+            { date: "2027-02-11", price: 3402 }, { date: "2027-02-12", price: 3380 }
+          ],
+          availability: "limited", availabilityTrend: "tightening",
+          signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3730, previousPrice: 4030,
+          priceHistory: [
+            { date: "2027-01-30", price: 4030 }, { date: "2027-01-31", price: 4008 },
+            { date: "2027-02-01", price: 3985 }, { date: "2027-02-02", price: 3960 },
+            { date: "2027-02-03", price: 3938 }, { date: "2027-02-04", price: 3915 },
+            { date: "2027-02-05", price: 3892 }, { date: "2027-02-06", price: 3868 },
+            { date: "2027-02-07", price: 3845 }, { date: "2027-02-08", price: 3822 },
+            { date: "2027-02-09", price: 3798 }, { date: "2027-02-10", price: 3775 },
+            { date: "2027-02-11", price: 3752 }, { date: "2027-02-12", price: 3730 }
+          ],
+          availability: "limited", availabilityTrend: "tightening",
+          signal: "book-now", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      }
+    ]
+  },
+  {
+    id: "alpe-dhuez",
+    name: "Alpe d'Huez",
+    region: "French Alps",
+    altitude: "1860m",
+    resortCode: "ALHC_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3110, previousPrice: 3020,
+          priceHistory: [
+            { date: "2027-01-30", price: 3020 }, { date: "2027-01-31", price: 3028 },
+            { date: "2027-02-01", price: 3038 }, { date: "2027-02-02", price: 3048 },
+            { date: "2027-02-03", price: 3058 }, { date: "2027-02-04", price: 3068 },
+            { date: "2027-02-05", price: 3075 }, { date: "2027-02-06", price: 3082 },
+            { date: "2027-02-07", price: 3088 }, { date: "2027-02-08", price: 3093 },
+            { date: "2027-02-09", price: 3098 }, { date: "2027-02-10", price: 3102 },
+            { date: "2027-02-11", price: 3106 }, { date: "2027-02-12", price: 3110 }
+          ],
+          availability: "moderate", availabilityTrend: "stable",
+          signal: "watch", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3510, previousPrice: 3420,
+          priceHistory: [
+            { date: "2027-01-30", price: 3420 }, { date: "2027-01-31", price: 3428 },
+            { date: "2027-02-01", price: 3438 }, { date: "2027-02-02", price: 3448 },
+            { date: "2027-02-03", price: 3458 }, { date: "2027-02-04", price: 3468 },
+            { date: "2027-02-05", price: 3475 }, { date: "2027-02-06", price: 3482 },
+            { date: "2027-02-07", price: 3488 }, { date: "2027-02-08", price: 3493 },
+            { date: "2027-02-09", price: 3498 }, { date: "2027-02-10", price: 3502 },
+            { date: "2027-02-11", price: 3506 }, { date: "2027-02-12", price: 3510 }
+          ],
+          availability: "moderate", availabilityTrend: "stable",
+          signal: "watch", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3860, previousPrice: 3770,
+          priceHistory: [
+            { date: "2027-01-30", price: 3770 }, { date: "2027-01-31", price: 3778 },
+            { date: "2027-02-01", price: 3788 }, { date: "2027-02-02", price: 3798 },
+            { date: "2027-02-03", price: 3808 }, { date: "2027-02-04", price: 3818 },
+            { date: "2027-02-05", price: 3825 }, { date: "2027-02-06", price: 3832 },
+            { date: "2027-02-07", price: 3838 }, { date: "2027-02-08", price: 3843 },
+            { date: "2027-02-09", price: 3848 }, { date: "2027-02-10", price: 3852 },
+            { date: "2027-02-11", price: 3856 }, { date: "2027-02-12", price: 3860 }
+          ],
+          availability: "moderate", availabilityTrend: "stable",
+          signal: "watch", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      }
+    ]
+  },
+  {
+    id: "la-rosiere",
+    name: "La Rosière",
+    region: "French Alps",
+    altitude: "1850m",
+    resortCode: "LROC_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 2480, previousPrice: 2480,
+          priceHistory: [
+            { date: "2027-01-30", price: 2485 }, { date: "2027-01-31", price: 2482 },
+            { date: "2027-02-01", price: 2480 }, { date: "2027-02-02", price: 2483 },
+            { date: "2027-02-03", price: 2478 }, { date: "2027-02-04", price: 2480 },
+            { date: "2027-02-05", price: 2482 }, { date: "2027-02-06", price: 2479 },
+            { date: "2027-02-07", price: 2481 }, { date: "2027-02-08", price: 2480 },
+            { date: "2027-02-09", price: 2479 }, { date: "2027-02-10", price: 2481 },
+            { date: "2027-02-11", price: 2480 }, { date: "2027-02-12", price: 2480 }
+          ],
+          availability: "good", availabilityTrend: "stable",
+          signal: "hold", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 2880, previousPrice: 2880,
+          priceHistory: [
+            { date: "2027-01-30", price: 2885 }, { date: "2027-01-31", price: 2882 },
+            { date: "2027-02-01", price: 2880 }, { date: "2027-02-02", price: 2883 },
+            { date: "2027-02-03", price: 2878 }, { date: "2027-02-04", price: 2880 },
+            { date: "2027-02-05", price: 2882 }, { date: "2027-02-06", price: 2879 },
+            { date: "2027-02-07", price: 2881 }, { date: "2027-02-08", price: 2880 },
+            { date: "2027-02-09", price: 2879 }, { date: "2027-02-10", price: 2881 },
+            { date: "2027-02-11", price: 2880 }, { date: "2027-02-12", price: 2880 }
+          ],
+          availability: "good", availabilityTrend: "stable",
+          signal: "hold", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [{
+          date: "2027-02-13", displayDate: "w/c 14 Feb 2027",
+          currentPrice: 3230, previousPrice: 3230,
+          priceHistory: [
+            { date: "2027-01-30", price: 3235 }, { date: "2027-01-31", price: 3232 },
+            { date: "2027-02-01", price: 3230 }, { date: "2027-02-02", price: 3233 },
+            { date: "2027-02-03", price: 3228 }, { date: "2027-02-04", price: 3230 },
+            { date: "2027-02-05", price: 3232 }, { date: "2027-02-06", price: 3229 },
+            { date: "2027-02-07", price: 3231 }, { date: "2027-02-08", price: 3230 },
+            { date: "2027-02-09", price: 3229 }, { date: "2027-02-10", price: 3231 },
+            { date: "2027-02-11", price: 3230 }, { date: "2027-02-12", price: 3230 }
+          ],
+          availability: "good", availabilityTrend: "stable",
+          signal: "hold", lastUpdated: "2026-04-21T06:00:00Z"
+        }]
+      }
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════
+// DERIVED DISPLAY HELPERS
+// ═══════════════════════════════════════════════════
+
+function getCombination(resort, partySize) {
+  return resort.combinations.find(c => c.partySize === partySize) || resort.combinations[0];
+}
+
+// For the cards: return the departure with the strongest signal (book-now > watch > hold)
+// falling back to the first upcoming departure
+function getActiveDeparture(combo) {
+  const priority = { 'book-now': 0, 'watch': 1, 'hold': 2 };
+  const sorted = [...combo.departures].sort((a, b) => priority[a.signal] - priority[b.signal]);
+  return sorted[0] || combo.departures[0];
+}
+
+// Filter departures to a given month string e.g. "February 2027"
+function getDeparturesForMonth(combo, monthStr) {
+  if (!monthStr) return combo.departures;
+  const [mon, yr] = monthStr.split(' ');
+  const monthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(mon);
+  if (monthIndex === -1) return combo.departures;
+  return combo.departures.filter(d => {
+    const dt = new Date(d.date);
+    return dt.getFullYear() === parseInt(yr) && dt.getMonth() === monthIndex;
+  });
+}
+
+// Best price across all months for a combo
+function getBestPriceByMonth(combo) {
+  const months = {};
+  combo.departures.forEach(d => {
+    const dt = new Date(d.date);
+    const key = dt.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    if (!months[key] || d.currentPrice < months[key].price) {
+      months[key] = { price: d.currentPrice, signal: d.signal };
+    }
+  });
+  return months;
+}
+
+function formatPrice(n) {
+  return '£' + n.toLocaleString('en-GB');
+}
+
+function getPriceMovement(dep) {
+  const diff = dep.currentPrice - dep.previousPrice;
+  return diff; // negative = dropped, positive = rose, 0 = stable
+}
+
+function getAvailabilityLabel(dep) {
+  const labels = {
+    limited: { tightening: 'Limited — tightening', stable: 'Limited availability', easing: 'Limited — easing' },
+    moderate: { tightening: 'Moderate — tightening', stable: 'Moderate availability', easing: 'Moderate — easing' },
+    good: { tightening: 'Good — tightening', stable: 'Good availability', easing: 'Good — easing' }
+  };
+  return (labels[dep.availability] || {})[dep.availabilityTrend] || 'Availability unknown';
+}
+
+function getAvailDotClass(dep) {
+  const map = { limited: 'avail-limited', moderate: 'avail-moderate', good: 'avail-good' };
+  return map[dep.availability] || 'avail-good';
+}
+
+function getSignalBadgeHTML(signal) {
+  const map = {
+    'book-now': '<span class="signal-badge signal-book-now">Book Now</span>',
+    'watch':    '<span class="signal-badge signal-watch">Watch</span>',
+    'hold':     '<span class="signal-badge signal-hold">Hold</span>'
+  };
+  return map[signal] || '';
+}
+
+function getLastUpdatedLabel(isoStr) {
+  try {
+    const d = new Date(isoStr);
+    const now = new Date();
+    const diffH = Math.round((now - d) / 3600000);
+    if (diffH < 1) return 'Updated just now';
+    if (diffH === 1) return 'Updated 1 hour ago';
+    if (diffH < 24) return `Updated ${diffH} hours ago`;
+    return 'Updated today';
+  } catch { return 'Updated recently'; }
+}
+
+// ═══════════════════════════════════════════════════
+// SPARKLINE GENERATOR
+// ═══════════════════════════════════════════════════
+
+function buildSparklinePath(prices, w, h) {
+  if (!prices || prices.length < 2) return '';
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  const range = max - min || 1;
+  const pad = 3;
+  const pts = prices.map((p, i) => {
+    const x = pad + (i / (prices.length - 1)) * (w - pad * 2);
+    const y = pad + (1 - (p - min) / range) * (h - pad * 2);
+    return [x, y];
+  });
+  let d = `M ${pts[0][0]},${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const cp1x = (pts[i-1][0] + pts[i][0]) / 2;
+    d += ` C ${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+  }
+  return d;
+}
+
+function buildSparklineSVG(dep, signal) {
+  const prices = dep.priceHistory.map(p => p.price);
+  const w = 220, h = 44;
+  const strokeColors = { 'book-now': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
+  const fillColors   = { 'book-now': 'rgba(26,74,66,0.08)', 'watch': 'rgba(138,106,42,0.08)', 'hold': 'rgba(187,181,170,0.08)' };
+  const stroke = strokeColors[signal] || '#bbb5aa';
+  const fill   = fillColors[signal]   || 'rgba(187,181,170,0.08)';
+  const path = buildSparklinePath(prices, w, h);
+  const firstPt = (() => {
+    const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1, pad = 3;
+    const y = pad + (1 - (prices[0] - min) / range) * (h - pad * 2);
+    return `${pad},${y}`;
+  })();
+  const lastPt = (() => {
+    const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1, pad = 3;
+    const y = pad + (1 - (prices[prices.length-1] - min) / range) * (h - pad * 2);
+    return `${w - pad},${y}`;
+  })();
+  // area fill path
+  const areaPath = path + ` L ${w - 3},${h} L 3,${h} Z`;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="${areaPath}" fill="${fill}" stroke="none"/>
+    <path d="${path}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>`;
+}
+
+// ═══════════════════════════════════════════════════
+// CARD RENDERER
+// ═══════════════════════════════════════════════════
+
+let activePartySize = '2A';
+let activeResortFilter = '';  // '' = show all
+
+function renderCards(partySize, resortFilter) {
+  if (resortFilter !== undefined) activeResortFilter = resortFilter;
+  const grid = document.getElementById('resort-grid');
+  grid.innerHTML = '';
+  const data = activeResortFilter
+    ? RESORT_DATA.filter(r => r.id === activeResortFilter)
+    : RESORT_DATA;
+  if (data.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-muted);font-size:14px;padding:24px 0;">No resorts match your selection.</p>';
+    return;
+  }
+  data.forEach(resort => {
+    const combo = getCombination(resort, partySize);
+    const dep = getActiveDeparture(combo);
+    const move = getPriceMovement(dep);
+    const absDiff = Math.abs(move);
+
+    let movementHTML;
+    if (move < -10) {
+      movementHTML = `<span class="price-movement price-down">↓ ${formatPrice(absDiff)} in 14 days</span>`;
+    } else if (move > 10) {
+      movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)} in 14 days</span>`;
+    } else {
+      movementHTML = `<span class="price-movement price-stable">— Stable over 14 days</span>`;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'resort-card';
+    card.setAttribute('data-resort-id', resort.id);
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `View details for ${resort.name}`);
+
+    card.innerHTML = `
+      <div class="card-image">
+        <span class="card-region">${resort.region}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name-row">
+          <span class="card-name">${resort.name}</span>
+          ${getSignalBadgeHTML(dep.signal)}
+        </div>
+        <p class="card-location">${resort.region} &middot; ${resort.altitude}</p>
+        <div class="card-price">${formatPrice(dep.currentPrice)}</div>
+        <div class="card-price-label">per party &mdash; 7 nights</div>
+        ${movementHTML}
+        <div class="sparkline-wrap">${buildSparklineSVG(dep, dep.signal)}</div>
+        <p class="departure-date">Best signal — ${dep.displayDate}</p>
+        <div class="card-footer">
+          <span class="availability">
+            <span class="avail-dot ${getAvailDotClass(dep)}"></span>
+            ${getAvailabilityLabel(dep)}
+          </span>
+          <span class="card-updated">${getLastUpdatedLabel(dep.lastUpdated)}</span>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => openModal(resort.id, partySize));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
+
+    grid.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════
+
+function buildModalChart(dep, signal) {
+  const prices = dep.priceHistory.map(p => p.price);
+  const dates  = dep.priceHistory.map(p => p.date);
+  const w = 600, h = 140;
+  const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1;
+  const padX = 8, padY = 12;
+  const strokeColors = { 'book-now': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
+  const stroke = strokeColors[signal] || '#bbb5aa';
+
+  const pts = prices.map((p, i) => {
+    const x = padX + (i / (prices.length - 1)) * (w - padX * 2);
+    const y = padY + (1 - (p - min) / range) * (h - padY * 2);
+    return [x, y];
+  });
+
+  let linePath = `M ${pts[0][0]},${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const cp1x = (pts[i-1][0] + pts[i][0]) / 2;
+    linePath += ` C ${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+  }
+  const areaPath = linePath + ` L ${pts[pts.length-1][0]},${h} L ${pts[0][0]},${h} Z`;
+
+  // grid lines
+  const gridCount = 4;
+  let gridLines = '';
+  for (let i = 0; i <= gridCount; i++) {
+    const y = padY + (i / gridCount) * (h - padY * 2);
+    const price = max - (i / gridCount) * range;
+    gridLines += `<line x1="${padX}" y1="${y}" x2="${w - padX}" y2="${y}" stroke="#e0d8cc" stroke-width="1"/>`;
+    gridLines += `<text x="${padX}" y="${y - 3}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif">${formatPrice(Math.round(price))}</text>`;
+  }
+
+  // date labels — show first, middle, last
+  let dateLabels = '';
+  [[0, pts[0][0]], [6, pts[6][0]], [13, pts[13][0]]].forEach(([i, x]) => {
+    const d = new Date(dates[i]);
+    const label = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    dateLabels += `<text x="${x}" y="${h + 4}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="hanging">${label}</text>`;
+  });
+
+  return `<svg viewBox="0 0 ${w} ${h + 16}" xmlns="http://www.w3.org/2000/svg">
+    ${gridLines}
+    <path d="${areaPath}" fill="${stroke}14" stroke="none"/>
+    <path d="${linePath}" fill="none" stroke="${stroke}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((p, i) => i === pts.length - 1 ? `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${stroke}"/>` : '').join('')}
+    ${dateLabels}
+  </svg>`;
+}
+
+function getModalAnalysis(resort, dep) {
+  const signal = dep.signal;
+  const move = dep.currentPrice - dep.previousPrice;
+  const absDiff = Math.abs(move);
+  if (signal === 'book-now') {
+    return `Price has fallen ${formatPrice(absDiff)} over the past 14 days, reaching a level that sits below seasonal norms for ${resort.name}. Availability is ${dep.availability} and ${dep.availabilityTrend === 'tightening' ? 'tightening — rooms are being taken' : 'stable'}. The combination of price movement and availability pressure is what triggers a Book Now signal. On current trajectory, we would expect prices to recover as the departure date approaches.`;
+  }
+  if (signal === 'watch') {
+    return `Price at ${resort.name} has risen ${formatPrice(absDiff)} over the past 14 days — a move we're monitoring. This doesn't yet indicate an irreversible upward trend, but it's worth revisiting within the next few days. Availability remains moderate. If price continues upward and availability tightens, this would likely convert to a Book Now signal.`;
+  }
+  return `Price at ${resort.name} is broadly stable, with no meaningful movement in either direction over the past 14 days. Availability is ${dep.availability} with no sign of tightening. There's no compelling reason to act now. We'll update this signal immediately if conditions change.`;
+}
+
+function openModal(resortId, partySize) {
+  const resort = RESORT_DATA.find(r => r.id === resortId);
+  if (!resort) return;
+  const combo = getCombination(resort, partySize);
+  const dep = getActiveDeparture(combo);
+  const move = getPriceMovement(dep);
+  const absDiff = Math.abs(move);
+
+  document.getElementById('modal-title').textContent = resort.name;
+  document.getElementById('modal-subtitle').textContent = `${resort.region} · ${resort.altitude} · ${dep.displayDate}`;
+  document.getElementById('modal-signal-badge').innerHTML = getSignalBadgeHTML(dep.signal);
+
+  // meta row
+  let movDir = move < -10 ? `↓ ${formatPrice(absDiff)} in 14 days` : move > 10 ? `↑ ${formatPrice(absDiff)} in 14 days` : '— Stable';
+  document.getElementById('modal-meta').innerHTML = `
+    <div class="modal-meta-item"><span class="modal-meta-label">Current Price</span><span class="modal-meta-value">${formatPrice(dep.currentPrice)}</span></div>
+    <div class="modal-meta-item"><span class="modal-meta-label">14-Day Movement</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;font-weight:500;color:${move < -10 ? '#1a4a42' : move > 10 ? '#8a6a2a' : '#6b6b6b'}">${movDir}</span></div>
+    <div class="modal-meta-item"><span class="modal-meta-label">Party Size</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children'}</span></div>
+    <div class="modal-meta-item"><span class="modal-meta-label">Availability</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${getAvailabilityLabel(dep)}</span></div>
+  `;
+
+  document.getElementById('modal-chart').innerHTML = buildModalChart(dep, dep.signal);
+  document.getElementById('modal-analysis').textContent = getModalAnalysis(resort, dep);
+
+  document.getElementById('modal-set-alert-btn').onclick = () => {
+    closeModal();
+    document.getElementById('alert-resort').value = resort.id;
+    document.querySelector('#alerts').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modal-close').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════════════
+// INIT & EVENT LISTENERS
+// ═══════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initial render
+  renderCards('2A');
+
+  // Party size filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activePartySize = btn.getAttribute('data-party');
+      renderCards(activePartySize);
+    });
+  });
+
+  // Modal close
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Hero form — open search results modal
+  document.getElementById('hero-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const selectedResort = document.getElementById('hero-resort').value;
+    const selectedMonth  = document.getElementById('hero-month').value;
+    const selectedParty  = document.getElementById('hero-party').value;
+
+    if (!selectedResort || !selectedMonth) {
+      // If incomplete, fall back to scrolling to dashboard as before
+      activePartySize = selectedParty;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-party') === selectedParty);
+      });
+      renderCards(selectedParty, selectedResort);
+      document.querySelector('#signals').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    openSearchModal(selectedResort, selectedMonth, selectedParty);
+  });
+
+  // Search results modal close
+  document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);
+  document.getElementById('search-modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('search-modal-overlay')) closeSearchModal();
+  });
+
+  // Alert form
+  document.getElementById('alert-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('alert-email').value.trim();
+    if (!email) {
+      document.getElementById('alert-email').focus();
+      return;
+    }
+    const conf = document.getElementById('alert-confirmation');
+    conf.style.display = 'block';
+    setTimeout(() => { conf.style.display = 'none'; }, 6000);
+  });
+});
+
+// ═══════════════════════════════════════════════════
+// SEARCH RESULTS MODAL
+// ═══════════════════════════════════════════════════
+
+function openSearchModal(resortId, monthStr, partySize) {
+  const resort = RESORT_DATA.find(r => r.id === resortId);
+  if (!resort) return;
+  const combo = getCombination(resort, partySize);
+  const departures = getDeparturesForMonth(combo, monthStr);
+
+  // Sort cheapest first
+  const sorted = [...departures].sort((a, b) => a.currentPrice - b.currentPrice);
+  const cheapest = sorted[0];
+
+  // Title + subtitle
+  const partyLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
+  document.getElementById('search-modal-title').textContent = `${resort.name} — ${monthStr}`;
+  document.getElementById('search-modal-subtitle').textContent = `${partyLabel} · Saturday departures · 7 nights accommodation`;
+
+  // Best date banner
+  const bannerEl = document.getElementById('search-modal-best-banner');
+  if (cheapest) {
+    const saving = sorted.length > 1 ? sorted[sorted.length - 1].currentPrice - cheapest.currentPrice : 0;
+    const move = cheapest.currentPrice - cheapest.previousPrice;
+    const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))} in 14 days` : move > 10 ? `↑ ${formatPrice(Math.abs(move))} in 14 days` : 'Stable over 14 days';
+    bannerEl.innerHTML = `
+      <div class="best-date-banner">
+        <div>
+          <p class="best-date-label">Best price this month</p>
+          <div class="best-date-price">${formatPrice(cheapest.currentPrice)}</div>
+          <div class="best-date-week">${cheapest.displayDate}</div>
+        </div>
+        <div style="text-align:right;">
+          ${getSignalBadgeHTML(cheapest.signal)}
+          <div style="font-size:13px;color:var(--text-muted);margin-top:10px;">${movLabel}</div>
+          ${saving > 0 ? `<div style="font-size:12px;font-weight:600;color:var(--teal);margin-top:6px;">${formatPrice(saving)} cheaper than the priciest week</div>` : ''}
+        </div>
+      </div>`;
+  } else {
+    bannerEl.innerHTML = `<p style="color:var(--text-muted);font-size:14px;padding:16px 0;">No departures found for ${monthStr}. Try a different month.</p>`;
+  }
+
+  // Date rows
+  const rowsEl = document.getElementById('search-modal-date-rows');
+  if (sorted.length === 0) {
+    rowsEl.innerHTML = '';
+  } else {
+    rowsEl.innerHTML = sorted.map((dep, i) => {
+      const isBest = i === 0;
+      const move = dep.currentPrice - dep.previousPrice;
+      const moveLabel = move < -10
+        ? `<span class="price-down">↓ ${formatPrice(Math.abs(move))}</span>`
+        : move > 10
+          ? `<span class="price-up">↑ ${formatPrice(Math.abs(move))}</span>`
+          : `<span class="price-stable">Stable</span>`;
+
+      return `
+        <div class="date-row${isBest ? ' best-row' : ''}">
+          <span class="date-row-week">${dep.displayDate}</span>
+          <span class="date-row-price">${formatPrice(dep.currentPrice)}</span>
+          <span class="date-row-move">${moveLabel}</span>
+          <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
+          <span class="date-row-book">
+            <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer"
+               class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;">
+              Book on Club Med
+            </a>
+          </span>
+        </div>`;
+    }).join('');
+  }
+
+  // Alternative months strip
+  const altEl = document.getElementById('search-modal-alt-months');
+  const selectedMonthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    .indexOf(monthStr.split(' ')[0]);
+  const yr = monthStr.split(' ')[1];
+
+  const otherMonths = ['January','February','March','April'].map(m => {
+    if (m === monthStr.split(' ')[0]) return null;
+    const key = `${m} ${yr}`;
+    const deps = getDeparturesForMonth(combo, key);
+    if (!deps.length) return null;
+    const best = deps.reduce((a, b) => a.currentPrice < b.currentPrice ? a : b);
+    return { month: key, price: best.currentPrice, signal: best.signal };
+  }).filter(Boolean);
+
+  if (otherMonths.length && cheapest) {
+    altEl.innerHTML = `
+      <p class="alt-months-label">Consider also — best price in other months</p>
+      <div class="alt-months-row">
+        ${otherMonths.map(m => {
+          const diff = cheapest.currentPrice - m.price;
+          const savingStr = diff > 0
+            ? `<span class="alt-month-saving">${formatPrice(diff)} less</span>`
+            : diff < 0
+              ? `<span style="font-size:11px;font-weight:600;color:var(--amber);">${formatPrice(Math.abs(diff))} more</span>`
+              : `<span style="font-size:11px;color:var(--text-muted);">Same price</span>`;
+          return `
+            <div class="alt-month-pill" onclick="switchSearchMonth('${resortId}','${m.month}','${partySize}')">
+              <div>
+                <div class="alt-month-name">${m.month.split(' ')[0]}</div>
+                ${savingStr}
+              </div>
+              <div class="alt-month-price">${formatPrice(m.price)}</div>
+            </div>`;
+        }).join('')}
+      </div>`;
+  } else {
+    altEl.innerHTML = '';
+  }
+
+  document.getElementById('search-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function switchSearchMonth(resortId, monthStr, partySize) {
+  // Update the form dropdowns to match, then re-open
+  document.getElementById('hero-month').value = monthStr;
+  closeSearchModal();
+  setTimeout(() => openSearchModal(resortId, monthStr, partySize), 150);
+}
+
+function closeSearchModal() {
+  document.getElementById('search-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+</script>
+</body>
+</html>

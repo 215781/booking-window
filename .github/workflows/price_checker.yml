@@ -6,6 +6,9 @@ on:
     - cron: "0 18 * * *"  # 18:00 UTC daily
   workflow_dispatch:        # allows manual trigger from GitHub Actions tab
 
+permissions:
+  contents: write
+
 jobs:
   check-prices:
     runs-on: ubuntu-latest

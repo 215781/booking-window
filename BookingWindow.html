@@ -973,12 +973,13 @@
               <label for="hero-resort">Resort</label>
               <select id="hero-resort" name="resort">
                 <option value="">Any resort — show all</option>
-                <option value="tignes-val-claret">Tignes Val Claret</option>
+                <option value="tignes-val-claret">Tignes</option>
                 <option value="les-arcs">Les Arcs Panorama</option>
                 <option value="peisey-vallandry">Peisey-Vallandry</option>
                 <option value="valmorel">Valmorel</option>
                 <option value="alpe-dhuez">Alpe d'Huez</option>
                 <option value="la-rosiere">La Rosière</option>
+                <option value="la-plagne-2100">La Plagne 2100</option>
               </select>
             </div>
             <div class="form-group">
@@ -1079,12 +1080,13 @@
             <label for="alert-resort">Resort</label>
             <select id="alert-resort" name="resort">
               <option value="">Any resort — show all</option>
-              <option value="tignes-val-claret">Tignes Val Claret</option>
+              <option value="tignes-val-claret">Tignes</option>
               <option value="les-arcs">Les Arcs Panorama</option>
               <option value="peisey-vallandry">Peisey-Vallandry</option>
               <option value="valmorel">Valmorel</option>
               <option value="alpe-dhuez">Alpe d'Huez</option>
               <option value="la-rosiere">La Rosière</option>
+              <option value="la-plagne-2100">La Plagne 2100</option>
             </select>
           </div>
           <div class="form-group">
@@ -1222,7 +1224,7 @@ function makeHistory(endPrice, delta, endDate) {
 const RESORT_DATA = [
   {
     id: "tignes-val-claret",
-    name: "Tignes Val Claret",
+    name: "Tignes",
     region: "French Alps",
     altitude: "2100m",
     resortCode: "TIGC_WINTER",
@@ -2013,6 +2015,78 @@ const RESORT_DATA = [
           },
         ]
       },
+    ]
+  },
+  {
+    id: "la-plagne-2100",
+    name: "La Plagne 2100",
+    region: "Paradiski, French Alps",
+    altitude: "2100m",
+    resortCode: "LP2C_WINTER",
+    combinations: [
+      {
+        partySize: "2A", adults: 2, children: 0, birthdates: [],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2580, previousPrice: 2620, priceHistory: makeHistory(2580, -40,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 2720, previousPrice: 2720, priceHistory: makeHistory(2720, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 2810, previousPrice: 2810, priceHistory: makeHistory(2810, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 2870, previousPrice: 2870, priceHistory: makeHistory(2870, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 2920, previousPrice: 2920, priceHistory: makeHistory(2920, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 2960, previousPrice: 2960, priceHistory: makeHistory(2960, 0,    "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3340, previousPrice: 3340, priceHistory: makeHistory(3340, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3210, previousPrice: 3210, priceHistory: makeHistory(3210, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 2990, previousPrice: 2990, priceHistory: makeHistory(2990, 0,    "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 2800, previousPrice: 2800, priceHistory: makeHistory(2800, 0,    "2027-03-05"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 2680, previousPrice: 2680, priceHistory: makeHistory(2680, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 2620, previousPrice: 2620, priceHistory: makeHistory(2620, 0,    "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2510, previousPrice: 2510, priceHistory: makeHistory(2510, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2440, previousPrice: 2440, priceHistory: makeHistory(2440, 0,    "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2390, previousPrice: 2390, priceHistory: makeHistory(2390, 0,    "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2290, previousPrice: 2290, priceHistory: makeHistory(2290, 0,    "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+        ]
+      },
+      {
+        partySize: "2A1C", adults: 2, children: 1, birthdates: ["2021-04-28"],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 2980, previousPrice: 3020, priceHistory: makeHistory(2980, -40,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 3120, previousPrice: 3120, priceHistory: makeHistory(3120, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3210, previousPrice: 3210, priceHistory: makeHistory(3210, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3270, previousPrice: 3270, priceHistory: makeHistory(3270, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3320, previousPrice: 3320, priceHistory: makeHistory(3320, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3360, previousPrice: 3360, priceHistory: makeHistory(3360, 0,    "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 3740, previousPrice: 3740, priceHistory: makeHistory(3740, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3610, previousPrice: 3610, priceHistory: makeHistory(3610, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3390, previousPrice: 3390, priceHistory: makeHistory(3390, 0,    "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3200, previousPrice: 3200, priceHistory: makeHistory(3200, 0,    "2027-03-05"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3080, previousPrice: 3080, priceHistory: makeHistory(3080, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 3020, previousPrice: 3020, priceHistory: makeHistory(3020, 0,    "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 2910, previousPrice: 2910, priceHistory: makeHistory(2910, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 2840, previousPrice: 2840, priceHistory: makeHistory(2840, 0,    "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 2790, previousPrice: 2790, priceHistory: makeHistory(2790, 0,    "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 2690, previousPrice: 2690, priceHistory: makeHistory(2690, 0,    "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+        ]
+      },
+      {
+        partySize: "2A2C", adults: 2, children: 2, birthdates: ["2021-04-28","2019-06-15"],
+        departures: [
+          { date: "2027-01-02", displayDate: "w/c 3 Jan 2027",  currentPrice: 3330, previousPrice: 3370, priceHistory: makeHistory(3330, -40,  "2027-01-01"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-09", displayDate: "w/c 10 Jan 2027", currentPrice: 3470, previousPrice: 3470, priceHistory: makeHistory(3470, 0,    "2027-01-08"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-16", displayDate: "w/c 17 Jan 2027", currentPrice: 3560, previousPrice: 3560, priceHistory: makeHistory(3560, 0,    "2027-01-15"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-23", displayDate: "w/c 24 Jan 2027", currentPrice: 3620, previousPrice: 3620, priceHistory: makeHistory(3620, 0,    "2027-01-22"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-01-30", displayDate: "w/c 31 Jan 2027", currentPrice: 3670, previousPrice: 3670, priceHistory: makeHistory(3670, 0,    "2027-01-29"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-06", displayDate: "w/c 7 Feb 2027",  currentPrice: 3710, previousPrice: 3710, priceHistory: makeHistory(3710, 0,    "2027-02-05"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-13", displayDate: "w/c 14 Feb 2027", currentPrice: 4090, previousPrice: 4090, priceHistory: makeHistory(4090, 0,    "2027-02-12"), availability: "limited",  availabilityTrend: "tightening", signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-20", displayDate: "w/c 21 Feb 2027", currentPrice: 3960, previousPrice: 3960, priceHistory: makeHistory(3960, 0,    "2027-02-19"), availability: "limited",  availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-02-27", displayDate: "w/c 28 Feb 2027", currentPrice: 3740, previousPrice: 3740, priceHistory: makeHistory(3740, 0,    "2027-02-26"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-06", displayDate: "w/c 7 Mar 2027",  currentPrice: 3550, previousPrice: 3550, priceHistory: makeHistory(3550, 0,    "2027-03-05"), availability: "moderate", availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-13", displayDate: "w/c 14 Mar 2027", currentPrice: 3430, previousPrice: 3430, priceHistory: makeHistory(3430, 0,    "2027-03-12"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-20", displayDate: "w/c 21 Mar 2027", currentPrice: 3370, previousPrice: 3370, priceHistory: makeHistory(3370, 0,    "2027-03-19"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-03-27", displayDate: "w/c 28 Mar 2027", currentPrice: 3260, previousPrice: 3260, priceHistory: makeHistory(3260, 0,    "2027-03-26"), availability: "good",     availabilityTrend: "stable",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-03", displayDate: "w/c 4 Apr 2027",  currentPrice: 3190, previousPrice: 3190, priceHistory: makeHistory(3190, 0,    "2027-04-02"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-10", displayDate: "w/c 11 Apr 2027", currentPrice: 3140, previousPrice: 3140, priceHistory: makeHistory(3140, 0,    "2027-04-09"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+          { date: "2027-04-17", displayDate: "w/c 18 Apr 2027", currentPrice: 3040, previousPrice: 3040, priceHistory: makeHistory(3040, 0,    "2027-04-16"), availability: "good",     availabilityTrend: "easing",     signal: "hold",     lastUpdated: "2026-04-22T06:00:00Z" },
+        ]
+      }
     ]
   },
 ];

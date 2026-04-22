@@ -77,7 +77,7 @@ for yr, mo in SKI_MONTHS:
 RESORTS = [
     {
         "id":         "tignes-val-claret",
-        "name":       "Tignes Val Claret",
+        "name":       "Tignes",
         "resortCode": "TIGC_WINTER",    # verified 21 Apr 2026
         "combos": [
             {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
@@ -134,6 +134,17 @@ RESORTS = [
         "id":         "la-rosiere",
         "name":       "La Rosière",
         "resortCode": "LROC_WINTER",    # verified 21 Apr 2026
+        "combos": [
+            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
+            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
+            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
+        ],
+        "windows": ALL_WINDOWS,
+    },
+    {
+        "id":         "la-plagne-2100",
+        "name":       "La Plagne 2100",
+        "resortCode": "LP2C_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/la-plagne-2100/y
         "combos": [
             {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
             {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
@@ -469,22 +480,24 @@ def load_previous_signals():
 # ─────────────────────────────────────────────────────────────
 
 RESORT_META = {
-    "tignes-val-claret":  {"region": "French Alps",           "altitude": "2100m"},
-    "les-arcs":           {"region": "French Alps",           "altitude": "1950m"},
+    "tignes-val-claret":  {"region": "French Alps",            "altitude": "2100m"},
+    "les-arcs":           {"region": "French Alps",            "altitude": "1950m"},
     "peisey-vallandry":   {"region": "Paradiski, French Alps", "altitude": "1600m"},
-    "valmorel":           {"region": "French Alps",           "altitude": "1460m"},
-    "alpe-dhuez":         {"region": "French Alps",           "altitude": "1860m"},
-    "la-rosiere":         {"region": "French Alps",           "altitude": "1850m"},
+    "valmorel":           {"region": "French Alps",            "altitude": "1460m"},
+    "alpe-dhuez":         {"region": "French Alps",            "altitude": "1860m"},
+    "la-rosiere":         {"region": "French Alps",            "altitude": "1850m"},
+    "la-plagne-2100":     {"region": "Paradiski, French Alps", "altitude": "2100m"},
 }
 
-# Resort code reference (verified 21 Apr 2026 via GraphQL products query):
-# TIGC_WINTER — Tignes Val Claret
+# Resort code reference:
+# TIGC_WINTER — Tignes (verified 21 Apr 2026)
 # ARPC_WINTER — Les Arcs Panorama
 # PVAC_WINTER — Peisey-Vallandry
 # VMOC_WINTER — Valmorel
 # ALHC_WINTER — Alpe d'Huez
 # LROC_WINTER — La Rosière
-# (LROV_WINTER = La Rosière Espace Exclusive Collection — more premium, separate product)
+# (LROV_WINTER = La Rosière Espace Exclusive Collection — premium, separate product)
+# LP2C_WINTER — La Plagne 2100 (UNVERIFIED — verify via DevTools on clubmed.co.uk/r/la-plagne-2100/y)
 
 # ─────────────────────────────────────────────────────────────
 # MAIN

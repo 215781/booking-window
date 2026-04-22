@@ -396,7 +396,7 @@ def inject_into_html(js_string, test_mode=False):
     with open(HTML_FILE, "r", encoding="utf-8") as f:
         html = f.read()
     # Match from 'const RESORT_DATA = [' to the closing '];'
-    pattern = r"const RESORT_DATA = \[.*?\];"
+    pattern = r"const RESORT_DATA = \[.*\];"
     new_html, count = re.subn(pattern, js_string, html, count=1, flags=re.DOTALL)
     if count == 0:
         print("WARNING: Could not find RESORT_DATA in HTML — no injection performed.")

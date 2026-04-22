@@ -936,6 +936,76 @@
       overflow: hidden;
       clip: rect(0,0,0,0);
     }
+
+    /* ── Responsive ── */
+
+    /* Tablet — 900px and below */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      .section { padding: 64px 0; }
+
+      .nav-inner { padding: 0 24px; }
+      .nav-links { gap: 24px; }
+
+      .hero-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .hero-headline { font-size: 38px; }
+      .hero-sub { max-width: none; }
+
+      .resort-grid { grid-template-columns: repeat(2, 1fr); }
+
+      .guide-panels { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .guide-panels .guide-panel:last-child { grid-column: span 2; }
+
+      .alerts-inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .alerts-heading { font-size: 32px; }
+
+      .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
+      .steps .step:last-child { grid-column: span 2; }
+
+      .footer-inner { padding: 0 24px; }
+    }
+
+    /* Mobile — 600px and below */
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .section { padding: 48px 0; }
+
+      .nav-inner { padding: 0 16px; height: 56px; }
+      .nav-links { display: none; }
+
+      #signals-hero { padding: 48px 0 40px; }
+      .hero-headline { font-size: 30px; }
+      .hero-form-wrap { padding: 24px 20px; }
+
+      .resort-grid { grid-template-columns: 1fr; }
+
+      .guide-panels { grid-template-columns: 1fr; }
+      .guide-panels .guide-panel:last-child { grid-column: auto; }
+      .guide-panel { padding: 24px; }
+
+      .steps { grid-template-columns: 1fr; }
+      .steps .step:last-child { grid-column: auto; }
+
+      .alerts-heading { font-size: 28px; }
+
+      .modal { max-height: 95vh; }
+      .modal-header { padding: 20px; }
+      .modal-body { padding: 20px; }
+      .modal-title { font-size: 20px; }
+
+      .modal-date-row { flex-wrap: wrap; gap: 8px; }
+
+      .alt-months-strip { flex-direction: column; gap: 8px; }
+      .alt-month-pill { justify-content: space-between; }
+
+      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+    }
   </style>
 </head>
 <body>

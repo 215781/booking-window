@@ -286,7 +286,7 @@ def calculate_signal(price_history):
     avg = sum(prices) / len(prices)
 
     if move_14 <= -50 and current < avg:
-        return "book-now"
+        return "favourable"
     elif move_14 >= 50:
         return "watch"
     elif current < avg and len(prices) >= 7:
@@ -316,8 +316,12 @@ def calculate_availability(price, price_history):
 # Every single check is written here — this is the historical record.
 # ─────────────────────────────────────────────────────────────
 
-CSV_HEADERS = ["timestamp", "resort_id", "resort_code", "party_size",
-               "start_date", "end_date", "price", "signal"]
+CSV_HEADERS = [
+    "timestamp", "resort_id", "resort_code", "party_size",
+    "start_date", "end_date", "duration_nights", "price", "signal",
+    "days_before_departure", "day_of_week_sampled",
+    "price_first_seen", "price_min_seen", "price_max_seen", "is_cheapest_ever",
+]
 
 def log_to_csv(rows, test_mode=False):
     """Append a list of result dicts to the CSV log."""
@@ -351,6 +355,34 @@ def load_price_history_from_csv(resort_id, party_size, start_date):
     for entry in history:
         seen[entry["date"]] = entry["price"]
     return [{"date": d, "price": p} for d, p in sorted(seen.items())]
+
+def load_all_price_stats():
+    """
+    Read price_history.csv once and return per-combo stats for enriching new rows.
+    Returns: {(resort_id, party_size, start_date): {min, max, first, count}}
+    CSV is appended chronologically so the first row encountered per key IS the first-ever price.
+    """
+    stats = {}
+    if not Path(CSV_FILE).exists():
+        return stats
+    with open(CSV_FILE, newline="") as f:
+        for row in csv.DictReader(f):
+            raw = row.get("price", "")
+            if not raw:
+                continue
+            try:
+                price = int(raw)
+            except (ValueError, TypeError):
+                continue
+            key = (row["resort_id"], row["party_size"], row["start_date"])
+            if key not in stats:
+                stats[key] = {"min": price, "max": price, "first": price, "count": 1}
+            else:
+                s = stats[key]
+                s["min"] = min(s["min"], price)
+                s["max"] = max(s["max"], price)
+                s["count"] += 1
+    return stats
 
 # ─────────────────────────────────────────────────────────────
 # HTML INJECTION
@@ -494,13 +526,13 @@ def check_for_alerts(all_results, previous_signals):
         history = load_price_history_from_csv(resort_id, party_size, start_date)
         signal  = calculate_signal(history)
         prev    = previous_signals.get((resort_id, party_size, start_date))
-        if signal == "book-now" and prev != "book-now":
+        if signal == "favourable" and prev != "favourable":
             resort_name = next((r["name"] for r in RESORTS if r["id"] == resort_id), resort_id)
             dep_dt      = datetime.strptime(start_date, "%Y-%m-%d") + timedelta(days=1)
             display_date = dep_dt.strftime("%-d %b %Y")
-            subject = f"Booking Window signal: {resort_name} w/c {display_date} — Book Now"
+            subject = f"When To Book signal: {resort_name} w/c {display_date} — Favourable"
             body = (
-                f"A new Book Now signal has triggered on When To Book.\n\n"
+                f"A new Favourable signal has triggered on When To Book.\n\n"
                 f"Resort:     {resort_name}\n"
                 f"Departure:  w/c {display_date}\n"
                 f"Party size: {party_size}\n"
@@ -582,11 +614,15 @@ def main():
     # Load previous signals for alert comparison
     previous_signals = load_previous_signals()
 
+    # Load historical price stats once — used to compute enriched CSV fields
+    historical_stats = load_all_price_stats()
+
     all_results = {}  # (resort_id, party_size, start_date) -> price
     csv_rows    = []
     error_count    = 0  # only real API errors (network/HTTP failures)
     no_price_count = 0  # includes not_for_sale / closed — expected pre-season
     timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    run_date  = date.today()
 
     for resort in RESORTS:
         print(f"Fetching: {resort['name']} ({resort['resortCode']})")
@@ -623,15 +659,42 @@ def main():
                     history.append({"date": timestamp[:10], "price": price})
                 signal = calculate_signal(history)
 
+                # Enriched fields
+                departure_dt   = datetime.strptime(sd, "%Y-%m-%d").date()
+                duration_n     = (datetime.strptime(ed, "%Y-%m-%d").date() - departure_dt).days
+                days_before    = (departure_dt - run_date).days
+                dow_sampled    = run_date.weekday()  # 0=Mon … 6=Sun
+
+                key = (resort["id"], ps, sd)
+                hist = historical_stats.get(key)
+                if hist:
+                    min_seen   = min(hist["min"], price) if price else hist["min"]
+                    max_seen   = max(hist["max"], price) if price else hist["max"]
+                    first_seen = hist["first"]
+                    is_cheapest = 1 if (price and price <= hist["min"]) else 0
+                else:
+                    # First time we've ever seen this combo
+                    min_seen   = price if price else ""
+                    max_seen   = price if price else ""
+                    first_seen = price if price else ""
+                    is_cheapest = 1 if price else ""
+
                 csv_rows.append({
-                    "timestamp":   timestamp,
-                    "resort_id":   resort["id"],
-                    "resort_code": resort["resortCode"],
-                    "party_size":  ps,
-                    "start_date":  sd,
-                    "end_date":    ed,
-                    "price":       price if price else "",
-                    "signal":      signal,
+                    "timestamp":             timestamp,
+                    "resort_id":             resort["id"],
+                    "resort_code":           resort["resortCode"],
+                    "party_size":            ps,
+                    "start_date":            sd,
+                    "end_date":              ed,
+                    "duration_nights":       duration_n,
+                    "price":                 price if price else "",
+                    "signal":                signal,
+                    "days_before_departure": days_before,
+                    "day_of_week_sampled":   dow_sampled,
+                    "price_first_seen":      first_seen,
+                    "price_min_seen":        min_seen,
+                    "price_max_seen":        max_seen,
+                    "is_cheapest_ever":      is_cheapest,
                 })
 
     # Write CSV

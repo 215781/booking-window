@@ -50,158 +50,129 @@ HEALTH_CHECK_LIMIT = 3
 # departureCity: "NO" = accommodation only (no flights) — intentional.
 # ─────────────────────────────────────────────────────────────
 
-# Helper: generate all Saturdays in a given month
-def saturdays_in_month(year, month):
+# Helper: generate all dates matching a given weekday (0=Mon … 6=Sun) in a month
+def weekday_dates_in_month(year, month, weekday):
     dates = []
     d = date(year, month, 1)
-    # advance to first Saturday (weekday 5)
-    while d.weekday() != 5:
+    while d.weekday() != weekday:
         d += timedelta(days=1)
     while d.month == month:
         dates.append(d.strftime("%Y-%m-%d"))
         d += timedelta(days=7)
     return dates
 
-# Build departure windows: start = Saturday, end = following Saturday (7 nights)
-# MULTI-DURATION TODO: to support 10 & 14-night stays, parameterise duration_nights here,
-# generate endDate = startDate + duration_nights, and loop over durations in main().
-# Update the HTML RESORT_DATA structure to include a "nights" field per departure,
-# and update the frontend to display and filter by duration.
-def departure_windows(year, month):
-    return [
-        {"startDate": s, "endDate": (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=7)).strftime("%Y-%m-%d")}
-        for s in saturdays_in_month(year, month)
-    ]
-
 # Season: Dec 2026 – Apr 2027 ski season
 SKI_MONTHS = [(2026, 12)] + [(2027, m) for m in range(1, 5)]
-ALL_WINDOWS = []
-for yr, mo in SKI_MONTHS:
-    ALL_WINDOWS.extend(departure_windows(yr, mo))
 
+def make_windows(departure_day, duration_nights=7):
+    """
+    Generate departure windows for the full ski season.
+    departure_day: int 0-6 (Mon-Sun) for a verified resort, or None to query
+                   both Saturday (5) and Sunday (6) until the day is confirmed.
+    MULTI-DURATION TODO: loop over [7, 10, 14] for duration_nights once 10/14n
+    is wired into the HTML RESORT_DATA + frontend duration selector.
+    """
+    weekdays = [departure_day] if departure_day is not None else [5, 6]
+    windows = []
+    for yr, mo in SKI_MONTHS:
+        for wd in weekdays:
+            for s in weekday_dates_in_month(yr, mo, wd):
+                windows.append({
+                    "startDate": s,
+                    "endDate": (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=duration_nights)).strftime("%Y-%m-%d"),
+                })
+    return windows
+
+_COMBOS = [
+    {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
+    {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
+    {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
+]
+
+# departure_day: 0=Mon … 6=Sun; None = unverified (queries both Sat=5 and Sun=6)
 RESORTS = [
     {
-        "id":         "tignes-val-claret",
-        "name":       "Tignes",
-        "resortCode": "TIGC_WINTER",    # verified 21 Apr 2026
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "tignes-val-claret",
+        "name":           "Tignes",
+        "resortCode":     "TIGC_WINTER",    # verified 21 Apr 2026
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "les-arcs",
-        "name":       "Les Arcs Panorama",
-        "resortCode": "ARPC_WINTER",    # verified 21 Apr 2026
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "les-arcs",
+        "name":           "Les Arcs Panorama",
+        "resortCode":     "ARPC_WINTER",    # verified 21 Apr 2026
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "peisey-vallandry",
-        "name":       "Peisey-Vallandry",
-        "resortCode": "PVAC_WINTER",    # verified 21 Apr 2026
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "peisey-vallandry",
+        "name":           "Peisey-Vallandry",
+        "resortCode":     "PVAC_WINTER",    # verified 21 Apr 2026
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "valmorel",
-        "name":       "Valmorel",
-        "resortCode": "VMOC_WINTER",    # verified 21 Apr 2026
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "valmorel",
+        "name":           "Valmorel",
+        "resortCode":     "VMOC_WINTER",    # verified 21 Apr 2026
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "alpe-dhuez",
-        "name":       "Alpe d'Huez",
-        "resortCode": "ALHC_WINTER",    # verified 21 Apr 2026
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "alpe-dhuez",
+        "name":           "Alpe d'Huez",
+        "resortCode":     "ALHC_WINTER",    # verified 21 Apr 2026
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "la-rosiere",
-        "name":       "La Rosière",
-        "resortCode": "LROC_WINTER",    # verified 21 Apr 2026
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "la-rosiere",
+        "name":           "La Rosière",
+        "resortCode":     "LROC_WINTER",    # verified 21 Apr 2026
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "la-plagne-2100",
-        "name":       "La Plagne 2100",
-        "resortCode": "LP2C_WINTER",    # verified 26 Apr 2026 (API returned £3,322 for Apr 2027)
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "la-plagne-2100",
+        "name":           "La Plagne 2100",
+        "resortCode":     "LP2C_WINTER",    # verified 26 Apr 2026 (API returned £3,322 for Apr 2027)
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026
+        "combos":         _COMBOS,
     },
     {
-        "id":         "val-disere",
-        "name":       "Val d'Isère",
-        "resortCode": "VDIC_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/val-disere/y
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "val-disere",
+        "name":           "Val d'Isère",
+        "resortCode":     "VDIC_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/val-disere/y
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "grand-massif",
-        "name":       "Grand Massif Samoëns Morillon",
-        "resortCode": "GMSM_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/grand-massif-samoens-morillon/y
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "grand-massif",
+        "name":           "Grand Massif Samoëns Morillon",
+        "resortCode":     "GMSM_WINTER",    # UNVERIFIED — check via DevTools
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "val-thorens",
-        "name":       "Val Thorens Sensations",
-        "resortCode": "VTSC_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/val-thorens-sensations/y
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "val-thorens",
+        "name":           "Val Thorens Sensations",
+        "resortCode":     "VTSC_WINTER",    # UNVERIFIED — check via DevTools
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
     {
-        "id":         "serre-chevalier",
-        "name":       "Serre-Chevalier",
-        "resortCode": "SRCC_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/serre-chevalier/y
-        "combos": [
-            {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-            {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-            {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
-        ],
-        "windows": ALL_WINDOWS,
+        "id":             "serre-chevalier",
+        "name":           "Serre-Chevalier",
+        "resortCode":     "SRCC_WINTER",    # UNVERIFIED — check via DevTools
+        "departure_day":  None,             # TODO: verify via DevTools
+        "combos":         _COMBOS,
     },
 ]
+
+# Pre-compute windows per resort based on departure_day
+for _r in RESORTS:
+    _r["windows"] = make_windows(_r["departure_day"])
 
 # ─────────────────────────────────────────────────────────────
 # GRAPHQL API

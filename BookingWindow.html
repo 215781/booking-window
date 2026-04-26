@@ -256,6 +256,33 @@
       margin-top: 12px;
     }
 
+    /* ── Date mode tabs ── */
+    .date-mode-tabs {
+      display: flex;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+    .date-mode-tab {
+      flex: 1;
+      padding: 8px 6px;
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: #fff;
+      border: none;
+      border-right: 1px solid var(--border);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .date-mode-tab:last-child { border-right: none; }
+    .date-mode-tab.active { background: var(--teal); color: #fff; }
+    .date-mode-tab:hover:not(.active) { background: var(--teal-light); }
+
     /* ── Signal dashboard ── */
     #signals {
       padding: 80px 0;
@@ -1100,15 +1127,25 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="hero-month">Departure Month <span style="font-size:11px;color:var(--teal);font-weight:400;text-transform:none;">(optional)</span></label>
-              <select id="hero-month" name="month">
-                <option value="">Any available month</option>
-                <option>December 2026</option>
-                <option>January 2027</option>
-                <option>February 2027</option>
-                <option>March 2027</option>
-                <option>April 2027</option>
-              </select>
+              <label>Departure Dates</label>
+              <div class="date-mode-tabs" role="group" aria-label="Date selection mode">
+                <button type="button" class="date-mode-tab active" data-mode="month">Select month</button>
+                <button type="button" class="date-mode-tab" data-mode="specific">Specific date</button>
+                <button type="button" class="date-mode-tab" data-mode="all">All dates</button>
+              </div>
+              <div id="date-input-month">
+                <select id="hero-month" name="month">
+                  <option value="">Any available month</option>
+                  <option>December 2026</option>
+                  <option>January 2027</option>
+                  <option>February 2027</option>
+                  <option>March 2027</option>
+                  <option>April 2027</option>
+                </select>
+              </div>
+              <div id="date-input-specific" style="display:none;">
+                <input type="date" id="hero-date" name="date" min="2026-12-01" max="2027-04-30">
+              </div>
             </div>
             <div class="form-group">
               <label for="hero-duration">Stay Duration</label>
@@ -1127,7 +1164,7 @@
               </select>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Show Optimal Dates</button>
-            <p class="form-note">Select a resort to see the optimal booking window. Specify a month to narrow results, or leave blank to see across all available dates.</p>
+            <p class="form-note">Select a resort to see the optimal booking window. Use the date mode tabs to narrow by month, pick a specific date, or search across all available dates.</p>
             <div id="hero-confirmation" class="form-confirmation">
               Showing optimal window for your search.
             </div>
@@ -2788,6 +2825,12 @@ function getDeparturesForMonth(combo, monthStr) {
   });
 }
 
+// Filter departures to an exact start date e.g. "2027-01-14"
+function getDeparturesForDate(combo, dateStr) {
+  if (!dateStr) return combo.departures;
+  return combo.departures.filter(d => d.date === dateStr);
+}
+
 // Best price across all months for a combo
 function getBestPriceByMonth(combo) {
   const months = {};
@@ -3100,26 +3143,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.key === 'Escape') closeModal();
   });
 
-  // Hero form — open search results modal
+  // Date mode tab switching
+  let activeDateMode = 'month';
+  document.querySelectorAll('.date-mode-tab').forEach(tab => {
+    tab.addEventListener('click', () => {
+      activeDateMode = tab.dataset.mode;
+      document.querySelectorAll('.date-mode-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('date-input-month').style.display    = activeDateMode === 'month'    ? '' : 'none';
+      document.getElementById('date-input-specific').style.display = activeDateMode === 'specific' ? '' : 'none';
+    });
+  });
+
+  // Hero form — always open search results modal
   document.getElementById('hero-form').addEventListener('submit', e => {
     e.preventDefault();
     const selectedResort = document.getElementById('hero-resort').value;
-    const selectedMonth  = document.getElementById('hero-month').value;
     const selectedParty  = document.getElementById('hero-party').value;
+    let dateFilter = '';
+    if (activeDateMode === 'month')    dateFilter = document.getElementById('hero-month').value;
+    else if (activeDateMode === 'specific') dateFilter = document.getElementById('hero-date').value;
 
-    if (!selectedResort) {
-      // No resort selected — filter dashboard and scroll
-      activePartySize = selectedParty;
-      document.querySelectorAll('.filter-btn').forEach(b => {
-        b.classList.toggle('active', b.getAttribute('data-party') === selectedParty);
-      });
-      renderCards(selectedParty, selectedResort);
-      document.querySelector('#signals').scrollIntoView({ behavior: 'smooth' });
-      return;
-    }
-
-    // Resort selected — open search modal (month is optional)
-    openSearchModal(selectedResort, selectedMonth, selectedParty);
+    openSearchModal(selectedResort || null, dateFilter, selectedParty, activeDateMode);
   });
 
   // Search results modal close
@@ -3146,120 +3191,152 @@ document.addEventListener('DOMContentLoaded', () => {
 // SEARCH RESULTS MODAL
 // ═══════════════════════════════════════════════════
 
-function openSearchModal(resortId, monthStr, partySize) {
-  const resort = RESORT_DATA.find(r => r.id === resortId);
-  if (!resort) return;
-  const combo = getCombination(resort, partySize);
-  const departures = monthStr ? getDeparturesForMonth(combo, monthStr) : combo.departures;
+function openSearchModal(resortId, dateFilter, partySize, dateMode) {
+  // Infer dateMode if not supplied (keeps switchSearchMonth compatible)
+  if (!dateMode) {
+    if (!dateFilter) dateMode = 'all';
+    else if (/^\d{4}-\d{2}-\d{2}$/.test(dateFilter)) dateMode = 'specific';
+    else dateMode = 'month';
+  }
+
+  const isAllResorts = !resortId;
+  const partyLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
+
+  // Build flat list of {dep, resortName, resortId} entries
+  const entries = [];
+  const resortList = isAllResorts ? RESORT_DATA : [RESORT_DATA.find(r => r.id === resortId)].filter(Boolean);
+  if (!resortList.length) return;
+
+  resortList.forEach(resort => {
+    const combo = getCombination(resort, partySize);
+    let deps;
+    if (dateMode === 'specific') deps = getDeparturesForDate(combo, dateFilter);
+    else if (dateMode === 'month' && dateFilter) deps = getDeparturesForMonth(combo, dateFilter);
+    else deps = combo.departures;
+    deps.forEach(dep => entries.push({ dep, resortName: resort.name, resortId: resort.id }));
+  });
 
   // Sort cheapest first
-  const sorted = [...departures].sort((a, b) => a.currentPrice - b.currentPrice);
-  const cheapest = sorted[0];
+  entries.sort((a, b) => a.dep.currentPrice - b.dep.currentPrice);
+  const cheapest = entries[0];
 
   // Title + subtitle
-  const partyLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
-  const monthLabel = monthStr ? ` — ${monthStr}` : '';
-  document.getElementById('search-modal-title').textContent = `Optimal booking window — ${resort.name}${monthLabel}`;
-  document.getElementById('search-modal-subtitle').textContent = `${partyLabel} · 7 nights · Saturday departures`;
+  const resortLabel = isAllResorts ? 'All resorts' : resortList[0].name;
+  const dateLabel = (dateMode === 'month' || dateMode === 'specific') && dateFilter ? ` — ${dateFilter}` : '';
+  document.getElementById('search-modal-title').textContent = `Optimal booking window — ${resortLabel}${dateLabel}`;
+  document.getElementById('search-modal-subtitle').textContent = `${partyLabel} · 7 nights`;
 
   // Best date banner
   const bannerEl = document.getElementById('search-modal-best-banner');
   if (cheapest) {
-    const saving = sorted.length > 1 ? sorted[sorted.length - 1].currentPrice - cheapest.currentPrice : 0;
-    const move = cheapest.currentPrice - cheapest.previousPrice;
+    const saving = entries.length > 1 ? entries[entries.length - 1].dep.currentPrice - cheapest.dep.currentPrice : 0;
+    const move = cheapest.dep.currentPrice - cheapest.dep.previousPrice;
     const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))} in 14 days` : move > 10 ? `↑ ${formatPrice(Math.abs(move))} in 14 days` : 'Stable over 14 days';
-    const rangeLabel = monthStr ? 'this month' : 'across all available dates';
+    const rangeLabel = dateMode === 'month' && dateFilter ? 'this month' : dateMode === 'specific' ? 'on this date' : 'across all available dates';
+    const resortLine = isAllResorts ? `<div style="font-size:13px;font-weight:600;color:var(--teal);margin-top:4px;">${cheapest.resortName}</div>` : '';
     bannerEl.innerHTML = `
       <div class="best-date-banner">
         <div>
           <p class="best-date-label">Optimal booking window — ${rangeLabel}</p>
-          <div class="best-date-price">${formatPrice(cheapest.currentPrice)}</div>
-          <div class="best-date-week">${cheapest.displayDate}</div>
+          <div class="best-date-price">${formatPrice(cheapest.dep.currentPrice)}</div>
+          <div class="best-date-week">${cheapest.dep.displayDate}${resortLine}</div>
         </div>
         <div style="text-align:right;">
-          ${getSignalBadgeHTML(cheapest.signal)}
+          ${getSignalBadgeHTML(cheapest.dep.signal)}
           <div style="font-size:13px;color:var(--text-muted);margin-top:10px;">${movLabel}</div>
-          ${saving > 0 ? `<div style="font-size:12px;font-weight:600;color:var(--teal);margin-top:6px;">${formatPrice(saving)} cheaper than the priciest week</div>` : ''}
+          ${saving > 0 ? `<div style="font-size:12px;font-weight:600;color:var(--teal);margin-top:6px;">${formatPrice(saving)} range ${rangeLabel}</div>` : ''}
         </div>
       </div>`;
   } else {
-    bannerEl.innerHTML = `<p style="color:var(--text-muted);font-size:14px;padding:16px 0;">No departures found for ${monthStr}. Try a different month.</p>`;
+    const noMsg = dateMode === 'specific' && dateFilter
+      ? `No departures found on ${dateFilter}. Club Med departures fall on fixed days — try a nearby date.`
+      : dateMode === 'month' && dateFilter
+        ? `No departures found for ${dateFilter}. Try a different month.`
+        : 'No departures available yet. Booking opens June/July 2026.';
+    bannerEl.innerHTML = `<p style="color:var(--text-muted);font-size:14px;padding:16px 0;">${noMsg}</p>`;
   }
 
-  // Update rows label based on whether month was specified
+  // Rows label
   const rowsLabelEl = document.getElementById('search-modal-rows-label');
   if (rowsLabelEl) {
-    rowsLabelEl.textContent = monthStr
-      ? 'All Saturday departures this month — ranked cheapest first'
-      : 'All available departures — ranked cheapest first';
+    const labelBase = dateMode === 'month' && dateFilter ? 'All departures this month'
+      : dateMode === 'specific' ? 'Departures on selected date'
+      : 'All available departures';
+    rowsLabelEl.textContent = `${labelBase} — ranked cheapest first`;
   }
 
   // Date rows
   const rowsEl = document.getElementById('search-modal-date-rows');
-  if (sorted.length === 0) {
-    rowsEl.innerHTML = '';
-  } else {
-    rowsEl.innerHTML = sorted.map((dep, i) => {
-      const isBest = i === 0;
-      const move = dep.currentPrice - dep.previousPrice;
-      const moveLabel = move < -10
-        ? `<span class="price-down">↓ ${formatPrice(Math.abs(move))}</span>`
-        : move > 10
-          ? `<span class="price-up">↑ ${formatPrice(Math.abs(move))}</span>`
-          : `<span class="price-stable">Stable</span>`;
-
-      return `
-        <div class="date-row${isBest ? ' best-row' : ''}">
-          <span class="date-row-week">${dep.displayDate}</span>
-          <span class="date-row-price">${formatPrice(dep.currentPrice)}</span>
-          <span class="date-row-move">${moveLabel}</span>
-          <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
-          <span class="date-row-book">
-            <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer"
-               class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;">
-              Book on Club Med
-            </a>
-          </span>
-        </div>`;
-    }).join('');
-  }
-
-  // Alternative months strip
-  const altEl = document.getElementById('search-modal-alt-months');
-  const selectedMonthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December']
-    .indexOf(monthStr.split(' ')[0]);
-  const yr = monthStr.split(' ')[1];
-
-  const otherMonths = monthStr ? ['December','January','February','March','April'].map(m => {
-    if (m === monthStr.split(' ')[0]) return null;
-    const key = `${m} ${yr}`;
-    const deps = getDeparturesForMonth(combo, key);
-    if (!deps.length) return null;
-    const best = deps.reduce((a, b) => a.currentPrice < b.currentPrice ? a : b);
-    return { month: key, price: best.currentPrice, signal: best.signal };
-  }).filter(Boolean) : [];
-
-  if (otherMonths.length && cheapest && monthStr) {
-    altEl.innerHTML = `
-      <p class="alt-months-label">Consider also — best price in other months</p>
-      <div class="alt-months-row">
-        ${otherMonths.map(m => {
-          const diff = cheapest.currentPrice - m.price;
-          const savingStr = diff > 0
-            ? `<span class="alt-month-saving">${formatPrice(diff)} less</span>`
-            : diff < 0
-              ? `<span style="font-size:11px;font-weight:600;color:var(--amber);">${formatPrice(Math.abs(diff))} more</span>`
-              : `<span style="font-size:11px;color:var(--text-muted);">Same price</span>`;
-          return `
-            <div class="alt-month-pill" onclick="switchSearchMonth('${resortId}','${m.month}','${partySize}')">
-              <div>
-                <div class="alt-month-name">${m.month.split(' ')[0]}</div>
-                ${savingStr}
-              </div>
-              <div class="alt-month-price">${formatPrice(m.price)}</div>
-            </div>`;
-        }).join('')}
+  rowsEl.innerHTML = entries.map((entry, i) => {
+    const { dep, resortName } = entry;
+    const isBest = i === 0;
+    const move = dep.currentPrice - dep.previousPrice;
+    const moveLabel = move < -10
+      ? `<span class="price-down">↓ ${formatPrice(Math.abs(move))}</span>`
+      : move > 10
+        ? `<span class="price-up">↑ ${formatPrice(Math.abs(move))}</span>`
+        : `<span class="price-stable">Stable</span>`;
+    const resortBadge = isAllResorts
+      ? `<span style="display:block;font-size:11px;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px;">${resortName}</span>`
+      : '';
+    return `
+      <div class="date-row${isBest ? ' best-row' : ''}">
+        <span class="date-row-week">${dep.displayDate}${resortBadge}</span>
+        <span class="date-row-price">${formatPrice(dep.currentPrice)}</span>
+        <span class="date-row-move">${moveLabel}</span>
+        <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
+        <span class="date-row-book">
+          <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer"
+             class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;">
+            Book on Club Med
+          </a>
+        </span>
       </div>`;
+  }).join('');
+
+  // Alt months strip — only for single resort + month mode
+  const altEl = document.getElementById('search-modal-alt-months');
+  if (!isAllResorts && dateMode === 'month' && dateFilter) {
+    const combo = getCombination(resortList[0], partySize);
+    const MONTH_YEARS = [
+      ['December', '2026'], ['January', '2027'], ['February', '2027'],
+      ['March', '2027'], ['April', '2027']
+    ];
+    const otherMonths = MONTH_YEARS
+      .map(([m, y]) => {
+        const key = `${m} ${y}`;
+        if (key === dateFilter) return null;
+        const deps = getDeparturesForMonth(combo, key);
+        if (!deps.length) return null;
+        const best = deps.reduce((a, b) => a.currentPrice < b.currentPrice ? a : b);
+        return { month: key, price: best.currentPrice, signal: best.signal };
+      })
+      .filter(Boolean);
+
+    if (otherMonths.length && cheapest) {
+      altEl.innerHTML = `
+        <p class="alt-months-label">Consider also — best price in other months</p>
+        <div class="alt-months-row">
+          ${otherMonths.map(m => {
+            const diff = cheapest.dep.currentPrice - m.price;
+            const savingStr = diff > 0
+              ? `<span class="alt-month-saving">${formatPrice(diff)} less</span>`
+              : diff < 0
+                ? `<span style="font-size:11px;font-weight:600;color:var(--amber);">${formatPrice(Math.abs(diff))} more</span>`
+                : `<span style="font-size:11px;color:var(--text-muted);">Same price</span>`;
+            return `
+              <div class="alt-month-pill" onclick="switchSearchMonth('${resortId}','${m.month}','${partySize}')">
+                <div>
+                  <div class="alt-month-name">${m.month.split(' ')[0]}</div>
+                  ${savingStr}
+                </div>
+                <div class="alt-month-price">${formatPrice(m.price)}</div>
+              </div>`;
+          }).join('')}
+        </div>`;
+    } else {
+      altEl.innerHTML = '';
+    }
   } else {
     altEl.innerHTML = '';
   }

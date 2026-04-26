@@ -356,6 +356,21 @@ def load_price_history_from_csv(resort_id, party_size, start_date):
         seen[entry["date"]] = entry["price"]
     return [{"date": d, "price": p} for d, p in sorted(seen.items())]
 
+def load_ever_priced_windows():
+    """
+    Return a set of (resort_id, party_size, start_date) tuples that have
+    returned at least one real price in any previous run.
+    Used to skip known-dead windows in non-full-scan runs.
+    """
+    seen = set()
+    if not Path(CSV_FILE).exists():
+        return seen
+    with open(CSV_FILE, newline="") as f:
+        for row in csv.DictReader(f):
+            if row.get("price"):
+                seen.add((row["resort_id"], row["party_size"], row["start_date"]))
+    return seen
+
 def load_all_price_stats():
     """
     Read price_history.csv once and return per-combo stats for enriching new rows.
@@ -617,10 +632,23 @@ def main():
     # Load historical price stats once — used to compute enriched CSV fields
     historical_stats = load_all_price_stats()
 
+    # 06:00 UTC = full scan (queries every window, including never-priced ones).
+    # All other runs skip windows that have never returned a price — saves ~80% of
+    # wasted API calls pre-season without missing any windows that open up mid-day.
+    run_hour = datetime.utcnow().hour
+    is_full_scan = (run_hour == 6)
+    ever_priced  = load_ever_priced_windows()
+    if is_full_scan:
+        print("Full scan run (06:00 UTC) — querying all windows including never-priced.")
+    else:
+        print(f"Incremental run ({run_hour:02d}:xx UTC) — skipping never-priced windows. "
+              f"Ever-priced windows: {len(ever_priced)}")
+
     all_results = {}  # (resort_id, party_size, start_date) -> price
     csv_rows    = []
     error_count    = 0  # only real API errors (network/HTTP failures)
     no_price_count = 0  # includes not_for_sale / closed — expected pre-season
+    skipped_count  = 0  # never-priced windows skipped in incremental runs
     timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     run_date  = date.today()
 
@@ -631,6 +659,13 @@ def main():
                 sd = window["startDate"]
                 ed = window["endDate"]
                 ps = combo["partySize"]
+
+                # In incremental runs, skip windows that have never returned a price.
+                # The 06:00 full scan catches any windows that newly come on sale.
+                window_key = (resort["id"], ps, sd)
+                if not is_full_scan and window_key not in ever_priced:
+                    skipped_count += 1
+                    continue
 
                 price, fetch_status = fetch_price(
                     resort["resortCode"],
@@ -720,7 +755,8 @@ def main():
             f"Check the GitHub Actions logs.\n\nRun timestamp: {timestamp}"
         )
 
-    print(f"\nDone. {prices_fetched}/{total} prices fetched successfully.")
+    queried = total + skipped_count
+    print(f"\nDone. {prices_fetched}/{total} prices fetched ({skipped_count} never-priced windows skipped).")
     if no_price_count:
         print(f"  {no_price_count} no-price responses ({error_count} errors, rest are pre-season/closed).")
 

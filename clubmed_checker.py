@@ -95,77 +95,80 @@ RESORTS = [
         "id":             "tignes-val-claret",
         "name":           "Tignes",
         "resortCode":     "TIGC_WINTER",    # verified 21 Apr 2026
-        "departure_day":  None,             # TODO: verify via DevTools
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe (Sun hits all months, Sat only Easter)
         "combos":         _COMBOS,
     },
     {
         "id":             "les-arcs",
         "name":           "Les Arcs Panorama",
         "resortCode":     "ARPC_WINTER",    # verified 21 Apr 2026
-        "departure_day":  None,             # TODO: verify via DevTools
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
     {
         "id":             "peisey-vallandry",
         "name":           "Peisey-Vallandry",
         "resortCode":     "PVAC_WINTER",    # verified 21 Apr 2026
-        "departure_day":  None,             # TODO: verify via DevTools
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
     {
         "id":             "valmorel",
         "name":           "Valmorel",
         "resortCode":     "VMOC_WINTER",    # verified 21 Apr 2026
-        "departure_day":  None,             # TODO: verify via DevTools
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe (Sat prices anomalously ~2x higher, likely wrong product)
         "combos":         _COMBOS,
     },
     {
         "id":             "alpe-dhuez",
         "name":           "Alpe d'Huez",
         "resortCode":     "ALHC_WINTER",    # verified 21 Apr 2026
-        "departure_day":  None,             # TODO: verify via DevTools
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
     {
         "id":             "la-rosiere",
         "name":           "La Rosière",
         "resortCode":     "LROC_WINTER",    # verified 21 Apr 2026
-        "departure_day":  None,             # TODO: verify via DevTools
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
     {
         "id":             "la-plagne-2100",
         "name":           "La Plagne 2100",
-        "resortCode":     "LP2C_WINTER",    # verified 26 Apr 2026 (API returned £3,322 for Apr 2027)
+        "resortCode":     "LP2C_WINTER",    # verified 26 Apr 2026
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026
         "combos":         _COMBOS,
     },
     {
         "id":             "val-disere",
         "name":           "Val d'Isère",
-        "resortCode":     "VDIC_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/val-disere/y
-        "departure_day":  None,             # TODO: verify via DevTools
+        "resortCode":     "VDIC_WINTER",    # confirmed 26 Apr 2026 via API probe (Sun returns prices, Sat closed/not-for-sale)
+        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
+    # WARNING: codes below return a flat £3,322 for every date (Sat+Sun, all months) — identical
+    # to each other, which strongly suggests these resort codes are WRONG. Do not rely on their
+    # price data until the correct codes are confirmed via DevTools on clubmed.co.uk.
     {
         "id":             "grand-massif",
         "name":           "Grand Massif Samoëns Morillon",
-        "resortCode":     "GMSM_WINTER",    # UNVERIFIED — check via DevTools
-        "departure_day":  None,             # TODO: verify via DevTools
+        "resortCode":     "GMSM_WINTER",    # LIKELY WRONG — returns flat £3,322 for all dates; verify via DevTools
+        "departure_day":  None,             # Cannot verify until correct code is found
         "combos":         _COMBOS,
     },
     {
         "id":             "val-thorens",
         "name":           "Val Thorens Sensations",
-        "resortCode":     "VTSC_WINTER",    # UNVERIFIED — check via DevTools
-        "departure_day":  None,             # TODO: verify via DevTools
+        "resortCode":     "VTSC_WINTER",    # LIKELY WRONG — returns flat £3,322 for all dates; verify via DevTools
+        "departure_day":  None,             # Cannot verify until correct code is found
         "combos":         _COMBOS,
     },
     {
         "id":             "serre-chevalier",
         "name":           "Serre-Chevalier",
-        "resortCode":     "SRCC_WINTER",    # UNVERIFIED — check via DevTools
-        "departure_day":  None,             # TODO: verify via DevTools
+        "resortCode":     "SRCC_WINTER",    # LIKELY WRONG — returns flat £3,322 for all dates; verify via DevTools
+        "departure_day":  None,             # Cannot verify until correct code is found
         "combos":         _COMBOS,
     },
 ]

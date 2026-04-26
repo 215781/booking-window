@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-clubmed_checker.py — Booking Window price checker
-Runs twice daily via GitHub Actions. Fetches live prices from the Club Med
+clubmed_checker.py — When To Book price checker
+Runs 6x daily via GitHub Actions. Fetches live prices from the Club Med
 GraphQL API and writes them directly into BookingWindow.html + price_history.csv
 
 Usage:
@@ -16,6 +16,7 @@ import csv
 import os
 import re
 import sys
+import time
 import smtplib
 import argparse
 from datetime import datetime, date, timedelta
@@ -68,8 +69,8 @@ def departure_windows(year, month):
         for s in saturdays_in_month(year, month)
     ]
 
-# Season: Jan–Apr 2027 ski season
-SKI_MONTHS = [(2027, m) for m in range(1, 5)]
+# Season: Dec 2026 – Apr 2027 ski season
+SKI_MONTHS = [(2026, 12)] + [(2027, m) for m in range(1, 5)]
 ALL_WINDOWS = []
 for yr, mo in SKI_MONTHS:
     ALL_WINDOWS.extend(departure_windows(yr, mo))
@@ -144,7 +145,7 @@ RESORTS = [
     {
         "id":         "la-plagne-2100",
         "name":       "La Plagne 2100",
-        "resortCode": "LP2C_WINTER",    # UNVERIFIED — check via DevTools on clubmed.co.uk/r/la-plagne-2100/y
+        "resortCode": "LP2C_WINTER",    # verified 26 Apr 2026 (API returned £3,322 for Apr 2027)
         "combos": [
             {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
             {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
@@ -221,9 +222,18 @@ QUERY = """mutation SearchPrice($id: ID!, $options: SearchPriceOptions) {
     }
 }"""
 
-def fetch_price(resort_code, adults, children, birthdates, start_date, end_date):
+NOT_FOR_SALE_REASONS = {"not for sale for the period", "the product is closed during this period"}
+
+def fetch_price(resort_code, adults, children, birthdates, start_date, end_date, retries=3):
     """Fetch a single price from the Club Med GraphQL API.
-    Returns integer price in £, or None if unavailable."""
+
+    Returns (price_or_None, status) where status is one of:
+      "ok"           — price returned successfully
+      "not_for_sale" — API says period not on sale yet (expected pre-season)
+      "closed"       — resort closed for this period
+      "no_price"     — API returned noPrice for another reason
+      "error"        — network/HTTP failure after all retries
+    """
     payload = {
         "operationName": "SearchPrice",
         "variables": {
@@ -242,24 +252,36 @@ def fetch_price(resort_code, adults, children, birthdates, start_date, end_date)
         },
         "query": QUERY,
     }
-    try:
-        r = requests.post(GRAPHQL_URL, json=payload, headers=HEADERS, timeout=20)
-        r.raise_for_status()
-        data = r.json()
-        result = data.get("data", {}).get("searchPrice", {})
-        price_obj = result.get("price")
-        if price_obj and price_obj.get("bestPrice"):
-            return int(price_obj["bestPrice"])
-        no_price = result.get("noPrice")
-        if no_price:
-            print(f"  No price returned — reason: {no_price.get('reason', 'unknown')}")
-        return None
-    except requests.exceptions.Timeout:
-        print(f"  Timeout fetching {resort_code} {start_date}")
-        return None
-    except Exception as e:
-        print(f"  Error fetching {resort_code} {start_date}: {e}")
-        return None
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            r = requests.post(GRAPHQL_URL, json=payload, headers=HEADERS, timeout=20)
+            r.raise_for_status()
+            data = r.json()
+            result = data.get("data", {}).get("searchPrice", {})
+            price_obj = result.get("price")
+            if price_obj and price_obj.get("bestPrice"):
+                return int(price_obj["bestPrice"]), "ok"
+            no_price = result.get("noPrice")
+            if no_price:
+                reason = no_price.get("reason", "unknown")
+                reason_lower = reason.lower()
+                if "not for sale" in reason_lower:
+                    return None, "not_for_sale"
+                elif "closed" in reason_lower:
+                    return None, "closed"
+                else:
+                    print(f"  No price — reason: {reason}")
+                    return None, "no_price"
+            return None, "no_price"
+        except requests.exceptions.Timeout:
+            last_error = f"Timeout (attempt {attempt}/{retries})"
+        except Exception as e:
+            last_error = str(e)
+        if attempt < retries:
+            time.sleep(2 ** attempt)
+    print(f"  Error fetching {resort_code} {start_date}: {last_error}")
+    return None, "error"
 
 # ─────────────────────────────────────────────────────────────
 # SIGNAL LOGIC
@@ -499,12 +521,12 @@ def check_for_alerts(all_results, previous_signals):
             display_date = dep_dt.strftime("%-d %b %Y")
             subject = f"Booking Window signal: {resort_name} w/c {display_date} — Book Now"
             body = (
-                f"A new Book Now signal has triggered on Booking Window.\n\n"
+                f"A new Book Now signal has triggered on When To Book.\n\n"
                 f"Resort:     {resort_name}\n"
                 f"Departure:  w/c {display_date}\n"
                 f"Party size: {party_size}\n"
                 f"Price:      £{price:,}\n\n"
-                f"View: https://bookingwindow.co.uk\n"
+                f"View: https://whentobook.co.uk\n"
             )
             send_alert(subject, body)
 
@@ -545,7 +567,7 @@ RESORT_META = {
 # ALHC_WINTER — Alpe d'Huez (verified 21 Apr 2026)
 # LROC_WINTER — La Rosière (verified 21 Apr 2026)
 # (LROV_WINTER = La Rosière Espace Exclusive Collection — premium, separate product)
-# LP2C_WINTER — La Plagne 2100 (UNVERIFIED)
+# LP2C_WINTER — La Plagne 2100 (verified 26 Apr 2026)
 # VDIC_WINTER — Val d'Isère (UNVERIFIED)
 # GMSM_WINTER — Grand Massif Samoëns Morillon (UNVERIFIED)
 # VTSC_WINTER — Val Thorens Sensations (UNVERIFIED)
@@ -570,12 +592,12 @@ def main():
 
     # Quick API verify mode
     if args.verify:
-        print("Verifying API with Valmorel (VMOC_WINTER) 2A, 6 Feb 2027...")
-        price = fetch_price("VMOC_WINTER", 2, 0, [], "2027-02-06", "2027-02-13")
+        print("Verifying API with Tignes (TIGC_WINTER) 2A, 17 Apr 2027...")
+        price, status = fetch_price("TIGC_WINTER", 2, 0, [], "2027-04-17", "2027-04-24")
         if price:
             print(f"  SUCCESS — price returned: £{price:,}")
         else:
-            print("  FAILED — no price returned (check IP / API status)")
+            print(f"  No price returned (status: {status}) — API is {'reachable' if status != 'error' else 'unreachable'}")
         return
 
     # Load previous signals for alert comparison
@@ -583,7 +605,8 @@ def main():
 
     all_results = {}  # (resort_id, party_size, start_date) -> price
     csv_rows    = []
-    no_price_count = 0
+    error_count    = 0  # only real API errors (network/HTTP failures)
+    no_price_count = 0  # includes not_for_sale / closed — expected pre-season
     timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
 
     for resort in RESORTS:
@@ -594,7 +617,7 @@ def main():
                 ed = window["endDate"]
                 ps = combo["partySize"]
 
-                price = fetch_price(
+                price, fetch_status = fetch_price(
                     resort["resortCode"],
                     combo["adults"],
                     combo["children"],
@@ -607,7 +630,11 @@ def main():
 
                 if price is None:
                     no_price_count += 1
-                    print(f"  {ps} {sd}: no price")
+                    if fetch_status == "error":
+                        error_count += 1
+                        print(f"  {ps} {sd}: API error")
+                    elif fetch_status not in ("not_for_sale", "closed"):
+                        print(f"  {ps} {sd}: no price ({fetch_status})")
                 else:
                     print(f"  {ps} {sd}: £{price:,}")
 
@@ -641,18 +668,19 @@ def main():
     if not args.test:
         check_for_alerts(all_results, previous_signals)
 
-    # Health check
+    # Health check — only alert on actual API errors, not pre-season "not for sale" responses
     total = len(csv_rows)
-    if total > 0 and no_price_count / total > 0.5:
+    prices_fetched = total - no_price_count
+    if error_count > 0 and total > 0 and error_count / total > 0.3:
         send_alert(
-            "Booking Window health alert — high no-price rate",
-            f"{no_price_count}/{total} price fetches returned nothing. "
-            f"Check the API or IP status.\n\nRun timestamp: {timestamp}"
+            "When To Book health alert — API errors detected",
+            f"{error_count}/{total} fetches failed with network/API errors (not including expected pre-season no-price responses). "
+            f"Check the GitHub Actions logs.\n\nRun timestamp: {timestamp}"
         )
 
-    print(f"\nDone. {total - no_price_count}/{total} prices fetched successfully.")
+    print(f"\nDone. {prices_fetched}/{total} prices fetched successfully.")
     if no_price_count:
-        print(f"  {no_price_count} missing prices (API may be blocking or dates unavailable).")
+        print(f"  {no_price_count} no-price responses ({error_count} errors, rest are pre-season/closed).")
 
 if __name__ == "__main__":
     main()

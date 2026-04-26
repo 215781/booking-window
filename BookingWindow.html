@@ -411,9 +411,10 @@
       border-radius: 1px;
     }
 
-    .signal-book-now { background: var(--teal); color: #fff; }
+    .signal-favourable { background: var(--teal); color: #fff; }
     .signal-watch { background: var(--amber); color: #fff; }
     .signal-hold { background: #bbb5aa; color: #fff; }
+    .signal-building { background: #e5e0d8; color: #9a9590; font-style: italic; }
 
     .card-location {
       font-size: 12px;
@@ -1204,24 +1205,24 @@
     <div class="guide-panels">
       <div class="guide-panel guide-panel-teal">
         <div class="guide-panel-header">
-          <span class="signal-badge signal-book-now">Book Now</span>
+          <span class="signal-badge signal-favourable">Favourable</span>
         </div>
-        <p class="guide-panel-lead">"The window is open. Conditions are in your favour."</p>
-        <p class="guide-panel-body">Price has moved to a historically favourable level, availability is tightening, or both. The data suggests this combination has reached its optimal booking point. Acting now is rational.</p>
+        <p class="guide-panel-lead">"Conditions suggest a reasonable time to book."</p>
+        <p class="guide-panel-body">Price is stable or has plateaued at a historically favourable level, or availability signals suggest further drops are unlikely. The data points toward acting now — but timing is yours to judge.</p>
       </div>
       <div class="guide-panel guide-panel-amber">
         <div class="guide-panel-header">
           <span class="signal-badge signal-watch">Watch</span>
         </div>
-        <p class="guide-panel-lead">"Something is shifting. Worth revisiting within days."</p>
-        <p class="guide-panel-body">We are observing meaningful movement in price or availability — but the picture isn't yet clear enough to signal either way. Check back in the next few days as the pattern resolves.</p>
+        <p class="guide-panel-lead">"Price has moved recently. Direction is still resolving."</p>
+        <p class="guide-panel-body">Price has shifted meaningfully in the past week, or the booking window suggests movement is likely soon. The picture isn't clear enough to signal either way — check back in the next few days.</p>
       </div>
       <div class="guide-panel guide-panel-grey">
         <div class="guide-panel-header">
           <span class="signal-badge signal-hold">Hold</span>
         </div>
-        <p class="guide-panel-lead">"Stable conditions. No urgency in either direction."</p>
-        <p class="guide-panel-body">Price is stable and availability is comfortable relative to historical norms. There's no compelling reason to act immediately. We'll alert you if conditions change.</p>
+        <p class="guide-panel-lead">"Stable conditions. Further drops are likely."</p>
+        <p class="guide-panel-body">Price has risen recently, availability is comfortable, and the booking window suggests further drops are likely before the season closes. Patience is the rational position here.</p>
       </div>
     </div>
   </div>
@@ -2613,7 +2614,7 @@ const RESORT_DATA = [
             currentPrice: 6575, previousPrice: 7555,
             priceHistory: [{"date": "2026-04-22", "price": 7555}, {"date": "2026-04-23", "price": 7555}, {"date": "2026-04-24", "price": 6575}, {"date": "2026-04-25", "price": 6575}, {"date": "2026-04-26", "price": 6575}],
             availability: "good", availabilityTrend: "stable",
-            signal: "book-now", lastUpdated: "2026-04-26T14:40:43Z"
+            signal: "favourable", lastUpdated: "2026-04-26T14:40:43Z"
           },
           {
             date: "2027-01-03", displayDate: "w/c 4 Jan 2027",
@@ -6109,10 +6110,10 @@ function getCombination(resort, partySize) {
   return resort.combinations.find(c => c.partySize === partySize) || resort.combinations[0];
 }
 
-// For the cards: return the departure with the strongest signal (book-now > watch > hold)
+// For the cards: return the departure with the strongest signal (favourable > watch > hold)
 // falling back to the first upcoming departure
 function getActiveDeparture(combo) {
-  const priority = { 'book-now': 0, 'watch': 1, 'hold': 2 };
+  const priority = { 'favourable': 0, 'watch': 1, 'hold': 2 };
   const sorted = [...combo.departures].sort((a, b) => priority[a.signal] - priority[b.signal]);
   return sorted[0] || combo.departures[0];
 }
@@ -6171,11 +6172,17 @@ function getAvailDotClass(dep) {
   return map[dep.availability] || 'avail-good';
 }
 
+// Set to true once several months of price history have accumulated (target: autumn 2026)
+const DATA_SUFFICIENT = false;
+
 function getSignalBadgeHTML(signal) {
+  if (!DATA_SUFFICIENT) {
+    return '<span class="signal-badge signal-building">Building data</span>';
+  }
   const map = {
-    'book-now': '<span class="signal-badge signal-book-now">Book Now</span>',
-    'watch':    '<span class="signal-badge signal-watch">Watch</span>',
-    'hold':     '<span class="signal-badge signal-hold">Hold</span>'
+    'favourable': '<span class="signal-badge signal-favourable">Favourable</span>',
+    'watch':      '<span class="signal-badge signal-watch">Watch</span>',
+    'hold':       '<span class="signal-badge signal-hold">Hold</span>'
   };
   return map[signal] || '';
 }
@@ -6218,8 +6225,8 @@ function buildSparklinePath(prices, w, h) {
 function buildSparklineSVG(dep, signal) {
   const prices = dep.priceHistory.map(p => p.price);
   const w = 220, h = 44;
-  const strokeColors = { 'book-now': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
-  const fillColors   = { 'book-now': 'rgba(26,74,66,0.08)', 'watch': 'rgba(138,106,42,0.08)', 'hold': 'rgba(187,181,170,0.08)' };
+  const strokeColors = { 'favourable': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
+  const fillColors   = { 'favourable': 'rgba(26,74,66,0.08)', 'watch': 'rgba(138,106,42,0.08)', 'hold': 'rgba(187,181,170,0.08)' };
   const stroke = strokeColors[signal] || '#bbb5aa';
   const fill   = fillColors[signal]   || 'rgba(187,181,170,0.08)';
   const path = buildSparklinePath(prices, w, h);
@@ -6323,7 +6330,7 @@ function buildModalChart(dep, signal) {
   const w = 600, h = 140;
   const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1;
   const padX = 8, padY = 12;
-  const strokeColors = { 'book-now': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
+  const strokeColors = { 'favourable': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
   const stroke = strokeColors[signal] || '#bbb5aa';
 
   const pts = prices.map((p, i) => {
@@ -6367,16 +6374,19 @@ function buildModalChart(dep, signal) {
 }
 
 function getModalAnalysis(resort, dep) {
+  if (!DATA_SUFFICIENT) {
+    return `Booking intelligence signals for ${resort.name} are not yet available. We need several months of price history before we can produce reliable Favourable / Watch / Hold signals. Data collection started April 2026 — check back in autumn 2026 when the booking window opens and prices begin moving.`;
+  }
   const signal = dep.signal;
   const move = dep.currentPrice - dep.previousPrice;
   const absDiff = Math.abs(move);
-  if (signal === 'book-now') {
-    return `Price has fallen ${formatPrice(absDiff)} over the past 14 days, reaching a level that sits below seasonal norms for ${resort.name}. Availability is ${dep.availability} and ${dep.availabilityTrend === 'tightening' ? 'tightening — rooms are being taken' : 'stable'}. The combination of price movement and availability pressure is what triggers a Book Now signal. On current trajectory, we would expect prices to recover as the departure date approaches.`;
+  if (signal === 'favourable') {
+    return `Price has fallen ${formatPrice(absDiff)} over the past 14 days, reaching a level that sits below seasonal norms for ${resort.name}. Availability is ${dep.availability} and ${dep.availabilityTrend === 'tightening' ? 'tightening — rooms are being taken' : 'stable'}. Conditions are historically favourable. On current trajectory, we would expect prices to recover as the departure date approaches.`;
   }
   if (signal === 'watch') {
-    return `Price at ${resort.name} has risen ${formatPrice(absDiff)} over the past 14 days — a move we're monitoring. This doesn't yet indicate an irreversible upward trend, but it's worth revisiting within the next few days. Availability remains moderate. If price continues upward and availability tightens, this would likely convert to a Book Now signal.`;
+    return `Price at ${resort.name} has moved ${formatPrice(absDiff)} over the past 14 days — a shift we're monitoring. The direction isn't yet clear enough to signal either way. Availability remains moderate. Check back within the next few days as the pattern resolves.`;
   }
-  return `Price at ${resort.name} is broadly stable, with no meaningful movement in either direction over the past 14 days. Availability is ${dep.availability} with no sign of tightening. There's no compelling reason to act now. We'll update this signal immediately if conditions change.`;
+  return `Price at ${resort.name} is broadly stable, with no meaningful movement in either direction over the past 14 days. Availability is ${dep.availability} with no sign of tightening. The booking window suggests further drops are likely before the season closes — patience is the rational position.`;
 }
 
 function openModal(resortId, partySize) {
@@ -6660,6 +6670,19 @@ function closeSearchModal() {
   document.getElementById('search-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// Cookie banner
+(function() {
+  if (localStorage.getItem('cookie-notice-dismissed')) return;
+  const banner = document.createElement('div');
+  banner.id = 'cookie-banner';
+  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a2e2a;color:#c8c0b4;font-family:Inter,sans-serif;font-size:12px;line-height:1.5;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9999;border-top:1px solid rgba(255,255,255,0.08);';
+  banner.innerHTML = `
+    <span>This site uses no tracking cookies. We collect no personal data beyond email addresses you choose to submit for price alerts. <a href="/privacy.html" style="color:#8ab5ac;text-decoration:underline;">Privacy policy</a></span>
+    <button onclick="localStorage.setItem('cookie-notice-dismissed','1');document.getElementById('cookie-banner').remove();" style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.25);color:#c8c0b4;font-family:Inter,sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:2px;">OK</button>
+  `;
+  document.body.appendChild(banner);
+})();
 </script>
 </body>
 </html>

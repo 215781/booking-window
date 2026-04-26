@@ -1,10 +1,13 @@
 name: Club Med Price Checker
 
 on:
-  schedule:
-    - cron: "0 7 * * *"   # 07:00 UTC (08:00 UK) — morning run
-    - cron: "0 19 * * *"  # 19:00 UTC (20:00 UK) — evening run
-  workflow_dispatch:        # allows manual trigger from GitHub Actions tab
+  # Scheduled runs paused — 882 queries per run risks IP ban from Club Med.
+  # Need to implement request spreading or rotating IPs before re-enabling.
+  # To re-enable: uncomment the schedule block below.
+  # schedule:
+  #   - cron: "0 7 * * *"   # 07:00 UTC (08:00 UK) — morning run
+  #   - cron: "0 19 * * *"  # 19:00 UTC (20:00 UK) — evening run
+  workflow_dispatch:        # manual trigger still available from GitHub Actions tab
 
 permissions:
   contents: write

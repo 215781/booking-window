@@ -63,6 +63,10 @@ def saturdays_in_month(year, month):
     return dates
 
 # Build departure windows: start = Saturday, end = following Saturday (7 nights)
+# MULTI-DURATION TODO: to support 10 & 14-night stays, parameterise duration_nights here,
+# generate endDate = startDate + duration_nights, and loop over durations in main().
+# Update the HTML RESORT_DATA structure to include a "nights" field per departure,
+# and update the frontend to display and filter by duration.
 def departure_windows(year, month):
     return [
         {"startDate": s, "endDate": (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=7)).strftime("%Y-%m-%d")}
@@ -472,8 +476,9 @@ def inject_into_html(js_string, test_mode=False):
         return
     with open(HTML_FILE, "r", encoding="utf-8") as f:
         html = f.read()
-    # Match from 'const RESORT_DATA = [' to the closing '];'
-    pattern = r"const RESORT_DATA = \[.*\];"
+    # Match from 'const RESORT_DATA = [' to the closing ']; on its own line.
+    # Non-greedy + \n before ]; prevents consuming JS functions that follow.
+    pattern = r"const RESORT_DATA = \[.*?\n\];"
     new_html, count = re.subn(pattern, js_string, html, count=1, flags=re.DOTALL)
     if count == 0:
         print("WARNING: Could not find RESORT_DATA in HTML — no injection performed.")

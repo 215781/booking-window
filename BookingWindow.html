@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Booking Window — Club Med Price Intelligence</title>
+  <title>When To Book — Club Med Price Intelligence</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -1013,7 +1013,7 @@
 <!-- ── Navigation ── -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="logo">Booking <span>Window</span></a>
+    <a href="#" class="logo">When To <span>Book</span></a>
     <ul class="nav-links">
       <li><a href="#signals">Signals</a></li>
       <li><a href="#how-it-works">How it Works</a></li>
@@ -1028,7 +1028,7 @@
   <div class="container">
     <div class="hero-inner">
       <div class="hero-left">
-        <p class="section-label">Club Med Price Intelligence</p>
+        <p class="section-label">When To Book</p>
         <h1 class="hero-headline">Knowing <em>when</em> to book is as important as knowing where.</h1>
         <p class="hero-sub">We track Club Med resort pricing across every ski season — building the historical context that tells you whether today's price is an opportunity, or whether patience pays.</p>
         <blockquote class="hero-quote">
@@ -1037,7 +1037,7 @@
       </div>
       <div class="hero-right">
         <div class="hero-form-wrap">
-          <h3>Check your booking signal</h3>
+          <h3>Find your optimal booking window</h3>
           <form id="hero-form" autocomplete="off">
             <div class="form-group">
               <label for="hero-resort">Resort</label>
@@ -1057,13 +1057,22 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="hero-month">Departure Month</label>
+              <label for="hero-month">Departure Month <span style="font-size:11px;color:var(--teal);font-weight:400;text-transform:none;">(optional)</span></label>
               <select id="hero-month" name="month">
-                <option value="">Select month</option>
+                <option value="">Any available month</option>
+                <option>December 2026</option>
                 <option>January 2027</option>
                 <option>February 2027</option>
                 <option>March 2027</option>
                 <option>April 2027</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="hero-duration">Stay Duration</label>
+              <select id="hero-duration" name="duration" style="color:var(--text);">
+                <option value="7">7 nights</option>
+                <option value="10" disabled style="color:var(--text-muted);">10 nights (coming soon)</option>
+                <option value="14" disabled style="color:var(--text-muted);">14 nights (coming soon)</option>
               </select>
             </div>
             <div class="form-group">
@@ -1074,10 +1083,10 @@
                 <option value="2A2C">2 Adults + 2 Children</option>
               </select>
             </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Show Booking Windows</button>
-            <p class="form-note">Select a resort and month to see all Saturday departures ranked by price, with booking signals and alternative month comparisons.</p>
+            <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Show Optimal Dates</button>
+            <p class="form-note">Select a resort to see the optimal booking window. Specify a month to narrow results, or leave blank to see across all available dates.</p>
             <div id="hero-confirmation" class="form-confirmation">
-              Signal checked. Scroll down to see current signals for your selection.
+              Showing optimal window for your search.
             </div>
           </form>
         </div>
@@ -1093,7 +1102,7 @@
       <div class="signals-header-left">
         <p class="section-label">Live Signals</p>
         <h2 class="signals-title">Current booking signals across Club Med ski resorts</h2>
-        <p class="signals-sub">Updated twice daily. All prices shown for 7 nights accommodation, Saturday departure. Click any resort for full price history.</p>
+        <p class="signals-sub">Updated 6× daily. Prices shown for 7 nights accommodation, Saturday departure. Click any resort for full price history.</p>
       </div>
       <div class="filter-bar" role="group" aria-label="Party size filter">
         <button class="filter-btn active" data-party="2A">2 Adults</button>
@@ -1170,7 +1179,8 @@
           <div class="form-group">
             <label for="alert-month">Travel Month</label>
             <select id="alert-month" name="month">
-              <option value="">Select month</option>
+              <option value="">Any month</option>
+              <option>December 2026</option>
               <option>January 2027</option>
               <option>February 2027</option>
               <option>March 2027</option>
@@ -1204,11 +1214,11 @@
 <section id="how-it-works" class="section" style="padding:80px 0;">
   <div class="container">
     <p class="section-label">The Method</p>
-    <h2 class="method-heading">How Booking Window works</h2>
+    <h2 class="method-heading">How When To Book works</h2>
     <div class="steps">
       <div class="step">
         <div class="step-number">01</div>
-        <h3 class="step-title">We track live Club Med pricing, twice daily.</h3>
+        <h3 class="step-title">We track live Club Med pricing, 6 times daily.</h3>
         <p class="step-body">Every major ski resort. Every Saturday departure across the season. Standard party sizes. We've been building this price history since autumn 2025 — and it compounds in value with every passing week.</p>
       </div>
       <div class="step">
@@ -1219,7 +1229,7 @@
       <div class="step">
         <div class="step-number">03</div>
         <h3 class="step-title">We tell you whether to book now, watch, or hold.</h3>
-        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated at 06:00 and 18:00 each day. The decision is always yours — we just make sure you're making it with the right information.</p>
+        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated 6 times per day. The decision is always yours — we just make sure you're making it with the right information.</p>
       </div>
     </div>
   </div>
@@ -1237,14 +1247,14 @@
   <div class="search-modal" id="search-modal">
     <div class="search-modal-header">
       <div>
-        <h2 class="search-modal-title" id="search-modal-title">Tignes Val Claret — February 2027</h2>
-        <p class="search-modal-subtitle" id="search-modal-subtitle">2 Adults · Saturday departures · 7 nights accommodation</p>
+        <h2 class="search-modal-title" id="search-modal-title">Finding optimal window...</h2>
+        <p class="search-modal-subtitle" id="search-modal-subtitle">2 Adults · 7 nights accommodation · Saturday departures</p>
       </div>
       <button class="modal-close" id="search-modal-close" aria-label="Close">&times;</button>
     </div>
     <div class="search-modal-body">
       <div id="search-modal-best-banner"></div>
-      <p class="date-rows-label">All Saturday departures — ranked cheapest first</p>
+      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked cheapest first</p>
       <div id="search-modal-date-rows"></div>
       <div class="alt-months" id="search-modal-alt-months"></div>
     </div>
@@ -2707,16 +2717,486 @@ const RESORT_DATA = [
   },
 ];
 
-  const otherMonths = ['January','February','March','April'].map(m => {
+// ═══════════════════════════════════════════════════
+// DERIVED DISPLAY HELPERS
+// ═══════════════════════════════════════════════════
+
+function getCombination(resort, partySize) {
+  return resort.combinations.find(c => c.partySize === partySize) || resort.combinations[0];
+}
+
+// For the cards: return the departure with the strongest signal (book-now > watch > hold)
+// falling back to the first upcoming departure
+function getActiveDeparture(combo) {
+  const priority = { 'book-now': 0, 'watch': 1, 'hold': 2 };
+  const sorted = [...combo.departures].sort((a, b) => priority[a.signal] - priority[b.signal]);
+  return sorted[0] || combo.departures[0];
+}
+
+// Filter departures to a given month string e.g. "February 2027"
+function getDeparturesForMonth(combo, monthStr) {
+  if (!monthStr) return combo.departures;
+  const [mon, yr] = monthStr.split(' ');
+  const monthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(mon);
+  if (monthIndex === -1) return combo.departures;
+  return combo.departures.filter(d => {
+    const dt = new Date(d.date);
+    return dt.getFullYear() === parseInt(yr) && dt.getMonth() === monthIndex;
+  });
+}
+
+// Best price across all months for a combo
+function getBestPriceByMonth(combo) {
+  const months = {};
+  combo.departures.forEach(d => {
+    const dt = new Date(d.date);
+    const key = dt.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+    if (!months[key] || d.currentPrice < months[key].price) {
+      months[key] = { price: d.currentPrice, signal: d.signal };
+    }
+  });
+  return months;
+}
+
+function formatPrice(n) {
+  return '£' + n.toLocaleString('en-GB');
+}
+
+function getPriceMovement(dep) {
+  const diff = dep.currentPrice - dep.previousPrice;
+  return diff; // negative = dropped, positive = rose, 0 = stable
+}
+
+function getAvailabilityLabel(dep) {
+  const labels = {
+    limited: { tightening: 'Limited — tightening', stable: 'Limited availability', easing: 'Limited — easing' },
+    moderate: { tightening: 'Moderate — tightening', stable: 'Moderate availability', easing: 'Moderate — easing' },
+    good: { tightening: 'Good — tightening', stable: 'Good availability', easing: 'Good — easing' }
+  };
+  return (labels[dep.availability] || {})[dep.availabilityTrend] || 'Availability unknown';
+}
+
+function getAvailDotClass(dep) {
+  const map = { limited: 'avail-limited', moderate: 'avail-moderate', good: 'avail-good' };
+  return map[dep.availability] || 'avail-good';
+}
+
+function getSignalBadgeHTML(signal) {
+  const map = {
+    'book-now': '<span class="signal-badge signal-book-now">Book Now</span>',
+    'watch':    '<span class="signal-badge signal-watch">Watch</span>',
+    'hold':     '<span class="signal-badge signal-hold">Hold</span>'
+  };
+  return map[signal] || '';
+}
+
+function getLastUpdatedLabel(isoStr) {
+  try {
+    const d = new Date(isoStr);
+    const now = new Date();
+    const diffH = Math.round((now - d) / 3600000);
+    if (diffH < 1) return 'Updated just now';
+    if (diffH === 1) return 'Updated 1 hour ago';
+    if (diffH < 24) return `Updated ${diffH} hours ago`;
+    return 'Updated today';
+  } catch { return 'Updated recently'; }
+}
+
+// ═══════════════════════════════════════════════════
+// SPARKLINE GENERATOR
+// ═══════════════════════════════════════════════════
+
+function buildSparklinePath(prices, w, h) {
+  if (!prices || prices.length < 2) return '';
+  const min = Math.min(...prices);
+  const max = Math.max(...prices);
+  const range = max - min || 1;
+  const pad = 3;
+  const pts = prices.map((p, i) => {
+    const x = pad + (i / (prices.length - 1)) * (w - pad * 2);
+    const y = pad + (1 - (p - min) / range) * (h - pad * 2);
+    return [x, y];
+  });
+  let d = `M ${pts[0][0]},${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const cp1x = (pts[i-1][0] + pts[i][0]) / 2;
+    d += ` C ${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+  }
+  return d;
+}
+
+function buildSparklineSVG(dep, signal) {
+  const prices = dep.priceHistory.map(p => p.price);
+  const w = 220, h = 44;
+  const strokeColors = { 'book-now': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
+  const fillColors   = { 'book-now': 'rgba(26,74,66,0.08)', 'watch': 'rgba(138,106,42,0.08)', 'hold': 'rgba(187,181,170,0.08)' };
+  const stroke = strokeColors[signal] || '#bbb5aa';
+  const fill   = fillColors[signal]   || 'rgba(187,181,170,0.08)';
+  const path = buildSparklinePath(prices, w, h);
+  const firstPt = (() => {
+    const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1, pad = 3;
+    const y = pad + (1 - (prices[0] - min) / range) * (h - pad * 2);
+    return `${pad},${y}`;
+  })();
+  const lastPt = (() => {
+    const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1, pad = 3;
+    const y = pad + (1 - (prices[prices.length-1] - min) / range) * (h - pad * 2);
+    return `${w - pad},${y}`;
+  })();
+  // area fill path
+  const areaPath = path + ` L ${w - 3},${h} L 3,${h} Z`;
+  return `<svg viewBox="0 0 ${w} ${h}" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="${areaPath}" fill="${fill}" stroke="none"/>
+    <path d="${path}" fill="none" stroke="${stroke}" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+  </svg>`;
+}
+
+// ═══════════════════════════════════════════════════
+// CARD RENDERER
+// ═══════════════════════════════════════════════════
+
+let activePartySize = '2A';
+let activeResortFilter = '';  // '' = show all
+
+function renderCards(partySize, resortFilter) {
+  if (resortFilter !== undefined) activeResortFilter = resortFilter;
+  const grid = document.getElementById('resort-grid');
+  grid.innerHTML = '';
+  const data = activeResortFilter
+    ? RESORT_DATA.filter(r => r.id === activeResortFilter)
+    : RESORT_DATA;
+  if (data.length === 0) {
+    grid.innerHTML = '<p style="color:var(--text-muted);font-size:14px;padding:24px 0;">No resorts match your selection.</p>';
+    return;
+  }
+  data.forEach(resort => {
+    const combo = getCombination(resort, partySize);
+    const dep = getActiveDeparture(combo);
+    const move = getPriceMovement(dep);
+    const absDiff = Math.abs(move);
+
+    let movementHTML;
+    if (move < -10) {
+      movementHTML = `<span class="price-movement price-down">↓ ${formatPrice(absDiff)} in 14 days</span>`;
+    } else if (move > 10) {
+      movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)} in 14 days</span>`;
+    } else {
+      movementHTML = `<span class="price-movement price-stable">— Stable over 14 days</span>`;
+    }
+
+    const card = document.createElement('div');
+    card.className = 'resort-card';
+    card.setAttribute('data-resort-id', resort.id);
+    card.setAttribute('role', 'button');
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('aria-label', `View details for ${resort.name}`);
+
+    card.innerHTML = `
+      <div class="card-image">
+        <span class="card-region">${resort.region}</span>
+      </div>
+      <div class="card-body">
+        <div class="card-name-row">
+          <span class="card-name">${resort.name}</span>
+          ${getSignalBadgeHTML(dep.signal)}
+        </div>
+        <p class="card-location">${resort.region} &middot; ${resort.altitude}</p>
+        <div class="card-price">${formatPrice(dep.currentPrice)}</div>
+        <div class="card-price-label">per party &mdash; 7 nights</div>
+        ${movementHTML}
+        <div class="sparkline-wrap">${buildSparklineSVG(dep, dep.signal)}</div>
+        <p class="departure-date">Best signal — ${dep.displayDate}</p>
+        <div class="card-footer">
+          <span class="availability">
+            <span class="avail-dot ${getAvailDotClass(dep)}"></span>
+            ${getAvailabilityLabel(dep)}
+          </span>
+          <span class="card-updated">${getLastUpdatedLabel(dep.lastUpdated)}</span>
+        </div>
+      </div>
+    `;
+
+    card.addEventListener('click', () => openModal(resort.id, partySize));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
+
+    grid.appendChild(card);
+  });
+}
+
+// ═══════════════════════════════════════════════════
+// MODAL
+// ═══════════════════════════════════════════════════
+
+function buildModalChart(dep, signal) {
+  const prices = dep.priceHistory.map(p => p.price);
+  const dates  = dep.priceHistory.map(p => p.date);
+  const w = 600, h = 140;
+  const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1;
+  const padX = 8, padY = 12;
+  const strokeColors = { 'book-now': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
+  const stroke = strokeColors[signal] || '#bbb5aa';
+
+  const pts = prices.map((p, i) => {
+    const x = padX + (i / (prices.length - 1)) * (w - padX * 2);
+    const y = padY + (1 - (p - min) / range) * (h - padY * 2);
+    return [x, y];
+  });
+
+  let linePath = `M ${pts[0][0]},${pts[0][1]}`;
+  for (let i = 1; i < pts.length; i++) {
+    const cp1x = (pts[i-1][0] + pts[i][0]) / 2;
+    linePath += ` C ${cp1x},${pts[i-1][1]} ${cp1x},${pts[i][1]} ${pts[i][0]},${pts[i][1]}`;
+  }
+  const areaPath = linePath + ` L ${pts[pts.length-1][0]},${h} L ${pts[0][0]},${h} Z`;
+
+  // grid lines
+  const gridCount = 4;
+  let gridLines = '';
+  for (let i = 0; i <= gridCount; i++) {
+    const y = padY + (i / gridCount) * (h - padY * 2);
+    const price = max - (i / gridCount) * range;
+    gridLines += `<line x1="${padX}" y1="${y}" x2="${w - padX}" y2="${y}" stroke="#e0d8cc" stroke-width="1"/>`;
+    gridLines += `<text x="${padX}" y="${y - 3}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif">${formatPrice(Math.round(price))}</text>`;
+  }
+
+  // date labels — show first, middle, last
+  let dateLabels = '';
+  [[0, pts[0][0]], [6, pts[6][0]], [13, pts[13][0]]].forEach(([i, x]) => {
+    const d = new Date(dates[i]);
+    const label = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+    dateLabels += `<text x="${x}" y="${h + 4}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="hanging">${label}</text>`;
+  });
+
+  return `<svg viewBox="0 0 ${w} ${h + 16}" xmlns="http://www.w3.org/2000/svg">
+    ${gridLines}
+    <path d="${areaPath}" fill="${stroke}14" stroke="none"/>
+    <path d="${linePath}" fill="none" stroke="${stroke}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${pts.map((p, i) => i === pts.length - 1 ? `<circle cx="${p[0]}" cy="${p[1]}" r="3" fill="${stroke}"/>` : '').join('')}
+    ${dateLabels}
+  </svg>`;
+}
+
+function getModalAnalysis(resort, dep) {
+  const signal = dep.signal;
+  const move = dep.currentPrice - dep.previousPrice;
+  const absDiff = Math.abs(move);
+  if (signal === 'book-now') {
+    return `Price has fallen ${formatPrice(absDiff)} over the past 14 days, reaching a level that sits below seasonal norms for ${resort.name}. Availability is ${dep.availability} and ${dep.availabilityTrend === 'tightening' ? 'tightening — rooms are being taken' : 'stable'}. The combination of price movement and availability pressure is what triggers a Book Now signal. On current trajectory, we would expect prices to recover as the departure date approaches.`;
+  }
+  if (signal === 'watch') {
+    return `Price at ${resort.name} has risen ${formatPrice(absDiff)} over the past 14 days — a move we're monitoring. This doesn't yet indicate an irreversible upward trend, but it's worth revisiting within the next few days. Availability remains moderate. If price continues upward and availability tightens, this would likely convert to a Book Now signal.`;
+  }
+  return `Price at ${resort.name} is broadly stable, with no meaningful movement in either direction over the past 14 days. Availability is ${dep.availability} with no sign of tightening. There's no compelling reason to act now. We'll update this signal immediately if conditions change.`;
+}
+
+function openModal(resortId, partySize) {
+  const resort = RESORT_DATA.find(r => r.id === resortId);
+  if (!resort) return;
+  const combo = getCombination(resort, partySize);
+  const dep = getActiveDeparture(combo);
+  const move = getPriceMovement(dep);
+  const absDiff = Math.abs(move);
+
+  document.getElementById('modal-title').textContent = resort.name;
+  document.getElementById('modal-subtitle').textContent = `${resort.region} · ${resort.altitude} · ${dep.displayDate}`;
+  document.getElementById('modal-signal-badge').innerHTML = getSignalBadgeHTML(dep.signal);
+
+  // meta row
+  let movDir = move < -10 ? `↓ ${formatPrice(absDiff)} in 14 days` : move > 10 ? `↑ ${formatPrice(absDiff)} in 14 days` : '— Stable';
+  document.getElementById('modal-meta').innerHTML = `
+    <div class="modal-meta-item"><span class="modal-meta-label">Current Price</span><span class="modal-meta-value">${formatPrice(dep.currentPrice)}</span></div>
+    <div class="modal-meta-item"><span class="modal-meta-label">14-Day Movement</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;font-weight:500;color:${move < -10 ? '#1a4a42' : move > 10 ? '#8a6a2a' : '#6b6b6b'}">${movDir}</span></div>
+    <div class="modal-meta-item"><span class="modal-meta-label">Party Size</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children'}</span></div>
+    <div class="modal-meta-item"><span class="modal-meta-label">Availability</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${getAvailabilityLabel(dep)}</span></div>
+  `;
+
+  document.getElementById('modal-chart').innerHTML = buildModalChart(dep, dep.signal);
+  document.getElementById('modal-analysis').textContent = getModalAnalysis(resort, dep);
+
+  document.getElementById('modal-set-alert-btn').onclick = () => {
+    closeModal();
+    document.getElementById('alert-resort').value = resort.id;
+    document.querySelector('#alerts').scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const overlay = document.getElementById('modal-overlay');
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('modal-close').focus();
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ═══════════════════════════════════════════════════
+// INIT & EVENT LISTENERS
+// ═══════════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+  // Initial render
+  renderCards('2A');
+
+  // Party size filter
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activePartySize = btn.getAttribute('data-party');
+      renderCards(activePartySize);
+    });
+  });
+
+  // Modal close
+  document.getElementById('modal-close').addEventListener('click', closeModal);
+  document.getElementById('modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('modal-overlay')) closeModal();
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // Hero form — open search results modal
+  document.getElementById('hero-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const selectedResort = document.getElementById('hero-resort').value;
+    const selectedMonth  = document.getElementById('hero-month').value;
+    const selectedParty  = document.getElementById('hero-party').value;
+
+    if (!selectedResort) {
+      // No resort selected — filter dashboard and scroll
+      activePartySize = selectedParty;
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.classList.toggle('active', b.getAttribute('data-party') === selectedParty);
+      });
+      renderCards(selectedParty, selectedResort);
+      document.querySelector('#signals').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // Resort selected — open search modal (month is optional)
+    openSearchModal(selectedResort, selectedMonth, selectedParty);
+  });
+
+  // Search results modal close
+  document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);
+  document.getElementById('search-modal-overlay').addEventListener('click', e => {
+    if (e.target === document.getElementById('search-modal-overlay')) closeSearchModal();
+  });
+
+  // Alert form
+  document.getElementById('alert-form').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('alert-email').value.trim();
+    if (!email) {
+      document.getElementById('alert-email').focus();
+      return;
+    }
+    const conf = document.getElementById('alert-confirmation');
+    conf.style.display = 'block';
+    setTimeout(() => { conf.style.display = 'none'; }, 6000);
+  });
+});
+
+// ═══════════════════════════════════════════════════
+// SEARCH RESULTS MODAL
+// ═══════════════════════════════════════════════════
+
+function openSearchModal(resortId, monthStr, partySize) {
+  const resort = RESORT_DATA.find(r => r.id === resortId);
+  if (!resort) return;
+  const combo = getCombination(resort, partySize);
+  const departures = monthStr ? getDeparturesForMonth(combo, monthStr) : combo.departures;
+
+  // Sort cheapest first
+  const sorted = [...departures].sort((a, b) => a.currentPrice - b.currentPrice);
+  const cheapest = sorted[0];
+
+  // Title + subtitle
+  const partyLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
+  const monthLabel = monthStr ? ` — ${monthStr}` : '';
+  document.getElementById('search-modal-title').textContent = `Optimal booking window — ${resort.name}${monthLabel}`;
+  document.getElementById('search-modal-subtitle').textContent = `${partyLabel} · 7 nights · Saturday departures`;
+
+  // Best date banner
+  const bannerEl = document.getElementById('search-modal-best-banner');
+  if (cheapest) {
+    const saving = sorted.length > 1 ? sorted[sorted.length - 1].currentPrice - cheapest.currentPrice : 0;
+    const move = cheapest.currentPrice - cheapest.previousPrice;
+    const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))} in 14 days` : move > 10 ? `↑ ${formatPrice(Math.abs(move))} in 14 days` : 'Stable over 14 days';
+    const rangeLabel = monthStr ? 'this month' : 'across all available dates';
+    bannerEl.innerHTML = `
+      <div class="best-date-banner">
+        <div>
+          <p class="best-date-label">Optimal booking window — ${rangeLabel}</p>
+          <div class="best-date-price">${formatPrice(cheapest.currentPrice)}</div>
+          <div class="best-date-week">${cheapest.displayDate}</div>
+        </div>
+        <div style="text-align:right;">
+          ${getSignalBadgeHTML(cheapest.signal)}
+          <div style="font-size:13px;color:var(--text-muted);margin-top:10px;">${movLabel}</div>
+          ${saving > 0 ? `<div style="font-size:12px;font-weight:600;color:var(--teal);margin-top:6px;">${formatPrice(saving)} cheaper than the priciest week</div>` : ''}
+        </div>
+      </div>`;
+  } else {
+    bannerEl.innerHTML = `<p style="color:var(--text-muted);font-size:14px;padding:16px 0;">No departures found for ${monthStr}. Try a different month.</p>`;
+  }
+
+  // Update rows label based on whether month was specified
+  const rowsLabelEl = document.getElementById('search-modal-rows-label');
+  if (rowsLabelEl) {
+    rowsLabelEl.textContent = monthStr
+      ? 'All Saturday departures this month — ranked cheapest first'
+      : 'All available departures — ranked cheapest first';
+  }
+
+  // Date rows
+  const rowsEl = document.getElementById('search-modal-date-rows');
+  if (sorted.length === 0) {
+    rowsEl.innerHTML = '';
+  } else {
+    rowsEl.innerHTML = sorted.map((dep, i) => {
+      const isBest = i === 0;
+      const move = dep.currentPrice - dep.previousPrice;
+      const moveLabel = move < -10
+        ? `<span class="price-down">↓ ${formatPrice(Math.abs(move))}</span>`
+        : move > 10
+          ? `<span class="price-up">↑ ${formatPrice(Math.abs(move))}</span>`
+          : `<span class="price-stable">Stable</span>`;
+
+      return `
+        <div class="date-row${isBest ? ' best-row' : ''}">
+          <span class="date-row-week">${dep.displayDate}</span>
+          <span class="date-row-price">${formatPrice(dep.currentPrice)}</span>
+          <span class="date-row-move">${moveLabel}</span>
+          <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
+          <span class="date-row-book">
+            <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer"
+               class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;">
+              Book on Club Med
+            </a>
+          </span>
+        </div>`;
+    }).join('');
+  }
+
+  // Alternative months strip
+  const altEl = document.getElementById('search-modal-alt-months');
+  const selectedMonthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December']
+    .indexOf(monthStr.split(' ')[0]);
+  const yr = monthStr.split(' ')[1];
+
+  const otherMonths = monthStr ? ['December','January','February','March','April'].map(m => {
     if (m === monthStr.split(' ')[0]) return null;
     const key = `${m} ${yr}`;
     const deps = getDeparturesForMonth(combo, key);
     if (!deps.length) return null;
     const best = deps.reduce((a, b) => a.currentPrice < b.currentPrice ? a : b);
     return { month: key, price: best.currentPrice, signal: best.signal };
-  }).filter(Boolean);
+  }).filter(Boolean) : [];
 
-  if (otherMonths.length && cheapest) {
+  if (otherMonths.length && cheapest && monthStr) {
     altEl.innerHTML = `
       <p class="alt-months-label">Consider also — best price in other months</p>
       <div class="alt-months-row">

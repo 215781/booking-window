@@ -2,12 +2,8 @@ name: Club Med Price Checker
 
 on:
   schedule:
-    - cron: "0 6 * * *"   # 06:00 UTC
-    - cron: "0 9 * * *"   # 09:00 UTC
-    - cron: "0 12 * * *"  # 12:00 UTC
-    - cron: "0 15 * * *"  # 15:00 UTC
-    - cron: "0 18 * * *"  # 18:00 UTC
-    - cron: "0 21 * * *"  # 21:00 UTC
+    - cron: "0 7 * * *"   # 07:00 UTC (08:00 UK) — morning run
+    - cron: "0 19 * * *"  # 19:00 UTC (20:00 UK) — evening run
   workflow_dispatch:        # allows manual trigger from GitHub Actions tab
 
 permissions:

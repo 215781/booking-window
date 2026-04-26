@@ -244,6 +244,48 @@
       line-height: 1.5;
     }
 
+    .party-adults-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .party-adults-row span { font-size: 14px; color: var(--text); }
+    .party-children-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .party-children-row label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin: 0;
+      white-space: nowrap;
+    }
+    .party-children-row select { width: auto; flex-shrink: 0; }
+    .child-ages { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
+    .child-age-row { display: flex; align-items: center; gap: 8px; }
+    .child-age-row label {
+      font-size: 12px;
+      color: var(--text-muted);
+      white-space: nowrap;
+      min-width: 56px;
+      margin: 0;
+      text-transform: none;
+      letter-spacing: 0;
+      font-weight: 400;
+    }
+    .child-age-row select { flex: 1; }
+    .child-age-note {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
     .form-confirmation {
       display: none;
       background: var(--teal-light);
@@ -366,7 +408,7 @@
     .card-image {
       position: relative;
       height: 160px;
-      background: var(--image-placeholder);
+      background: linear-gradient(150deg, #1a3040 0%, #2a5060 100%);
       overflow: hidden;
     }
 
@@ -1157,12 +1199,37 @@
               </select>
             </div>
             <div class="form-group">
-              <label for="hero-party">Party Size</label>
-              <select id="hero-party" name="partySize">
-                <option value="2A">2 Adults</option>
-                <option value="2A1C">2 Adults + 1 Child</option>
-                <option value="2A2C">2 Adults + 2 Children</option>
-              </select>
+              <label>Party</label>
+              <div class="party-adults-row">
+                <span>2 Adults</span>
+              </div>
+              <div class="party-children-row">
+                <label for="hero-children">Children</label>
+                <select id="hero-children" name="children">
+                  <option value="0">0</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                </select>
+              </div>
+              <div class="child-ages" id="child-ages" style="display:none;">
+                <div class="child-age-row" id="child-age-row-1">
+                  <label for="hero-child-age-1">Child 1</label>
+                  <select id="hero-child-age-1">
+                    <option value="u4">Under 4</option>
+                    <option value="4-11" selected>4–11</option>
+                    <option value="12plus">12 or over</option>
+                  </select>
+                </div>
+                <div class="child-age-row" id="child-age-row-2" style="display:none;">
+                  <label for="hero-child-age-2">Child 2</label>
+                  <select id="hero-child-age-2">
+                    <option value="u4">Under 4</option>
+                    <option value="4-11" selected>4–11</option>
+                    <option value="12plus">12 or over</option>
+                  </select>
+                </div>
+                <p class="child-age-note">Club Med pricing changes significantly at age 12. Prices shown reflect the ages entered.</p>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Show Optimal Dates</button>
             <p class="form-note">Select a resort to see the optimal booking window. Use the date mode tabs to narrow by month, pick a specific date, or search across all available dates.</p>
@@ -6255,6 +6322,21 @@ function buildSparklineSVG(dep, signal) {
 let activePartySize = '2A';
 let activeResortFilter = '';  // '' = show all
 
+const RESORT_GRADIENTS = {
+  'tignes-val-claret':  'linear-gradient(150deg, #1a3050 0%, #2a6070 60%, #3a8080 100%)',
+  'les-arcs':           'linear-gradient(150deg, #253850 0%, #2e6878 60%, #4a9090 100%)',
+  'peisey-vallandry':   'linear-gradient(150deg, #1e4038 0%, #2a6858 60%, #3a8060 100%)',
+  'valmorel':           'linear-gradient(150deg, #2a3828 0%, #3a6048 60%, #508068 100%)',
+  'alpe-dhuez':         'linear-gradient(150deg, #1a3860 0%, #2460a0 60%, #3888c0 100%)',
+  'la-rosiere':         'linear-gradient(150deg, #302848 0%, #485880 60%, #5878a8 100%)',
+  'la-plagne-2100':     'linear-gradient(150deg, #0e2e28 0%, #1a5040 60%, #287858 100%)',
+  'val-disere':         'linear-gradient(150deg, #181828 0%, #203050 60%, #304878 100%)',
+  'grand-massif':       'linear-gradient(150deg, #182e18 0%, #2a5030 60%, #407848 100%)',
+  'val-thorens':        'linear-gradient(150deg, #101828 0%, #182840 60%, #284868 100%)',
+  'serre-chevalier':    'linear-gradient(150deg, #2a2818 0%, #485030 60%, #607848 100%)',
+};
+const RESORT_GRADIENT_DEFAULT = 'linear-gradient(150deg, #1a3040 0%, #2a5060 100%)';
+
 function renderCards(partySize, resortFilter) {
   if (resortFilter !== undefined) activeResortFilter = resortFilter;
   const grid = document.getElementById('resort-grid');
@@ -6289,7 +6371,7 @@ function renderCards(partySize, resortFilter) {
     card.setAttribute('aria-label', `View details for ${resort.name}`);
 
     card.innerHTML = `
-      <div class="card-image">
+      <div class="card-image" style="background:${RESORT_GRADIENTS[resort.id] || RESORT_GRADIENT_DEFAULT};">
         <span class="card-region">${resort.region}</span>
       </div>
       <div class="card-body">
@@ -6407,6 +6489,7 @@ function openModal(resortId, partySize) {
     <div class="modal-meta-item"><span class="modal-meta-label">Current Price</span><span class="modal-meta-value">${formatPrice(dep.currentPrice)}</span></div>
     <div class="modal-meta-item"><span class="modal-meta-label">14-Day Movement</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;font-weight:500;color:${move < -10 ? '#1a4a42' : move > 10 ? '#8a6a2a' : '#6b6b6b'}">${movDir}</span></div>
     <div class="modal-meta-item"><span class="modal-meta-label">Party Size</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children'}</span></div>
+    ${partySize !== '2A' ? `<div class="modal-meta-item" style="grid-column:span 2;"><span class="modal-meta-label">Child pricing note</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:13px;color:#6b6b6b;">Prices reflect children aged under 12. Club Med pricing changes significantly at age 12 — verify for children near this threshold.</span></div>` : ''}
     <div class="modal-meta-item"><span class="modal-meta-label">Availability</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${getAvailabilityLabel(dep)}</span></div>
   `;
 
@@ -6469,16 +6552,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Children count — show/hide age selectors
+  document.getElementById('hero-children').addEventListener('change', function() {
+    const n = parseInt(this.value);
+    document.getElementById('child-ages').style.display       = n > 0 ? '' : 'none';
+    document.getElementById('child-age-row-2').style.display  = n > 1 ? '' : 'none';
+  });
+
   // Hero form — always open search results modal
   document.getElementById('hero-form').addEventListener('submit', e => {
     e.preventDefault();
     const selectedResort = document.getElementById('hero-resort').value;
-    const selectedParty  = document.getElementById('hero-party').value;
+    const children = parseInt(document.getElementById('hero-children').value);
+    const partySize = children === 0 ? '2A' : children === 1 ? '2A1C' : '2A2C';
     let dateFilter = '';
     if (activeDateMode === 'month')    dateFilter = document.getElementById('hero-month').value;
     else if (activeDateMode === 'specific') dateFilter = document.getElementById('hero-date').value;
 
-    openSearchModal(selectedResort || null, dateFilter, selectedParty, activeDateMode);
+    openSearchModal(selectedResort || null, dateFilter, partySize, activeDateMode);
   });
 
   // Search results modal close
@@ -6514,7 +6605,16 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   }
 
   const isAllResorts = !resortId;
-  const partyLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
+  function ageLabel(val) { return val === 'u4' ? 'under 4' : val === '12plus' ? 'age 12+' : 'age 4–11'; }
+  let partyLabel = '2 Adults';
+  if (partySize === '2A1C') {
+    const a1 = (document.getElementById('hero-child-age-1') || {}).value || '4-11';
+    partyLabel = `2 Adults + 1 Child (${ageLabel(a1)})`;
+  } else if (partySize === '2A2C') {
+    const a1 = (document.getElementById('hero-child-age-1') || {}).value || '4-11';
+    const a2 = (document.getElementById('hero-child-age-2') || {}).value || '4-11';
+    partyLabel = `2 Adults + 2 Children (${ageLabel(a1)}, ${ageLabel(a2)})`;
+  }
 
   // Build flat list of {dep, resortName, resortId} entries
   const entries = [];

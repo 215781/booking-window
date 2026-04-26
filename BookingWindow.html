@@ -983,6 +983,19 @@
       .hero-headline { font-size: 30px; }
       .hero-form-wrap { padding: 24px 20px; }
 
+      /* touch targets — 44px minimum */
+      .form-group select,
+      .form-group input { min-height: 44px; }
+      .btn { min-height: 44px; }
+      .filter-btn { min-height: 44px; }
+
+      /* signals header: title then filter bar below */
+      .signals-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
       .resort-grid { grid-template-columns: 1fr; }
 
       .guide-panels { grid-template-columns: 1fr; }
@@ -994,14 +1007,44 @@
 
       .alerts-heading { font-size: 28px; }
 
-      .modal { max-height: 95vh; }
+      /* modals slide up from bottom edge */
+      .modal-overlay { padding: 0; align-items: flex-end; }
+      .modal,
+      .search-modal { max-height: 92vh; width: 100%; }
+
       .modal-header { padding: 20px; }
       .modal-body { padding: 20px; }
       .modal-title { font-size: 20px; }
 
-      .modal-date-row { flex-wrap: wrap; gap: 8px; }
+      /* CTA buttons stack full-width */
+      .modal-cta { flex-direction: column; }
+      .modal-cta .btn { width: 100%; text-align: center; }
 
-      .alt-months-strip { flex-direction: column; gap: 8px; }
+      /* search modal */
+      .search-modal-header { padding: 20px; }
+      .search-modal-body { padding: 20px; }
+
+      /* best date banner stacks */
+      .best-date-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      /* date rows: 2-column grid — week + price on top, signal + book below */
+      .date-row {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 4px 12px;
+      }
+      .date-row-week { grid-column: 1; grid-row: 1; min-width: 0; font-size: 15px; }
+      .date-row-price { grid-column: 2; grid-row: 1; min-width: 0; font-size: 18px; text-align: right; }
+      .date-row-move { display: none; }
+      .date-row-signal { grid-column: 1; grid-row: 2; min-width: 0; text-align: left; }
+      .date-row-book { grid-column: 2; grid-row: 2; min-width: 0; text-align: right; }
+
+      /* alt months: stack full-width */
+      .alt-months-row { flex-direction: column; gap: 8px; }
       .alt-month-pill { justify-content: space-between; }
 
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }

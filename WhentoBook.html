@@ -854,6 +854,72 @@
       margin-top: 6px;
     }
 
+    /* ── Modal tabs ── */
+    .modal-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+    .modal-tab {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      margin-bottom: -1px;
+    }
+    .modal-tab.active {
+      color: var(--teal);
+      border-bottom-color: var(--teal);
+    }
+
+    /* ── Season calendar ── */
+    .cal-month { margin-bottom: 20px; }
+    .cal-month-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    .cal-weeks { display: flex; flex-wrap: wrap; gap: 8px; }
+    .cal-cell {
+      width: 108px;
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: default;
+    }
+    .cal-cell-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; }
+    .cal-cell-price { font-size: 13px; font-weight: 500; }
+    .cal-cell-cheap  { background: #e8f4ee; border-color: #b8d8c4; }
+    .cal-cell-cheap .cal-cell-price { color: #1a5e38; }
+    .cal-cell-expensive { background: #fdf3e0; border-color: #e8d4a0; }
+    .cal-cell-expensive .cal-cell-price { color: #8a5a00; }
+    .cal-cell-mid    { background: #fff; }
+    .cal-cell-none   { background: #f0ede8; border-color: #ddd8d0; }
+    .cal-legend {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .cal-legend-item {
+      font-size: 11px;
+      padding: 3px 8px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+    }
+
     .modal-chart-wrap {
       background: #fff;
       border: 1px solid var(--border);
@@ -1488,12 +1554,21 @@
       <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
     </div>
     <div class="modal-body">
-      <p class="modal-narrative" id="modal-narrative"></p>
-      <div id="modal-departures"></div>
-      <div class="modal-chart-wrap" id="modal-chart-wrap">
-        <div id="modal-chart"></div>
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="dates">Departure dates</button>
+        <button class="modal-tab" data-tab="calendar">Season calendar</button>
       </div>
-      <div class="modal-analysis" id="modal-analysis"></div>
+      <div id="modal-tab-dates">
+        <p class="modal-narrative" id="modal-narrative"></p>
+        <div id="modal-departures"></div>
+        <div class="modal-chart-wrap" id="modal-chart-wrap">
+          <div id="modal-chart"></div>
+        </div>
+        <div class="modal-analysis" id="modal-analysis"></div>
+      </div>
+      <div id="modal-tab-calendar" style="display:none;">
+        <div id="modal-calendar"></div>
+      </div>
       <div class="modal-cta">
         <a href="https://www.clubmed.co.uk" id="modal-book-btn" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Book on Club Med</a>
         <button class="btn btn-outline" id="modal-set-alert-btn">Set alert for this resort</button>
@@ -5829,6 +5904,57 @@ function getModalAnalysis(resort, dep) {
   return `Price at ${resort.name} is broadly stable, with no meaningful movement in either direction over the past 14 days. Availability is ${dep.availability} with no sign of tightening. The booking window suggests further drops are likely before the season closes — patience is the rational position.`;
 }
 
+function buildCalendarGrid(deps, pricedDeps) {
+  const prices = pricedDeps.map(d => d.currentPrice).sort((a, b) => a - b);
+  const p25 = prices[Math.floor(prices.length * 0.25)] || 0;
+  const p75 = prices[Math.floor(prices.length * 0.75)] || Infinity;
+
+  function band(dep) {
+    if (!dep.currentPrice) return 'none';
+    if (dep.currentPrice <= p25) return 'cheap';
+    if (dep.currentPrice >= p75) return 'expensive';
+    return 'mid';
+  }
+
+  const SKI_MONTHS = [
+    { label: 'Dec 2026', y: 2026, m: 11 },
+    { label: 'Jan 2027', y: 2027, m: 0 },
+    { label: 'Feb 2027', y: 2027, m: 1 },
+    { label: 'Mar 2027', y: 2027, m: 2 },
+    { label: 'Apr 2027', y: 2027, m: 3 },
+  ];
+
+  let html = '';
+  for (const mo of SKI_MONTHS) {
+    const monthDeps = deps.filter(d => {
+      const dt = new Date(d.date);
+      return dt.getFullYear() === mo.y && dt.getMonth() === mo.m;
+    });
+    if (!monthDeps.length) continue;
+    html += `<div class="cal-month"><div class="cal-month-label">${mo.label}</div><div class="cal-weeks">`;
+    for (const dep of monthDeps) {
+      const b = band(dep);
+      const shortDate = dep.displayDate.replace('w/c ', '').replace(/\s\d{4}$/, '');
+      const priceStr = dep.currentPrice > 0 ? formatPrice(dep.currentPrice) : '—';
+      const priceColor = b === 'none' ? 'color:#bbb5aa;font-size:10px;' : '';
+      html += `<div class="cal-cell cal-cell-${b}" title="${dep.displayDate}${dep.currentPrice > 0 ? ' — ' + formatPrice(dep.currentPrice) : ''}">
+        <div class="cal-cell-date">${shortDate}</div>
+        <div class="cal-cell-price" style="${priceColor}">${priceStr}</div>
+      </div>`;
+    }
+    html += '</div></div>';
+  }
+
+  html += `<div class="cal-legend">
+    <span class="cal-legend-item cal-cell-cheap">Lowest 25%</span>
+    <span class="cal-legend-item cal-cell-mid">Mid range</span>
+    <span class="cal-legend-item cal-cell-expensive">Highest 25%</span>
+    <span class="cal-legend-item cal-cell-none">Not yet on sale</span>
+  </div>`;
+
+  return html;
+}
+
 function buildPriceNarrative(resort, combo, bestDep, pricedDeps) {
   const partySizeLabel = combo.partySize === '2A' ? '2 adults' : combo.partySize === '2A1C' ? '2 adults + 1 child' : '2 adults + 2 children';
   if (pricedDeps.length === 0) {
@@ -5913,6 +6039,22 @@ function openModal(resortId, partySize) {
 
   document.getElementById('modal-analysis').textContent = getModalAnalysis(resort, bestDep);
   document.getElementById('modal-book-btn').href = resort.bookingUrl || 'https://www.clubmed.co.uk';
+  document.getElementById('modal-calendar').innerHTML = buildCalendarGrid(deps, pricedDeps);
+
+  // Tab switching — reset to "dates" tab each time modal opens
+  document.querySelectorAll('.modal-tab').forEach(tab => {
+    tab.classList.toggle('active', tab.dataset.tab === 'dates');
+  });
+  document.getElementById('modal-tab-dates').style.display = '';
+  document.getElementById('modal-tab-calendar').style.display = 'none';
+  document.querySelectorAll('.modal-tab').forEach(tab => {
+    tab.onclick = () => {
+      document.querySelectorAll('.modal-tab').forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      document.getElementById('modal-tab-dates').style.display = tab.dataset.tab === 'dates' ? '' : 'none';
+      document.getElementById('modal-tab-calendar').style.display = tab.dataset.tab === 'calendar' ? '' : 'none';
+    };
+  });
 
   document.getElementById('modal-set-alert-btn').onclick = () => {
     closeModal();

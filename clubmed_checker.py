@@ -17,6 +17,7 @@ import os
 import re
 import sys
 import time
+import random
 import smtplib
 import argparse
 from datetime import datetime, date, timedelta
@@ -29,7 +30,7 @@ from pathlib import Path
 # ─────────────────────────────────────────────────────────────
 
 # File paths (relative to this script — keep everything in the same repo folder)
-HTML_FILE = "BookingWindow.html"
+HTML_FILE = "WhentoBook.html"
 CSV_FILE  = "price_history.csv"
 
 # Email alerts (set these as GitHub Actions secrets, or hardcode for local testing)
@@ -147,28 +148,25 @@ RESORTS = [
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
-    # WARNING: codes below return a flat £3,322 for every date (Sat+Sun, all months) — identical
-    # to each other, which strongly suggests these resort codes are WRONG. Do not rely on their
-    # price data until the correct codes are confirmed via DevTools on clubmed.co.uk.
     {
         "id":             "grand-massif",
         "name":           "Grand Massif Samoëns Morillon",
-        "resortCode":     "GMSM_WINTER",    # LIKELY WRONG — returns flat £3,322 for all dates; verify via DevTools
-        "departure_day":  None,             # Cannot verify until correct code is found
+        "resortCode":     "GMAC_WINTER",    # confirmed 27 Apr 2026 via GraphQL products query; Sat+Sun both return prices
+        "departure_day":  None,             # both Sat and Sun return prices — confirm departure day via accumulation
         "combos":         _COMBOS,
     },
     {
         "id":             "val-thorens",
         "name":           "Val Thorens Sensations",
-        "resortCode":     "VTSC_WINTER",    # LIKELY WRONG — returns flat £3,322 for all dates; verify via DevTools
-        "departure_day":  None,             # Cannot verify until correct code is found
+        "resortCode":     "VTHC",           # confirmed 27 Apr 2026 — year-round resort, no _WINTER suffix; Sunday only
+        "departure_day":  6,                # Sunday — Sat returns "not for sale", Sun returns £5,468 for Jan 2027
         "combos":         _COMBOS,
     },
     {
         "id":             "serre-chevalier",
         "name":           "Serre-Chevalier",
-        "resortCode":     "SRCC_WINTER",    # LIKELY WRONG — returns flat £3,322 for all dates; verify via DevTools
-        "departure_day":  None,             # Cannot verify until correct code is found
+        "resortCode":     "SECC_WINTER",    # confirmed 27 Apr 2026 via GraphQL products query; Sat+Sun both return prices
+        "departure_day":  None,             # both Sat and Sun return prices — confirm departure day via accumulation
         "combos":         _COMBOS,
     },
 ]
@@ -183,14 +181,26 @@ for _r in RESORTS:
 
 GRAPHQL_URL = "https://graphql.dcx.clubmed/"
 
-HEADERS = {
-    "Content-Type":   "application/json",
-    "Accept":         "application/graphql-response+json,application/json;q=0.9",
-    "Accept-Language":"en-GB",
-    "Origin":         "https://www.clubmed.co.uk",
-    "Referer":        "https://www.clubmed.co.uk/",
-    "User-Agent":     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/147.0.0.0 Safari/537.36",
-}
+_USER_AGENTS = [
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+]
+
+def _get_headers():
+    return {
+        "Content-Type":   "application/json",
+        "Accept":         "application/graphql-response+json,application/json;q=0.9",
+        "Accept-Language":"en-GB",
+        "Origin":         "https://www.clubmed.co.uk",
+        "Referer":        "https://www.clubmed.co.uk/",
+        "User-Agent":     random.choice(_USER_AGENTS),
+    }
+
+# Keep a module-level HEADERS alias for any code that references it directly
+HEADERS = _get_headers()
 
 QUERY = """mutation SearchPrice($id: ID!, $options: SearchPriceOptions) {
     searchPrice(id: $id, options: $options) {
@@ -230,10 +240,13 @@ def fetch_price(resort_code, adults, children, birthdates, start_date, end_date,
         },
         "query": QUERY,
     }
+    # Random delay between requests to avoid burst traffic pattern
+    time.sleep(random.uniform(2, 8))
+
     last_error = None
     for attempt in range(1, retries + 1):
         try:
-            r = requests.post(GRAPHQL_URL, json=payload, headers=HEADERS, timeout=20)
+            r = requests.post(GRAPHQL_URL, json=payload, headers=_get_headers(), timeout=20)
             r.raise_for_status()
             data = r.json()
             result = data.get("data", {}).get("searchPrice", {})
@@ -579,10 +592,10 @@ RESORT_META = {
 # LROC_WINTER — La Rosière (verified 21 Apr 2026)
 # (LROV_WINTER = La Rosière Espace Exclusive Collection — premium, separate product)
 # LP2C_WINTER — La Plagne 2100 (verified 26 Apr 2026)
-# VDIC_WINTER — Val d'Isère (UNVERIFIED)
-# GMSM_WINTER — Grand Massif Samoëns Morillon (UNVERIFIED)
-# VTSC_WINTER — Val Thorens Sensations (UNVERIFIED)
-# SRCC_WINTER — Serre-Chevalier (UNVERIFIED)
+# VDIC_WINTER — Val d'Isère (confirmed 26 Apr 2026)
+# GMAC_WINTER — Grand Massif Samoëns Morillon (confirmed 27 Apr 2026)
+# VTHC       — Val Thorens Sensations (confirmed 27 Apr 2026; year-round resort, no _WINTER suffix)
+# SECC_WINTER — Serre-Chevalier (confirmed 27 Apr 2026)
 
 # ─────────────────────────────────────────────────────────────
 # MAIN
@@ -624,7 +637,16 @@ def main():
     timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
     run_date  = date.today()
 
-    for resort in RESORTS:
+    # Randomise resort order each run so we don't always query the same resort first
+    resorts_this_run = list(RESORTS)
+    random.shuffle(resorts_this_run)
+
+    for resort_idx, resort in enumerate(resorts_this_run):
+        if resort_idx > 0:
+            # Longer pause between resorts to simulate a user navigating between pages
+            inter_resort_sleep = random.uniform(15, 30)
+            print(f"  Pausing {inter_resort_sleep:.0f}s before next resort...")
+            time.sleep(inter_resort_sleep)
         print(f"Fetching: {resort['name']} ({resort['resortCode']})")
         for combo in resort["combos"]:
             for window in resort["windows"]:

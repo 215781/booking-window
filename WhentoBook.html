@@ -5524,18 +5524,22 @@ function getCombination(resort, partySize) {
 // For the cards: return the departure with the strongest signal (favourable > watch > hold)
 // falling back to the first upcoming departure
 function getActiveDeparture(combo) {
+  const deps = combo.departures.filter(d => (d.duration || 7) === activeDuration);
+  const src = deps.length ? deps : combo.departures;
   const priority = { 'favourable': 0, 'watch': 1, 'hold': 2 };
-  const sorted = [...combo.departures].sort((a, b) => priority[a.signal] - priority[b.signal]);
-  return sorted[0] || combo.departures[0];
+  const sorted = [...src].sort((a, b) => priority[a.signal] - priority[b.signal]);
+  return sorted[0] || src[0];
 }
 
 // Filter departures to a given month string e.g. "February 2027"
 function getDeparturesForMonth(combo, monthStr) {
-  if (!monthStr) return combo.departures;
+  const byDur = combo.departures.filter(d => (d.duration || 7) === activeDuration);
+  const src = byDur.length ? byDur : combo.departures;
+  if (!monthStr) return src;
   const [mon, yr] = monthStr.split(' ');
   const monthIndex = ['January','February','March','April','May','June','July','August','September','October','November','December'].indexOf(mon);
-  if (monthIndex === -1) return combo.departures;
-  return combo.departures.filter(d => {
+  if (monthIndex === -1) return src;
+  return src.filter(d => {
     const dt = new Date(d.date);
     return dt.getFullYear() === parseInt(yr) && dt.getMonth() === monthIndex;
   });
@@ -5543,8 +5547,10 @@ function getDeparturesForMonth(combo, monthStr) {
 
 // Filter departures to an exact start date e.g. "2027-01-14"
 function getDeparturesForDate(combo, dateStr) {
-  if (!dateStr) return combo.departures;
-  return combo.departures.filter(d => d.date === dateStr);
+  const byDur = combo.departures.filter(d => (d.duration || 7) === activeDuration);
+  const src = byDur.length ? byDur : combo.departures;
+  if (!dateStr) return src;
+  return src.filter(d => d.date === dateStr);
 }
 
 // Best price across all months for a combo
@@ -5667,7 +5673,8 @@ function buildSparklineSVG(dep, signal) {
 // ═══════════════════════════════════════════════════
 
 let activePartySize = '2A';
-let activeResortFilter = '';  // '' = show all
+let activeResortFilter = '';
+let activeDuration = 7;
 
 const RESORT_GRADIENTS = {
   'tignes-val-claret':  'linear-gradient(150deg, #1a3050 0%, #2a6070 60%, #3a8080 100%)',
@@ -5728,7 +5735,7 @@ function renderCards(partySize, resortFilter) {
         </div>
         <p class="card-location">${resort.region} &middot; ${resort.altitude}</p>
         <div class="card-price">${formatPrice(dep.currentPrice)}</div>
-        <div class="card-price-label">per party &mdash; 7 nights</div>
+        <div class="card-price-label">per party &mdash; ${activeDuration} nights</div>
         ${movementHTML}
         <div class="sparkline-wrap">${buildSparklineSVG(dep, dep.signal)}</div>
         ${(() => { const t = getTrend(dep); return t ? `<p class="dept-trend-label" style="margin-bottom:6px;">${t}</p>` : ''; })()}
@@ -5882,7 +5889,8 @@ function openModal(resortId, partySize) {
   const combo = getCombination(resort, partySize);
   if (!combo) return;
   const bestDep = getActiveDeparture(combo);
-  const deps = [...combo.departures].sort((a, b) => a.date.localeCompare(b.date));
+  const allByDur = combo.departures.filter(d => (d.duration || 7) === activeDuration);
+  const deps = [...(allByDur.length ? allByDur : combo.departures)].sort((a, b) => a.date.localeCompare(b.date));
   const pricedDeps = deps.filter(d => d.currentPrice > 0);
 
   const partySizeLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
@@ -5930,6 +5938,12 @@ function closeModal() {
 document.addEventListener('DOMContentLoaded', () => {
   // Initial render
   renderCards('2A');
+
+  // Duration selector
+  document.getElementById('hero-duration').addEventListener('change', function() {
+    activeDuration = parseInt(this.value);
+    renderCards(activePartySize);
+  });
 
   // Party size filter
   document.querySelectorAll('.filter-btn').forEach(btn => {
@@ -6075,7 +6089,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   const resortLabel = isAllResorts ? 'All resorts' : resortList[0].name;
   const dateLabel = (dateMode === 'month' || dateMode === 'specific') && dateFilter ? ` — ${dateFilter}` : '';
   document.getElementById('search-modal-title').textContent = `Optimal booking window — ${resortLabel}${dateLabel}`;
-  document.getElementById('search-modal-subtitle').textContent = `${partyLabel} · 7 nights`;
+  document.getElementById('search-modal-subtitle').textContent = `${partyLabel} · ${activeDuration} nights`;
 
   // Best date banner
   const bannerEl = document.getElementById('search-modal-best-banner');

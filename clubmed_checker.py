@@ -65,23 +65,23 @@ def weekday_dates_in_month(year, month, weekday):
 # Season: Dec 2026 – Apr 2027 ski season
 SKI_MONTHS = [(2026, 12)] + [(2027, m) for m in range(1, 5)]
 
-def make_windows(departure_day, duration_nights=7):
+def make_windows(departure_day, durations=(6, 7)):
     """
-    Generate departure windows for the full ski season.
+    Generate departure windows for the full ski season across all durations.
     departure_day: int 0-6 (Mon-Sun) for a verified resort, or None to query
                    both Saturday (5) and Sunday (6) until the day is confirmed.
-    MULTI-DURATION TODO: loop over [7, 10, 14] for duration_nights once 10/14n
-    is wired into the HTML RESORT_DATA + frontend duration selector.
     """
     weekdays = [departure_day] if departure_day is not None else [5, 6]
     windows = []
-    for yr, mo in SKI_MONTHS:
-        for wd in weekdays:
-            for s in weekday_dates_in_month(yr, mo, wd):
-                windows.append({
-                    "startDate": s,
-                    "endDate": (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=duration_nights)).strftime("%Y-%m-%d"),
-                })
+    for duration_nights in durations:
+        for yr, mo in SKI_MONTHS:
+            for wd in weekdays:
+                for s in weekday_dates_in_month(yr, mo, wd):
+                    windows.append({
+                        "startDate": s,
+                        "endDate": (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=duration_nights)).strftime("%Y-%m-%d"),
+                        "duration": duration_nights,
+                    })
     return windows
 
 _COMBOS = [
@@ -348,16 +348,18 @@ def log_to_csv(rows, test_mode=False):
             writer.writeheader()
         writer.writerows(rows)
 
-def load_price_history_from_csv(resort_id, party_size, start_date):
-    """Load all historical price points for a given resort/party/date combo from CSV."""
+def load_price_history_from_csv(resort_id, party_size, start_date, duration_nights=7):
+    """Load all historical price points for a given resort/party/date/duration combo from CSV."""
     if not Path(CSV_FILE).exists():
         return []
     history = []
     with open(CSV_FILE, newline="") as f:
         for row in csv.DictReader(f):
+            row_dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
             if (row["resort_id"] == resort_id and
                 row["party_size"] == party_size and
                 row["start_date"] == start_date and
+                row_dur == duration_nights and
                 row["price"]):
                 history.append({
                     "date":  row["timestamp"][:10],
@@ -372,7 +374,7 @@ def load_price_history_from_csv(resort_id, party_size, start_date):
 def load_all_price_stats():
     """
     Read price_history.csv once and return per-combo stats for enriching new rows.
-    Returns: {(resort_id, party_size, start_date): {min, max, first, count}}
+    Returns: {(resort_id, party_size, start_date, duration_nights): {min, max, first, count}}
     CSV is appended chronologically so the first row encountered per key IS the first-ever price.
     """
     stats = {}
@@ -387,7 +389,8 @@ def load_all_price_stats():
                 price = int(raw)
             except (ValueError, TypeError):
                 continue
-            key = (row["resort_id"], row["party_size"], row["start_date"])
+            dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
+            key = (row["resort_id"], row["party_size"], row["start_date"], dur)
             if key not in stats:
                 stats[key] = {"min": price, "max": price, "first": price, "count": 1}
             else:
@@ -405,7 +408,7 @@ def load_all_price_stats():
 
 def build_resort_data_js(all_results):
     """
-    all_results: dict keyed by (resort_id, party_size, start_date) -> price
+    all_results: dict keyed by (resort_id, party_size, start_date, duration_nights) -> price
     Returns a JS string for the full RESORT_DATA array.
     """
     now_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -440,13 +443,14 @@ def build_resort_data_js(all_results):
             for window in resort["windows"]:
                 sd = window["startDate"]
                 ed = window["endDate"]
-                key = (rid, ps, sd)
+                dur = window["duration"]
+                key = (rid, ps, sd, dur)
                 price = all_results.get(key)
                 if price is None:
                     continue  # skip windows with no price — API returned nothing
 
                 # Load full history from CSV
-                history = load_price_history_from_csv(rid, ps, sd)
+                history = load_price_history_from_csv(rid, ps, sd, dur)
                 if not history:
                     history = [{"date": sd, "price": price}]
 
@@ -472,7 +476,7 @@ def build_resort_data_js(all_results):
                 history_js = json.dumps(history_30)
 
                 lines.append("          {")
-                lines.append(f'            date: "{sd}", displayDate: "{display_date}",')
+                lines.append(f'            duration: {dur}, date: "{sd}", displayDate: "{display_date}",')
                 lines.append(f'            currentPrice: {current_price}, previousPrice: {previous_price},')
                 lines.append(f'            priceHistory: {history_js},')
                 lines.append(f'            availability: "{availability}", availabilityTrend: "{avail_trend}",')
@@ -653,6 +657,7 @@ def main():
                 sd = window["startDate"]
                 ed = window["endDate"]
                 ps = combo["partySize"]
+                duration_n = window["duration"]
 
                 price, fetch_status = fetch_price(
                     resort["resortCode"],
@@ -662,7 +667,7 @@ def main():
                     sd, ed
                 )
 
-                key = (resort["id"], ps, sd)
+                key = (resort["id"], ps, sd, duration_n)
                 all_results[key] = price
 
                 if price is None:
@@ -676,18 +681,17 @@ def main():
                     print(f"  {ps} {sd}: £{price:,}")
 
                 # Work out signal from accumulated history
-                history = load_price_history_from_csv(resort["id"], ps, sd)
+                history = load_price_history_from_csv(resort["id"], ps, sd, duration_n)
                 if price:
                     history.append({"date": timestamp[:10], "price": price})
                 signal = calculate_signal(history)
 
                 # Enriched fields
                 departure_dt   = datetime.strptime(sd, "%Y-%m-%d").date()
-                duration_n     = (datetime.strptime(ed, "%Y-%m-%d").date() - departure_dt).days
                 days_before    = (departure_dt - run_date).days
                 dow_sampled    = run_date.weekday()  # 0=Mon … 6=Sun
 
-                key = (resort["id"], ps, sd)
+                key = (resort["id"], ps, sd, duration_n)
                 hist = historical_stats.get(key)
                 if hist:
                     min_seen   = min(hist["min"], price) if price else hist["min"]

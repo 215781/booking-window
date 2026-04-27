@@ -265,7 +265,7 @@
       margin: 0;
       white-space: nowrap;
     }
-    .party-children-row select { min-width: 64px; flex-shrink: 0; padding-right: 32px; }
+    .party-children-row select { min-width: 52px; flex-shrink: 0; padding-right: 28px; }
     .child-ages { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
     .child-age-row { display: flex; align-items: center; gap: 8px; }
     .child-age-row label {
@@ -1143,10 +1143,7 @@
       <div class="hero-left">
         <p class="section-label">When To Book</p>
         <h1 class="hero-headline">Knowing <em>when</em> to book is as important as knowing where.</h1>
-        <p class="hero-sub">We track Club Med resort pricing across every ski season — building the historical context that tells you whether today's price is an opportunity, or whether patience pays.</p>
-        <blockquote class="hero-quote">
-          <p>Two families. Same Club Med resort. Same chalet week. One paid £1,600 more than the other. The difference wasn't luck. It was timing.</p>
-        </blockquote>
+        <p class="hero-sub">We track Club Med availability and pricing so you can see if a resort is about to sell out, or if prices have recently dropped and now is a good time to book.</p>
       </div>
       <div class="hero-right">
         <div class="hero-form-wrap">
@@ -1348,9 +1345,8 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
           <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above — we'll begin tracking your combination immediately.</p>
-          <div id="alert-confirmation" class="form-confirmation">
-            Alert set. We'll email you when the signal shifts in your favour.
-          </div>
+          <div id="alert-confirmation" class="form-confirmation"></div>
+          <div id="alert-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:Inter,sans-serif;">Something went wrong — please try again.</div>
         </form>
       </div>
     </div>
@@ -5555,6 +5551,9 @@ function buildSparklinePath(prices, w, h) {
 
 function buildSparklineSVG(dep, signal) {
   const prices = dep.priceHistory.map(p => p.price);
+  if (prices.length < 3) {
+    return `<p style="font-size:11px;color:var(--text-muted);margin:0;line-height:1.4;">Tracking since 26 Apr &middot; trend developing</p>`;
+  }
   const w = 220, h = 44;
   const strokeColors = { 'favourable': '#1a4a42', 'watch': '#8a6a2a', 'hold': '#bbb5aa' };
   const fillColors   = { 'favourable': 'rgba(26,74,66,0.08)', 'watch': 'rgba(138,106,42,0.08)', 'hold': 'rgba(187,181,170,0.08)' };
@@ -5673,6 +5672,9 @@ function renderCards(partySize, resortFilter) {
 function buildModalChart(dep, signal) {
   const prices = dep.priceHistory.map(p => p.price);
   const dates  = dep.priceHistory.map(p => p.date);
+  if (prices.length < 3) {
+    return `<p style="font-size:13px;color:var(--text-muted);margin:0;padding:24px 0;text-align:center;">Tracking since 26 Apr &middot; trend developing</p>`;
+  }
   const w = 600, h = 140;
   const min = Math.min(...prices), max = Math.max(...prices), range = max - min || 1;
   const padX = 8, padY = 12;
@@ -5842,17 +5844,44 @@ document.addEventListener('DOMContentLoaded', () => {
     if (e.target === document.getElementById('search-modal-overlay')) closeSearchModal();
   });
 
-  // Alert form
-  document.getElementById('alert-form').addEventListener('submit', e => {
+  // Alert form — submits to Kit public form endpoint
+  document.getElementById('alert-form').addEventListener('submit', async e => {
     e.preventDefault();
     const email = document.getElementById('alert-email').value.trim();
     if (!email) {
       document.getElementById('alert-email').focus();
       return;
     }
+    const resortSelect = document.getElementById('alert-resort');
+    const resortName = resortSelect.options[resortSelect.selectedIndex].text;
+    const submitBtn = e.target.querySelector('button[type="submit"]');
     const conf = document.getElementById('alert-confirmation');
-    conf.style.display = 'block';
-    setTimeout(() => { conf.style.display = 'none'; }, 6000);
+    const err  = document.getElementById('alert-error');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Setting alert…';
+    conf.style.display = 'none';
+    if (err) err.style.display = 'none';
+
+    try {
+      const res = await fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email_address: email,
+          fields: { resort_interest: resortName === 'Any resort — show all' ? 'All resorts' : resortName }
+        })
+      });
+      if (!res.ok) throw new Error('Network response was not ok');
+      conf.innerHTML = `You're on the list. We'll email you when prices move for ${resortName === 'Any resort — show all' ? 'your selected resorts' : resortName}.`;
+      conf.style.display = 'block';
+      e.target.reset();
+    } catch (_) {
+      if (err) { err.style.display = 'block'; }
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Set Booking Alert';
+    }
   });
 });
 

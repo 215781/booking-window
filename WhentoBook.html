@@ -4,6 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>When To Book — Club Med Price Intelligence</title>
+  <meta name="description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
+  <link rel="canonical" href="https://whentobook.co.uk/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whentobook.co.uk/">
+  <meta property="og:title" content="When To Book — Club Med Price Intelligence">
+  <meta property="og:description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.svg">
+  <meta property="og:site_name" content="When To Book">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="When To Book — Club Med Price Intelligence">
+  <meta name="twitter:description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
+  <meta name="twitter:image" content="https://whentobook.co.uk/og-image.svg">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -722,7 +742,7 @@
     .modal {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      max-width: 680px;
+      max-width: 860px;
       width: 100%;
       max-height: 90vh;
       overflow-y: auto;
@@ -782,8 +802,59 @@
       font-size: 18px;
     }
 
+    .modal-narrative {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      margin-bottom: 24px;
+      padding: 18px 20px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+    }
+
+    .dept-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+      font-size: 13px;
+    }
+
+    .dept-table th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .dept-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+
+    .dept-row-best { background: rgba(26,74,66,0.04); }
+    .dept-row-best td:first-child { border-left: 3px solid var(--teal); padding-left: 10px; }
+
+    .dept-book-link {
+      font-size: 11px;
+      color: var(--teal);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+    }
+    .dept-book-link:hover { text-decoration: underline; }
+
+    .dept-trend-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
     .modal-chart-wrap {
-      height: 180px;
       background: #fff;
       border: 1px solid var(--border);
       padding: 16px;
@@ -792,7 +863,8 @@
 
     .modal-chart-wrap svg {
       width: 100%;
-      height: 100%;
+      height: auto;
+      display: block;
     }
 
     .modal-analysis {
@@ -1416,13 +1488,14 @@
       <button class="modal-close" id="modal-close" aria-label="Close modal">&times;</button>
     </div>
     <div class="modal-body">
-      <div class="modal-meta" id="modal-meta"></div>
-      <div class="modal-chart-wrap">
-        <svg id="modal-chart" viewBox="0 0 600 140" preserveAspectRatio="none"></svg>
+      <p class="modal-narrative" id="modal-narrative"></p>
+      <div id="modal-departures"></div>
+      <div class="modal-chart-wrap" id="modal-chart-wrap">
+        <div id="modal-chart"></div>
       </div>
       <div class="modal-analysis" id="modal-analysis"></div>
       <div class="modal-cta">
-        <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Book now on Club Med</a>
+        <a href="https://www.clubmed.co.uk" id="modal-book-btn" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Book on Club Med</a>
         <button class="btn btn-outline" id="modal-set-alert-btn">Set alert for this resort</button>
       </div>
     </div>
@@ -1459,6 +1532,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "2100m",
     resortCode: "TIGC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/tignes/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -1924,6 +1998,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1950m",
     resortCode: "ARPC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/les-arcs-panorama/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -2347,6 +2422,7 @@ const RESORT_DATA = [
     region: "Paradiski, French Alps",
     altitude: "1600m",
     resortCode: "PVAC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/peisey-vallandry/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -2749,6 +2825,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1460m",
     resortCode: "VMOC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/valmorel/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -3088,6 +3165,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1860m",
     resortCode: "ALHC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/alpe-d-huez/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -3511,6 +3589,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1850m",
     resortCode: "LROC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-rosiere/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -3913,6 +3992,7 @@ const RESORT_DATA = [
     region: "Paradiski, French Alps",
     altitude: "2100m",
     resortCode: "LP2C_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-plagne-2100/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -4077,6 +4157,7 @@ const RESORT_DATA = [
     region: "French Alps, Espace Killy",
     altitude: "1850m",
     resortCode: "VDIC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/val-d-isere/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -4521,6 +4602,7 @@ const RESORT_DATA = [
     region: "French Alps, Grand Massif",
     altitude: "720m",
     resortCode: "GMSM_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/grand-massif-samoens-morillon/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -4825,6 +4907,7 @@ const RESORT_DATA = [
     region: "French Alps, Three Valleys",
     altitude: "2300m",
     resortCode: "VTSC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/val-thorens-sensations/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5129,6 +5212,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1400m",
     resortCode: "SRCC_WINTER",
+    bookingUrl: "https://www.clubmed.co.uk/r/serre-chevalier/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5647,6 +5731,7 @@ function renderCards(partySize, resortFilter) {
         <div class="card-price-label">per party &mdash; 7 nights</div>
         ${movementHTML}
         <div class="sparkline-wrap">${buildSparklineSVG(dep, dep.signal)}</div>
+        ${(() => { const t = getTrend(dep); return t ? `<p class="dept-trend-label" style="margin-bottom:6px;">${t}</p>` : ''; })()}
         <p class="departure-date">Best signal — ${dep.displayDate}</p>
         <div class="card-footer">
           <span class="availability">
@@ -5737,30 +5822,89 @@ function getModalAnalysis(resort, dep) {
   return `Price at ${resort.name} is broadly stable, with no meaningful movement in either direction over the past 14 days. Availability is ${dep.availability} with no sign of tightening. The booking window suggests further drops are likely before the season closes — patience is the rational position.`;
 }
 
+function buildPriceNarrative(resort, combo, bestDep, pricedDeps) {
+  const partySizeLabel = combo.partySize === '2A' ? '2 adults' : combo.partySize === '2A1C' ? '2 adults + 1 child' : '2 adults + 2 children';
+  if (pricedDeps.length === 0) {
+    return `Club Med hasn't yet opened the full winter 2026/27 booking window for ${resort.name}. Prices will begin moving when bookings open — typically June or July 2026. We're tracking all departure weeks daily and you'll see the full picture as soon as they go on sale. December 27 and February half-term weeks historically command the highest premiums at Club Med; early December, late March and April tend to be the quieter, lower-priced weeks.`;
+  }
+  const allPrices = pricedDeps.map(d => d.currentPrice);
+  const minPrice = Math.min(...allPrices);
+  const maxPrice = Math.max(...allPrices);
+  const cheapestDep = pricedDeps.find(d => d.currentPrice === minPrice);
+  const recentDrops = pricedDeps.filter(d => getPriceMovement(d) < -10).length;
+  let narrative = `For a ${partySizeLabel} party, ${resort.name} currently ranges from ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} across the season. The most affordable available week is ${cheapestDep.displayDate}.`;
+  if (recentDrops > 0) narrative += ` ${recentDrops} departure${recentDrops > 1 ? 's have' : ' has'} seen a price drop since the last check.`;
+  narrative += ` December 27 and February half-term weeks typically command the highest premiums; early December, late March and April tend to be quieter. Richer signals will develop as price movement data accumulates over the coming months.`;
+  return narrative;
+}
+
+function buildDepartureTable(resort, deps, bestDep) {
+  const bookUrl = resort.bookingUrl || 'https://www.clubmed.co.uk';
+  const rows = deps.map(dep => {
+    const isBest = dep.date === bestDep.date;
+    const move = getPriceMovement(dep);
+    const absDiff = Math.abs(move);
+    let movHTML = '<span style="color:#bbb5aa">—</span>';
+    if (move < -10) movHTML = `<span style="color:#1a4a42">↓ ${formatPrice(absDiff)}</span>`;
+    else if (move > 10) movHTML = `<span style="color:#8a6a2a">↑ ${formatPrice(absDiff)}</span>`;
+    const priceHTML = dep.currentPrice > 0
+      ? `<strong style="font-family:'Playfair Display',Georgia,serif;font-size:15px;">${formatPrice(dep.currentPrice)}</strong>`
+      : `<span style="color:#bbb5aa;font-size:12px;">Not yet on sale</span>`;
+    return `<tr class="${isBest ? 'dept-row-best' : ''}">
+      <td class="dept-td-date">${dep.displayDate}${isBest ? ' <span style="font-size:10px;color:var(--teal);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">Best signal</span>' : ''}</td>
+      <td>${priceHTML}</td>
+      <td>${movHTML}</td>
+      <td>${getSignalBadgeHTML(dep.signal)}</td>
+      <td><a href="${bookUrl}" target="_blank" rel="noopener noreferrer" class="dept-book-link">Book on Club Med ↗</a></td>
+    </tr>`;
+  }).join('');
+  return `<table class="dept-table">
+    <thead><tr>
+      <th>Departure week</th><th>Price</th><th>vs last check</th><th>Signal</th><th></th>
+    </tr></thead>
+    <tbody>${rows}</tbody>
+  </table>`;
+}
+
+function getTrend(dep) {
+  const h = dep.priceHistory;
+  if (h.length < 3) return null;
+  const last3 = h.slice(-3).map(p => p.price);
+  if (last3[2] < last3[1] && last3[1] < last3[0]) return '↓ Trending down';
+  if (last3[2] > last3[1] && last3[1] > last3[0]) return '↑ Trending up';
+  if (Math.abs(last3[2] - last3[0]) < 50) return '→ Stable';
+  return null;
+}
+
 function openModal(resortId, partySize) {
   const resort = RESORT_DATA.find(r => r.id === resortId);
   if (!resort) return;
   const combo = getCombination(resort, partySize);
-  const dep = getActiveDeparture(combo);
-  const move = getPriceMovement(dep);
-  const absDiff = Math.abs(move);
+  if (!combo) return;
+  const bestDep = getActiveDeparture(combo);
+  const deps = [...combo.departures].sort((a, b) => a.date.localeCompare(b.date));
+  const pricedDeps = deps.filter(d => d.currentPrice > 0);
 
+  const partySizeLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
   document.getElementById('modal-title').textContent = resort.name;
-  document.getElementById('modal-subtitle').textContent = `${resort.region} · ${resort.altitude} · ${dep.displayDate}`;
-  document.getElementById('modal-signal-badge').innerHTML = getSignalBadgeHTML(dep.signal);
+  document.getElementById('modal-subtitle').textContent = `${resort.region} · ${resort.altitude} · ${partySizeLabel}`;
+  document.getElementById('modal-signal-badge').innerHTML = getSignalBadgeHTML(bestDep.signal);
 
-  // meta row
-  let movDir = move < -10 ? `↓ ${formatPrice(absDiff)} in 14 days` : move > 10 ? `↑ ${formatPrice(absDiff)} in 14 days` : '— Stable';
-  document.getElementById('modal-meta').innerHTML = `
-    <div class="modal-meta-item"><span class="modal-meta-label">Current Price</span><span class="modal-meta-value">${formatPrice(dep.currentPrice)}</span></div>
-    <div class="modal-meta-item"><span class="modal-meta-label">14-Day Movement</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;font-weight:500;color:${move < -10 ? '#1a4a42' : move > 10 ? '#8a6a2a' : '#6b6b6b'}">${movDir}</span></div>
-    <div class="modal-meta-item"><span class="modal-meta-label">Party Size</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children'}</span></div>
-    ${partySize !== '2A' ? `<div class="modal-meta-item" style="grid-column:span 2;"><span class="modal-meta-label">Child pricing note</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:13px;color:#6b6b6b;">Prices reflect children aged under 12. Club Med pricing changes significantly at age 12 — verify for children near this threshold.</span></div>` : ''}
-    <div class="modal-meta-item"><span class="modal-meta-label">Availability</span><span class="modal-meta-value" style="font-family:Inter,sans-serif;font-size:15px;">${getAvailabilityLabel(dep)}</span></div>
-  `;
+  document.getElementById('modal-narrative').textContent = buildPriceNarrative(resort, combo, bestDep, pricedDeps);
+  document.getElementById('modal-departures').innerHTML = buildDepartureTable(resort, deps, bestDep);
 
-  document.getElementById('modal-chart').innerHTML = buildModalChart(dep, dep.signal);
-  document.getElementById('modal-analysis').textContent = getModalAnalysis(resort, dep);
+  const chartWrap = document.getElementById('modal-chart-wrap');
+  if (bestDep.priceHistory.length >= 3) {
+    chartWrap.style.display = 'block';
+    const trend = getTrend(bestDep);
+    document.getElementById('modal-chart').innerHTML = buildModalChart(bestDep, bestDep.signal)
+      + (trend ? `<p class="dept-trend-label">${trend}</p>` : '');
+  } else {
+    chartWrap.style.display = 'none';
+  }
+
+  document.getElementById('modal-analysis').textContent = getModalAnalysis(resort, bestDep);
+  document.getElementById('modal-book-btn').href = resort.bookingUrl || 'https://www.clubmed.co.uk';
 
   document.getElementById('modal-set-alert-btn').onclick = () => {
     closeModal();

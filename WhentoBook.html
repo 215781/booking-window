@@ -662,6 +662,72 @@
       line-height: 1.55;
     }
 
+    /* ── Consent checkbox ── */
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      margin-bottom: 0;
+    }
+    .consent-label input[type="checkbox"] {
+      margin-top: 2px;
+      flex-shrink: 0;
+      accent-color: var(--teal);
+      width: 15px;
+      height: 15px;
+      cursor: pointer;
+    }
+
+    /* ── Search modal inline Kit form ── */
+    .search-kit-wrap {
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .search-kit-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .search-kit-intro {
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .search-kit-row {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .search-kit-row input[type="email"] {
+      flex: 1;
+      min-width: 180px;
+      padding: 10px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      background: #fff;
+      color: var(--text);
+    }
+    .search-kit-row input[type="email"]:focus {
+      outline: none;
+      border-color: var(--teal);
+    }
+
     /* ── How it works ── */
     #how-it-works {
       padding: 80px 0;
@@ -1384,7 +1450,7 @@
       <div class="signals-header-left">
         <p class="section-label">Live Signals</p>
         <h2 class="signals-title">Current booking signals across Club Med ski resorts</h2>
-        <p class="signals-sub">Updated 6× daily. Prices shown for 7 nights accommodation, Saturday departure. Click any resort for full price history.</p>
+        <p class="signals-sub">Prices updated daily. Prices shown for 7 nights accommodation, Saturday departure. Click any resort for full price history.</p>
       </div>
       <div class="filter-bar" role="group" aria-label="Party size filter">
         <button class="filter-btn active" data-party="2A">2 Adults</button>
@@ -1437,7 +1503,7 @@
         <p class="section-label">Booking Alerts</p>
         <h2 class="alerts-heading">We'll tell you when the <em>window opens.</em></h2>
         <p class="alerts-copy">Leave your search with us. When the booking signal shifts in your favour — we'll let you know. No noise. No daily emails. Just the signal, when it matters.</p>
-        <p class="alerts-note">We email only when the signal changes to Book Now, or when a Watch resolves. You will not hear from us until the data justifies it.</p>
+        <p class="alerts-note">We email only when the signal shifts to Favourable, or when a Watch resolves. You will not hear from us until the data justifies it.</p>
       </div>
       <div class="alerts-right">
         <form id="alert-form" autocomplete="off">
@@ -1481,6 +1547,12 @@
             <label for="alert-email">Email Address</label>
             <input type="email" id="alert-email" name="email" placeholder="you@example.com">
           </div>
+          <div class="form-group">
+            <label class="consent-label">
+              <input type="checkbox" id="alert-consent">
+              <span>I agree to receive booking intelligence emails from When To Book. Unsubscribe any time.</span>
+            </label>
+          </div>
           <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
           <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above — we'll begin tracking your combination immediately.</p>
           <div id="alert-confirmation" class="form-confirmation"></div>
@@ -1499,8 +1571,8 @@
     <div class="steps">
       <div class="step">
         <div class="step-number">01</div>
-        <h3 class="step-title">We track live Club Med pricing, 6 times daily.</h3>
-        <p class="step-body">Every major ski resort. Every Saturday departure across the season. Standard party sizes. We've been building this price history since autumn 2025 — and it compounds in value with every passing week.</p>
+        <h3 class="step-title">We track live Club Med pricing, updated daily.</h3>
+        <p class="step-body">Every major ski resort. Every Saturday departure across the season. Standard party sizes. We've been building this price history since spring 2026 — and it compounds in value with every passing week.</p>
       </div>
       <div class="step">
         <div class="step-number">02</div>
@@ -1510,7 +1582,7 @@
       <div class="step">
         <div class="step-number">03</div>
         <h3 class="step-title">We tell you whether to book now, watch, or hold.</h3>
-        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated 6 times per day. The decision is always yours — we just make sure you're making it with the right information.</p>
+        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated daily. The decision is always yours — we just make sure you're making it with the right information.</p>
       </div>
     </div>
   </div>
@@ -1538,6 +1610,24 @@
       <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked cheapest first</p>
       <div id="search-modal-date-rows"></div>
       <div class="alt-months" id="search-modal-alt-months"></div>
+      <div class="search-kit-wrap" id="search-kit-wrap">
+        <p class="search-kit-label">Stay informed</p>
+        <p class="search-kit-intro">Let me know if there are improvements on these results.</p>
+        <form id="search-kit-form" autocomplete="off">
+          <div class="search-kit-row">
+            <input type="email" id="search-kit-email" placeholder="your@email.com">
+            <button type="submit" class="btn btn-primary" style="padding:10px 18px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;white-space:nowrap;">Notify Me</button>
+          </div>
+          <div style="margin-top:10px;">
+            <label class="consent-label">
+              <input type="checkbox" id="search-kit-consent">
+              <span>I agree to receive price update emails from When To Book. Unsubscribe any time.</span>
+            </label>
+          </div>
+          <div id="search-kit-confirmation" style="display:none;margin-top:10px;font-size:13px;color:var(--teal);font-family:'Inter',sans-serif;"></div>
+          <div id="search-kit-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:'Inter',sans-serif;">Something went wrong — please try again.</div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
@@ -6148,10 +6238,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('alert-form').addEventListener('submit', async e => {
     e.preventDefault();
     const email = document.getElementById('alert-email').value.trim();
-    if (!email) {
-      document.getElementById('alert-email').focus();
-      return;
-    }
+    const consent = document.getElementById('alert-consent').checked;
+    if (!email) { document.getElementById('alert-email').focus(); return; }
+    if (!consent) { document.getElementById('alert-consent').focus(); return; }
     const resortSelect = document.getElementById('alert-resort');
     const resortName = resortSelect.options[resortSelect.selectedIndex].text;
     const submitBtn = e.target.querySelector('button[type="submit"]');
@@ -6181,6 +6270,45 @@ document.addEventListener('DOMContentLoaded', () => {
     } finally {
       submitBtn.disabled = false;
       submitBtn.textContent = 'Set Booking Alert';
+    }
+  });
+
+  // Search modal inline notification form
+  document.getElementById('search-kit-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    const email = document.getElementById('search-kit-email').value.trim();
+    const consent = document.getElementById('search-kit-consent').checked;
+    if (!email) { document.getElementById('search-kit-email').focus(); return; }
+    if (!consent) { document.getElementById('search-kit-consent').focus(); return; }
+
+    const modal = document.getElementById('search-modal');
+    const resortLabel = modal.dataset.resortLabel || 'All resorts';
+    const dateLabel = modal.dataset.dateLabel || '';
+    const submitBtn = e.target.querySelector('button[type="submit"]');
+    const conf = document.getElementById('search-kit-confirmation');
+    const err  = document.getElementById('search-kit-error');
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = '…';
+    conf.style.display = 'none';
+    err.style.display = 'none';
+
+    try {
+      const res = await fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email_address: email,
+          fields: { resort_interest: resortLabel + (dateLabel ? ' · ' + dateLabel : '') }
+        })
+      });
+      if (!res.ok) throw new Error('Network response was not ok');
+      document.getElementById('search-kit-wrap').innerHTML =
+        `<p style="font-size:13px;color:var(--teal);font-family:'Inter',sans-serif;">You're on the list. We'll email you if results improve.</p>`;
+    } catch (_) {
+      err.style.display = 'block';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Notify Me';
     }
   });
 });
@@ -6347,6 +6475,17 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   } else {
     altEl.innerHTML = '';
   }
+
+  // Store context for the inline notification form
+  const searchModal = document.getElementById('search-modal');
+  searchModal.dataset.resortLabel = resortLabel;
+  searchModal.dataset.dateLabel = dateLabel ? dateLabel.replace(/^ — /, '') : '';
+
+  // Reset inline form to fresh state
+  document.getElementById('search-kit-form').reset();
+  document.getElementById('search-kit-confirmation').style.display = 'none';
+  document.getElementById('search-kit-error').style.display = 'none';
+  document.getElementById('search-kit-wrap').style.display = 'block';
 
   document.getElementById('search-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';

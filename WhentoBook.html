@@ -285,7 +285,7 @@
       margin: 0;
       white-space: nowrap;
     }
-    .party-children-row select { width: auto; }
+    .party-children-row select { width: auto; min-width: 80px; }
     .child-ages { margin-top: 10px; display: flex; flex-direction: column; gap: 8px; }
     .child-age-row { display: flex; align-items: center; gap: 8px; }
     .child-age-row label {
@@ -1607,9 +1607,6 @@
     </div>
     <div class="search-modal-body">
       <div id="search-modal-best-banner"></div>
-      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked cheapest first</p>
-      <div id="search-modal-date-rows"></div>
-      <div class="alt-months" id="search-modal-alt-months"></div>
       <div class="search-kit-wrap" id="search-kit-wrap">
         <p class="search-kit-label">Stay informed</p>
         <p class="search-kit-intro">Let me know if there are improvements on these results.</p>
@@ -1628,6 +1625,9 @@
           <div id="search-kit-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:'Inter',sans-serif;">Something went wrong — please try again.</div>
         </form>
       </div>
+      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked cheapest first</p>
+      <div id="search-modal-date-rows"></div>
+      <div class="alt-months" id="search-modal-alt-months"></div>
     </div>
   </div>
 </div>
@@ -6303,8 +6303,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
       });
       if (!res.ok) throw new Error('Network response was not ok');
-      document.getElementById('search-kit-wrap').innerHTML =
-        `<p style="font-size:13px;color:var(--teal);font-family:'Inter',sans-serif;">You're on the list. We'll email you if results improve.</p>`;
+      document.getElementById('search-kit-form').style.display = 'none';
+      conf.textContent = "You're on the list. We'll email you if results improve.";
+      conf.style.display = 'block';
     } catch (_) {
       err.style.display = 'block';
       submitBtn.disabled = false;
@@ -6482,7 +6483,9 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   searchModal.dataset.dateLabel = dateLabel ? dateLabel.replace(/^ — /, '') : '';
 
   // Reset inline form to fresh state
-  document.getElementById('search-kit-form').reset();
+  const kitForm = document.getElementById('search-kit-form');
+  kitForm.reset();
+  kitForm.style.display = '';
   document.getElementById('search-kit-confirmation').style.display = 'none';
   document.getElementById('search-kit-error').style.display = 'none';
   document.getElementById('search-kit-wrap').style.display = 'block';

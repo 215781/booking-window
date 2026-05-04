@@ -537,10 +537,10 @@ def send_alert(subject, body):
 
 def check_for_alerts(all_results, previous_signals):
     """Compare new signals against previous run — alert on any new Book Now."""
-    for (resort_id, party_size, start_date), price in all_results.items():
+    for (resort_id, party_size, start_date, duration_n), price in all_results.items():
         if price is None:
             continue
-        history = load_price_history_from_csv(resort_id, party_size, start_date)
+        history = load_price_history_from_csv(resort_id, party_size, start_date, duration_n)
         signal  = calculate_signal(history)
         prev    = previous_signals.get((resort_id, party_size, start_date))
         if signal == "favourable" and prev != "favourable":

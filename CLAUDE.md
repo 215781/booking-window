@@ -19,7 +19,8 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 | Price data | `clubmed_checker.py` — Python 3.11, Club Med GraphQL API |
 | Data storage | `_data/price_history.csv` — append-only, never delete rows. Jekyll/GitHub Pages won't serve `_data/`. |
 | Scheduler | GitHub Actions cron — `.github/workflows/price_checker.yml` |
-| Hosting | **GitHub Pages** (DNS live as of 2026-05-04). Vercel still exists but DNS no longer routes there. |
+| Hosting | **GitHub Pages** (DNS live as of 2026-05-04). Vercel project exists but DNS no longer routes there — pending decommission. |
+| Analytics | Google Analytics 4 — measurement ID `G-G2RES5DX0K` (not a secret; public in HTML) |
 | Email | Kit (ConvertKit) — public form endpoints only, no API key in repo |
 | SSH deploy key | `~/.ssh/booking_window_deploy` |
 
@@ -40,6 +41,7 @@ robots.txt
 sitemap.xml
 privacy.html
 og-image.svg
+og-image.png                          — OG image (1200×630 PNG — Twitter/Facebook compatible)
 .github/workflows/
   price_checker.yml               — Daily at 06:00 UTC — runs checker, commits HTML + CSV
   backup.yml                      — Weekly Sunday 02:00 UTC — GitHub Releases backup of price_history.csv
@@ -48,7 +50,14 @@ ORCHESTRATOR.md                   — orchestrator agent instructions
 BUILDER.md                        — builder agent instructions
 SCRIBE.md                         — scribe agent instructions
 PLAN.md                           — current roadmap and task list
+IMPROVEMENT_PLAN.md               — strategic improvement plan (reference for PLAN.md items)
 NEXT_SESSION_PROMPT.md            — session state (read first every session)
+
+## Planned (not yet built)
+markwarner_checker.py             — Mark Warner price checker (1 resort: Chalet Hotel L'Écrin, Tignes; product ID SKI-24314)
+sandals_checker.py                — Sandals price checker
+_data/markwarner_prices.csv       — Mark Warner price log (append-only)
+_data/sandals_prices.csv          — Sandals price log (append-only)
 ```
 
 ---

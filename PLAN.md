@@ -54,7 +54,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### Long term / growth
 - [ ] **SEO content at scale** — 20–40 articles targeting booking intent keywords ("best time to book Club Med [resort]", "Club Med price history", "when does Club Med release ski prices"). (LT-1)
-- [ ] **Mark Warner / Neilson tracker** — same ski audience, natural second site in the portfolio. (LT-3)
+- [ ] **Mark Warner / Sandals tracker** — Mark Warner (ski) and Sandals (Caribbean all-inclusive) are the next two operators in the portfolio. (LT-3)
 - [ ] **Annual Club Med price report** — email broadcast each September/October with price movement data. High shareability. (LT-5)
 - [ ] **Drop Media Ltd — Companies House registration** — register before significant revenue. £12, 15 mins. Enables cross-portfolio email marketing. (LT-6)
 - [ ] **DATA_SUFFICIENT = true** — change flag in `clubmed/index.html` to enable live signals. Do not change until autumn 2026. (existing invariant)

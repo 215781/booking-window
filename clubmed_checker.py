@@ -607,8 +607,9 @@ RESORT_META = {
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--test",   action="store_true", help="Fetch prices but don't write any files")
-    parser.add_argument("--verify", action="store_true", help="Test one API call and exit")
+    parser.add_argument("--test",        action="store_true", help="Fetch prices but don't write any files")
+    parser.add_argument("--verify",      action="store_true", help="Test one API call and exit")
+    parser.add_argument("--inject-only", action="store_true", help="Skip API fetch; rebuild RESORT_DATA from CSV and inject into HTML")
     args = parser.parse_args()
 
     now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
@@ -616,6 +617,8 @@ def main():
     print(f"Booking Window price checker — {now_str}")
     if args.test:
         print("  MODE: test (no files will be written)")
+    if args.inject_only:
+        print("  MODE: inject-only (no API calls; rebuilding RESORT_DATA from CSV)")
     print(f"{'='*60}\n")
 
     # Quick API verify mode
@@ -626,6 +629,29 @@ def main():
             print(f"  SUCCESS — price returned: £{price:,}")
         else:
             print(f"  No price returned (status: {status}) — API is {'reachable' if status != 'error' else 'unreachable'}")
+        return
+
+    # Inject-only mode: rebuild RESORT_DATA from CSV without any API calls
+    if args.inject_only:
+        print("Building all_results from CSV (latest price per combo)...")
+        all_results = {}
+        if Path(CSV_FILE).exists():
+            with open(CSV_FILE, newline="") as f:
+                for row in csv.DictReader(f):
+                    if not row.get("price"):
+                        continue
+                    try:
+                        price_val = int(row["price"])
+                    except (ValueError, TypeError):
+                        continue
+                    dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
+                    key = (row["resort_id"], row["party_size"], row["start_date"], dur)
+                    all_results[key] = price_val  # later rows overwrite earlier (CSV is chronological)
+        print(f"  Loaded {len(all_results)} price entries from CSV.")
+        print("Building updated RESORT_DATA...")
+        js_string = build_resort_data_js(all_results)
+        inject_into_html(js_string)
+        print("Done.")
         return
 
     # Load previous signals for alert comparison

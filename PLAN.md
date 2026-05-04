@@ -10,11 +10,12 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ## Active / Up Next
 
+- [ ] **🔴 Data gap backfill** — `price_history.csv` has gaps where the checker didn't run (e.g. 27 Apr – 4 May). Build a backfill script (or add `--backfill` mode to `clubmed_checker.py`) that, for each (resort, party, date, duration) combo, carries the last known price forward into any missing calendar dates. This makes charts and trend calculations complete rather than patchy. Run once after each multi-day gap. Backfilled rows should be clearly marked (e.g. `source=backfill`) so they can be excluded from statistical analysis if needed.
 - [ ] **Activate GitHub Pages** — go to `https://github.com/215781/booking-window/settings/pages`, set Source: "Deploy from a branch" → `main` → `/ (root)`. CNAME already committed. **User action required.**
 - [ ] **Configure DNS at Squarespace** — Squarespace > Domains > `whentobook.co.uk` > DNS Settings. Add 4 A records (`@` → `185.199.108.153 / .109 / .110 / .111`) + CNAME (`www` → `215781.github.io`). After propagation: confirm custom domain in Pages Settings + Enforce HTTPS. **User action required.**
 - [ ] **Decommission Vercel** (once Pages DNS is live) — remove Vercel project. `vercel.json` can stay in repo as the Vercel block for `/_data/` is a safety net.
 - [ ] **Wire up GA4 measurement ID** — GA4 script added to `clubmed/index.html` with placeholder `G-XXXXXXXXXX`. Create a GA4 property at analytics.google.com, get the Measurement ID, and replace the placeholder. Then commit. **User action required to create property.**
-- [ ] **Confirm `VMOC_WINTER` code** — a space was noted (`VMO C_WINTER`) in one session note. Verify the actual code in `clubmed_checker.py` against the API.
+- [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
 
 ---
@@ -78,5 +79,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] URL restructure: `clubmed/index.html` created, root `index.html` brand landing page built, checker + workflow + vercel.json updated, sitemap updated, `WhentoBook.html` converted to redirect — 2026-05-04
 - [x] Deep-link Club Med CTAs verified — all `bookingUrl` values already point to resort-specific booking pages — 2026-05-04
 - [x] GA4 analytics script added to `clubmed/index.html` with placeholder `G-XXXXXXXXXX` — user must create GA4 property and swap in Measurement ID — 2026-05-04
+- [x] Data purge: 612 suspect LP2C_WINTER + VDIC_WINTER rows (Apr 23–25, unverified codes) removed from `price_history.csv`; RESORT_DATA regenerated via `--inject-only` — 2026-05-04
+- [x] `VMOC_WINTER` code verified correct; `--inject-only` flag added to `clubmed_checker.py` — 2026-05-04
 </content>
 </invoke>

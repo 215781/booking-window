@@ -48,6 +48,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings y
 - 2026-05-04 — **URL restructure complete:** `clubmed/index.html` created (canonical → /clubmed), root `index.html` brand landing page built, `clubmed_checker.py` updated to write `clubmed/index.html`, GitHub Actions workflow updated, `vercel.json` updated (new routing + 301 from /WhentoBook.html), `sitemap.xml` updated, `WhentoBook.html` converted to redirect page
 - 2026-05-04 — Deep-link Club Med CTAs confirmed working — all `bookingUrl` values already point to resort-specific pages (`clubmed.co.uk/r/[slug]/y`)
 - 2026-05-04 — GA4 analytics script added to `clubmed/index.html` with placeholder `G-XXXXXXXXXX`
+- 2026-05-04 — Data purge: 612 suspect rows (LP2C_WINTER + VDIC_WINTER, Apr 23–25) removed from CSV; RESORT_DATA regenerated
+- 2026-05-04 — `VMOC_WINTER` verified correct (no space); `--inject-only` flag added to checker
+- 2026-05-04 — Data gap backfill task added to PLAN.md as high priority
 
 ---
 
@@ -57,7 +60,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings y
 2. **Activate GitHub Pages in repo Settings** — Source: "Deploy from a branch" → `main` → `/ (root)`. CNAME already committed. User action.
 3. **Configure DNS at Squarespace** — 4 × A records (`@` → `185.199.108.153 / .109 / .110 / .111`) + CNAME (`www` → `215781.github.io`). User action.
 4. **Decommission Vercel** (after Pages DNS is live).
-5. **Verify `VMOC_WINTER` code** — a space was noted in one session note; confirm in `clubmed_checker.py`.
+5. ~~**Verify `VMOC_WINTER` code**~~ — verified correct 2026-05-04. ✓
 6. **Grand Massif + Serre-Chevalier departure day** — let data accumulate, revisit in a few weeks.
 7. **Cybersecurity review** — full audit: exposed secrets, GitHub Actions permissions, form handling, data storage, CSP headers. (new)
 8. **Data backup** — automate backup of `_data/price_history.csv` to a second location before Oct 2026. (new)

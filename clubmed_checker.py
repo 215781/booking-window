@@ -90,6 +90,7 @@ RESORTS = [
         "id":             "tignes-val-claret",
         "name":           "Tignes",
         "resortCode":     "TIGC_WINTER",    # verified 21 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/tignes-val-claret",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe (Sun hits all months, Sat only Easter)
         "combos":         _COMBOS,
     },
@@ -97,6 +98,7 @@ RESORTS = [
         "id":             "les-arcs",
         "name":           "Les Arcs Panorama",
         "resortCode":     "ARPC_WINTER",    # verified 21 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/les-arcs",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -104,6 +106,7 @@ RESORTS = [
         "id":             "peisey-vallandry",
         "name":           "Peisey-Vallandry",
         "resortCode":     "PVAC_WINTER",    # verified 21 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/peisey-vallandry",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -111,6 +114,7 @@ RESORTS = [
         "id":             "valmorel",
         "name":           "Valmorel",
         "resortCode":     "VMOC_WINTER",    # verified 21 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/valmorel",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe (Sat prices anomalously ~2x higher, likely wrong product)
         "combos":         _COMBOS,
     },
@@ -118,6 +122,7 @@ RESORTS = [
         "id":             "alpe-dhuez",
         "name":           "Alpe d'Huez",
         "resortCode":     "ALHC_WINTER",    # verified 21 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/alpe-dhuez",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -125,6 +130,7 @@ RESORTS = [
         "id":             "la-rosiere",
         "name":           "La Rosière",
         "resortCode":     "LROC_WINTER",    # verified 21 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/la-rosiere",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -132,6 +138,7 @@ RESORTS = [
         "id":             "la-plagne-2100",
         "name":           "La Plagne 2100",
         "resortCode":     "LP2C_WINTER",    # verified 26 Apr 2026
+        "bookingUrl":     "https://www.clubmed.co.uk/r/la-plagne-2100",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026
         "combos":         _COMBOS,
     },
@@ -139,6 +146,7 @@ RESORTS = [
         "id":             "val-disere",
         "name":           "Val d'Isère",
         "resortCode":     "VDIC_WINTER",    # confirmed 26 Apr 2026 via API probe (Sun returns prices, Sat closed/not-for-sale)
+        "bookingUrl":     "https://www.clubmed.co.uk/r/val-disere",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -146,6 +154,7 @@ RESORTS = [
         "id":             "grand-massif",
         "name":           "Grand Massif Samoëns Morillon",
         "resortCode":     "GMAC_WINTER",    # confirmed 27 Apr 2026 via GraphQL products query; Sat+Sun both return prices
+        "bookingUrl":     "https://www.clubmed.co.uk/r/grand-massif",
         "departure_day":  None,             # both Sat and Sun return prices — confirm departure day via accumulation
         "combos":         _COMBOS,
     },
@@ -153,6 +162,7 @@ RESORTS = [
         "id":             "val-thorens",
         "name":           "Val Thorens Sensations",
         "resortCode":     "VTHC",           # confirmed 27 Apr 2026 — year-round resort, no _WINTER suffix; Sunday only
+        "bookingUrl":     "https://www.clubmed.co.uk/r/val-thorens-sensations",
         "departure_day":  6,                # Sunday — Sat returns "not for sale", Sun returns £5,468 for Jan 2027
         "combos":         _COMBOS,
     },
@@ -160,6 +170,7 @@ RESORTS = [
         "id":             "serre-chevalier",
         "name":           "Serre-Chevalier",
         "resortCode":     "SECC_WINTER",    # confirmed 27 Apr 2026 via GraphQL products query; Sat+Sun both return prices
+        "bookingUrl":     "https://www.clubmed.co.uk/r/serre-chevalier",
         "departure_day":  None,             # both Sat and Sun return prices — confirm departure day via accumulation
         "combos":         _COMBOS,
     },
@@ -417,11 +428,13 @@ def build_resort_data_js(all_results):
         meta = RESORT_META.get(rid, {"region": "French Alps", "altitude": "—"})
 
         lines.append("  {")
+        booking_url = resort.get("bookingUrl", "https://www.clubmed.co.uk")
         lines.append(f'    id: "{rid}",')
         lines.append(f'    name: "{rname}",')
         lines.append(f'    region: "{meta["region"]}",')
         lines.append(f'    altitude: "{meta["altitude"]}",')
         lines.append(f'    resortCode: "{rcode}",')
+        lines.append(f'    bookingUrl: "{booking_url}",')
         lines.append("    combinations: [")
 
         for combo in resort["combos"]:

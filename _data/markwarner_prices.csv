@@ -1,4 +1,4 @@
-timestamp,resort,location,season_key,season_label,price_pp,currency,source_url
+timestamp,resort,location,departure_date,duration_nights,party_size,adults,children,room_type,price_total,price_pp,was_price_total,was_price_pp,promo_code,currency
 2026-05-04T16:52:22Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-06,7,2A,2,0,Double room (ensuite bath),1658,829,1758,879,FIRSTTRACKS,GBP
 2026-05-04T16:52:22Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-13,7,2A,2,0,Double room (ensuite bath),2498,1249,2598,1299,FIRSTTRACKS,GBP
 2026-05-04T16:52:22Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-20,7,2A,2,0,"Twin (ensuite bath, no balcony)",3098,1549,3198,1599,FIRSTTRACKS,GBP

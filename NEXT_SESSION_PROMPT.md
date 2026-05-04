@@ -1,24 +1,7 @@
 # Next Session Prompt — When To Book
 
 **Read this file first at the start of every session, before doing anything else.**
-
-> ⚠️ **ACTIVE PLAN HAS CHANGED — read `PLAN_V2.md` instead of `PLAN.md`.**
-> `PLAN_V2.md` is the current working plan as of 2026-05-18. It was produced from a full business audit and contains 15 fully-scoped agent tasks (B1–B15) plus owner actions. `PLAN.md` is now superseded for strategic work — it remains useful only as a technical history log. **Always read `PLAN_V2.md` at session start.**
-
----
-
-## 🔴 LOCKED — DO NOT REVERT (commit e40e8b7, 2026-05-19)
-
-**Signal-first visual hierarchy on resort cards. These CSS values are locked:**
-
-- `.price-movement` = **22px Playfair Display bold** — this is the DOMINANT headline. The signal (% change / direction) is the product.
-- `.card-price` = **14px Inter, `color: var(--text-muted)`** — secondary. Shows "from £X,XXX · N nights · per party".
-- `.card-price-label` = `display: none` (label is now inline in `.card-price` text).
-- Hero best-card: drop amount = **38px Playfair bold teal**. Absolute price = **14px muted** secondary line.
-
-**Any agent editing `clubmed/index.html` must verify these sizes are intact before committing.**
-
-History: first implemented in `a5e08b9` on a worktree branch that was never merged. Regressed to old values (32px card-price, 13px price-movement) on main. Restored in `e40e8b7` (2026-05-19).
+Then read `PLAN.md` for the full task list.
 
 ---
 
@@ -26,28 +9,20 @@ History: first implemented in `a5e08b9` on a worktree branch that was never merg
 
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.
 
-**✅ Card click bug RESOLVED (2026-05-06):** buildModalChart used hardcoded indices [0,6,13] which crashed with a silent TypeError when resorts had <14 price history points (~9 actual). Fixed with dynamic midIdx/lastIdx (877c0dd). Language violations ("cheapest" in meta/UI) also cleaned up (d4c59c6).
-
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
-- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS live and enforced.
+- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert may now be provisioned — check and tick "Enforce HTTPS" in Pages Settings if available.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
-- **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
-- **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/prices_markwarner.csv`
-- **Summer checker:** `clubmed_summer_checker.py` — 10 resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC, KANC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. Supports `--inject-only` to rebuild `clubmed/index.html` (injects `RESORT_DATA_SUMMER` block). KANC = Kani Maldives. `resort["combos"]` crash bug fixed 2026-05-17 — first real data expected 2026-05-18.
-- **Summer tracker:** Ski/Summer toggle in `clubmed/index.html` — live at `whentobook.co.uk/clubmed`. 10-resort card grid, party-size filter, Kit alert CTA. `summer/index.html` is a redirect to `/clubmed`. Rebuilt by `build_site.yml` when `prices_clubmed_summer.csv` changes (runs `--inject-only` on `clubmed/index.html`).
-- **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
-- **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
-- **Summer prices:** `_data/prices_clubmed_summer.csv` — initialised 2026-05-12 with full headers; daily checker writes here from 07:30 UTC. Append-only.
-- **Sandals prices:** `_data/prices_sandals.csv` — placeholder created (headers only); checker not yet built.
+- **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
+- **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
+- **Price history:** `_data/price_history.csv` — ~9,000 rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
+- **Mark Warner prices:** `_data/markwarner_prices.csv` — 54 rows seeded 2026-05-04. Append-only.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
-- **Signal state:** `DATA_SUFFICIENT = false` — badges show real price movement signals (↓/↑ £X since tracking, or Stable) when 2+ data points exist; "Building data..." only for 0–1 data points. The flag is still `false` and must not be changed until autumn 2026.
+- **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
 - **Email alerts:** `clubmed_checker.py` only emails on genuine failures (>30% API error rate). All other alerts removed.
 - **GA4:** `G-G2RES5DX0K` — live in both `clubmed/index.html` and `index.html`.
 - **SSH key:** `~/.ssh/booking_window_deploy`
 - **Checker flags:** `--test` (no writes), `--verify` (one API call), `--inject-only` (rebuild RESORT_DATA from CSV, no API calls)
-- **Date format:** Resort dates display as "6–13 Dec 2026" (departure + 7 nights, cross-month handled: "27 Dec–3 Jan 2027"). Fixed 2026-05-05.
-- **Branch `claude/nifty-shannon-d10066`:** Content (DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py) already on main (bb8587b). Branch can be deleted.
 
 Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings fully yet. Booking window typically opens June/July 2026. Not a bug.
 
@@ -87,117 +62,22 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — **Mark Warner checker built and verified:** `markwarner_checker.py` uses POST `/resort/getresortsearchcriteria` API (resortId 957, LGW, 7 nights). Returns all 18 departure dates per party size in one call. 3 party sizes = 54 rows/run. Seeded. GitHub Actions at 07:00 UTC daily.
 - 2026-05-04 — **Email alerts stripped:** `clubmed_checker.py` only emails on >30% API error rate. All signal/price-change/success emails removed.
 - 2026-05-04 — **Blog promoted to high priority** in PLAN.md. 3 article ideas generated (see below).
-- 2026-05-05 — Reverted `clubmed/index.html` to d651c28 (working state). c500fb8 introduced touchstart/touchend handlers with `e.preventDefault()` that broke resort card clicks, party size tabs, and Show Optimal Dates button on both desktop and mobile.
-- 2026-05-05 — JS crash fix: guard against resorts with empty departures in `openModal` (commit 668f35c).
-- 2026-05-05 — Date display fix: removed stale `w/c` strip; dates now show as "6–13 Dec 2026" (departure + 7 nights, cross-month handled). Commit 7093c2e.
-- 2026-05-05 — LP2C placeholder purge: 328 rows with £3,322 price removed from `price_history.csv`. Commit c8df916.
-- 2026-05-05 — RESORT_DATA regenerated via `--inject-only`; La Plagne correctly shows no data.
-- 2026-05-05 — TESTER.md QA agent created (commit d651c28). Verifies each Builder task.
-- 2026-05-05 — DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py created — **on branch `claude/nifty-shannon-d10066`, NOT merged to main**. Review/merge before using.
-- 2026-05-05 — Agent team coordination issues identified: simultaneous sessions cause git lock contention; Builder committed to worktree branch not main; sessions ran 150+ turns without committing.
-- 2026-05-05 — HTTPS enforced on GitHub Pages
-- 2026-05-05 — Vercel project decommissioned; DNS routes exclusively to GitHub Pages
-- 2026-05-05 — Resort card click bug confirmed fixed: buildModalChart hardcoded indices [0,6,13] caused silent TypeError when pts had <14 entries; fixed with dynamic midIdx/lastIdx (877c0dd). Tester PASS.
-- 2026-05-05 — Language rule violations fixed: "cheapest" removed from all 3 meta tags, search modal label, JS results label, modal narrative. console.log diagnostic removed. (d4c59c6)
-- 2026-05-05 — AGENT_LOG.md Data Analyst health check entry committed (d4c59c6)
-- 2026-05-06 — Resort card click bug confirmed fixed: buildModalChart hardcoded indices [0,6,13] caused silent TypeError; fixed with dynamic midIdx/lastIdx (877c0dd). Tester PASS.
-- 2026-05-06 — Language rule violations fixed: "cheapest" removed from all 3 meta tags, search modal UI, JS results label, modal narrative; console.log diagnostic removed (d4c59c6)
-- 2026-05-06 — AGENT_LOG.md Data Analyst health check entry committed (d4c59c6); nifty-shannon branch content confirmed already on main
-- 2026-05-06 — Quality check gate fixed: `continue-on-error: true` added to data_quality_check.py step in price_checker.yml; check always logs but never blocks data collection (d549110)
-- 2026-05-06 — Agent git rules tightened: `⚠️ GIT RULES — NON-NEGOTIABLE` section added to BUILDER.md and ORCHESTRATOR.md; check `git branch` before every commit, no simultaneous Builder sessions, commit per-task (bc975d1)
-- 2026-05-06 — **Jekyll blog infrastructure set up:** `_posts/` directory created; blog nav link + footer link added to `index.html` (ba1a6a0)
-- 2026-05-06 — **Unapproved draft deleted:** `_posts/2026-05-06-why-timing-matters-when-booking-club-med.md` removed — not from approved content brief (efaedce)
-- 2026-05-06 — **Article 1 published:** "When to Book a Club Med Ski Holiday: The Price Window Explained" at `_posts/2026-05-06-when-to-book-club-med-ski-holiday.md` — 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words (894ee8b)
-- 2026-05-06 — **Article 2 published:** "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" at `_posts/2026-05-06-club-med-tignes-vs-les-arcs.md` — 1,412 words, UK English, comparison table, JSON-LD schema, links to /clubmed, no banned words (bcde757)
-- 2026-05-06 — **Blog link added to Club Med page nav and footer** — Blog navigation and footer links added to `clubmed/index.html` (commit 4263be0)
-- 2026-05-06 — **Departure day copy corrected** — "Saturday" → "Sunday" across `clubmed/index.html` (commit e87cbb2). Note: 3 instances remain — alert form, How It Works, modal subtitle.
-- 2026-05-06 — **Twitter card meta tags added** — Open Graph / Twitter card meta tags added to root `index.html`, blog index, and `_layouts/post.html` (commit 2342a16)
-- 2026-05-06 — **Blog URLs added to sitemap.xml** — Blog index and all post URLs added to `sitemap.xml` (commit 7905b02)
-- 2026-05-06 — **Logo href and JSON-LD WebSite URL corrected** — Logo link href and JSON-LD `WebSite` url property corrected across root and blog pages (commit 6888363)
-- 2026-05-06 — **Mark Warner workflow fix** — `git pull --rebase` added to `markwarner_checker.yml` to prevent diverged-branch push failures (commit a746a74)
-- 2026-05-06 — **Under construction page created** — `under-construction.html`: on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form (commit 2575e57)
-- 2026-05-06 — **Entry-point redirects added** — `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file (commit 720f853). **Site is now OFFLINE.**
-- 2026-05-06 — **Async rewrite of `clubmed_checker.py`** — aiohttp + asyncio, Semaphore(8) concurrency, per-resort CSV commits, 429 backoff, push retry logic, 7 User-Agent strings. Grand Massif + Serre-Chevalier departure_day fixed to Sunday (6). Estimated runtime: 15–20 min (was 160+). Dry-run confirmed: Tignes £3,648. (commits 927784b + 9c41d58)
-- 2026-05-06 — **`price_checker.yml` timeout reduced to 60 min** — aiohttp added to pip install step (commit 9c41d58)
-- 2026-05-06 — **CSV architecture: `price_history.csv` → `prices_clubmed.csv`** — operator-specific naming; placeholder `prices_markwarner.csv` and `prices_sandals.csv` created; checker updated (commit 8236d90)
-- 2026-05-06 — **`build_site.yml` created** — dedicated HTML build workflow triggered by `_data/prices_*.csv` changes; runs `--inject-only`; concurrency-queued (commit 4718bc5)
-- 2026-05-06 — **HTML generation decoupled from price checker** — price checker is CSV-only; `build_site.yml` owns all HTML rebuilds (commit 711f8c7)
-- 2026-05-07 — **Mark Warner async rewrite** — Full async rewrite of `markwarner_checker.py`: aiohttp + asyncio, Semaphore(8), per-resort git commits, 7 rotating User-Agents, 429 backoff, 3-attempt push retry with exponential backoff (2s/4s/8s). `--verify` confirmed £1,658 for 2026-12-06. (commit eaccfd2)
-- 2026-05-07 — **`markwarner_checker.yml` fix** — timeout 180→60 min, aiohttp added to pip install, safety-net commit path corrected to `_data/prices_markwarner.csv`, HTML commit step removed. (commit 3f10acf)
-- 2026-05-07 — **Saturday copy fix completed** — All 5 remaining "Saturday" departure references in `clubmed/index.html` updated to "Sunday": alert form note, How It Works body, modal subtitle, search modal rows label, JS comment. (commit 4701ea0)
-- 2026-05-08 — **Jekyll Pages build failure fixed** — Root cause: Python `csv.DictWriter` default `lineterminator='\r\n'` wrote CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF. Fix applied: (1) stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4); (2) added `lineterminator='\n'` to `csv.DictWriter` in both checkers to prevent recurrence (commit c2f6020). Pages build `25541486848` confirmed passing.
-- 2026-05-08 — **Price checker safety net hardened** — `price_checker.yml` safety net step now uses explicit `git pull --rebase origin main` and `git push origin main` instead of bare commands. Bare `git push` failed with exit code 128 in run #24. (commit c2f6020)
-- 2026-05-12 — **Club Med summer price checker built** — `clubmed_summer_checker.py`, `.github/workflows/clubmed_summer_checker.yml` (07:30 UTC daily), `_data/prices_clubmed_summer.csv` (header-only). 9 resort codes confirmed via GraphQL productId probe: `GREC` Gregolimano (Greece), `MMAC` Magna Marbella (Spain), `DBAC` Da Balaia (Portugal), `CARC` La Caravelle (Corsica), `LAPC` La Palmyre Atlantique (France), `LPAC` La Palmyre (France), `PALC` La Palmeraie (Marrakech), `TURC` Palmiye (Turkey), `AGAC` Agadir (Morocco). `--verify` confirmed £3,918 MMAC. Cefalù not found — CEFC/CEFX/CEFS all return the ARPC_WINTER placeholder (invalid). (commits 346d391, effbf4e, 808724b)
-- 2026-05-17 — **Site went live** — Meta-refresh redirects removed from `index.html` and `clubmed/index.html`. whentobook.co.uk is live. (commit 859fe56)
-- 2026-05-17 — **Resort cards lead with price movement signal** — movementHTML moved above card-price; % change added to movement display (e.g. ↓ £438 (−9%) in 14 days). Signal-first layout aligned with booking-intelligence positioning. (commit 34a74c0)
-- 2026-05-17 — **Article 3 published** — "Is Club Med Ski Worth the Money? An Honest Assessment" at `_posts/2026-05-17-is-club-med-ski-worth-it.md`. ~1,100 words, target keyword `is Club Med ski worth it`, UK English, covers package vs DIY + timing angle, CTA to tracker, internal links to articles 1+2, sitemap updated. (commit 0cf9154)
-- 2026-05-17 — **Summer checker: Kani (KANC) added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe and added to RESORTS dict (10 total). Fixed critical bug: `resort["combos"]` was never set in RESORTS config — would have caused KeyError on first run. Replaced all `resort["combos"]` references in `process_resort` with global `_COMBOS`. (commit 7fc1677)
-- 2026-05-17 — **Articles 4–7 published** — Per-resort guides using live price data: "Best Time to Book Club Med Val d'Isère" (£3,150–£13,608 data), "Best Time to Book Club Med Tignes" (£2,760–£8,830), "Best Time to Book Club Med Les Arcs" (£2,874–£7,304), "Best Time to Book Club Med Alpe d'Huez" (unusual Mar 21 spike £8,480 documented). Blog now has 7 articles total. (commits 809f0bf, 3a6a5b4, 3f07025)
-- 2026-05-17 — **Summer tracker launched then consolidated** — Initially launched as `summer/index.html` (commit 1d784e3), then consolidated into `/clubmed` with a Ski/Summer toggle (commit d59b799). `RESORT_DATA_SUMMER` injectable block and `RESORT_GRADIENTS_SUMMER` added to `clubmed/index.html`. Summer checker (`clubmed_summer_checker.py`) now targets `clubmed/index.html`, injecting `RESORT_DATA_SUMMER`. `summer/index.html` is now a redirect to `/clubmed`. Root landing page consolidated to single Club Med card. `sitemap.xml` `/summer/` entry removed.
-- 2026-05-17 — **Articles 8–10 published** — Per-resort guides for Valmorel, La Rosière, Val Thorens Sensations. Blog now has 10 articles total. Sitemap updated. (commit fec4679)
-- 2026-05-18 — **Party size filter tabs removed** — 2A / +1 Child / +2 Children filter buttons removed from above resort grid. Cards always show 2-adult baseline; family prices remain in modal. (commit b0547b1)
-- 2026-05-18 — **Movement badge copy cleaned up** — "in 14 days" qualifier stripped from all movement badges on cards and search results. Format: `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable`. "Best signal" label now reads "Featured date" until DATA_SUFFICIENT = true. Modal narrative uses "recently". (commit b0547b1)
-- 2026-05-18 — **Hero search form replaced with best-opportunity card** — Hero `#hero-form` removed entirely (duration tabs, date-mode tabs, party size selectors). Replaced with JS-rendered `#hero-best-card`: `getBestOpportunity()` finds biggest price drop in active season; `renderHeroBestCard()` renders resort, date, price, drop, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed. (commit 5d7d42f)
-- 2026-05-18 — **AGENT_LOG: child age selector warning resolved** — Hero form removed entirely in commit 5d7d42f; age selectors no longer exist. AGENT_LOG entry updated to RESOLVED.
-- 2026-05-18 — **GA4 event tracking added** — `resort_card_click` (resort cards + hero CTA), `book_link_click` (modal + search modal book links), `departure_selected` (departure table rows + search modal date rows) wired to existing G-G2RES5DX0K tag in `clubmed/index.html`. Book links use stopPropagation to prevent double-fire. (commit 960dc91)
-- 2026-05-18 — **Signal badges now show real price movement** — `getSignalBadgeHTML` computes from `priceHistory`: ↓/↑ £X since tracking — consider booking / hold and monitor / Stable. "Building data..." only when ≤1 data points. `DATA_SUFFICIENT` flag retained — now only gates no-data fallback. All call sites pass `dep`. (commit 7572510)
-- 2026-05-18 — **Booking URLs corrected** — All 11 bookingUrls updated to `/r/{slug}/w` format. Corrected: tignes-val-claret → tignes, alpe-dhuez → l-alpe-d-huez, la-plagne-2100 → la-plagne. Search modal uses resort-specific URL. (commit 7572510)
-- 2026-05-18 — **Full business audit completed** — `BUSINESS_AUDIT.md` created covering site quality, data architecture, earning potential, risks, and business plan foundations. Key finding: API fragility is highest technical risk; affiliate approval is the primary business milestone.
-- 2026-05-18 — **PLAN_V2.md created** — Comprehensive affiliate-readiness plan with 15 agent tasks (B1–B15), 7 owner actions (A1–A7), phased timeline, and Awin application readiness checklist. Supersedes `PLAN.md` for strategic work.
-- 2026-05-18 — **hello@whentobook.co.uk created** — Zoho Mail (EU) free tier. DNS records added to Squarespace: 3×MX (mx.zoho.eu/10, mx2.zoho.eu/20, mx3.zoho.eu/50), SPF TXT (v=spf1 include:zohomail.eu ~all, replacing existing), DKIM TXT (zmail._domainkey). Allow up to 24h for propagation.
-- 2026-05-18 — **Founding story written by owner** — Saved as `about.md` at repo root. Full styled page with CSS, personal story, "What the site does today" section, CTA.
-- 2026-05-19 — **All PLAN_V2.md B tasks completed** — B1–B13 + B15 all done in single session. See commits 3cc1483 (structural), e0d0728 (pages), c542d1c (content fixes), ab7a605 (articles). Full detail below.
+- 2026-05-04 — **5 fixes applied:** (1) `markwarner_prices.csv` header corrected to 15-column schema; (2) `bookingUrl` added to all 11 Club Med resorts in `clubmed_checker.py` + emitted into JS; (3) 5 occurrences of "cheapest" replaced in `clubmed/index.html` (meta tags → "most favourable pricing", sort labels → "lowest price first"); (4) Mobile touch fixes: `touch-action: manipulation` on all interactive elements, `-webkit-overflow-scrolling: touch` on modals, party-size filter selector scoped to `[data-party]`; (5) Sort bar added below party size tabs — Lowest price first / Highest price first / Biggest price drop.
 
 ---
 
 ## Up Next (priority order)
 
-✅ **Site is LIVE** — went live 2026-05-17.
-✅ **Blog has 13 articles** — all 11 French Alps ski resorts now covered.
-✅ **All PLAN_V2.md B tasks done** — B1–B13 + B15 complete. B14 blocked on Awin approval.
+### User actions required first
+1. **Enforce HTTPS on GitHub Pages** — cert may now be provisioned. Go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS".
+2. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
 
-### 🔴 NEXT OWNER ACTION — Apply to Awin
-
-The site now meets the readiness checklist in PLAN_V2.md:
-- ✅ About page live at `/about` with founding story
-- ✅ hello@whentobook.co.uk in footer
-- ✅ Affiliate disclosure page built (`/affiliate-disclosure.html`, footer link commented out)
-- ✅ Consistent dark teal header across tracker, blog, and article pages
-- ✅ Footer expanded with About · Blog · Privacy · contact email on all pages
-- ✅ Hero subtitle rewritten (partner framing)
-- ✅ Signal descriptions (Hold/Favourable) rewritten
-- ✅ How It Works Step 2 rewritten
-- ✅ JS modal copy fixed
-- ✅ Mobile hero verified and CTA tap target ≥44px
-- ✅ All 13 resort guides published (complete set — all 11 French Alps resorts)
-- ✅ All articles end with consistent teal CTA box
-- ✅ Summer nav link fixed
-
-**Owner action:** Apply to Awin per A7 instructions in PLAN_V2.md. Submit URL: `https://whentobook.co.uk/clubmed`.
-
-### ⏸ BLOCKED / DEFERRED
-
-- **B14** — Affiliate link integration. Do not action until Awin sends approval email. Then: update all 11 `bookingUrl` values in `RESORT_DATA`, update summer resort URLs, uncomment affiliate disclosure footer link, add disclosure line to articles with direct affiliate links.
-- **Summer resort names** — LAPC/LPAC/PALC/TURC names to verify against Club Med UK before promoting summer tracker heavily.
-- **Eurostar Snow** — Blog articles only. Deadline 9 July 2026.
-
-### Kit form bug (B15) — detail for Builder
-
-Both Kit form fetch calls in `clubmed/index.html` use `Content-Type: application/json`. Kit's public form endpoint expects `application/x-www-form-urlencoded`. Fix:
-```javascript
-const params = new URLSearchParams();
-params.append('email_address', email);
-params.append('fields[resort_interest]', resortName);
-fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-  body: params.toString()
-})
-```
-Apply the same fix to the search modal form (ID `f197f8f414`). Also check `#alert-consent` and `#search-kit-consent` checkboxes for pointer-events issues.
-
-### Design constraint (for future operators / summer expansion)
-> **Flexible duration support (7 / 10 / 14 nights):** Summer checker currently queries 7-night durations only. When summer tracker UI is built, consider expanding to `durations: [7, 10, 14]` per the design constraint in PLAN.md. Do not apply to existing winter Club Med checker without user instruction.
+### Autonomous (next session)
+3. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
+4. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+5. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
+6. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
+7. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
 
 ---
 
@@ -265,9 +145,9 @@ Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Upd
 | La Rosière | `LROC_WINTER` | Sunday |
 | La Plagne 2100 | `LP2C_WINTER` | Sunday |
 | Val d'Isère | `VDIC_WINTER` | Sunday |
-| Grand Massif | `GMAC_WINTER` | Sunday (fixed in 927784b) |
+| Grand Massif | `GMAC_WINTER` | TBC |
 | Val Thorens Sensations | `VTHC` | Sunday (no `_WINTER` suffix) |
-| Serre-Chevalier | `SECC_WINTER` | Sunday (fixed in 927784b) |
+| Serre-Chevalier | `SECC_WINTER` | TBC |
 
 ---
 
@@ -311,28 +191,13 @@ index.html                  — Root brand landing page
 WhentoBook.html             — Redirect to /clubmed
 clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
 markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
-clubmed_summer_checker.py   — Summer resort price checker (flags: --test, --verify, --inject-only); 10 resorts; injects RESORT_DATA_SUMMER into clubmed/index.html
-summer/index.html           — Redirect to /clubmed (was tracker; now consolidated into clubmed/index.html Ski/Summer toggle)
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
-_data/prices_clubmed.csv    — Club Med price log (~9,000+ rows, append-only; renamed from price_history.csv)
-_data/prices_markwarner.csv — Mark Warner price log (placeholder; daily runs active, append-only)
-_data/prices_clubmed_summer.csv — Summer resort price log (initialised 2026-05-12; daily runs from 07:30 UTC)
-_data/prices_sandals.csv    — Sandals price log (placeholder; checker not yet built)
+_data/price_history.csv     — Club Med price log (~9,000 rows, append-only)
+_data/markwarner_prices.csv — Mark Warner price log (54 rows seeded, append-only)
 vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/
-  price_checker.yml         — Club Med: daily 06:00 UTC (writes CSV only)
-  build_site.yml            — HTML rebuild: triggered by prices_*.csv changes, runs --inject-only
+  price_checker.yml         — Club Med: daily 06:00 UTC
   markwarner_checker.yml    — Mark Warner: daily 07:00 UTC
   backup.yml                — Weekly CSV backup to GitHub Releases (Sundays 02:00 UTC)
 When To Book/Agents/        — Agent .md files mirrored to vault (Obsidian)
-TESTER.md                   — QA agent: verifies each Builder task
-BUILDER.md                  — Builder agent: implements code, commits to main
-ORCHESTRATOR.md             — Orchestrator: plans, delegates, verifies
-SCRIBE.md                   — Scribe: documentation only
-
-DATA_ANALYST.md             — Data Analyst agent: placeholder detection, quality scoring 0–100
-AGENT_LOG.md                — Inter-agent communication log (Orchestrator reads at session start)
-data_quality_check.py       — Reads price_history.csv, detects CRITICAL/WARNING/INFO, appends to AGENT_LOG.md
 ```
-
-Note: `claude/nifty-shannon-d10066` branch content is now on main (bb8587b). Branch can be deleted.

@@ -21,9 +21,15 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
 
-- [ ] **Build Mark Warner price checker** — **Research done 2026-05-04:** Mark Warner has only ONE ski property (Chalet Hotel L'Écrin, Tignes; product ID `SKI-24314`). Site is ASP.NET Core with Vue.js frontend. Found API endpoint `/resort/getresortsearchcriteria/` but exact request payload requires DevTools capture. **User action needed:** open `markwarner.co.uk/ski-holidays/france/chalet-hotel-lecrin/accommodation` in Chrome DevTools (Network tab, filter XHR), click search/availability, copy the full request URL + payload + response. Alternative: accommodation page shows seasonal prices as server-rendered HTML (Christmas/Jan/Feb/Easter) — could scrape this instead. Note: only 1 resort limits value vs Club Med's 11.
+- [x] **Build Mark Warner price checker** — `markwarner_checker.py` built and verified 2026-05-04. API: POST `/resort/getresortsearchcriteria` with `{resortId: 957, adults, children, childAges, airport: "LGW", duration: 7, checkIn: today}`. Returns `validDates[]` with `pr` (promo total), `prpp` (promo pp), `wp` (was-total), `wppp` (was-pp), room type. 18 departure dates per party size, 3 party sizes = 54 rows/run. Seeded with 54 rows. GitHub Actions at 07:00 UTC daily. Note: `resortId` (957) is embedded in page HTML — update if they redesign. One resort only (Tignes); PLAN.md will note when a MW Tignes tracker page is worth building. — 2026-05-04
 - [ ] **Build Sandals price checker** — GitHub references confirm an "official Sandals booking API" exists but it's not publicly documented — may require a partner relationship. Try reverse-engineering `sandals.co.uk` via DevTools first. Also check for a `/developers` or `/partner` portal. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions.
 - [ ] **Add both new checkers to GitHub Actions** — Create `.github/workflows/markwarner_checker.yml` and `.github/workflows/sandals_checker.yml` (or extend `price_checker.yml`). Daily at offset times (e.g. 07:00 and 08:00 UTC) to avoid concurrent runs. Commit updated CSVs.
+
+### 🔴 HIGH PRIORITY — Blog / editorial content
+
+- [ ] **Set up Jekyll blog infrastructure** — Create `_posts/` directory structure, `_layouts/post.html` (matching site design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively — no additional tooling needed. First post can go live immediately after. (MT-3b)
+- [ ] **Publish first 3 articles** — Target search terms: "when to book Club Med ski holidays", "Club Med ski resort price comparison", "best time to book Club Med [resort]". Full article briefs in IMPROVEMENT_PLAN.md. 600–900 words each, JSON-LD schema, link back to resort tracker. (MT-3c, see content ideas below)
+- [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
 ---
 

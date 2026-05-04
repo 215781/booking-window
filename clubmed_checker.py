@@ -38,12 +38,6 @@ GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")   # your gmail address
 GMAIL_APP_PASS = os.environ.get("GMAIL_APP_PASS", "")  # 16-char app password
 ALERT_TO       = os.environ.get("ALERT_TO", "")        # where to send alerts
 
-# Price drop threshold to trigger an alert email (£)
-ALERT_THRESHOLD = 50
-
-# How many consecutive no-price responses before sending a health-check alert
-HEALTH_CHECK_LIMIT = 3
-
 # ─────────────────────────────────────────────────────────────
 # RESORT CONFIG
 # Each entry defines one resort and all the party/date combos to track.
@@ -535,39 +529,6 @@ def send_alert(subject, body):
     except Exception as e:
         print(f"  Failed to send alert: {e}")
 
-def check_for_alerts(all_results, previous_signals):
-    """Compare new signals against previous run — alert on any new Book Now."""
-    for (resort_id, party_size, start_date, duration_n), price in all_results.items():
-        if price is None:
-            continue
-        history = load_price_history_from_csv(resort_id, party_size, start_date, duration_n)
-        signal  = calculate_signal(history)
-        prev    = previous_signals.get((resort_id, party_size, start_date))
-        if signal == "favourable" and prev != "favourable":
-            resort_name = next((r["name"] for r in RESORTS if r["id"] == resort_id), resort_id)
-            dep_dt      = datetime.strptime(start_date, "%Y-%m-%d") + timedelta(days=1)
-            display_date = dep_dt.strftime("%-d %b %Y")
-            subject = f"When To Book signal: {resort_name} w/c {display_date} — Favourable"
-            body = (
-                f"A new Favourable signal has triggered on When To Book.\n\n"
-                f"Resort:     {resort_name}\n"
-                f"Departure:  w/c {display_date}\n"
-                f"Party size: {party_size}\n"
-                f"Price:      £{price:,}\n\n"
-                f"View: https://whentobook.co.uk\n"
-            )
-            send_alert(subject, body)
-
-def load_previous_signals():
-    """Load the last known signal for each combo from CSV."""
-    if not Path(CSV_FILE).exists():
-        return {}
-    signals = {}
-    with open(CSV_FILE, newline="") as f:
-        for row in csv.DictReader(f):
-            key = (row["resort_id"], row["party_size"], row["start_date"])
-            signals[key] = row.get("signal", "hold")
-    return signals
 
 # ─────────────────────────────────────────────────────────────
 # RESORT METADATA (region, altitude — matches the HTML)
@@ -653,9 +614,6 @@ def main():
         inject_into_html(js_string)
         print("Done.")
         return
-
-    # Load previous signals for alert comparison
-    previous_signals = load_previous_signals()
 
     # Load historical price stats once — used to compute enriched CSV fields
     historical_stats = load_all_price_stats()
@@ -757,10 +715,6 @@ def main():
     print(f"Building updated RESORT_DATA...")
     js_string = build_resort_data_js(all_results)
     inject_into_html(js_string, test_mode=args.test)
-
-    # Check alerts
-    if not args.test:
-        check_for_alerts(all_results, previous_signals)
 
     # Health check — only alert on actual API errors, not pre-season "not for sale" responses
     total = len(csv_rows)

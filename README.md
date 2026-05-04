@@ -11,7 +11,7 @@ Built by Drop Media Ltd.
 ```
 BookingWindow.html      — the website (single file, open directly in browser)
 clubmed_checker.py      — price checker script
-price_history.csv       — full price log (every check, never deleted)
+_data/price_history.csv — full price log (every check, never deleted; not served by GitHub Pages)
 .github/workflows/
   price_checker.yml     — GitHub Actions cron (runs at 06:00 and 18:00 UTC)
 ```
@@ -86,7 +86,7 @@ Signals improve in accuracy as price history accumulates. In the first few weeks
 
 - All prices are accommodation only (`departureCity: "NO"`) — flight prices are excluded intentionally as they are too volatile and would cause false signals.
 - Saturday departures only, 7-night stays.
-- `price_history.csv` is append-only. Never delete it — the historical record is the product.
+- `_data/price_history.csv` is append-only. Never delete it — the historical record is the product.
 
 ---
 

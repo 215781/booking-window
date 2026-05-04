@@ -31,7 +31,7 @@ from pathlib import Path
 
 # File paths (relative to this script — keep everything in the same repo folder)
 HTML_FILE = "WhentoBook.html"
-CSV_FILE  = "price_history.csv"
+CSV_FILE  = "_data/price_history.csv"
 
 # Email alerts (set these as GitHub Actions secrets, or hardcode for local testing)
 GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")   # your gmail address

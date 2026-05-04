@@ -15,7 +15,7 @@ import sys
 from datetime import datetime, date
 from pathlib import Path
 
-CSV_FILE = "price_history.csv"
+CSV_FILE = "_data/price_history.csv"
 
 NEW_HEADERS = [
     "timestamp", "resort_id", "resort_code", "party_size",

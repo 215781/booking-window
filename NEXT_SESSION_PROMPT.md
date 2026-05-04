@@ -13,7 +13,7 @@ Then read `PLAN.md` for the full task list.
 - **Live site:** Vercel deployment (auto-deploys from main). GitHub Pages configured via `CNAME` but DNS not yet set at registrar.
 - **HTML file:** `WhentoBook.html` (single-file site — also the data file the checker writes into)
 - **Price checker:** `clubmed_checker.py` runs daily at 06:00 UTC via GitHub Actions
-- **Price history:** `price_history.csv` — ~5,862 rows as of 28 Apr 2026. Append-only, never delete.
+- **Price history:** `_data/price_history.csv` — ~5,862 rows as of 28 Apr 2026. Append-only, never delete. In `_data/` so Jekyll/Pages won't serve it publicly.
 - **Resorts:** 11 French Alps resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — all badges show "Building data — check back in autumn". Do not change until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
@@ -42,15 +42,18 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings y
 - 2026-04-28 — Kit Cowork session: both forms configured, custom field, tags, welcome sequence live
 - 2026-04-28 — Search popup wired to correct Kit form (`f197f8f414`)
 - 2026-05-04 — Multi-agent workflow set up: CLAUDE.md, ORCHESTRATOR.md, BUILDER.md, SCRIBE.md, PLAN.md
+- 2026-05-04 — price_history.csv moved to _data/price_history.csv (Jekyll hides it from Pages); Vercel block added; all path refs updated
 
 ---
 
 ## Up Next
 
-1. **Configure DNS** — set CNAME `www` → `215781.github.io` and A records for apex. User action — not a code task.
-   - A records: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - After DNS: GitHub Pages > Settings > confirm custom domain + Enforce HTTPS
-2. **Decide: GitHub Pages vs Vercel** — both live; pick canonical deployment and point DNS there.
+1. **Activate GitHub Pages in repo Settings** — go to `https://github.com/215781/booking-window/settings/pages`, set Source to "Deploy from a branch" → `main` → `/ (root)`. CNAME file is already committed. User action.
+2. **Configure DNS at Squarespace** — log into Squarespace > Domains > `whentobook.co.uk` > DNS Settings > Custom Records. Add:
+   - 4 × A records, host `@`, values: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
+   - 1 × CNAME record, host `www`, value: `215781.github.io`
+   After DNS propagates: GitHub Pages Settings > confirm custom domain + Enforce HTTPS.
+3. **Decommission Vercel** (optional) — once Pages is live and DNS resolved, Vercel can be removed. `vercel.json` can stay for now as it also blocks `/_data/` access.
 3. **Verify `VMOC_WINTER` code** — a space was noted (`VMO C_WINTER`) in one session note; confirm in the actual checker file.
 4. **Grand Massif + Serre-Chevalier departure day** — let data accumulate; revisit in a few weeks to confirm Sat vs Sun.
 

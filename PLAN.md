@@ -8,8 +8,9 @@ Last updated: 2026-05-04
 
 ## Active / Up Next
 
-- [ ] **Configure DNS** — set CNAME `www` → `215781.github.io` and A records for apex at the registrar. **User action required.**
-- [ ] **Decide: GitHub Pages vs Vercel** — both deployments exist. Vercel is live. GitHub Pages is configured but DNS not set. Decide which is canonical and point DNS accordingly. **Product decision.**
+- [ ] **Activate GitHub Pages** — go to `https://github.com/215781/booking-window/settings/pages`, set Source: "Deploy from a branch" → `main` → `/ (root)`. CNAME already committed. **User action required.**
+- [ ] **Configure DNS at Squarespace** — Squarespace > Domains > `whentobook.co.uk` > DNS Settings. Add 4 A records (`@` → `185.199.108.153 / .109 / .110 / .111`) + CNAME (`www` → `215781.github.io`). After propagation: confirm custom domain in Pages Settings + Enforce HTTPS. **User action required.**
+- [ ] **Decommission Vercel** (once Pages DNS is live) — remove Vercel project. `vercel.json` can stay in repo as the Vercel block for `/_data/` is a safety net.
 - [ ] **Confirm `VMOC_WINTER` code** — a space was noted (`VMO C_WINTER`) in one session note. Verify the actual code in `clubmed_checker.py` against the API.
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
 
@@ -47,3 +48,4 @@ Last updated: 2026-05-04
 - [x] Search popup wired to correct Kit form (`f197f8f414`) — 2026-04-28
 - [x] Season price calendar view added to resort modal — 2026-04-26
 - [x] Multi-agent workflow set up: CLAUDE.md, ORCHESTRATOR.md, BUILDER.md, SCRIBE.md — 2026-05-04
+- [x] price_history.csv moved to `_data/price_history.csv` (hidden from GitHub Pages/Vercel) — 2026-05-04

@@ -16,7 +16,7 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 |---|---|
 | Frontend | Single-file HTML/CSS/JS — `WhentoBook.html`. No frameworks, no build tools. |
 | Price data | `clubmed_checker.py` — Python 3.11, Club Med GraphQL API |
-| Data storage | `price_history.csv` — append-only, never delete rows |
+| Data storage | `_data/price_history.csv` — append-only, never delete rows |
 | Scheduler | GitHub Actions cron — `.github/workflows/price_checker.yml` |
 | Hosting | Vercel (live). GitHub Pages configured via `CNAME` but DNS not yet set. |
 | Email | Kit (ConvertKit) — public form endpoints only, no API key in repo |
@@ -29,7 +29,7 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 ```
 WhentoBook.html                   — the live website (canonical file)
 clubmed_checker.py                — price checker script
-price_history.csv                 — full price log (append-only — never delete)
+_data/price_history.csv           — full price log (append-only — never delete; Jekyll won't serve _data/)
 vercel.json                       — Vercel output config and URL rewrite
 CNAME                             — GitHub Pages custom domain (whentobook.co.uk)
 robots.txt
@@ -73,7 +73,7 @@ File: `.github/workflows/price_checker.yml`
 - Runs daily at **06:00 UTC**
 - 180-minute timeout
 - Rotating User-Agent pool, random 2–8s delays between API calls, 15–30s pause between resorts, randomised resort order
-- Commits updated `WhentoBook.html` and `price_history.csv` back to main automatically
+- Commits updated `WhentoBook.html` and `_data/price_history.csv` back to main automatically
 - Repository secrets required: `GMAIL_ADDRESS`, `GMAIL_APP_PASS`, `ALERT_TO`
 
 ---
@@ -152,7 +152,7 @@ git push
 
 ## Important invariants
 
-- `price_history.csv` is **append-only** — the historical record is the product. Never delete rows.
+- `_data/price_history.csv` is **append-only** — the historical record is the product. Never delete rows.
 - The checker injects `RESORT_DATA` directly into `WhentoBook.html` at runtime.
 - `NEXT_SESSION_PROMPT.md` is the session handoff — the orchestrator reads it first every session.
 - `PLAN.md` tracks the current roadmap — the scribe keeps it updated.

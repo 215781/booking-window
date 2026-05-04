@@ -68,8 +68,10 @@ DURATION_NIGHTS = 7
 
 USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4 Safari/605.1.15",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
+    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
 ]
 
 
@@ -89,11 +91,12 @@ def api_headers():
     }
 
 
-def fetch_prices(party: dict) -> list[dict]:
+def fetch_prices(party: dict, retries: int = 3) -> list[dict]:
     """
     POST to the search criteria endpoint. Returns all validDates for the season.
     One call per party size — the response contains the full set of departure
     dates and their prices regardless of the checkIn parameter.
+    Retries with exponential backoff on network/HTTP failures.
     """
     today = datetime.now(timezone.utc).strftime("%Y-%m-%d")
     payload = {
@@ -110,14 +113,35 @@ def fetch_prices(party: dict) -> list[dict]:
         "childNames": [],
         "infantNames": [],
     }
-    time.sleep(random.uniform(2, 5))
-    resp = requests.post(API_URL, headers=api_headers(), json=payload, timeout=20)
-    resp.raise_for_status()
-    data = resp.json()
-    if not data.get("success"):
-        print(f"  WARNING: API returned success=false for {party['label']}")
-        return []
-    return data.get("model", {}).get("validDates", [])
+
+    # Random pre-request delay to mimic a user navigating to the search page
+    time.sleep(random.uniform(3, 8) + random.uniform(0, 2))
+
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            resp = requests.post(API_URL, headers=api_headers(), json=payload, timeout=20)
+            resp.raise_for_status()
+            data = resp.json()
+            if not data.get("success"):
+                print(f"  WARNING: API returned success=false for {party['label']}")
+                return []
+            return data.get("model", {}).get("validDates", [])
+        except requests.exceptions.Timeout:
+            last_error = f"Timeout (attempt {attempt}/{retries})"
+        except requests.HTTPError as e:
+            if e.response.status_code in (403, 429):
+                raise  # blocking responses — don't retry, let caller handle
+            last_error = f"HTTP {e.response.status_code} (attempt {attempt}/{retries})"
+        except requests.RequestException as e:
+            last_error = str(e)
+
+        if attempt < retries:
+            backoff = 2 ** attempt + random.uniform(0, 3)
+            print(f"  Retry {attempt}/{retries} in {backoff:.0f}s — {last_error}")
+            time.sleep(backoff)
+
+    raise requests.RequestException(f"All {retries} attempts failed: {last_error}")
 
 
 # ─────────────────────────────────────────────────────────────
@@ -179,7 +203,17 @@ def main():
 
     all_rows = []
 
-    for party in PARTY_SIZES:
+    # Randomise party-size order each run so request cadence varies day-to-day
+    party_sizes_this_run = list(PARTY_SIZES)
+    random.shuffle(party_sizes_this_run)
+
+    for party_idx, party in enumerate(party_sizes_this_run):
+        if party_idx > 0:
+            # Longer pause between party-size groups — simulates navigating between search results
+            inter_group_sleep = random.uniform(10, 30)
+            print(f"  Pausing {inter_group_sleep:.0f}s before next party size...")
+            time.sleep(inter_group_sleep)
+
         print(f"\nFetching {party['label']} ({party['adults']}A {party['children']}C)...")
         try:
             valid_dates = fetch_prices(party)

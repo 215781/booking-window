@@ -1,0 +1,35 @@
+name: Weekly CSV Backup
+
+on:
+  schedule:
+    - cron: "0 2 * * 0"    # 02:00 UTC every Sunday
+  workflow_dispatch:        # manual trigger available
+
+permissions:
+  contents: write
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Create backup tag and release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          DATE=$(date -u +'%Y-%m-%d')
+          TAG="backup-${DATE}"
+          ROWS=$(tail -n +2 _data/price_history.csv | wc -l | tr -d ' ')
+
+          # Delete existing tag if re-running for same date
+          gh release delete "$TAG" --yes 2>/dev/null || true
+
+          gh release create "$TAG" \
+            _data/price_history.csv \
+            --title "Price history backup ${DATE}" \
+            --notes "Automated weekly backup. ${ROWS} data rows. Restore by downloading price_history.csv from this release and placing it at _data/price_history.csv in the repo." \
+            --prerelease

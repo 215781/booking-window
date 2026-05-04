@@ -51,6 +51,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings y
 - 2026-05-04 — Data purge: 612 suspect rows (LP2C_WINTER + VDIC_WINTER, Apr 23–25) removed from CSV; RESORT_DATA regenerated
 - 2026-05-04 — `VMOC_WINTER` verified correct (no space); `--inject-only` flag added to checker
 - 2026-05-04 — Data gap backfill task added to PLAN.md as high priority
+- 2026-05-04 — Security review: `escapeHtml()` added to site JS; `BookingWindow_v1_2.html` removed; security headers (CSP, X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy) added to `vercel.json`
+- 2026-05-04 — Data backup: `.github/workflows/backup.yml` added — weekly GitHub Releases backup of `price_history.csv` every Sunday at 02:00 UTC
 
 ---
 
@@ -62,8 +64,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings y
 4. **Decommission Vercel** (after Pages DNS is live).
 5. ~~**Verify `VMOC_WINTER` code**~~ — verified correct 2026-05-04. ✓
 6. **Grand Massif + Serre-Chevalier departure day** — let data accumulate, revisit in a few weeks.
-7. **Cybersecurity review** — full audit: exposed secrets, GitHub Actions permissions, form handling, data storage, CSP headers. (new)
-8. **Data backup** — automate backup of `_data/price_history.csv` to a second location before Oct 2026. (new)
+7. ~~**Cybersecurity review**~~ — completed 2026-05-04. ✓
+8. ~~**Data backup**~~ — weekly GitHub Releases backup live. ✓
 9. **Eurostar Snow alert page** — lowest priority. Build page + Kit form to alert when Eurostar Snow tickets go live.
 
 ---

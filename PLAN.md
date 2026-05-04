@@ -10,7 +10,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ## Active / Up Next
 
-- [ ] **🔴 Data gap backfill** — `price_history.csv` has gaps where the checker didn't run (e.g. 27 Apr – 4 May). Build a backfill script (or add `--backfill` mode to `clubmed_checker.py`) that, for each (resort, party, date, duration) combo, carries the last known price forward into any missing calendar dates. This makes charts and trend calculations complete rather than patchy. Run once after each multi-day gap. Backfilled rows should be clearly marked (e.g. `source=backfill`) so they can be excluded from statistical analysis if needed.
+- [x] **Data gap backfill** — `backfill_prices.py` built and run: 3,717 rows added for 2026-04-27 to 2026-05-03; backfilled rows marked with `T00:00:00Z` timestamp (vs live data at real UTC times). Run after any future multi-day gap: `python backfill_prices.py && python clubmed_checker.py --inject-only` — 2026-05-04
 - [ ] **Activate GitHub Pages** — go to `https://github.com/215781/booking-window/settings/pages`, set Source: "Deploy from a branch" → `main` → `/ (root)`. CNAME already committed. **User action required.**
 - [ ] **Configure DNS at Squarespace** — Squarespace > Domains > `whentobook.co.uk` > DNS Settings. Add 4 A records (`@` → `185.199.108.153 / .109 / .110 / .111`) + CNAME (`www` → `215781.github.io`). After propagation: confirm custom domain in Pages Settings + Enforce HTTPS. **User action required.**
 - [ ] **Decommission Vercel** (once Pages DNS is live) — remove Vercel project. `vercel.json` can stay in repo as the Vercel block for `/_data/` is a safety net.
@@ -27,8 +27,8 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [ ] **Improve OG image** — current `og-image.svg` may not render in all social preview contexts. Create a 1200×630 PNG. (QW-6)
 
 ### Medium term
-- [ ] **Cybersecurity review** — full audit of the site and repo for security vulnerabilities: exposed secrets, insecure dependencies, form handling, data storage, GitHub Actions permissions, Content Security Policy headers, input validation. Produce a findings report with severity ratings and remediation steps.
-- [ ] **Data backup** — automated backup of `_data/price_history.csv` to a second location (private repo, GitHub release artifact, or cloud storage). The CSV is the core data asset — if the repo is accidentally overwritten or corrupted, it must be recoverable. Target: set up before the CSV reaches 6 months of data (Oct 2026).
+- [x] **Cybersecurity review** — completed 2026-05-04. Findings: no hardcoded secrets; GitHub Actions permissions minimal; XSS self-injection risk in `noMsg` (fixed with `escapeHtml()`); `BookingWindow_v1_2.html` removed from root; security headers added to `vercel.json` (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, CSP). Remaining gap: inline scripts mean CSP uses `unsafe-inline` — acceptable for this stack.
+- [x] **Data backup** — weekly GitHub Releases backup added (`.github/workflows/backup.yml`). Runs every Sunday at 02:00 UTC, creates a tagged pre-release with `price_history.csv` as a downloadable artifact. Manual trigger also available. — 2026-05-04
 - [ ] **Affiliate programme — apply to Awin** — apply once ~100 click-throughs are happening. 45-day cookie (UK), ~3% commission, ~£150 per £5,000 booking. Position as Club Med specialist content site. (MT-1)
 - [ ] **3-adult party size** — add 3-adult option to search form and RESORT_DATA. Also verify 6-night checker queries are working. (MT-2)
 - [ ] **Mobile responsiveness** — layout uses CSS Grid with fixed column counts; needs thorough mobile testing and media query fixes. (existing)

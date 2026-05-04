@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://app.kit.com https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
   <title>When To Book — Club Med Price Intelligence</title>
   <meta name="description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
   <link rel="canonical" href="https://whentobook.co.uk/clubmed">
@@ -1333,6 +1334,42 @@
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://whentobook.co.uk/#website",
+        "url": "https://whentobook.co.uk/clubmed",
+        "name": "When To Book — Club Med Price Intelligence",
+        "description": "Daily price tracking across 11 Club Med French Alps ski resorts. Know when prices are historically favourable before you book.",
+        "publisher": { "@id": "https://whentobook.co.uk/#org" }
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://whentobook.co.uk/#org",
+        "name": "When To Book",
+        "url": "https://whentobook.co.uk",
+        "description": "Booking intelligence for premium holiday operators."
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://whentobook.co.uk/clubmed#webpage",
+        "url": "https://whentobook.co.uk/clubmed",
+        "name": "Club Med Ski Price Tracker",
+        "isPartOf": { "@id": "https://whentobook.co.uk/#website" },
+        "about": {
+          "@type": "Service",
+          "name": "Club Med ski price intelligence",
+          "description": "Daily price tracking for Club Med French Alps ski resorts: Tignes, Val d'Isère, Les Arcs, La Plagne, Alpe d'Huez, Valmorel, La Rosière, Peisey-Vallandry, Grand Massif, Val Thorens, Serre-Chevalier.",
+          "provider": { "@id": "https://whentobook.co.uk/#org" },
+          "areaServed": { "@type": "Country", "name": "United Kingdom" }
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 

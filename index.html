@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
   <title>When To Book — Holiday Price Intelligence</title>
   <meta name="description" content="Booking intelligence for premium holiday operators. Track prices, spot the optimal window, and book with confidence.">
   <link rel="canonical" href="https://whentobook.co.uk/">
@@ -209,6 +210,35 @@
       footer { padding: 20px; }
     }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://whentobook.co.uk/#org",
+        "name": "When To Book",
+        "url": "https://whentobook.co.uk",
+        "description": "Booking intelligence for premium holiday operators. Know when to book, not just where.",
+        "foundingDate": "2026"
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://whentobook.co.uk/#website",
+        "url": "https://whentobook.co.uk",
+        "name": "When To Book",
+        "description": "Booking intelligence for premium holiday operators. Track prices, spot the optimal window, and book with confidence.",
+        "publisher": { "@id": "https://whentobook.co.uk/#org" }
+      },
+      {
+        "@type": "WebPage",
+        "url": "https://whentobook.co.uk/",
+        "name": "When To Book — Holiday Price Intelligence",
+        "isPartOf": { "@id": "https://whentobook.co.uk/#website" }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
 

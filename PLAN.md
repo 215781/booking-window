@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-04
+Last updated: 2026-05-04 (session end)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -11,12 +11,19 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ## Active / Up Next
 
 - [x] **Data gap backfill** — `backfill_prices.py` built and run: 3,717 rows added for 2026-04-27 to 2026-05-03; backfilled rows marked with `T00:00:00Z` timestamp (vs live data at real UTC times). Run after any future multi-day gap: `python backfill_prices.py && python clubmed_checker.py --inject-only` — 2026-05-04
-- [ ] **Activate GitHub Pages** — go to `https://github.com/215781/booking-window/settings/pages`, set Source: "Deploy from a branch" → `main` → `/ (root)`. CNAME already committed. **User action required.**
-- [ ] **Configure DNS at Squarespace** — Squarespace > Domains > `whentobook.co.uk` > DNS Settings. Add 4 A records (`@` → `185.199.108.153 / .109 / .110 / .111`) + CNAME (`www` → `215781.github.io`). After propagation: confirm custom domain in Pages Settings + Enforce HTTPS. **User action required.**
-- [ ] **Decommission Vercel** (once Pages DNS is live) — remove Vercel project. `vercel.json` can stay in repo as the Vercel block for `/_data/` is a safety net.
+- [x] **Configure DNS at Squarespace** — 4 × A records + CNAME confirmed configured. DNS resolving to GitHub Pages IPs (185.199.108–111.153). — 2026-05-04
+- [x] **GitHub Pages active** — HTTP 200 confirmed from GitHub.com server. Root serves brand landing page; `/clubmed/` serves tracker (373KB). HTTPS cert auto-provisioning (may take a few hours). Once HTTPS is live, go to Settings → Pages → Enforce HTTPS. — 2026-05-04
+- [ ] **Enforce HTTPS on GitHub Pages** — Once cert is provisioned: go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS". **User action — check in a few hours.**
+- [ ] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.**
 - [ ] **Wire up GA4 measurement ID** — GA4 script added to `clubmed/index.html` with placeholder `G-XXXXXXXXXX`. Create a GA4 property at analytics.google.com, get the Measurement ID, and replace the placeholder. Then commit. **User action required to create property.**
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
+
+### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
+
+- [ ] **Research Mark Warner API/pricing structure** — Inspect `markwarner.co.uk` via DevTools to find how pricing is exposed (JS API endpoint, GraphQL, REST). Build `markwarner_checker.py` modelled on `clubmed_checker.py`. Store data in `_data/markwarner_prices.csv`. Set up GitHub Actions alongside the Club Med checker. Start immediately — the earlier data collection begins, the more history we'll have at launch.
+- [ ] **Research Sandals API/pricing structure** — Inspect `sandals.co.uk` (or `sandals.com`) via DevTools. Same approach. Build `sandals_checker.py` and `_data/sandals_prices.csv`. Add to GitHub Actions.
+- [ ] **Add both new checkers to GitHub Actions** — Extend `.github/workflows/price_checker.yml` (or create separate workflows) to run `markwarner_checker.py` and `sandals_checker.py` daily. Keep timeouts generous; commit updated CSVs.
 
 ---
 

@@ -54,6 +54,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — DNS live (GitHub Pages IPs confirmed); GitHub Pages serving on HTTP
 - 2026-05-04 — JSON-LD schema markup added to `clubmed/index.html` and `index.html`
 - 2026-05-04 — Mark Warner + Sandals data collection added as high-priority plan items
+- 2026-05-04 — **CLAUDE.md updated** — now reflects `clubmed/index.html` as canonical, GitHub Pages as host, both workflows documented, security section added, checker flags documented
+- 2026-05-04 — **Mark Warner API research** — found ASP.NET Core backend, product ID `SKI-24314`, endpoint `/resort/getresortsearchcriteria/`. Only 1 ski resort (Chalet Hotel L'Écrin, Tignes). Full XHR capture needs DevTools — user action required. See PLAN.md for details.
+- 2026-05-04 — **OG image PNG** — `og-image.png` created (1200×630). Both HTML files updated from `.svg` to `.png` with explicit width/height meta tags. Works on Twitter/X and Facebook now.
 
 ---
 
@@ -64,13 +67,14 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 2. **Wire up GA4 measurement ID** — Create a property at analytics.google.com. Replace both `G-XXXXXXXXXX` placeholders in `clubmed/index.html` (~lines 26–33). Commit and push.
 3. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
 
+### User action needed — Mark Warner API
+4. **🔴 Mark Warner DevTools capture** — Agent found product ID `SKI-24314`, endpoint `/resort/getresortsearchcriteria/`. To complete: open `markwarner.co.uk/ski-holidays/france/chalet-hotel-lecrin`, open Chrome DevTools → Network → filter XHR/Fetch, interact with any availability/booking search, then copy the full request URL + headers + body + response. Paste into next session. Note: MW has only 1 ski resort (Chalet Hotel L'Écrin, Tignes) — consider if worth building vs Club Med's 11.
+5. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in DevTools, browse a holiday search, capture XHR endpoints. Also check `/developers` or `/partner` portal. Report findings to next session.
+
 ### Autonomous (next session)
-4. **🔴 Research Mark Warner pricing API** — Open `markwarner.co.uk`, browse to a holiday search, use DevTools Network tab to find the pricing/availability API endpoint. Build `markwarner_checker.py` modelled on `clubmed_checker.py`. Store in `_data/markwarner_prices.csv`. Add to GitHub Actions.
-5. **🔴 Research Sandals pricing API** — Same approach for `sandals.co.uk`. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions.
-6. **OG image** — Create a proper 1200×630 PNG OG image (current SVG not supported by Twitter/X or Facebook). Can use `qlmanage -t -s 1200 -o /tmp/ og-image.svg` then crop/resize with `sips`.
-7. **Update CLAUDE.md** — Reflect new structure: `clubmed/index.html` is canonical (not `WhentoBook.html`), GitHub Pages is the host (not Vercel), two new checker scripts planned.
-8. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks of data available.
-9. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+6. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks of data available (target: late May 2026).
+7. **Blog setup** — Create `blog/index.html` and `_layouts/post.html` matching site design. First post target: "When does Club Med open ski bookings?" (June/July booking window opener).
+8. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
 
 ---
 
@@ -78,7 +82,6 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 
 **Quick wins:**
 - Real resort photography — gradient placeholders on all 11 cards
-- OG image PNG (see Up Next #6)
 
 **Medium term:**
 - Affiliate programme (Awin) — apply once ~100 click-throughs; 45-day cookie, ~3% commission

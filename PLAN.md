@@ -21,7 +21,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
 
-- [ ] **Build Mark Warner price checker** — Uses an in-house reservations system; no public API found. Must reverse-engineer: open `markwarner.co.uk`, fill a holiday search in DevTools Network tab, capture the XHR/fetch endpoint URL, request format (likely JSON POST), headers, and response structure. Then build `markwarner_checker.py` modelled on `clubmed_checker.py`. Store in `_data/markwarner_prices.csv`. Add to GitHub Actions.
+- [ ] **Build Mark Warner price checker** — **Research done 2026-05-04:** Mark Warner has only ONE ski property (Chalet Hotel L'Écrin, Tignes; product ID `SKI-24314`). Site is ASP.NET Core with Vue.js frontend. Found API endpoint `/resort/getresortsearchcriteria/` but exact request payload requires DevTools capture. **User action needed:** open `markwarner.co.uk/ski-holidays/france/chalet-hotel-lecrin/accommodation` in Chrome DevTools (Network tab, filter XHR), click search/availability, copy the full request URL + payload + response. Alternative: accommodation page shows seasonal prices as server-rendered HTML (Christmas/Jan/Feb/Easter) — could scrape this instead. Note: only 1 resort limits value vs Club Med's 11.
 - [ ] **Build Sandals price checker** — GitHub references confirm an "official Sandals booking API" exists but it's not publicly documented — may require a partner relationship. Try reverse-engineering `sandals.co.uk` via DevTools first. Also check for a `/developers` or `/partner` portal. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions.
 - [ ] **Add both new checkers to GitHub Actions** — Create `.github/workflows/markwarner_checker.yml` and `.github/workflows/sandals_checker.yml` (or extend `price_checker.yml`). Daily at offset times (e.g. 07:00 and 08:00 UTC) to avoid concurrent runs. Commit updated CSVs.
 
@@ -31,7 +31,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### Quick wins (high value, low effort)
 - [ ] **Real resort photography** — card image areas are currently gradient placeholders. Source from Club Med press kit or Unsplash. (QW-5)
-- [ ] **Improve OG image** — current `og-image.svg` may not render in all social preview contexts. Create a 1200×630 PNG. (QW-6)
+- [x] **Improve OG image** — `og-image.png` created (1200×630 PNG from SVG via qlmanage+sips). Both `clubmed/index.html` and `index.html` updated to reference PNG with explicit width/height meta tags. — 2026-05-04
 
 ### Medium term
 - [x] **Cybersecurity review** — completed 2026-05-04. Findings: no hardcoded secrets; GitHub Actions permissions minimal; XSS self-injection risk in `noMsg` (fixed with `escapeHtml()`); `BookingWindow_v1_2.html` removed from root; security headers added to `vercel.json` (X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, CSP). Remaining gap: inline scripts mean CSP uses `unsafe-inline` — acceptable for this stack.

@@ -14,11 +14,12 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 
 | Layer | Technology |
 |---|---|
-| Frontend | Single-file HTML/CSS/JS — `WhentoBook.html`. No frameworks, no build tools. |
+| Frontend | `clubmed/index.html` — single-file HTML/CSS/JS. No frameworks, no build tools. |
+| Brand landing page | `index.html` — root site landing page linking to operator trackers |
 | Price data | `clubmed_checker.py` — Python 3.11, Club Med GraphQL API |
-| Data storage | `_data/price_history.csv` — append-only, never delete rows |
+| Data storage | `_data/price_history.csv` — append-only, never delete rows. Jekyll/GitHub Pages won't serve `_data/`. |
 | Scheduler | GitHub Actions cron — `.github/workflows/price_checker.yml` |
-| Hosting | Vercel (live). GitHub Pages configured via `CNAME` but DNS not yet set. |
+| Hosting | **GitHub Pages** (DNS live as of 2026-05-04). Vercel still exists but DNS no longer routes there. |
 | Email | Kit (ConvertKit) — public form endpoints only, no API key in repo |
 | SSH deploy key | `~/.ssh/booking_window_deploy` |
 
@@ -27,17 +28,21 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 ## Repo structure
 
 ```
-WhentoBook.html                   — the live website (canonical file)
-clubmed_checker.py                — price checker script
-_data/price_history.csv           — full price log (append-only — never delete; Jekyll won't serve _data/)
-vercel.json                       — Vercel output config and URL rewrite
+clubmed/index.html                — Club Med tracker (canonical live site at /clubmed)
+index.html                        — Root brand landing page (whentobook.co.uk)
+WhentoBook.html                   — Redirect → /clubmed (legacy URL)
+clubmed_checker.py                — Price checker (flags: --test, --verify, --inject-only)
+backfill_prices.py                — Gap-fill script: run after multi-day outage
+_data/price_history.csv           — Full price log (append-only — never delete rows)
+vercel.json                       — Vercel routing + security headers (Vercel only; GitHub Pages ignores)
 CNAME                             — GitHub Pages custom domain (whentobook.co.uk)
 robots.txt
 sitemap.xml
 privacy.html
 og-image.svg
 .github/workflows/
-  price_checker.yml               — GitHub Actions: daily at 06:00 UTC
+  price_checker.yml               — Daily at 06:00 UTC — runs checker, commits HTML + CSV
+  backup.yml                      — Weekly Sunday 02:00 UTC — GitHub Releases backup of price_history.csv
 CLAUDE.md                         — this file (project context for all agents)
 ORCHESTRATOR.md                   — orchestrator agent instructions
 BUILDER.md                        — builder agent instructions
@@ -68,13 +73,17 @@ NEXT_SESSION_PROMPT.md            — session state (read first every session)
 
 ## GitHub Actions
 
-File: `.github/workflows/price_checker.yml`
-
+### `price_checker.yml`
 - Runs daily at **06:00 UTC**
 - 180-minute timeout
 - Rotating User-Agent pool, random 2–8s delays between API calls, 15–30s pause between resorts, randomised resort order
-- Commits updated `WhentoBook.html` and `_data/price_history.csv` back to main automatically
+- Commits updated `clubmed/index.html` and `_data/price_history.csv` back to main automatically
 - Repository secrets required: `GMAIL_ADDRESS`, `GMAIL_APP_PASS`, `ALERT_TO`
+
+### `backup.yml`
+- Runs every **Sunday at 02:00 UTC** (manual trigger also available)
+- Creates a GitHub Release tagged `backup-YYYY-MM-DD` with `price_history.csv` as artifact
+- Releases are marked pre-release to keep them out of the changelog
 
 ---
 
@@ -137,6 +146,26 @@ POST https://graphql.dcx.clubmed/
 
 ---
 
+## Checker flags
+
+| Flag | Behaviour |
+|---|---|
+| (none) | Normal run: makes API calls, writes to `clubmed/index.html`, appends to CSV |
+| `--test` | Dry run — no writes |
+| `--verify` | One API call to confirm connectivity |
+| `--inject-only` | Rebuild `RESORT_DATA` from CSV without making any API calls |
+
+---
+
+## Security
+
+- No secrets in repo — GitHub Actions secrets: `GMAIL_ADDRESS`, `GMAIL_APP_PASS`, `ALERT_TO`
+- `escapeHtml()` function guards against XSS in search param injection
+- CSP meta tag in `clubmed/index.html` and `index.html` (GitHub Pages doesn't support HTTP headers)
+- Security headers in `vercel.json`: X-Frame-Options, X-Content-Type-Options, Referrer-Policy, Permissions-Policy, CSP
+
+---
+
 ## Git / push
 
 SSH key: `~/.ssh/booking_window_deploy`
@@ -153,6 +182,8 @@ git push
 ## Important invariants
 
 - `_data/price_history.csv` is **append-only** — the historical record is the product. Never delete rows.
-- The checker injects `RESORT_DATA` directly into `WhentoBook.html` at runtime.
+- The checker injects `RESORT_DATA` directly into `clubmed/index.html` at runtime.
+- `DATA_SUFFICIENT = false` — do not change until autumn 2026.
 - `NEXT_SESSION_PROMPT.md` is the session handoff — the orchestrator reads it first every session.
 - `PLAN.md` tracks the current roadmap — the scribe keeps it updated.
+- Never use "deals", "discounts", "cheap", "vouchers", or "savings" anywhere in the site copy.

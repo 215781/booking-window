@@ -10,13 +10,17 @@ Then read `PLAN.md` for the full task list.
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.
 
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
-- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert auto-provisioning (check within 24h then enable "Enforce HTTPS" in Pages Settings). Vercel still exists but DNS no longer routes to it.
+- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert may now be provisioned — check and tick "Enforce HTTPS" in Pages Settings if available.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
-- **Price history:** `_data/price_history.csv` — 8,967 rows (5,250 real + 3,717 backfill). Append-only. In `_data/` so GitHub Pages won't serve it publicly.
-- **Resorts:** 11 French Alps resorts, all codes verified
+- **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
+- **Price history:** `_data/price_history.csv` — ~9,000 rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
+- **Mark Warner prices:** `_data/markwarner_prices.csv` — 54 rows seeded 2026-05-04. Append-only.
+- **Resorts:** 11 French Alps Club Med resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
+- **Email alerts:** `clubmed_checker.py` only emails on genuine failures (>30% API error rate). All other alerts removed.
+- **GA4:** `G-G2RES5DX0K` — live in both `clubmed/index.html` and `index.html`.
 - **SSH key:** `~/.ssh/booking_window_deploy`
 - **Checker flags:** `--test` (no writes), `--verify` (one API call), `--inject-only` (rebuild RESORT_DATA from CSV, no API calls)
 
@@ -45,7 +49,6 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — Agent .md files mirrored to vault at `When To Book/Agents/`
 - 2026-05-04 — **URL restructure:** `clubmed/index.html` created; root `index.html` brand landing page built; checker + workflow + vercel.json + sitemap updated; `WhentoBook.html` → redirect
 - 2026-05-04 — Deep-link CTAs verified — all `bookingUrl` already resort-specific
-- 2026-05-04 — GA4 analytics script added (placeholder `G-XXXXXXXXXX` — needs real ID)
 - 2026-05-04 — Data purge: 612 suspect LP2C/VDIC rows (Apr 23–25) removed; RESORT_DATA regenerated
 - 2026-05-04 — `--inject-only` flag added to checker; `VMOC_WINTER` verified correct
 - 2026-05-04 — `backfill_prices.py` built and run: 3,717 rows for Apr 27–May 3
@@ -53,57 +56,79 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — Data backup: `.github/workflows/backup.yml` — weekly GitHub Releases backup
 - 2026-05-04 — DNS live (GitHub Pages IPs confirmed); GitHub Pages serving on HTTP
 - 2026-05-04 — JSON-LD schema markup added to `clubmed/index.html` and `index.html`
-- 2026-05-04 — Mark Warner + Sandals data collection added as high-priority plan items
-- 2026-05-04 — **CLAUDE.md updated** — now reflects `clubmed/index.html` as canonical, GitHub Pages as host, both workflows documented, security section added, checker flags documented
-- 2026-05-04 — **Mark Warner API research** — found ASP.NET Core backend, product ID `SKI-24314`, endpoint `/resort/getresortsearchcriteria/`. Only 1 ski resort (Chalet Hotel L'Écrin, Tignes). Full XHR capture needs DevTools — user action required. See PLAN.md for details.
-- 2026-05-04 — **OG image PNG** — `og-image.png` created (1200×630). Both HTML files updated from `.svg` to `.png` with explicit width/height meta tags. Works on Twitter/X and Facebook now.
+- 2026-05-04 — OG image PNG created (1200×630). Both HTML files updated.
+- 2026-05-04 — **GA4 wired up:** `G-G2RES5DX0K` live in both HTML files. CSP updated on root `index.html`.
+- 2026-05-04 — **CLAUDE.md updated:** GA4 ID, planned MW/Sandals checkers, og-image.png, IMPROVEMENT_PLAN.md
+- 2026-05-04 — **Mark Warner checker built and verified:** `markwarner_checker.py` uses POST `/resort/getresortsearchcriteria` API (resortId 957, LGW, 7 nights). Returns all 18 departure dates per party size in one call. 3 party sizes = 54 rows/run. Seeded. GitHub Actions at 07:00 UTC daily.
+- 2026-05-04 — **Email alerts stripped:** `clubmed_checker.py` only emails on >30% API error rate. All signal/price-change/success emails removed.
+- 2026-05-04 — **Blog promoted to high priority** in PLAN.md. 3 article ideas generated (see below).
 
 ---
 
 ## Up Next (priority order)
 
 ### User actions required first
-1. **Enforce HTTPS on GitHub Pages** — HTTPS cert usually provisions within a few hours of DNS going live. Go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS" once available.
-2. **Wire up GA4 measurement ID** — Create a property at analytics.google.com. Replace both `G-XXXXXXXXXX` placeholders in `clubmed/index.html` (~lines 26–33). Commit and push.
-3. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
-
-### User action needed — Mark Warner API
-4. **🔴 Mark Warner DevTools capture** — Agent found product ID `SKI-24314`, endpoint `/resort/getresortsearchcriteria/`. To complete: open `markwarner.co.uk/ski-holidays/france/chalet-hotel-lecrin`, open Chrome DevTools → Network → filter XHR/Fetch, interact with any availability/booking search, then copy the full request URL + headers + body + response. Paste into next session. Note: MW has only 1 ski resort (Chalet Hotel L'Écrin, Tignes) — consider if worth building vs Club Med's 11.
-5. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in DevTools, browse a holiday search, capture XHR endpoints. Also check `/developers` or `/partner` portal. Report findings to next session.
+1. **Enforce HTTPS on GitHub Pages** — cert may now be provisioned. Go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS".
+2. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
 
 ### Autonomous (next session)
-6. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks of data available (target: late May 2026).
-7. **Blog setup** — Create `blog/index.html` and `_layouts/post.html` matching site design. First post target: "When does Club Med open ski bookings?" (June/July booking window opener).
-8. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+3. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
+4. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+5. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
+6. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
+7. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
 
 ---
 
-## Backlog
+## Blog article ideas (generated 2026-05-04)
 
-**Quick wins:**
-- Real resort photography — gradient placeholders on all 11 cards
+### Article 1 — Quick win, publish first
+**Title:** When to Book a Club Med Ski Holiday: The Price Window Explained
+**Target term:** `when to book Club Med ski holiday`
+**Covers:** How the Club Med booking window actually opens (typically June/July for the following winter), early-bird vs late availability pricing, the February flash sale moment. Uses site tracking data as evidence. CTA to booking alert signup.
+**Why:** High-intent informational search. Direct match to the site's core promise.
 
-**Medium term:**
-- Affiliate programme (Awin) — apply once ~100 click-throughs; 45-day cookie, ~3% commission
-- 3-adult party size option in search form
-- Mobile responsiveness improvements
-- SEO foundations — JSON-LD schema done ✓; next: individual resort landing pages
-- Blog / content section — `whentobook.co.uk/blog` via Jekyll `_posts/`
-- Content Writer agent (`CONTENT_WRITER.md`)
-- Email sequence expansion — extend Kit welcome from 1 email to 4–6
-- Flash sale notification — alert when Club Med annual early booking window opens
-- Booking-window analysis script — target Oct 2026 (6+ months CSV data needed)
+### Article 2 — Comparison, earns links
+**Title:** Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?
+**Target term:** `Club Med Tignes vs Les Arcs`
+**Covers:** Side-by-side on altitude, terrain, who each suits. Price angle: "Tignes tends to run 8–12% higher than Les Arcs for the same week." Includes comparison table. Links to tracker for live data.
+**Why:** Comparison searches have strong commercial intent. Tables often earn featured snippets. Natural backlink magnet for ski forums and parenting blogs.
 
-**Summer resort expansion:**
-- Phase 1: European summer resorts — Magna Marbella (`MMAC` verified), Cefalù, Gregolimano, Palmiye, Marrakech
+### Article 3 — Purchase-intent, bottom of funnel
+**Title:** Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)
+**Target term:** `is Club Med ski worth it`
+**Covers:** Full package breakdown vs DIY (lift pass, ski school, meals, childcare, entertainment). Honest value assessment. "Cheaper" angle: January and early March tend to be more favourable than Christmas/half term. CTA to tracker.
+**Why:** "Worth the money" searches are at the final decision stage. Strong candidate for People Also Ask boxes. Exactly the audience: financially savvy families who want to feel confident.
 
-**Long term:**
-- Mark Warner / Neilson full site (after data collection running)
-- Sandals full site (after data collection running)
-- Annual Club Med price report — Sep/Oct email broadcast
-- Drop Media Ltd Companies House registration (£12, 15 mins)
-- `DATA_SUFFICIENT = true` — autumn 2026 only
-- Eurostar Snow alert page — lowest priority
+---
+
+## Mark Warner API reference (for future sessions)
+
+```
+POST https://www.markwarner.co.uk/resort/getresortsearchcriteria
+Content-Type: application/json
+
+{
+  "resortId": 957,        # Chalet Hotel L'Écrin, Tignes
+  "adults": 2,
+  "children": 0,
+  "infants": 0,
+  "childAges": [],
+  "infantAges": [],
+  "airport": "LGW",
+  "duration": 7,
+  "checkIn": "2026-12-06",  # any date — response returns all season dates
+  "adultNames": [],
+  "childNames": [],
+  "infantNames": []
+}
+
+Response: { success: true, model: { cacheKey, validDates: [{ d, pr, prpp, wp, wppp, u, pc, pb }] } }
+  d = departure date, pr = promo total, prpp = promo pp, wp = was-total, wppp = was-pp
+  u = room type string, pc = promo code, pb = promo benefit
+```
+
+Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Update if site redesigns.
 
 ---
 
@@ -164,11 +189,14 @@ clubmed/index.html          — Club Med tracker (canonical live site)
 index.html                  — Root brand landing page
 WhentoBook.html             — Redirect to /clubmed
 clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
+markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
-_data/price_history.csv     — Append-only price log (8,967 rows as of 2026-05-04)
-vercel.json                 — Routing + security headers (Vercel only; GitHub Pages ignores)
+_data/price_history.csv     — Club Med price log (~9,000 rows, append-only)
+_data/markwarner_prices.csv — Mark Warner price log (54 rows seeded, append-only)
+vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/
-  price_checker.yml         — Daily checker at 06:00 UTC
+  price_checker.yml         — Club Med: daily 06:00 UTC
+  markwarner_checker.yml    — Mark Warner: daily 07:00 UTC
   backup.yml                — Weekly CSV backup to GitHub Releases (Sundays 02:00 UTC)
 When To Book/Agents/        — Agent .md files mirrored to vault (Obsidian)
 ```

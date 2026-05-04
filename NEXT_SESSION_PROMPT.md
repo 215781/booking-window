@@ -7,7 +7,7 @@ Then read `PLAN.md` for the full task list.
 
 ## Context
 
-**whentobook.co.uk** — Club Med ski resort price intelligence site. Built by Drop Media Ltd.
+**whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL will become a portfolio brand page; Club Med tracker will live at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.
 
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
 - **Live site:** Vercel deployment (auto-deploys from main). GitHub Pages configured via `CNAME` but DNS not yet set at registrar.
@@ -43,33 +43,53 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings y
 - 2026-04-28 — Search popup wired to correct Kit form (`f197f8f414`)
 - 2026-05-04 — Multi-agent workflow set up: CLAUDE.md, ORCHESTRATOR.md, BUILDER.md, SCRIBE.md, PLAN.md
 - 2026-05-04 — price_history.csv moved to _data/price_history.csv (Jekyll hides it from Pages); Vercel block added; all path refs updated
+- 2026-05-04 — Strategic planning session: full vault + HTML audit, web research on Club Med catalogue/affiliate/booking patterns, `IMPROVEMENT_PLAN.md` created, PLAN.md expanded with full roadmap
 
 ---
 
 ## Up Next
 
-1. **Activate GitHub Pages in repo Settings** — go to `https://github.com/215781/booking-window/settings/pages`, set Source to "Deploy from a branch" → `main` → `/ (root)`. CNAME file is already committed. User action.
-2. **Configure DNS at Squarespace** — log into Squarespace > Domains > `whentobook.co.uk` > DNS Settings > Custom Records. Add:
-   - 4 × A records, host `@`, values: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, `185.199.111.153`
-   - 1 × CNAME record, host `www`, value: `215781.github.io`
-   After DNS propagates: GitHub Pages Settings > confirm custom domain + Enforce HTTPS.
-3. **Decommission Vercel** (optional) — once Pages is live and DNS resolved, Vercel can be removed. `vercel.json` can stay for now as it also blocks `/_data/` access.
-3. **Verify `VMOC_WINTER` code** — a space was noted (`VMO C_WINTER`) in one session note; confirm in the actual checker file.
-4. **Grand Massif + Serre-Chevalier departure day** — let data accumulate; revisit in a few weeks to confirm Sat vs Sun.
+1. **🔴 URGENT — Eurostar Snow ticket alert page** — deadline **9 July 2026** (~36 days). Build a page at `whentobook.co.uk/eurostar-snow` (or similar), capture emails, send alert when tickets go live at ~8am. Kit infrastructure already in place — just needs a new form + page.
+2. **URL architecture restructure** — move Club Med tracker from root to `whentobook.co.uk/clubmed`. Root becomes a brand landing page listing operators. Enables future `/markwarner`, `/sandals` etc. Do this **before** SEO work to avoid URL migration pain. Steps: create `clubmed/` subfolder, move `WhentoBook.html` → `clubmed/index.html`, update checker path, update `vercel.json`, add 301 redirect from root, build minimal root landing page.
+3. **Fix deep-link Club Med CTAs** — "Book on Club Med" buttons link to the Club Med homepage. Update `bookingUrl` values in `RESORT_DATA` to link to specific resort booking pages (`clubmed.co.uk/r/[slug]/y`). Pre-work for affiliate programme.
+4. **Add analytics** — install Plausible Analytics or GA4. No visitor data currently exists.
+5. **Activate GitHub Pages in repo Settings** — Source: "Deploy from a branch" → `main` → `/ (root)`. CNAME already committed. User action.
+6. **Configure DNS at Squarespace** — 4 × A records (`@` → `185.199.108.153 / .109 / .110 / .111`) + CNAME (`www` → `215781.github.io`). User action.
+7. **Decommission Vercel** (after Pages DNS is live).
+8. **Verify `VMOC_WINTER` code** — a space was noted in one session note; confirm in `clubmed_checker.py`.
+9. **Grand Massif + Serre-Chevalier departure day** — let data accumulate, revisit in a few weeks.
 
 ---
 
 ## Backlog
 
-- Booking-window analysis script — target Oct 2026 (6+ months of CSV data needed)
-- Party composition: 3-adult / 4-adult (deferred — user noted people can infer from 2-adult)
+See `IMPROVEMENT_PLAN.md` for full strategic context on all items below.
+
+**Quick wins:**
+- Real resort photography — gradient placeholders on all 11 cards
+- Improve OG image — current SVG may not render in social preview contexts
+
+**Medium term:**
+- Affiliate programme (Awin) — apply once ~100 click-throughs; 45-day cookie, ~3% commission
+- 3-adult party size option in search form
 - Mobile responsiveness improvements
-- Real resort photography for card image areas
-- Deep-link "Book on Club Med" CTAs to specific resort pages
-- SEO content — individual resort pages, long-tail blog posts
-- Affiliate programme (Awin) — apply once ~100 click-throughs
-- Eurostar Snow ticket alert page — **tickets go on sale 9 July 2026** at ~8am; build before that date
-- Mark Warner / Neilson tracker — natural second site in the portfolio
+- SEO foundations — JSON-LD schema markup (after URL restructure)
+- Blog / content section — `whentobook.co.uk/blog` via Jekyll `_posts/` (GitHub Pages native). Target 5 initial articles.
+- Content Writer agent — add `CONTENT_WRITER.md` to repo; agent researches, writes, and publishes SEO posts to `_posts/`. Target 2 posts/month.
+- Email sequence expansion — extend Kit welcome from 1 email to 4–6 over 2–3 weeks
+- Flash sale notification — alert subscribers when Club Med opens annual early booking windows (ski ~Feb, summer ~Oct)
+- Booking-window analysis script — target Oct 2026 (6+ months of CSV data needed)
+
+**Summer resort expansion (target: before Oct 2026 booking window):**
+- Phase 1: European summer resorts — Magna Marbella (`MMAC` verified), Cefalù, Gregolimano, Palmiye, Marrakech
+- Phase 2+: Caribbean, Indian Ocean, Asia (after Phase 1 stable)
+- Requires: resort code discovery, checker update, ski/beach UI toggle, date range expansion
+
+**Long term:**
+- Mark Warner / Neilson tracker — second site in portfolio
+- Eurostar Snow full price tracker (beyond the one-time alert)
+- Annual Club Med price report — email broadcast each Sep/Oct
+- Drop Media Ltd Companies House registration (£12, 15 mins)
 
 ---
 

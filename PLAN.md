@@ -21,9 +21,9 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
 
-- [ ] **Research Mark Warner API/pricing structure** — Inspect `markwarner.co.uk` via DevTools to find how pricing is exposed (JS API endpoint, GraphQL, REST). Build `markwarner_checker.py` modelled on `clubmed_checker.py`. Store data in `_data/markwarner_prices.csv`. Set up GitHub Actions alongside the Club Med checker. Start immediately — the earlier data collection begins, the more history we'll have at launch.
-- [ ] **Research Sandals API/pricing structure** — Inspect `sandals.co.uk` (or `sandals.com`) via DevTools. Same approach. Build `sandals_checker.py` and `_data/sandals_prices.csv`. Add to GitHub Actions.
-- [ ] **Add both new checkers to GitHub Actions** — Extend `.github/workflows/price_checker.yml` (or create separate workflows) to run `markwarner_checker.py` and `sandals_checker.py` daily. Keep timeouts generous; commit updated CSVs.
+- [ ] **Build Mark Warner price checker** — Uses an in-house reservations system; no public API found. Must reverse-engineer: open `markwarner.co.uk`, fill a holiday search in DevTools Network tab, capture the XHR/fetch endpoint URL, request format (likely JSON POST), headers, and response structure. Then build `markwarner_checker.py` modelled on `clubmed_checker.py`. Store in `_data/markwarner_prices.csv`. Add to GitHub Actions.
+- [ ] **Build Sandals price checker** — GitHub references confirm an "official Sandals booking API" exists but it's not publicly documented — may require a partner relationship. Try reverse-engineering `sandals.co.uk` via DevTools first. Also check for a `/developers` or `/partner` portal. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions.
+- [ ] **Add both new checkers to GitHub Actions** — Create `.github/workflows/markwarner_checker.yml` and `.github/workflows/sandals_checker.yml` (or extend `price_checker.yml`). Daily at offset times (e.g. 07:00 and 08:00 UTC) to avoid concurrent runs. Commit updated CSVs.
 
 ---
 

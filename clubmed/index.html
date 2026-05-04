@@ -541,7 +541,12 @@
     .sparkline-wrap svg {
       width: 100%;
       height: 100%;
+      pointer-events: none;
     }
+
+    /* iOS Safari: click events only fire on child elements if they have cursor:pointer.
+       Inheriting from the card ensures taps anywhere on the card open the modal. */
+    .resort-card * { cursor: pointer; }
 
     .departure-date {
       font-size: 11px;
@@ -5170,6 +5175,17 @@ function renderCards(partySize, resortFilter) {
     card.addEventListener('click', () => openModal(resort.id, partySize));
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
 
+    // iOS Safari touch: track start position, open modal on tap (< 10px movement)
+    let _tsX = 0, _tsY = 0;
+    card.addEventListener('touchstart', e => { _tsX = e.touches[0].clientX; _tsY = e.touches[0].clientY; }, { passive: true });
+    card.addEventListener('touchend', e => {
+      if (Math.abs(e.changedTouches[0].clientX - _tsX) < 10 &&
+          Math.abs(e.changedTouches[0].clientY - _tsY) < 10) {
+        e.preventDefault(); // cancel ghost click so modal doesn't open twice
+        openModal(resort.id, partySize);
+      }
+    });
+
     grid.appendChild(card);
   });
 }
@@ -5478,17 +5494,30 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Hero form — always open search results modal
-  document.getElementById('hero-form').addEventListener('submit', e => {
-    e.preventDefault();
+  function runHeroSearch() {
     const selectedResort = document.getElementById('hero-resort').value;
     const children = parseInt(document.getElementById('hero-children').value);
     const partySize = children === 0 ? '2A' : children === 1 ? '2A1C' : '2A2C';
     let dateFilter = '';
     if (activeDateMode === 'month')    dateFilter = document.getElementById('hero-month').value;
     else if (activeDateMode === 'specific') dateFilter = document.getElementById('hero-date').value;
-
     openSearchModal(selectedResort || null, dateFilter, partySize, activeDateMode);
+  }
+
+  document.getElementById('hero-form').addEventListener('submit', e => {
+    e.preventDefault();
+    runHeroSearch();
   });
+
+  // touchend fallback — iOS sometimes swallows the submit event when a select
+  // was last focused; firing on touchend bypasses that path entirely.
+  const heroSubmitBtn = document.querySelector('#hero-form button[type="submit"]');
+  if (heroSubmitBtn) {
+    heroSubmitBtn.addEventListener('touchend', e => {
+      e.preventDefault(); // cancel ghost click / double-fire
+      runHeroSearch();
+    });
+  }
 
   // Search results modal close
   document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);

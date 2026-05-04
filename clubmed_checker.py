@@ -2,7 +2,7 @@
 """
 clubmed_checker.py — When To Book price checker
 Runs 6x daily via GitHub Actions. Fetches live prices from the Club Med
-GraphQL API and writes them directly into BookingWindow.html + price_history.csv
+GraphQL API and writes them directly into clubmed/index.html + price_history.csv
 
 Usage:
     python clubmed_checker.py           # Normal run
@@ -30,7 +30,7 @@ from pathlib import Path
 # ─────────────────────────────────────────────────────────────
 
 # File paths (relative to this script — keep everything in the same repo folder)
-HTML_FILE = "WhentoBook.html"
+HTML_FILE = "clubmed/index.html"
 CSV_FILE  = "_data/price_history.csv"
 
 # Email alerts (set these as GitHub Actions secrets, or hardcode for local testing)

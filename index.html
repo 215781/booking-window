@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>When To Book — Holiday Price Intelligence</title>
+  <meta name="description" content="Booking intelligence for premium holiday operators. Track prices, spot the optimal window, and book with confidence.">
+  <link rel="canonical" href="https://whentobook.co.uk/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whentobook.co.uk/">
+  <meta property="og:title" content="When To Book — Holiday Price Intelligence">
+  <meta property="og:description" content="Booking intelligence for premium holiday operators. Track prices, spot the optimal window, and book with confidence.">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.svg">
+  <meta property="og:site_name" content="When To Book">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f0e8;
+      --teal: #1a4a42;
+      --amber: #8a6a2a;
+      --text: #2c2c2c;
+      --muted: #6b6560;
+      --border: #d8d0c4;
+      --card-bg: #ffffff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    header {
+      background: var(--teal);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 36px;
+      height: 36px;
+      background: var(--bg);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--teal);
+      flex-shrink: 0;
+    }
+
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--bg);
+      letter-spacing: 0.01em;
+    }
+
+    main {
+      flex: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 40px 60px;
+      width: 100%;
+    }
+
+    .hero {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 28px;
+      text-align: center;
+    }
+
+    .operator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+    }
+
+    .operator-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 28px;
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.2s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .operator-card:hover {
+      box-shadow: 0 8px 32px rgba(26,74,66,0.12);
+      transform: translateY(-2px);
+    }
+
+    .operator-card.coming-soon {
+      opacity: 0.5;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .operator-card.coming-soon:hover {
+      box-shadow: none;
+      transform: none;
+    }
+
+    .card-tag {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--teal);
+      background: rgba(26,74,66,0.08);
+      padding: 3px 8px;
+      border-radius: 4px;
+      align-self: flex-start;
+    }
+
+    .card-tag.soon {
+      color: var(--muted);
+      background: rgba(107,101,96,0.08);
+    }
+
+    .card-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--teal);
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    .card-cta {
+      margin-top: auto;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--teal);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 40px;
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer a {
+      color: var(--muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    @media (max-width: 600px) {
+      main { padding: 48px 20px 40px; }
+      header { padding: 16px 20px; }
+      footer { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo-mark">W</div>
+    <span class="logo-text">When To Book</span>
+  </header>
+
+  <main>
+    <div class="hero">
+      <h1>Book at the right moment.<br>Every time.</h1>
+      <p>Daily price intelligence for premium holiday operators. Know when prices are favourable — and when to hold off.</p>
+    </div>
+
+    <p class="section-label">Trackers</p>
+
+    <div class="operator-grid">
+
+      <a href="/clubmed" class="operator-card">
+        <span class="card-tag">Live</span>
+        <div class="card-title">Club Med</div>
+        <p class="card-desc">Daily price tracking across 11 French Alps ski resorts. See which weeks are historically favourable and when booking windows typically open.</p>
+        <span class="card-cta">View tracker →</span>
+      </a>
+
+      <div class="operator-card coming-soon">
+        <span class="card-tag soon">Coming soon</span>
+        <div class="card-title">Mark Warner</div>
+        <p class="card-desc">Price intelligence for Mark Warner ski and beach holidays — the same model applied to the second-largest premium operator.</p>
+      </div>
+
+      <div class="operator-card coming-soon">
+        <span class="card-tag soon">Coming soon</span>
+        <div class="card-title">Neilson</div>
+        <p class="card-desc">Tracking for Neilson Active Holidays — ski, beach, and sailing. Know when prices shift before your competitors do.</p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    <p>Built by Drop Media Ltd &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></p>
+  </footer>
+
+</body>
+</html>

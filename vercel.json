@@ -1,9 +1,10 @@
 {
   "outputDirectory": ".",
   "redirects": [
-    { "source": "/_data/:path*", "destination": "/404", "permanent": false }
+    { "source": "/_data/:path*", "destination": "/404", "permanent": false },
+    { "source": "/WhentoBook.html", "destination": "/clubmed", "permanent": true }
   ],
   "rewrites": [
-    { "source": "/", "destination": "/WhentoBook.html" }
+    { "source": "/clubmed", "destination": "/clubmed/index.html" }
   ]
 }

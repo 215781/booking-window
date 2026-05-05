@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://app.kit.com https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
   <title>When To Book — Club Med Price Intelligence</title>
-  <meta name="description" content="Track Club Med ski resort pricing and availability. See which weeks are most favourable pricing, which resorts are selling out, and when prices are likely to move.">
+  <meta name="description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
   <link rel="canonical" href="https://whentobook.co.uk/clubmed">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://whentobook.co.uk/clubmed">
   <meta property="og:title" content="When To Book — Club Med Price Intelligence">
-  <meta property="og:description" content="Track Club Med ski resort pricing and availability. See which weeks are most favourable pricing, which resorts are selling out, and when prices are likely to move.">
+  <meta property="og:description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
   <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="When To Book — Club Med Price Intelligence">
-  <meta name="twitter:description" content="Track Club Med ski resort pricing and availability. See which weeks are most favourable pricing, which resorts are selling out, and when prices are likely to move.">
+  <meta name="twitter:description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
   <meta name="twitter:image" content="https://whentobook.co.uk/og-image.png">
 
   <!-- Google Analytics 4 -->
@@ -432,8 +432,6 @@
       transition: box-shadow 0.2s, transform 0.2s;
     }
 
-    .resort-card * { cursor: pointer; }
-
     .resort-card:hover {
       box-shadow: 0 4px 24px rgba(0,0,0,0.1);
       transform: translateY(-2px);
@@ -531,7 +529,6 @@
     .sparkline-wrap svg {
       width: 100%;
       height: 100%;
-      pointer-events: none;
     }
 
     .departure-date {
@@ -1676,7 +1673,7 @@
           <div id="search-kit-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:'Inter',sans-serif;">Something went wrong — please try again.</div>
         </form>
       </div>
-      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — lowest price first</p>
+      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked cheapest first</p>
       <div id="search-modal-date-rows"></div>
       <div class="alt-months" id="search-modal-alt-months"></div>
     </div>
@@ -5304,11 +5301,10 @@ function getTrend(dep) {
 }
 
 function openModal(resortId, partySize) {
-  console.log('openModal called', resortId, partySize);
   const resort = RESORT_DATA.find(r => r.id === resortId);
-  if (!resort) { console.error('openModal: resort not found', resortId); alert('DEBUG: resort not found - ' + resortId); return; }
+  if (!resort) return;
   const combo = getCombination(resort, partySize);
-  if (!combo) { console.error('openModal: no combo', resort.name, partySize, resort.combinations); alert('DEBUG: no combo for ' + resort.name); return; }
+  if (!combo) return;
   const bestDep = getActiveDeparture(combo);
   const allByDur = combo.departures.filter(d => (d.duration || 7) === activeDuration);
   const deps = [...(allByDur.length ? allByDur : combo.departures)].sort((a, b) => a.date.localeCompare(b.date));
@@ -5421,7 +5417,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Hero form — always open search results modal
-  function runHeroSearch() {
+  document.getElementById('hero-form').addEventListener('submit', e => {
+    e.preventDefault();
     const selectedResort = document.getElementById('hero-resort').value;
     const children = parseInt(document.getElementById('hero-children').value);
     const partySize = children === 0 ? '2A' : children === 1 ? '2A1C' : '2A2C';
@@ -5430,8 +5427,7 @@ document.addEventListener('DOMContentLoaded', () => {
     else if (activeDateMode === 'specific') dateFilter = document.getElementById('hero-date').value;
 
     openSearchModal(selectedResort || null, dateFilter, partySize, activeDateMode);
-  }
-  document.getElementById('hero-form').addEventListener('submit', e => { e.preventDefault(); runHeroSearch(); });
+  });
 
   // Search results modal close
   document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);
@@ -5603,7 +5599,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
     const labelBase = dateMode === 'month' && dateFilter ? 'All departures this month'
       : dateMode === 'specific' ? 'Departures on selected date'
       : 'All available departures';
-    rowsLabelEl.textContent = `${labelBase} — lowest price first`;
+    rowsLabelEl.textContent = `${labelBase} — ranked cheapest first`;
   }
 
   // Date rows

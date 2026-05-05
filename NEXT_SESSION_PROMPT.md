@@ -9,13 +9,15 @@ Then read `PLAN.md` for the full task list.
 
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.
 
+**⚠️ CRITICAL BUG (as of 2026-05-05, unresolved):** Resort cards do not open when clicked. `openModal` is defined and the click handler is attached, but calling `openModal` produces NO output — an `alert()` placed at the top of `openModal` was never triggered during debug. Either: (a) the click event never reaches `openModal`, or (b) a JS error throws before the alert line. Suspected: `DATA_SUFFICIENT = false` may be gating handler attachment inside `renderCards`. Fix this before any other autonomous work.
+
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
 - **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert may now be provisioned — check and tick "Enforce HTTPS" in Pages Settings if available.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
-- **Price history:** `_data/price_history.csv` — ~9,000 rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
-- **Mark Warner prices:** `_data/markwarner_prices.csv` — 54 rows seeded 2026-05-04. Append-only.
+- **Price history:** `_data/price_history.csv` — ~9,000 rows (328 LP2C placeholder rows purged 2026-05-05). Append-only. In `_data/` so GitHub Pages won't serve it publicly.
+- **Mark Warner prices:** `_data/markwarner_prices.csv` — seeded 2026-05-04, daily runs active. Append-only.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
@@ -23,6 +25,8 @@ Then read `PLAN.md` for the full task list.
 - **GA4:** `G-G2RES5DX0K` — live in both `clubmed/index.html` and `index.html`.
 - **SSH key:** `~/.ssh/booking_window_deploy`
 - **Checker flags:** `--test` (no writes), `--verify` (one API call), `--inject-only` (rebuild RESORT_DATA from CSV, no API calls)
+- **Date format:** Resort dates display as "6–13 Dec 2026" (departure + 7 nights, cross-month handled: "27 Dec–3 Jan 2027"). Fixed 2026-05-05.
+- **Unmerged branch:** `claude/nifty-shannon-d10066` — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, updated ORCHESTRATOR.md. Created during 2026-05-05 session but NOT merged to main. Review/merge or re-create on main before using these agents.
 
 Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings fully yet. Booking window typically opens June/July 2026. Not a bug.
 
@@ -62,21 +66,41 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — **Mark Warner checker built and verified:** `markwarner_checker.py` uses POST `/resort/getresortsearchcriteria` API (resortId 957, LGW, 7 nights). Returns all 18 departure dates per party size in one call. 3 party sizes = 54 rows/run. Seeded. GitHub Actions at 07:00 UTC daily.
 - 2026-05-04 — **Email alerts stripped:** `clubmed_checker.py` only emails on >30% API error rate. All signal/price-change/success emails removed.
 - 2026-05-04 — **Blog promoted to high priority** in PLAN.md. 3 article ideas generated (see below).
+- 2026-05-05 — Reverted `clubmed/index.html` to d651c28 (working state). c500fb8 introduced touchstart/touchend handlers with `e.preventDefault()` that broke resort card clicks, party size tabs, and Show Optimal Dates button on both desktop and mobile.
+- 2026-05-05 — JS crash fix: guard against resorts with empty departures in `openModal` (commit 668f35c).
+- 2026-05-05 — Date display fix: removed stale `w/c` strip; dates now show as "6–13 Dec 2026" (departure + 7 nights, cross-month handled). Commit 7093c2e.
+- 2026-05-05 — LP2C placeholder purge: 328 rows with £3,322 price removed from `price_history.csv`. Commit c8df916.
+- 2026-05-05 — RESORT_DATA regenerated via `--inject-only`; La Plagne correctly shows no data.
+- 2026-05-05 — TESTER.md QA agent created (commit d651c28). Verifies each Builder task.
+- 2026-05-05 — DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py created — **on branch `claude/nifty-shannon-d10066`, NOT merged to main**. Review/merge before using.
+- 2026-05-05 — Agent team coordination issues identified: simultaneous sessions cause git lock contention; Builder committed to worktree branch not main; sessions ran 150+ turns without committing.
 
 ---
 
 ## Up Next (priority order)
 
-### User actions required first
-1. **Enforce HTTPS on GitHub Pages** — cert may now be provisioned. Go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS".
-2. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
+### 🚨 CRITICAL — Fix first, block everything else
+1. **Fix resort card click bug** — Resort cards do not open when clicked. Known facts: click handler IS attached; `openModal` IS defined; `alert()` at top of `openModal` produced NO alert when card clicked. Either: (a) the click event never reaches `openModal`, or (b) a JS error fires before the alert. Start by inspecting `renderCards` — check if `DATA_SUFFICIENT = false` is preventing handler attachment. Then open DevTools console on the live site and click a card to catch any JS errors.
 
-### Autonomous (next session)
-3. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
-4. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
-5. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
-6. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
-7. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+### User actions required
+2. **Enforce HTTPS on GitHub Pages** — cert may now be provisioned. Go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS".
+3. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
+
+### Merge unmerged work from 2026-05-05 session
+4. **Merge or cherry-pick `claude/nifty-shannon-d10066` to main** — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, and ORCHESTRATOR.md update (reads AGENT_LOG.md at session start). Review, then `git cherry-pick <commit>` or merge.
+
+### Verification
+5. **Verify Show Optimal Dates button** — was broken pre-revert; may now work after d651c28 revert. Check on live site.
+
+### Autonomous (next session, after card bug fixed)
+6. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
+7. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+8. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
+9. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
+10. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+
+### Agent coordination (high priority)
+11. **Write tighter git operating rules for agents** — Agents must: commit directly to main (not worktree branches); commit after every completed task (not at 150-turn mark); never run simultaneously in the same repo (git lock contention). Add these as explicit rules to BUILDER.md and ORCHESTRATOR.md.
 
 ---
 
@@ -192,11 +216,20 @@ clubmed_checker.py          — Price checker (flags: --test, --verify, --inject
 markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
 _data/price_history.csv     — Club Med price log (~9,000 rows, append-only)
-_data/markwarner_prices.csv — Mark Warner price log (54 rows seeded, append-only)
+_data/markwarner_prices.csv — Mark Warner price log (seeded, append-only)
 vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/
   price_checker.yml         — Club Med: daily 06:00 UTC
   markwarner_checker.yml    — Mark Warner: daily 07:00 UTC
   backup.yml                — Weekly CSV backup to GitHub Releases (Sundays 02:00 UTC)
 When To Book/Agents/        — Agent .md files mirrored to vault (Obsidian)
+TESTER.md                   — QA agent: verifies each Builder task
+BUILDER.md                  — Builder agent: implements code, commits to main
+ORCHESTRATOR.md             — Orchestrator: plans, delegates, verifies
+SCRIBE.md                   — Scribe: documentation only
+
+--- NOT YET ON MAIN (branch claude/nifty-shannon-d10066) ---
+DATA_ANALYST.md             — Data Analyst agent: placeholder detection, quality scoring 0–100
+AGENT_LOG.md                — Inter-agent communication log (Orchestrator reads at session start)
+data_quality_check.py       — Reads price_history.csv, detects CRITICAL/WARNING/INFO, appends to AGENT_LOG.md
 ```

@@ -2,9 +2,15 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-04 (session end)
+Last updated: 2026-05-05 (session end)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
+
+---
+
+## 🚨 CRITICAL — Fix immediately
+
+- [ ] **Fix resort card click bug** — Resort cards on `clubmed/index.html` do not open the modal when clicked. Known facts: click handler IS attached (`card.addEventListener('click', () => openModal(resort.id, partySize))`); `openModal` IS defined; `getCombination` always returns `combinations[0]` as fallback (not the cause); all 11 resorts have non-empty `combinations` arrays. Debug: `alert()` placed at top of `openModal` produced NO alert → either (a) the click never reaches `openModal`, or (b) a JS error fires before the alert. **Start by checking `renderCards` — is `DATA_SUFFICIENT = false` gating handler attachment? Then open DevTools console on the live site, click a card, and inspect for JS errors.**
 
 ---
 
@@ -15,9 +21,14 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **GitHub Pages active** — HTTP 200 confirmed from GitHub.com server. Root serves brand landing page; `/clubmed/` serves tracker (373KB). HTTPS cert auto-provisioning (may take a few hours). Once HTTPS is live, go to Settings → Pages → Enforce HTTPS. — 2026-05-04
 - [ ] **Enforce HTTPS on GitHub Pages** — Once cert is provisioned: go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS". **User action — check in a few hours.**
 - [ ] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.**
-- [ ] **Wire up GA4 measurement ID** — GA4 script added to `clubmed/index.html` with placeholder `G-XXXXXXXXXX`. Create a GA4 property at analytics.google.com, get the Measurement ID, and replace the placeholder. Then commit. **User action required to create property.**
+- [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
+
+### 🔴 HIGH PRIORITY — Agent coordination
+
+- [ ] **Write tighter agent git rules** — Add explicit rules to BUILDER.md and ORCHESTRATOR.md: (1) always commit to main, never to a worktree branch; (2) commit after every completed task, not at 150-turn session-end; (3) never run two Builder sessions simultaneously in the same repo (git lock contention freezes both). Identified from 2026-05-05 session failure analysis.
+- [ ] **Merge/cherry-pick `claude/nifty-shannon-d10066` to main** — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, and ORCHESTRATOR.md update (Step 0: read AGENT_LOG.md). These were created during 2026-05-05 session but the branch was never merged. Review and merge or cherry-pick.
 
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
 
@@ -94,5 +105,10 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] GA4 analytics script added to `clubmed/index.html` with placeholder `G-XXXXXXXXXX` — user must create GA4 property and swap in Measurement ID — 2026-05-04
 - [x] Data purge: 612 suspect LP2C_WINTER + VDIC_WINTER rows (Apr 23–25, unverified codes) removed from `price_history.csv`; RESORT_DATA regenerated via `--inject-only` — 2026-05-04
 - [x] `VMOC_WINTER` code verified correct; `--inject-only` flag added to `clubmed_checker.py` — 2026-05-04
+- [x] TESTER.md QA agent created (commit d651c28) — 2026-05-05
+- [x] JS crash fix: guard against resorts with empty departures in `openModal` (commit 668f35c) — 2026-05-05
+- [x] Date display fix: dates now "6–13 Dec 2026" format (departure + 7 nights, cross-month handled). Removed stale `w/c` strip from calendar `shortDate`. Commit 7093c2e — 2026-05-05
+- [x] LP2C placeholder purge: 328 rows with £3,322 price removed from `price_history.csv`; RESORT_DATA regenerated via `--inject-only` (commit c8df916) — 2026-05-05
+- [x] Reverted `clubmed/index.html` to d651c28 after c500fb8 introduced touchstart/touchend regression (broke card clicks, party size tabs, Show Optimal Dates on desktop and mobile) — 2026-05-05
 </content>
 </invoke>

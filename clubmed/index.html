@@ -5318,10 +5318,11 @@ function getTrend(dep) {
 }
 
 function openModal(resortId, partySize) {
+  console.log('openModal called', resortId, partySize);
   const resort = RESORT_DATA.find(r => r.id === resortId);
-  if (!resort) return;
+  if (!resort) { console.error('openModal: resort not found', resortId); alert('DEBUG: resort not found - ' + resortId); return; }
   const combo = getCombination(resort, partySize);
-  if (!combo) return;
+  if (!combo) { console.error('openModal: no combo', resort.name, partySize, resort.combinations); alert('DEBUG: no combo for ' + resort.name); return; }
   const bestDep = getActiveDeparture(combo);
   const allByDur = combo.departures.filter(d => (d.duration || 7) === activeDuration);
   const deps = [...(allByDur.length ? allByDur : combo.departures)].sort((a, b) => a.date.localeCompare(b.date));

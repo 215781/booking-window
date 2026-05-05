@@ -5097,7 +5097,7 @@ function buildCalendarGrid(deps, pricedDeps) {
     html += `<div class="cal-month"><div class="cal-month-label">${mo.label}</div><div class="cal-weeks">`;
     for (const dep of monthDeps) {
       const b = band(dep);
-      const shortDate = dep.displayDate.replace('w/c ', '').replace(/\s\d{4}$/, '');
+      const shortDate = dep.displayDate.replace(/\s\d{4}$/, '');
       const priceStr = dep.currentPrice > 0 ? formatPrice(dep.currentPrice) : '—';
       const priceColor = b === 'none' ? 'color:#bbb5aa;font-size:10px;' : '';
       html += `<div class="cal-cell cal-cell-${b}" title="${dep.displayDate}${dep.currentPrice > 0 ? ' — ' + formatPrice(dep.currentPrice) : ''}">

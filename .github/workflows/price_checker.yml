@@ -32,6 +32,9 @@ jobs:
           ALERT_TO:       ${{ secrets.ALERT_TO }}
         run: python clubmed_checker.py
 
+      - name: Data quality check
+        run: python3 data_quality_check.py
+
       - name: Commit updated files
         run: |
           git config user.name  "Booking Window Bot"

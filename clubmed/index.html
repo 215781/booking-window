@@ -5122,20 +5122,6 @@ function renderCards(partySize, resortFilter) {
     card.addEventListener('click', () => openModal(resort.id, partySize));
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
 
-    let touchStartX, touchStartY;
-    card.addEventListener('touchstart', (e) => {
-      touchStartX = e.touches[0].clientX;
-      touchStartY = e.touches[0].clientY;
-    }, { passive: true });
-    card.addEventListener('touchend', (e) => {
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      if (Math.sqrt(dx*dx + dy*dy) < 10) {
-        e.preventDefault();
-        openModal(resort.id, partySize);
-      }
-    });
-
     grid.appendChild(card);
   });
 }
@@ -5446,7 +5432,6 @@ document.addEventListener('DOMContentLoaded', () => {
     openSearchModal(selectedResort || null, dateFilter, partySize, activeDateMode);
   }
   document.getElementById('hero-form').addEventListener('submit', e => { e.preventDefault(); runHeroSearch(); });
-  document.querySelector('#hero-form button[type="submit"]').addEventListener('touchend', e => { e.preventDefault(); runHeroSearch(); });
 
   // Search results modal close
   document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);

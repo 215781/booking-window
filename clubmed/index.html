@@ -4988,7 +4988,7 @@ function renderCards(partySize, resortFilter) {
       </div>
     `;
 
-    card.addEventListener('click', () => openModal(resort.id, partySize));
+    card.addEventListener('click', () => { console.log('card clicked', resort.id); openModal(resort.id, partySize); });
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
 
     grid.appendChild(card);

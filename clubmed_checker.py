@@ -475,13 +475,13 @@ def build_resort_data_js(all_results):
                 signal = calculate_signal(history_30)
                 availability, avail_trend = calculate_availability(current_price, history_30)
 
-                # Display date: "6–13 Dec 2026" (departure day to departure + duration nights)
+                # Display date: departure range e.g. "6–13 Dec 2026"
                 dep_dt = datetime.strptime(sd, "%Y-%m-%d")
                 end_dt = dep_dt + timedelta(days=dur)
                 if dep_dt.month == end_dt.month:
                     display_date = f"{dep_dt.day}–{end_dt.day} {dep_dt.strftime('%b %Y')}"
                 else:
-                    display_date = f"{dep_dt.day} {dep_dt.strftime('%b')}–{end_dt.day} {end_dt.strftime('%b %Y')}"
+                    display_date = f"{dep_dt.strftime('%-d %b')}–{end_dt.strftime('%-d %b %Y')}"
 
                 history_js = json.dumps(history_30)
 

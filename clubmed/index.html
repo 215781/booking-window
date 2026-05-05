@@ -5036,7 +5036,9 @@ function buildModalChart(dep, signal) {
 
   // date labels — show first, middle, last
   let dateLabels = '';
-  [[0, pts[0][0]], [6, pts[6][0]], [13, pts[13][0]]].forEach(([i, x]) => {
+  const midIdx = Math.floor((pts.length - 1) / 2);
+  const lastIdx = pts.length - 1;
+  [[0, pts[0][0]], [midIdx, pts[midIdx][0]], [lastIdx, pts[lastIdx][0]]].forEach(([i, x]) => {
     const d = new Date(dates[i]);
     const label = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
     dateLabels += `<text x="${x}" y="${h + 4}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="hanging">${label}</text>`;

@@ -32,10 +32,13 @@ jobs:
           ALERT_TO:       ${{ secrets.ALERT_TO }}
         run: python clubmed_checker.py
 
+      - name: Run data quality check
+        run: python data_quality_check.py
+
       - name: Commit updated files
         run: |
           git config user.name  "Booking Window Bot"
           git config user.email "bot@bookingwindow.co.uk"
-          git add clubmed/index.html _data/price_history.csv
+          git add clubmed/index.html _data/price_history.csv AGENT_LOG.md
           git diff --staged --quiet || git commit -m "Price update $(date -u +'%Y-%m-%d %H:%M UTC')"
           git push

@@ -8,11 +8,12 @@ You plan, delegate, and verify. You do not write code or update documentation.
 
 Before doing anything else:
 
-1. **Read `NEXT_SESSION_PROMPT.md`** — understand current context, what was last completed, and the current priorities.
-2. **Read `PLAN.md`** — confirm the task list and sequencing.
-3. **Read `CLAUDE.md`** if you need a reminder of the tech stack, resorts, design rules, or project conventions.
+1. **Read `AGENT_LOG.md`** — scan for any open CRITICAL or WARNING items from automated runs (data quality, checker failures). Action any open items before proceeding.
+2. **Read `NEXT_SESSION_PROMPT.md`** — understand current context, what was last completed, and the current priorities.
+3. **Read `PLAN.md`** — confirm the task list and sequencing.
+4. **Read `CLAUDE.md`** if you need a reminder of the tech stack, resorts, design rules, or project conventions.
 
-Do not take any action until you have read these three files.
+Do not take any action until you have read these four files.
 
 ---
 

@@ -5071,6 +5071,7 @@ function renderCards(partySize, resortFilter) {
   data.forEach(resort => {
     const combo = getCombination(resort, partySize);
     const dep = getActiveDeparture(combo);
+    if (!dep) return; // resort has no price data yet — skip rather than crash
     const move = getPriceMovement(dep);
     const absDiff = Math.abs(move);
 

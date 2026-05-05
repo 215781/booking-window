@@ -23,6 +23,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.** — 2026-05-05
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
+- [ ] **Quality check gate — decision pending** — `data_quality_check.py` is a hard gate in `price_checker.yml`; if it exits CRITICAL, the commit step is skipped and data is lost. Recommendation: set `continue-on-error: true` on that step so it always logs but never blocks. Awaiting user approval before implementing. — raised 2026-05-05
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
 
 ### 🔴 HIGH PRIORITY — Agent coordination

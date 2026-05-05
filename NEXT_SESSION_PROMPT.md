@@ -91,14 +91,15 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 3. **Verify Show Optimal Dates button** — was broken pre-revert; may now work after d651c28 revert. Check on live site.
 
 ### Autonomous (next session, after card bug fixed)
-4. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
-5. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
-6. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
-7. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
-8. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+4. **🟡 DECISION PENDING — Quality check gate** — `data_quality_check.py` is a hard gate before the commit step in `price_checker.yml`. If it exits CRITICAL (e.g. checker writes no rows), the data update is lost. Recommend `continue-on-error: true` — logs always, never blocks. Awaiting user approval.
+5. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
+6. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+7. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
+8. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
+9. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
 
 ### Agent coordination (high priority)
-9. **Write tighter git operating rules for agents** — Agents must: commit directly to main (not worktree branches); commit after every completed task (not at 150-turn mark); never run simultaneously in the same repo (git lock contention). Add these as explicit rules to BUILDER.md and ORCHESTRATOR.md.
+10. **Write tighter git operating rules for agents** — Agents must: commit directly to main (not worktree branches); commit after every completed task (not at 150-turn mark); never run simultaneously in the same repo (git lock contention). Add these as explicit rules to BUILDER.md and ORCHESTRATOR.md.
 
 ---
 

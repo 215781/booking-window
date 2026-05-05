@@ -12,7 +12,7 @@ Then read `PLAN.md` for the full task list.
 **⚠️ CRITICAL BUG (as of 2026-05-05, unresolved):** Resort cards do not open when clicked. `openModal` is defined and the click handler is attached, but calling `openModal` produces NO output — an `alert()` placed at the top of `openModal` was never triggered during debug. Either: (a) the click event never reaches `openModal`, or (b) a JS error throws before the alert line. Suspected: `DATA_SUFFICIENT = false` may be gating handler attachment inside `renderCards`. Fix this before any other autonomous work.
 
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
-- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert may now be provisioned — check and tick "Enforce HTTPS" in Pages Settings if available.
+- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS live and enforced.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
@@ -74,6 +74,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-05 — TESTER.md QA agent created (commit d651c28). Verifies each Builder task.
 - 2026-05-05 — DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py created — **on branch `claude/nifty-shannon-d10066`, NOT merged to main**. Review/merge before using.
 - 2026-05-05 — Agent team coordination issues identified: simultaneous sessions cause git lock contention; Builder committed to worktree branch not main; sessions ran 150+ turns without committing.
+- 2026-05-05 — HTTPS enforced on GitHub Pages
+- 2026-05-05 — Vercel project decommissioned; DNS routes exclusively to GitHub Pages
 
 ---
 
@@ -82,25 +84,21 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 ### 🚨 CRITICAL — Fix first, block everything else
 1. **Fix resort card click bug** — Resort cards do not open when clicked. Known facts: click handler IS attached; `openModal` IS defined; `alert()` at top of `openModal` produced NO alert when card clicked. Either: (a) the click event never reaches `openModal`, or (b) a JS error fires before the alert. Start by inspecting `renderCards` — check if `DATA_SUFFICIENT = false` is preventing handler attachment. Then open DevTools console on the live site and click a card to catch any JS errors.
 
-### User actions required
-2. **Enforce HTTPS on GitHub Pages** — cert may now be provisioned. Go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS".
-3. **Decommission Vercel** — DNS no longer routes there. Safe to delete the Vercel project.
-
 ### Merge unmerged work from 2026-05-05 session
-4. **Merge or cherry-pick `claude/nifty-shannon-d10066` to main** — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, and ORCHESTRATOR.md update (reads AGENT_LOG.md at session start). Review, then `git cherry-pick <commit>` or merge.
+2. **Merge or cherry-pick `claude/nifty-shannon-d10066` to main** — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, and ORCHESTRATOR.md update (reads AGENT_LOG.md at session start). Review, then `git cherry-pick <commit>` or merge.
 
 ### Verification
-5. **Verify Show Optimal Dates button** — was broken pre-revert; may now work after d651c28 revert. Check on live site.
+3. **Verify Show Optimal Dates button** — was broken pre-revert; may now work after d651c28 revert. Check on live site.
 
 ### Autonomous (next session, after card bug fixed)
-6. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
-7. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
-8. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
-9. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
-10. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+4. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
+5. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+6. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
+7. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
+8. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
 
 ### Agent coordination (high priority)
-11. **Write tighter git operating rules for agents** — Agents must: commit directly to main (not worktree branches); commit after every completed task (not at 150-turn mark); never run simultaneously in the same repo (git lock contention). Add these as explicit rules to BUILDER.md and ORCHESTRATOR.md.
+9. **Write tighter git operating rules for agents** — Agents must: commit directly to main (not worktree branches); commit after every completed task (not at 150-turn mark); never run simultaneously in the same repo (git lock contention). Add these as explicit rules to BUILDER.md and ORCHESTRATOR.md.
 
 ---
 

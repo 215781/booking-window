@@ -19,8 +19,8 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Data gap backfill** — `backfill_prices.py` built and run: 3,717 rows added for 2026-04-27 to 2026-05-03; backfilled rows marked with `T00:00:00Z` timestamp (vs live data at real UTC times). Run after any future multi-day gap: `python backfill_prices.py && python clubmed_checker.py --inject-only` — 2026-05-04
 - [x] **Configure DNS at Squarespace** — 4 × A records + CNAME confirmed configured. DNS resolving to GitHub Pages IPs (185.199.108–111.153). — 2026-05-04
 - [x] **GitHub Pages active** — HTTP 200 confirmed from GitHub.com server. Root serves brand landing page; `/clubmed/` serves tracker (373KB). HTTPS cert auto-provisioning (may take a few hours). Once HTTPS is live, go to Settings → Pages → Enforce HTTPS. — 2026-05-04
-- [ ] **Enforce HTTPS on GitHub Pages** — Once cert is provisioned: go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS". **User action — check in a few hours.**
-- [ ] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.**
+- [x] **Enforce HTTPS on GitHub Pages** — Once cert is provisioned: go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS". **User action — check in a few hours.** — 2026-05-05
+- [x] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.** — 2026-05-05
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.

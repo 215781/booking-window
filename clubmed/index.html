@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://app.kit.com https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
   <title>When To Book — Club Med Price Intelligence</title>
-  <meta name="description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
+  <meta name="description" content="Track Club Med ski resort pricing and availability. See which weeks are historically favourable, which resorts are in demand, and when prices are likely to move.">
   <link rel="canonical" href="https://whentobook.co.uk/clubmed">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://whentobook.co.uk/clubmed">
   <meta property="og:title" content="When To Book — Club Med Price Intelligence">
-  <meta property="og:description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
+  <meta property="og:description" content="Track Club Med ski resort pricing and availability. See which weeks are historically favourable, which resorts are in demand, and when prices are likely to move.">
   <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -21,7 +21,7 @@
   <!-- Twitter / X -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="When To Book — Club Med Price Intelligence">
-  <meta name="twitter:description" content="Track Club Med ski resort pricing and availability. See which weeks are cheapest, which resorts are selling out, and when prices are likely to move.">
+  <meta name="twitter:description" content="Track Club Med ski resort pricing and availability. See which weeks are historically favourable, which resorts are in demand, and when prices are likely to move.">
   <meta name="twitter:image" content="https://whentobook.co.uk/og-image.png">
 
   <!-- Google Analytics 4 -->
@@ -1673,7 +1673,7 @@
           <div id="search-kit-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:'Inter',sans-serif;">Something went wrong — please try again.</div>
         </form>
       </div>
-      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked cheapest first</p>
+      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked by price, lowest first</p>
       <div id="search-modal-date-rows"></div>
       <div class="alt-months" id="search-modal-alt-months"></div>
     </div>
@@ -4988,7 +4988,7 @@ function renderCards(partySize, resortFilter) {
       </div>
     `;
 
-    card.addEventListener('click', () => { console.log('card clicked', resort.id); openModal(resort.id, partySize); });
+    card.addEventListener('click', () => openModal(resort.id, partySize));
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
 
     grid.appendChild(card);
@@ -5130,7 +5130,7 @@ function buildPriceNarrative(resort, combo, bestDep, pricedDeps) {
   const maxPrice = Math.max(...allPrices);
   const cheapestDep = pricedDeps.find(d => d.currentPrice === minPrice);
   const recentDrops = pricedDeps.filter(d => getPriceMovement(d) < -10).length;
-  let narrative = `For a ${partySizeLabel} party, ${resort.name} currently ranges from ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} across the season. The most affordable available week is ${cheapestDep.displayDate}.`;
+  let narrative = `For a ${partySizeLabel} party, ${resort.name} currently ranges from ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} across the season. The lowest-priced week currently available is ${cheapestDep.displayDate}.`;
   if (recentDrops > 0) narrative += ` ${recentDrops} departure${recentDrops > 1 ? 's have' : ' has'} seen a price drop since the last check.`;
   narrative += ` December 27 and February half-term weeks typically command the highest premiums; early December, late March and April tend to be quieter. Richer signals will develop as price movement data accumulates over the coming months.`;
   return narrative;
@@ -5473,7 +5473,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
     const labelBase = dateMode === 'month' && dateFilter ? 'All departures this month'
       : dateMode === 'specific' ? 'Departures on selected date'
       : 'All available departures';
-    rowsLabelEl.textContent = `${labelBase} — ranked cheapest first`;
+    rowsLabelEl.textContent = `${labelBase} — ranked by price, lowest first`;
   }
 
   // Date rows

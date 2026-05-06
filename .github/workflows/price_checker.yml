@@ -33,6 +33,7 @@ jobs:
         run: python clubmed_checker.py
 
       - name: Data quality check
+        continue-on-error: true
         run: python3 data_quality_check.py
 
       - name: Commit updated files

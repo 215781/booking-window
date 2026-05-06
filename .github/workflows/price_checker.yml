@@ -2,7 +2,7 @@ name: Club Med Price Checker
 
 on:
   schedule:
-    - cron: "0 6 * * *"    # 06:00 UTC daily — slow trickle run (~2h with random delays)
+    - cron: "0 6 * * *"    # 06:00 UTC daily — async run (~15-20min)
   workflow_dispatch:        # manual trigger still available from GitHub Actions tab
 
 permissions:
@@ -11,7 +11,7 @@ permissions:
 jobs:
   check-prices:
     runs-on: ubuntu-latest
-    timeout-minutes: 180
+    timeout-minutes: 60     # async rewrite completes in <30min; 60 gives double margin
 
     steps:
       - name: Checkout repo
@@ -23,7 +23,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install requests aiohttp
 
       - name: Run price checker
         env:
@@ -36,7 +36,8 @@ jobs:
         continue-on-error: true
         run: python3 data_quality_check.py
 
-      - name: Commit updated files
+      - name: Commit updated files (safety net)
+        # Per-resort commits happen inside the checker; this catches anything that slipped through
         run: |
           git config user.name  "Booking Window Bot"
           git config user.email "bot@bookingwindow.co.uk"

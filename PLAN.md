@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (Async checker rewrite 927784b + 9c41d58; under construction 2575e57 + 720f853 — site intentionally OFFLINE)
+Last updated: 2026-05-06 (CSV architecture 8236d90 + 4718bc5 + 711f8c7 — price_history.csv → prices_clubmed.csv, build_site.yml, HTML generation decoupled)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -16,7 +16,8 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Entry-point redirects added** — `index.html` and `clubmed/index.html` both redirect to `/under-construction.html` via meta-refresh. Revert = remove one `<meta>` line per file. (commit 720f853) — 2026-05-06
 
 **Do not restore the site until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.**
-**Next priority: DATA ARCHITECTURE overhaul — present plan to user before writing any code.**
+**Target go-live: end of May 2026 (approx 2026-05-31) — site staying offline to accumulate clean data.**
+**Next priority: Apply same async + separate CSV pattern to Mark Warner checker.**
 
 ---
 
@@ -27,6 +28,10 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 ---
 
 ## Active / Up Next
+
+- [x] **CSV architecture overhaul — separate files per operator** — `_data/price_history.csv` renamed to `_data/prices_clubmed.csv`; placeholder `_data/prices_markwarner.csv` and `_data/prices_sandals.csv` created (headers only); `clubmed_checker.py` updated to write to new path (commit 8236d90) — 2026-05-06
+- [x] **`build_site.yml` workflow created** — Dedicated HTML build workflow triggered by changes to any `_data/prices_*.csv` file; runs `--inject-only` to regenerate `clubmed/index.html`; concurrency-queued to prevent overlapping runs (commit 4718bc5) — 2026-05-06
+- [x] **HTML generation decoupled from price checker** — Removed HTML commit step from `price_checker.yml` and `clubmed_checker.py`; price checker now touches CSV only; HTML rebuild is fully delegated to `build_site.yml` (commit 711f8c7) — 2026-05-06
 
 - [x] **Data gap backfill** — `backfill_prices.py` built and run: 3,717 rows added for 2026-04-27 to 2026-05-03; backfilled rows marked with `T00:00:00Z` timestamp (vs live data at real UTC times). Run after any future multi-day gap: `python backfill_prices.py && python clubmed_checker.py --inject-only` — 2026-05-04
 - [x] **Configure DNS at Squarespace** — 4 × A records + CNAME confirmed configured. DNS resolving to GitHub Pages IPs (185.199.108–111.153). — 2026-05-04
@@ -81,6 +86,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [ ] **SEO foundations — schema markup** — add JSON-LD schema (`WebSite`, `TravelAgency`, resort entities). Do after URL restructure so canonical URLs are correct. (MT-3)
 - [ ] **Blog / content section** — build `whentobook.co.uk/blog` using Jekyll's `_posts/` folder (GitHub Pages supports natively). Create `_layouts/post.html` matching site design, `blog/index.html` listing page. First 5 target articles listed in IMPROVEMENT_PLAN.md. (MT-3b)
 - [ ] **Content Writer agent (CONTENT_WRITER.md)** — write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Target 2 articles per month once blog is set up. (MT-3c)
+- [ ] **Post-launch: schedule Content Writer — 2 blog posts/week via scheduled task** — Once site is live (approx end of May 2026), set up a recurring scheduled agent (via `anthropic-skills:schedule`) to run the Content Writer agent and publish 2 blog posts per week automatically. User decision: 2026-05-06.
 - [ ] **Email sequence expansion** — extend Kit welcome sequence from 1 email to 4–6 emails over 2–3 weeks (how Club Med pricing works, resort comparison, what to watch). (MT-4)
 - [ ] **Price alert trigger — flash sale notification** — alert subscribers when the annual Club Med early booking flash sale opens (ski ~Feb, summer ~Oct). (MT-5)
 - [ ] **Booking-window analysis script** — target Oct 2026 when price_history.csv has 6+ months of data. Group by resort + departure date, plot price vs days_before_departure, find inflection points at 180d, 90d, 60d, 30d, 14d, 7d. (MT-6)
@@ -147,5 +153,8 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] Entry-point redirects added: `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file — commit 720f853 — 2026-05-06
 - [x] **Async rewrite of `clubmed_checker.py`** — aiohttp + asyncio, Semaphore(8) concurrency, per-resort CSV commits, 429 backoff, push retry logic, 7 User-Agent strings. Grand Massif + Serre-Chevalier departure_day fixed to Sunday (6). Estimated runtime: 15–20 min (was 160+). Dry-run confirmed: Tignes £3,648 (commits 927784b + 9c41d58) — 2026-05-06
 - [x] **`price_checker.yml` timeout reduced to 60 min** — aiohttp added to pip install step (commit 9c41d58) — 2026-05-06
+- [x] **CSV architecture: `price_history.csv` → `prices_clubmed.csv`** — renamed with operator-specific naming convention; placeholder CSVs for Mark Warner and Sandals created (headers only); `clubmed_checker.py` updated (commit 8236d90) — 2026-05-06
+- [x] **`build_site.yml` created** — dedicated HTML regeneration workflow triggered by `_data/prices_*.csv` changes; runs `--inject-only`; concurrency-queued (commit 4718bc5) — 2026-05-06
+- [x] **HTML generation decoupled from price checker** — price checker writes CSV only; `build_site.yml` owns HTML rebuild; removed HTML commit step from `price_checker.yml` and checker (commit 711f8c7) — 2026-05-06
 </content>
 </invoke>

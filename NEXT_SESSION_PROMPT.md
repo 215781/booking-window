@@ -14,10 +14,11 @@ Then read `PLAN.md` for the full task list.
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
 - **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS live and enforced.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
-- **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `clubmed/index.html`.
+- **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
-- **Price history:** `_data/price_history.csv` — ~9,000 rows (328 LP2C placeholder rows purged 2026-05-05). Append-only. In `_data/` so GitHub Pages won't serve it publicly.
-- **Mark Warner prices:** `_data/markwarner_prices.csv` — seeded 2026-05-04, daily runs active. Append-only.
+- **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
+- **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
+- **Sandals prices:** `_data/prices_sandals.csv` — placeholder created (headers only); checker not yet built.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
@@ -98,21 +99,27 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **Entry-point redirects added** — `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file (commit 720f853). **Site is now OFFLINE.**
 - 2026-05-06 — **Async rewrite of `clubmed_checker.py`** — aiohttp + asyncio, Semaphore(8) concurrency, per-resort CSV commits, 429 backoff, push retry logic, 7 User-Agent strings. Grand Massif + Serre-Chevalier departure_day fixed to Sunday (6). Estimated runtime: 15–20 min (was 160+). Dry-run confirmed: Tignes £3,648. (commits 927784b + 9c41d58)
 - 2026-05-06 — **`price_checker.yml` timeout reduced to 60 min** — aiohttp added to pip install step (commit 9c41d58)
+- 2026-05-06 — **CSV architecture: `price_history.csv` → `prices_clubmed.csv`** — operator-specific naming; placeholder `prices_markwarner.csv` and `prices_sandals.csv` created; checker updated (commit 8236d90)
+- 2026-05-06 — **`build_site.yml` created** — dedicated HTML build workflow triggered by `_data/prices_*.csv` changes; runs `--inject-only`; concurrency-queued (commit 4718bc5)
+- 2026-05-06 — **HTML generation decoupled from price checker** — price checker is CSV-only; `build_site.yml` owns all HTML rebuilds (commit 711f8c7)
 
 ---
 
 ## Up Next (priority order)
 
-⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.
+⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts. **Target go-live: end of May 2026 (approx 2026-05-31).**
 
-### 🔴 DATA ARCHITECTURE — approved by user
-1. **Separate CSV files per company + build workflow (Layer 2+3 architecture)** — Next step in the DATA ARCHITECTURE overhaul. Scope and approach to be defined by Orchestrator at session start. Do not begin without reading full brief from user.
+### 🔴 NEXT — Mark Warner checker: async + separate CSV pattern
+1. **Apply async rewrite + CSV architecture to `markwarner_checker.py`** — Same pattern as Club Med: aiohttp + asyncio, write to `_data/prices_markwarner.csv` only, HTML generation via separate build workflow. Do not begin without reading current checker code and confirming scope with user.
 
 ### Bug fixes
 2. **Fix remaining 3 Saturday references in `clubmed/index.html`** — alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
 
 ### Content (paused until site is back live)
 3. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
+
+### Post-launch (plan now, execute at go-live)
+4. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent to run Content Writer and auto-publish 2 posts per week. User decision: 2026-05-06.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. Homepage display stays 7-night for comparability; raw CSV captures all durations. Checker config per resort must use a `durations` array (e.g. `durations: [7]` now, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not apply to existing winter Club Med checker without user instruction.
@@ -230,11 +237,13 @@ WhentoBook.html             — Redirect to /clubmed
 clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
 markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
-_data/price_history.csv     — Club Med price log (~9,000 rows, append-only)
-_data/markwarner_prices.csv — Mark Warner price log (seeded, append-only)
+_data/prices_clubmed.csv    — Club Med price log (~9,000+ rows, append-only; renamed from price_history.csv)
+_data/prices_markwarner.csv — Mark Warner price log (placeholder; daily runs active, append-only)
+_data/prices_sandals.csv    — Sandals price log (placeholder; checker not yet built)
 vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/
-  price_checker.yml         — Club Med: daily 06:00 UTC
+  price_checker.yml         — Club Med: daily 06:00 UTC (writes CSV only)
+  build_site.yml            — HTML rebuild: triggered by prices_*.csv changes, runs --inject-only
   markwarner_checker.yml    — Mark Warner: daily 07:00 UTC
   backup.yml                — Weekly CSV backup to GitHub Releases (Sundays 02:00 UTC)
 When To Book/Agents/        — Agent .md files mirrored to vault (Obsidian)

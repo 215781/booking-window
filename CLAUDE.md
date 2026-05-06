@@ -17,8 +17,8 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 | Frontend | `clubmed/index.html` — single-file HTML/CSS/JS. No frameworks, no build tools. |
 | Brand landing page | `index.html` — root site landing page linking to operator trackers |
 | Price data | `clubmed_checker.py` — Python 3.11, Club Med GraphQL API |
-| Data storage | `_data/price_history.csv` — append-only, never delete rows. Jekyll/GitHub Pages won't serve `_data/`. |
-| Scheduler | GitHub Actions cron — `.github/workflows/price_checker.yml` |
+| Data storage | `_data/prices_clubmed.csv` — append-only, never delete rows. Jekyll/GitHub Pages won't serve `_data/`. |
+| Scheduler | GitHub Actions cron — `price_checker.yml` (CSV only) + `build_site.yml` (HTML rebuild, triggered by CSV changes) |
 | Hosting | **GitHub Pages** (DNS live as of 2026-05-04). Vercel project exists but DNS no longer routes there — pending decommission. |
 | Analytics | Google Analytics 4 — measurement ID `G-G2RES5DX0K` (not a secret; public in HTML) |
 | Email | Kit (ConvertKit) — public form endpoints only, no API key in repo |
@@ -32,9 +32,11 @@ Founding insight: at Club Med La Plagne, two families paid £1,600 different pri
 clubmed/index.html                — Club Med tracker (canonical live site at /clubmed)
 index.html                        — Root brand landing page (whentobook.co.uk)
 WhentoBook.html                   — Redirect → /clubmed (legacy URL)
-clubmed_checker.py                — Price checker (flags: --test, --verify, --inject-only)
+clubmed_checker.py                — Price checker (flags: --test, --verify, --inject-only); writes CSV only
 backfill_prices.py                — Gap-fill script: run after multi-day outage
-_data/price_history.csv           — Full price log (append-only — never delete rows)
+_data/prices_clubmed.csv          — Club Med price log (append-only — never delete rows)
+_data/prices_markwarner.csv       — Mark Warner price log (placeholder; checker active)
+_data/prices_sandals.csv          — Sandals price log (placeholder; checker not yet built)
 vercel.json                       — Vercel routing + security headers (Vercel only; GitHub Pages ignores)
 CNAME                             — GitHub Pages custom domain (whentobook.co.uk)
 robots.txt
@@ -43,8 +45,9 @@ privacy.html
 og-image.svg
 og-image.png                          — OG image (1200×630 PNG — Twitter/Facebook compatible)
 .github/workflows/
-  price_checker.yml               — Daily at 06:00 UTC — runs checker, commits HTML + CSV
-  backup.yml                      — Weekly Sunday 02:00 UTC — GitHub Releases backup of price_history.csv
+  price_checker.yml               — Daily at 06:00 UTC — runs checker, commits CSV only
+  build_site.yml                  — Triggered by prices_*.csv changes — rebuilds clubmed/index.html via --inject-only
+  backup.yml                      — Weekly Sunday 02:00 UTC — GitHub Releases backup of prices_clubmed.csv
 CLAUDE.md                         — this file (project context for all agents)
 ORCHESTRATOR.md                   — orchestrator agent instructions
 BUILDER.md                        — builder agent instructions
@@ -84,14 +87,19 @@ _data/sandals_prices.csv          — Sandals price log (append-only)
 
 ### `price_checker.yml`
 - Runs daily at **06:00 UTC**
-- 180-minute timeout
-- Rotating User-Agent pool, random 2–8s delays between API calls, 15–30s pause between resorts, randomised resort order
-- Commits updated `clubmed/index.html` and `_data/price_history.csv` back to main automatically
+- 60-minute timeout (async rewrite, 15–20 min actual runtime)
+- aiohttp + asyncio, Semaphore(8) concurrency, rotating User-Agent pool, 429 backoff, push retry
+- Commits `_data/prices_clubmed.csv` only — HTML rebuild delegated to `build_site.yml`
 - Repository secrets required: `GMAIL_ADDRESS`, `GMAIL_APP_PASS`, `ALERT_TO`
+
+### `build_site.yml`
+- Triggered by pushes that modify any `_data/prices_*.csv` file
+- Runs `clubmed_checker.py --inject-only` to regenerate `clubmed/index.html` from CSV
+- Concurrency-queued (one run at a time per branch)
 
 ### `backup.yml`
 - Runs every **Sunday at 02:00 UTC** (manual trigger also available)
-- Creates a GitHub Release tagged `backup-YYYY-MM-DD` with `price_history.csv` as artifact
+- Creates a GitHub Release tagged `backup-YYYY-MM-DD` with `prices_clubmed.csv` as artifact
 - Releases are marked pre-release to keep them out of the changelog
 
 ---
@@ -190,7 +198,7 @@ git push
 
 ## Important invariants
 
-- `_data/price_history.csv` is **append-only** — the historical record is the product. Never delete rows.
+- `_data/prices_clubmed.csv` (and all `_data/prices_*.csv` files) are **append-only** — the historical record is the product. Never delete rows.
 - The checker injects `RESORT_DATA` directly into `clubmed/index.html` at runtime.
 - `DATA_SUFFICIENT = false` — do not change until autumn 2026.
 - `NEXT_SESSION_PROMPT.md` is the session handoff — the orchestrator reads it first every session.

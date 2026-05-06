@@ -9,7 +9,7 @@ Then read `PLAN.md` for the full task list.
 
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.
 
-**⚠️ CRITICAL BUG (as of 2026-05-05, unresolved):** Resort cards do not open when clicked. `openModal` is defined and the click handler is attached, but calling `openModal` produces NO output — an `alert()` placed at the top of `openModal` was never triggered during debug. Either: (a) the click event never reaches `openModal`, or (b) a JS error throws before the alert line. Suspected: `DATA_SUFFICIENT = false` may be gating handler attachment inside `renderCards`. Fix this before any other autonomous work.
+**✅ Card click bug RESOLVED (2026-05-06):** buildModalChart used hardcoded indices [0,6,13] which crashed with a silent TypeError when resorts had <14 price history points (~9 actual). Fixed with dynamic midIdx/lastIdx (877c0dd). Language violations ("cheapest" in meta/UI) also cleaned up (d4c59c6).
 
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
 - **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS live and enforced.
@@ -26,7 +26,7 @@ Then read `PLAN.md` for the full task list.
 - **SSH key:** `~/.ssh/booking_window_deploy`
 - **Checker flags:** `--test` (no writes), `--verify` (one API call), `--inject-only` (rebuild RESORT_DATA from CSV, no API calls)
 - **Date format:** Resort dates display as "6–13 Dec 2026" (departure + 7 nights, cross-month handled: "27 Dec–3 Jan 2027"). Fixed 2026-05-05.
-- **Unmerged branch:** `claude/nifty-shannon-d10066` — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, updated ORCHESTRATOR.md. Created during 2026-05-05 session but NOT merged to main. Review/merge or re-create on main before using these agents.
+- **Branch `claude/nifty-shannon-d10066`:** Content (DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py) already on main (bb8587b). Branch can be deleted.
 
 Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings fully yet. Booking window typically opens June/July 2026. Not a bug.
 
@@ -76,30 +76,37 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-05 — Agent team coordination issues identified: simultaneous sessions cause git lock contention; Builder committed to worktree branch not main; sessions ran 150+ turns without committing.
 - 2026-05-05 — HTTPS enforced on GitHub Pages
 - 2026-05-05 — Vercel project decommissioned; DNS routes exclusively to GitHub Pages
+- 2026-05-05 — Resort card click bug confirmed fixed: buildModalChart hardcoded indices [0,6,13] caused silent TypeError when pts had <14 entries; fixed with dynamic midIdx/lastIdx (877c0dd). Tester PASS.
+- 2026-05-05 — Language rule violations fixed: "cheapest" removed from all 3 meta tags, search modal label, JS results label, modal narrative. console.log diagnostic removed. (d4c59c6)
+- 2026-05-05 — AGENT_LOG.md Data Analyst health check entry committed (d4c59c6)
+- 2026-05-06 — Resort card click bug confirmed fixed: buildModalChart hardcoded indices [0,6,13] caused silent TypeError; fixed with dynamic midIdx/lastIdx (877c0dd). Tester PASS.
+- 2026-05-06 — Language rule violations fixed: "cheapest" removed from all 3 meta tags, search modal UI, JS results label, modal narrative; console.log diagnostic removed (d4c59c6)
+- 2026-05-06 — AGENT_LOG.md Data Analyst health check entry committed (d4c59c6); nifty-shannon branch content confirmed already on main
 
 ---
 
 ## Up Next (priority order)
 
-### 🚨 CRITICAL — Fix first, block everything else
-1. **Fix resort card click bug** — Resort cards do not open when clicked. Known facts: click handler IS attached; `openModal` IS defined; `alert()` at top of `openModal` produced NO alert when card clicked. Either: (a) the click event never reaches `openModal`, or (b) a JS error fires before the alert. Start by inspecting `renderCards` — check if `DATA_SUFFICIENT = false` is preventing handler attachment. Then open DevTools console on the live site and click a card to catch any JS errors.
+### 🔴 HIGH PRIORITY — Agent coordination
+1. **Write tighter agent git rules** — Add explicit rules to BUILDER.md and ORCHESTRATOR.md: (1) always commit to main, never worktree branches; (2) commit after every completed task; (3) never run two Builder sessions simultaneously (git lock contention). Identified from 2026-05-05 session failure analysis.
 
-### Merge unmerged work from 2026-05-05 session
-2. **Merge or cherry-pick `claude/nifty-shannon-d10066` to main** — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, and ORCHESTRATOR.md update (reads AGENT_LOG.md at session start). Review, then `git cherry-pick <commit>` or merge.
+### Decision pending (needs user input)
+2. **🟡 Quality check gate** — `data_quality_check.py` is a hard gate in `price_checker.yml`; if it exits CRITICAL, the commit step is skipped and data is lost. Recommendation: `continue-on-error: true` so it always logs but never blocks. Awaiting user approval before implementing.
 
-### Verification
-3. **Verify Show Optimal Dates button** — was broken pre-revert; may now work after d651c28 revert. Check on live site.
+### Data health — monitor
+3. **Investigate data staleness** — Data Analyst health check found data 44h old at session start (2026-05-06). Check GitHub Actions run log for the 06:00 UTC run on 2026-05-05 and 2026-05-06.
+4. **Monitor VDIC_WINTER price swings** — 108% overnight jump (£10,430→£21,678) flagged by Data Analyst. Could be legitimate new bookings opening or API noise. Monitor 2–3 more days before acting.
 
-### Autonomous (next session, after card bug fixed)
-4. **🟡 DECISION PENDING — Quality check gate** — `data_quality_check.py` is a hard gate before the commit step in `price_checker.yml`. If it exits CRITICAL (e.g. checker writes no rows), the data update is lost. Recommend `continue-on-error: true` — logs always, never blocks. Awaiting user approval.
-5. **🔴 Build Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. Then publish the first article (idea #1 below).
-6. **🔴 Research Sandals pricing API** — Open `sandals.co.uk` in a browser, use DevTools Network tab to capture XHR/Fetch calls when searching for holidays. Or use WebFetch to inspect page structure first. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
-7. **Content article #1** — See article idea #1 below. Publish to `_posts/2026-05-XX-when-to-book-club-med-ski.md` after blog is set up.
-8. **Grand Massif + Serre-Chevalier departure day** — Let data accumulate; revisit when 4+ weeks available (target: late May 2026).
-9. **Run backfill after any future gap** — `python backfill_prices.py && python clubmed_checker.py --inject-only`
+### 🔴 HIGH PRIORITY — Blog / editorial content
+5. **Set up Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. (MT-3b)
+6. **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained". Target term: `when to book Club Med ski holiday`. See ## Blog article ideas for full brief.
 
-### Agent coordination (high priority)
-10. **Write tighter git operating rules for agents** — Agents must: commit directly to main (not worktree branches); commit after every completed task (not at 150-turn mark); never run simultaneously in the same repo (git lock contention). Add these as explicit rules to BUILDER.md and ORCHESTRATOR.md.
+### 🔴 HIGH PRIORITY — Data collection
+7. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+
+### Cleanup
+8. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.
+9. **Grand Massif + Serre-Chevalier departure day** — needs 4+ weeks of data; revisit late May 2026.
 
 ---
 
@@ -227,8 +234,9 @@ BUILDER.md                  — Builder agent: implements code, commits to main
 ORCHESTRATOR.md             — Orchestrator: plans, delegates, verifies
 SCRIBE.md                   — Scribe: documentation only
 
---- NOT YET ON MAIN (branch claude/nifty-shannon-d10066) ---
 DATA_ANALYST.md             — Data Analyst agent: placeholder detection, quality scoring 0–100
 AGENT_LOG.md                — Inter-agent communication log (Orchestrator reads at session start)
 data_quality_check.py       — Reads price_history.csv, detects CRITICAL/WARNING/INFO, appends to AGENT_LOG.md
 ```
+
+Note: `claude/nifty-shannon-d10066` branch content is now on main (bb8587b). Branch can be deleted.

@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-05 (session end)
+Last updated: 2026-05-05 (session end — card click bug resolved, language rules fixed, AGENT_LOG committed)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -10,7 +10,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ## 🚨 CRITICAL — Fix immediately
 
-- [ ] **Fix resort card click bug** — Resort cards on `clubmed/index.html` do not open the modal when clicked. Known facts: click handler IS attached (`card.addEventListener('click', () => openModal(resort.id, partySize))`); `openModal` IS defined; `getCombination` always returns `combinations[0]` as fallback (not the cause); all 11 resorts have non-empty `combinations` arrays. Debug: `alert()` placed at top of `openModal` produced NO alert → either (a) the click never reaches `openModal`, or (b) a JS error fires before the alert. **Start by checking `renderCards` — is `DATA_SUFFICIENT = false` gating handler attachment? Then open DevTools console on the live site, click a card, and inspect for JS errors.**
+- [x] **Fix resort card click bug** — root cause: buildModalChart used hardcoded indices [0,6,13] assuming 14+ history points; pts[13] undefined with ~9 actual points; fixed with dynamic midIdx/lastIdx (commit 877c0dd). Language violations + diagnostic console.log cleaned up (commit d4c59c6). Tester PASS. — 2026-05-06
 
 ---
 
@@ -29,7 +29,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ### 🔴 HIGH PRIORITY — Agent coordination
 
 - [ ] **Write tighter agent git rules** — Add explicit rules to BUILDER.md and ORCHESTRATOR.md: (1) always commit to main, never to a worktree branch; (2) commit after every completed task, not at 150-turn session-end; (3) never run two Builder sessions simultaneously in the same repo (git lock contention freezes both). Identified from 2026-05-05 session failure analysis.
-- [ ] **Merge/cherry-pick `claude/nifty-shannon-d10066` to main** — contains DATA_ANALYST.md, AGENT_LOG.md, data_quality_check.py, and ORCHESTRATOR.md update (Step 0: read AGENT_LOG.md). These were created during 2026-05-05 session but the branch was never merged. Review and merge or cherry-pick.
+- [x] **Merge/cherry-pick `claude/nifty-shannon-d10066` to main** — content already on main (commit bb8587b); branch can be deleted. — 2026-05-06
 
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
 

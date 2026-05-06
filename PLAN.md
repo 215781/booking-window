@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (Jekyll blog infrastructure done; first article published — ba1a6a0 + e6e1125)
+Last updated: 2026-05-06 (Article 1 published — "When to Book a Club Med Ski Holiday" — 894ee8b; unapproved draft removed — efaedce)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -40,7 +40,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ### 🔴 HIGH PRIORITY — Blog / editorial content
 
 - [x] **Set up Jekyll blog infrastructure** — `_posts/` directory created; blog nav link + footer link added to `index.html`. GitHub Pages serves Jekyll natively. (commits ba1a6a0 + e6e1125) — 2026-05-06
-- [x] **Publish first article** — "The £1,600 lesson: why when you book a Club Med ski holiday changes the price more than where you stay" live at `/blog/2026/05/06/why-timing-matters-when-booking-club-med/`. (commits ba1a6a0 + e6e1125) — 2026-05-06
+- [x] **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained" live at `/blog/2026/05/06/when-to-book-club-med-ski-holiday/`. 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words. Unapproved draft (`why-timing-matters-when-booking-club-med`) removed (efaedce). (commit 894ee8b) — 2026-05-06
 - [ ] **Publish articles 2 and 3** — "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" and "Is Club Med Ski Worth the Money?". Full briefs in NEXT_SESSION_PROMPT.md blog article ideas section. 600–900 words each, JSON-LD schema, link back to resort tracker. (MT-3c)
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 

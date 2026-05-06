@@ -85,7 +85,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — Quality check gate fixed: `continue-on-error: true` added to data_quality_check.py step in price_checker.yml; check always logs but never blocks data collection (d549110)
 - 2026-05-06 — Agent git rules tightened: `⚠️ GIT RULES — NON-NEGOTIABLE` section added to BUILDER.md and ORCHESTRATOR.md; check `git branch` before every commit, no simultaneous Builder sessions, commit per-task (bc975d1)
 - 2026-05-06 — **Jekyll blog infrastructure set up:** `_posts/` directory created; blog nav link + footer link added to `index.html` (ba1a6a0)
-- 2026-05-06 — **First blog article published:** "The £1,600 lesson: why when you book a Club Med ski holiday changes the price more than where you stay" live at `/blog/2026/05/06/why-timing-matters-when-booking-club-med/` (e6e1125)
+- 2026-05-06 — **Unapproved draft deleted:** `_posts/2026-05-06-why-timing-matters-when-booking-club-med.md` removed — not from approved content brief (efaedce)
+- 2026-05-06 — **Article 1 published:** "When to Book a Club Med Ski Holiday: The Price Window Explained" at `_posts/2026-05-06-when-to-book-club-med-ski-holiday.md` — 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words (894ee8b)
 
 ---
 
@@ -99,12 +100,13 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 3. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
 
 ### Blog / editorial content
-4. **Publish articles 2 and 3** — Blog infra done (e6e1125); `_posts/` is live. Write "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" and "Is Club Med Ski Worth the Money?". Full briefs in the Blog article ideas section below.
-5. **Create CONTENT_WRITER.md agent file** — agent for researching and publishing SEO posts to `_posts/`.
+4. **Publish article 2** — Article 1 done (894ee8b). Write "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" — comparison table, 600–900 words, JSON-LD schema, links to tracker. Full brief in Blog article ideas section below.
+5. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Full brief below.
+6. **Create CONTENT_WRITER.md agent file** — agent for researching and publishing SEO posts to `_posts/`.
 
 ### Cleanup
-6. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.
-7. **Grand Massif + Serre-Chevalier departure day** — needs 4+ weeks of data; revisit late May 2026.
+7. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.
+8. **Grand Massif + Serre-Chevalier departure day** — needs 4+ weeks of data; revisit late May 2026.
 
 ---
 

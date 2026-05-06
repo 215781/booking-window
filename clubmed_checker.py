@@ -33,7 +33,8 @@ from pathlib import Path
 # ─────────────────────────────────────────────────────────────
 
 HTML_FILE = "clubmed/index.html"
-CSV_FILE  = "_data/price_history.csv"
+CSV_FILE  = "_data/prices_clubmed.csv"
+# _data/price_history.csv is the deprecated path — kept as a copy for reference only
 
 GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")
 GMAIL_APP_PASS = os.environ.get("GMAIL_APP_PASS", "")

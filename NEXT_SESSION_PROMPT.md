@@ -84,6 +84,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — AGENT_LOG.md Data Analyst health check entry committed (d4c59c6); nifty-shannon branch content confirmed already on main
 - 2026-05-06 — Quality check gate fixed: `continue-on-error: true` added to data_quality_check.py step in price_checker.yml; check always logs but never blocks data collection (d549110)
 - 2026-05-06 — Agent git rules tightened: `⚠️ GIT RULES — NON-NEGOTIABLE` section added to BUILDER.md and ORCHESTRATOR.md; check `git branch` before every commit, no simultaneous Builder sessions, commit per-task (bc975d1)
+- 2026-05-06 — **Jekyll blog infrastructure set up:** `_posts/` directory created; blog nav link + footer link added to `index.html` (ba1a6a0)
+- 2026-05-06 — **First blog article published:** "The £1,600 lesson: why when you book a Club Med ski holiday changes the price more than where you stay" live at `/blog/2026/05/06/why-timing-matters-when-booking-club-med/` (e6e1125)
 
 ---
 
@@ -93,12 +95,12 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 1. **Investigate data staleness** — Data Analyst health check found data 44h old at session start (2026-05-06). Check GitHub Actions run log for the 06:00 UTC run on 2026-05-05 and 2026-05-06.
 2. **Monitor VDIC_WINTER price swings** — 108% overnight jump (£10,430→£21,678) flagged by Data Analyst. Could be legitimate new bookings opening or API noise. Monitor 2–3 more days before acting.
 
-### 🔴 HIGH PRIORITY — Blog / editorial content
-3. **Set up Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. (MT-3b)
-4. **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained". Target term: `when to book Club Med ski holiday`. See ## Blog article ideas for full brief.
-
 ### 🔴 HIGH PRIORITY — Data collection
-5. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+3. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+
+### Blog / editorial content
+4. **Publish articles 2 and 3** — Blog infra done (e6e1125); `_posts/` is live. Write "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" and "Is Club Med Ski Worth the Money?". Full briefs in the Blog article ideas section below.
+5. **Create CONTENT_WRITER.md agent file** — agent for researching and publishing SEO posts to `_posts/`.
 
 ### Cleanup
 6. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.

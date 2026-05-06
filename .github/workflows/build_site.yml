@@ -1,0 +1,44 @@
+name: Build Site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "_data/prices_*.csv"
+  workflow_dispatch:
+
+concurrency:
+  group: build-site
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install requests aiohttp
+
+      - name: Rebuild HTML from CSV
+        run: python clubmed_checker.py --inject-only
+
+      - name: Commit updated HTML
+        run: |
+          git config user.name  "Booking Window Bot"
+          git config user.email "bot@bookingwindow.co.uk"
+          git add clubmed/index.html
+          git diff --staged --quiet || git commit -m "build: regenerate HTML from CSV $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase
+          git push

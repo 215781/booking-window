@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (git rules tightened in BUILDER + ORCHESTRATOR; Jekyll blog infrastructure built; quality check gate fixed)
+Last updated: 2026-05-06 (git rules tightened in BUILDER + ORCHESTRATOR; quality check gate fixed — jekyll blog infrastructure remains pending)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -39,7 +39,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### 🔴 HIGH PRIORITY — Blog / editorial content
 
-- [x] **Set up Jekyll blog infrastructure** — `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page, `_config.yml` created. GitHub Pages Jekyll pipeline live (commit 9f2fff1). — 2026-05-06
+- [ ] **Set up Jekyll blog infrastructure** — Create `_posts/` directory structure, `_layouts/post.html` (matching site design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively — no additional tooling needed. First post can go live immediately after. (MT-3b)
 - [ ] **Publish first 3 articles** — Target search terms: "when to book Club Med ski holidays", "Club Med ski resort price comparison", "best time to book Club Med [resort]". Full article briefs in IMPROVEMENT_PLAN.md. 600–900 words each, JSON-LD schema, link back to resort tracker. (MT-3c, see content ideas below)
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
@@ -58,7 +58,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [ ] **3-adult party size** — add 3-adult option to search form and RESORT_DATA. Also verify 6-night checker queries are working. (MT-2)
 - [ ] **Mobile responsiveness** — layout uses CSS Grid with fixed column counts; needs thorough mobile testing and media query fixes. (existing)
 - [ ] **SEO foundations — schema markup** — add JSON-LD schema (`WebSite`, `TravelAgency`, resort entities). Do after URL restructure so canonical URLs are correct. (MT-3)
-- [x] **Blog / content section** — Jekyll infrastructure built (commit 9f2fff1). Publishing tasks tracked in Active section above. — 2026-05-06
+- [ ] **Blog / content section** — build `whentobook.co.uk/blog` using Jekyll's `_posts/` folder (GitHub Pages supports natively). Create `_layouts/post.html` matching site design, `blog/index.html` listing page. First 5 target articles listed in IMPROVEMENT_PLAN.md. (MT-3b)
 - [ ] **Content Writer agent (CONTENT_WRITER.md)** — write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Target 2 articles per month once blog is set up. (MT-3c)
 - [ ] **Email sequence expansion** — extend Kit welcome sequence from 1 email to 4–6 emails over 2–3 weeks (how Club Med pricing works, resort comparison, what to watch). (MT-4)
 - [ ] **Price alert trigger — flash sale notification** — alert subscribers when the annual Club Med early booking flash sale opens (ski ~Feb, summer ~Oct). (MT-5)

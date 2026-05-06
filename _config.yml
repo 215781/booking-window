@@ -1,0 +1,6 @@
+title: When To Book
+description: Booking intelligence for Club Med ski holidays — track prices, spot the optimal window, and book with confidence.
+url: https://whentobook.co.uk
+baseurl: ""
+timezone: Europe/London
+permalink: /blog/:year/:month/:day/:title/

@@ -1,0 +1,219 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
+  <title>{{ page.title }} | When To Book</title>
+  <meta name="description" content="{{ page.description }}">
+  <link rel="canonical" href="https://whentobook.co.uk{{ page.url }}">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://whentobook.co.uk{{ page.url }}">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page.description }}">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
+  <meta property="og:site_name" content="When To Book">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2RES5DX0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G2RES5DX0K');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8;
+      --teal: #1a4a42;
+      --amber: #8a6a2a;
+      --text: #2c2c2c;
+      --muted: #6b6560;
+      --border: #d8d0c4;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: var(--teal);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: var(--bg);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--teal); flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600;
+      color: var(--bg); letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .header-nav {
+      margin-left: auto;
+      display: flex; gap: 24px;
+    }
+    .header-nav a {
+      color: rgba(245,240,232,0.75);
+      font-size: 13px; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .header-nav a:hover { color: var(--bg); }
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 40px 80px;
+      width: 100%;
+    }
+    .post-meta {
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 20px;
+    }
+    article h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700; color: var(--teal);
+      line-height: 1.2; margin-bottom: 32px;
+    }
+    article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px; font-weight: 600;
+      color: var(--teal); margin: 40px 0 16px;
+    }
+    article h3 {
+      font-size: 16px; font-weight: 600;
+      color: var(--text); margin: 28px 0 12px;
+    }
+    article p {
+      font-size: 16px; line-height: 1.75;
+      color: var(--text); margin-bottom: 20px;
+    }
+    article ul, article ol {
+      margin: 0 0 20px 24px;
+    }
+    article li {
+      font-size: 16px; line-height: 1.75;
+      color: var(--text); margin-bottom: 6px;
+    }
+    article a { color: var(--teal); }
+    article a:hover { color: var(--amber); }
+    article strong { font-weight: 600; }
+    article blockquote {
+      border-left: 3px solid var(--amber);
+      margin: 24px 0; padding: 12px 20px;
+      font-style: italic; color: var(--muted);
+    }
+    article table {
+      width: 100%; border-collapse: collapse;
+      margin: 24px 0; font-size: 14px;
+    }
+    article th, article td {
+      padding: 10px 14px; border: 1px solid var(--border);
+      text-align: left;
+    }
+    article th {
+      background: var(--teal); color: var(--bg); font-weight: 600;
+    }
+    article tr:nth-child(even) td { background: rgba(26,74,66,0.04); }
+    .cta-box {
+      background: var(--teal); color: var(--bg);
+      border-radius: 12px; padding: 32px;
+      margin: 48px 0 0; text-align: center;
+    }
+    .cta-box h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600;
+      color: var(--bg); margin-bottom: 10px;
+    }
+    .cta-box p { font-size: 14px; color: rgba(245,240,232,0.8); margin-bottom: 20px; }
+    .cta-form { display: flex; gap: 10px; max-width: 400px; margin: 0 auto; }
+    .cta-form input[type="email"] {
+      flex: 1; padding: 11px 14px; border-radius: 6px;
+      border: none; font-family: 'Inter', sans-serif;
+      font-size: 14px; background: var(--bg); color: var(--text);
+    }
+    .cta-form button {
+      padding: 11px 20px; background: var(--amber);
+      color: white; border: none; border-radius: 6px;
+      font-family: 'Inter', sans-serif; font-size: 13px;
+      font-weight: 600; cursor: pointer; white-space: nowrap;
+      letter-spacing: 0.04em; text-transform: uppercase;
+    }
+    .cta-form button:hover { background: #7a5c24; }
+    .back-link {
+      display: inline-flex; align-items: center; gap: 6px;
+      color: var(--muted); font-size: 13px; text-decoration: none;
+      margin-bottom: 32px;
+    }
+    .back-link:hover { color: var(--teal); }
+    footer {
+      background: var(--teal); color: rgba(245,240,232,0.6);
+      text-align: center; padding: 20px 40px;
+      font-size: 12px;
+    }
+    footer a { color: rgba(245,240,232,0.6); }
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      main { padding: 40px 20px 60px; }
+      .cta-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo-mark">W</a>
+    <a href="/" class="logo-text">When To Book</a>
+    <nav class="header-nav">
+      <a href="/clubmed">Club Med tracker</a>
+      <a href="/blog">Blog</a>
+    </nav>
+  </header>
+
+  <main>
+    <a href="/blog" class="back-link">← All articles</a>
+    <div class="post-meta">{{ page.date | date: "%-d %B %Y" }}{% if page.category %} · {{ page.category | upcase | replace: '-', ' ' }}{% endif %}</div>
+    <article>
+      <h1>{{ page.title }}</h1>
+      {{ content }}
+    </article>
+
+    <div class="cta-box">
+      <h3>Get price alerts</h3>
+      <p>We track Club Med ski prices daily. We'll tell you when the optimal booking window opens.</p>
+      <form action="https://app.kit.com/forms/7f784a323c/subscriptions" method="post" class="cta-form">
+        <input type="email" name="email_address" placeholder="Your email address" required>
+        <button type="submit">Alert me</button>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    <p>© {{ 'now' | date: "%Y" }} Drop Media Ltd · <a href="/privacy.html">Privacy</a> · <a href="/">When To Book</a></p>
+  </footer>
+</body>
+</html>

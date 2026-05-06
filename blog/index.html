@@ -1,0 +1,170 @@
+---
+title: "Blog — When To Book"
+description: "Booking intelligence articles for Club Med ski holidays. When to book, how pricing works, and how to make a smarter choice."
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
+  <title>{{ page.title }}</title>
+  <meta name="description" content="{{ page.description }}">
+  <link rel="canonical" href="https://whentobook.co.uk/blog/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whentobook.co.uk/blog/">
+  <meta property="og:title" content="{{ page.title }}">
+  <meta property="og:description" content="{{ page.description }}">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
+  <meta property="og:site_name" content="When To Book">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2RES5DX0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G2RES5DX0K');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8; --teal: #1a4a42; --amber: #8a6a2a;
+      --text: #2c2c2c; --muted: #6b6560; --border: #d8d0c4;
+    }
+    body {
+      background: var(--bg); color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh; display: flex; flex-direction: column;
+    }
+    header {
+      background: var(--teal); padding: 20px 40px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .logo-mark {
+      width: 36px; height: 36px; background: var(--bg);
+      border-radius: 6px; display: flex; align-items: center;
+      justify-content: center; font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700; color: var(--teal);
+      flex-shrink: 0; text-decoration: none;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif; font-size: 20px;
+      font-weight: 600; color: var(--bg); letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .header-nav { margin-left: auto; display: flex; gap: 24px; }
+    .header-nav a {
+      color: rgba(245,240,232,0.75); font-size: 13px;
+      font-weight: 500; text-decoration: none; letter-spacing: 0.04em;
+    }
+    .header-nav a:hover { color: var(--bg); }
+    main {
+      flex: 1; max-width: 800px; margin: 0 auto;
+      padding: 64px 40px 80px; width: 100%;
+    }
+    .page-eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 16px;
+    }
+    .page-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 40px); font-weight: 700;
+      color: var(--teal); margin-bottom: 12px;
+    }
+    .page-subtitle {
+      font-size: 16px; font-weight: 300;
+      color: var(--muted); margin-bottom: 56px; line-height: 1.6;
+    }
+    .post-list { display: flex; flex-direction: column; gap: 0; }
+    .post-item {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .post-item:last-child { border-bottom: 1px solid var(--border); }
+    .post-item-meta {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--amber);
+    }
+    .post-item h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 600; margin: 0;
+    }
+    .post-item h2 a {
+      color: var(--teal); text-decoration: none;
+    }
+    .post-item h2 a:hover { color: var(--amber); }
+    .post-item p {
+      font-size: 15px; color: var(--muted);
+      line-height: 1.6; margin: 0;
+    }
+    .post-item-read {
+      font-size: 13px; font-weight: 500;
+      color: var(--teal); text-decoration: none;
+      letter-spacing: 0.02em; margin-top: 4px;
+      display: inline-block;
+    }
+    .post-item-read:hover { color: var(--amber); }
+    .empty-state {
+      text-align: center; padding: 60px 0;
+      color: var(--muted); font-size: 15px; line-height: 1.6;
+    }
+    footer {
+      background: var(--teal); color: rgba(245,240,232,0.6);
+      text-align: center; padding: 20px 40px; font-size: 12px;
+    }
+    footer a { color: rgba(245,240,232,0.6); }
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      main { padding: 40px 20px 60px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo-mark">W</a>
+    <a href="/" class="logo-text">When To Book</a>
+    <nav class="header-nav">
+      <a href="/clubmed">Club Med tracker</a>
+      <a href="/blog">Blog</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="page-eyebrow">Booking Intelligence</p>
+    <h1 class="page-title">From the blog</h1>
+    <p class="page-subtitle">When to book, how Club Med pricing works, and how to be the family that paid less.</p>
+
+    <div class="post-list">
+      {% if site.posts.size > 0 %}
+        {% for post in site.posts %}
+        <div class="post-item">
+          <div class="post-item-meta">{{ post.date | date: "%-d %B %Y" }}</div>
+          <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+          {% if post.description %}<p>{{ post.description }}</p>{% endif %}
+          <a href="{{ post.url }}" class="post-item-read">Read article →</a>
+        </div>
+        {% endfor %}
+      {% else %}
+        <div class="empty-state">
+          <p>Articles coming soon. We're building up our booking intelligence library.</p>
+        </div>
+      {% endif %}
+    </div>
+  </main>
+
+  <footer>
+    <p>© {% capture year %}{{ 'now' | date: "%Y" }}{% endcapture %}{{ year }} Drop Media Ltd · <a href="/privacy.html">Privacy</a> · <a href="/">When To Book</a></p>
+  </footer>
+</body>
+</html>

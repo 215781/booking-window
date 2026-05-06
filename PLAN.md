@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-05 (session end — card click bug resolved, language rules fixed, AGENT_LOG committed)
+Last updated: 2026-05-06 (git rules tightened in BUILDER + ORCHESTRATOR; Jekyll blog infrastructure built; quality check gate fixed)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -23,12 +23,12 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.** — 2026-05-05
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
-- [ ] **Quality check gate — decision pending** — `data_quality_check.py` is a hard gate in `price_checker.yml`; if it exits CRITICAL, the commit step is skipped and data is lost. Recommendation: set `continue-on-error: true` on that step so it always logs but never blocks. Awaiting user approval before implementing. — raised 2026-05-05
+- [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
 - [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
 
 ### 🔴 HIGH PRIORITY — Agent coordination
 
-- [ ] **Write tighter agent git rules** — Add explicit rules to BUILDER.md and ORCHESTRATOR.md: (1) always commit to main, never to a worktree branch; (2) commit after every completed task, not at 150-turn session-end; (3) never run two Builder sessions simultaneously in the same repo (git lock contention freezes both). Identified from 2026-05-05 session failure analysis.
+- [x] **Write tighter agent git rules** — Added `⚠️ GIT RULES — NON-NEGOTIABLE` section to both BUILDER.md and ORCHESTRATOR.md: check `git branch` before every commit, confirm on `main`, no simultaneous Builder sessions, commit per-task not at session end (commit bc975d1). — 2026-05-06
 - [x] **Merge/cherry-pick `claude/nifty-shannon-d10066` to main** — content already on main (commit bb8587b); branch can be deleted. — 2026-05-06
 
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
@@ -39,7 +39,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ### 🔴 HIGH PRIORITY — Blog / editorial content
 
-- [ ] **Set up Jekyll blog infrastructure** — Create `_posts/` directory structure, `_layouts/post.html` (matching site design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively — no additional tooling needed. First post can go live immediately after. (MT-3b)
+- [x] **Set up Jekyll blog infrastructure** — `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page, `_config.yml` created. GitHub Pages Jekyll pipeline live (commit 9f2fff1). — 2026-05-06
 - [ ] **Publish first 3 articles** — Target search terms: "when to book Club Med ski holidays", "Club Med ski resort price comparison", "best time to book Club Med [resort]". Full article briefs in IMPROVEMENT_PLAN.md. 600–900 words each, JSON-LD schema, link back to resort tracker. (MT-3c, see content ideas below)
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
@@ -58,7 +58,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [ ] **3-adult party size** — add 3-adult option to search form and RESORT_DATA. Also verify 6-night checker queries are working. (MT-2)
 - [ ] **Mobile responsiveness** — layout uses CSS Grid with fixed column counts; needs thorough mobile testing and media query fixes. (existing)
 - [ ] **SEO foundations — schema markup** — add JSON-LD schema (`WebSite`, `TravelAgency`, resort entities). Do after URL restructure so canonical URLs are correct. (MT-3)
-- [ ] **Blog / content section** — build `whentobook.co.uk/blog` using Jekyll's `_posts/` folder (GitHub Pages supports natively). Create `_layouts/post.html` matching site design, `blog/index.html` listing page. First 5 target articles listed in IMPROVEMENT_PLAN.md. (MT-3b)
+- [x] **Blog / content section** — Jekyll infrastructure built (commit 9f2fff1). Publishing tasks tracked in Active section above. — 2026-05-06
 - [ ] **Content Writer agent (CONTENT_WRITER.md)** — write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Target 2 articles per month once blog is set up. (MT-3c)
 - [ ] **Email sequence expansion** — extend Kit welcome sequence from 1 email to 4–6 emails over 2–3 weeks (how Club Med pricing works, resort comparison, what to watch). (MT-4)
 - [ ] **Price alert trigger — flash sale notification** — alert subscribers when the annual Club Med early booking flash sale opens (ski ~Feb, summer ~Oct). (MT-5)

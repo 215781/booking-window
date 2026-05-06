@@ -82,31 +82,29 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — Resort card click bug confirmed fixed: buildModalChart hardcoded indices [0,6,13] caused silent TypeError; fixed with dynamic midIdx/lastIdx (877c0dd). Tester PASS.
 - 2026-05-06 — Language rule violations fixed: "cheapest" removed from all 3 meta tags, search modal UI, JS results label, modal narrative; console.log diagnostic removed (d4c59c6)
 - 2026-05-06 — AGENT_LOG.md Data Analyst health check entry committed (d4c59c6); nifty-shannon branch content confirmed already on main
+- 2026-05-06 — Quality check gate fixed: `continue-on-error: true` added to data_quality_check.py step in price_checker.yml; check always logs but never blocks data collection (d549110)
+- 2026-05-06 — Jekyll blog infrastructure built: `_posts/`, `_layouts/post.html`, `blog/index.html`, `_config.yml` created; GitHub Pages Jekyll pipeline live (9f2fff1)
+- 2026-05-06 — Agent git rules tightened: `⚠️ GIT RULES — NON-NEGOTIABLE` section added to BUILDER.md and ORCHESTRATOR.md; check `git branch` before every commit, no simultaneous Builder sessions, commit per-task (bc975d1)
 
 ---
 
 ## Up Next (priority order)
 
-### 🔴 HIGH PRIORITY — Agent coordination
-1. **Write tighter agent git rules** — Add explicit rules to BUILDER.md and ORCHESTRATOR.md: (1) always commit to main, never worktree branches; (2) commit after every completed task; (3) never run two Builder sessions simultaneously (git lock contention). Identified from 2026-05-05 session failure analysis.
-
-### Decision pending (needs user input)
-2. **🟡 Quality check gate** — `data_quality_check.py` is a hard gate in `price_checker.yml`; if it exits CRITICAL, the commit step is skipped and data is lost. Recommendation: `continue-on-error: true` so it always logs but never blocks. Awaiting user approval before implementing.
-
-### Data health — monitor
-3. **Investigate data staleness** — Data Analyst health check found data 44h old at session start (2026-05-06). Check GitHub Actions run log for the 06:00 UTC run on 2026-05-05 and 2026-05-06.
-4. **Monitor VDIC_WINTER price swings** — 108% overnight jump (£10,430→£21,678) flagged by Data Analyst. Could be legitimate new bookings opening or API noise. Monitor 2–3 more days before acting.
-
 ### 🔴 HIGH PRIORITY — Blog / editorial content
-5. **Set up Jekyll blog infrastructure** — Create `_posts/` dir, `_layouts/post.html` (matching `#f5f0e8`/`#1a4a42` design), `blog/index.html` listing page. GitHub Pages supports Jekyll natively. (MT-3b)
-6. **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained". Target term: `when to book Club Med ski holiday`. See ## Blog article ideas for full brief.
+1. **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained". Jekyll infrastructure is live (9f2fff1). Target term: `when to book Club Med ski holiday`. See ## Blog article ideas for full brief.
+2. **Publish second and third articles** — See ## Blog article ideas for briefs. Target: Tignes vs Les Arcs comparison, Is Club Med ski worth it?
+3. **Create CONTENT_WRITER.md agent file** — Dedicated agent for researching + publishing SEO blog posts to `_posts/`. Target: 2 articles/month.
 
 ### 🔴 HIGH PRIORITY — Data collection
-7. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+4. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+
+### Data health — monitor
+5. **Investigate data staleness** — Data Analyst health check found data 44h old at session start (2026-05-06). Check GitHub Actions run log for the 06:00 UTC run on 2026-05-05 and 2026-05-06.
+6. **Monitor VDIC_WINTER price swings** — 108% overnight jump (£10,430→£21,678) flagged by Data Analyst. Could be legitimate new bookings opening or API noise. Monitor 2–3 more days before acting.
 
 ### Cleanup
-8. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.
-9. **Grand Massif + Serre-Chevalier departure day** — needs 4+ weeks of data; revisit late May 2026.
+7. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.
+8. **Grand Massif + Serre-Chevalier departure day** — needs 4+ weeks of data; revisit late May 2026.
 
 ---
 

@@ -36,12 +36,13 @@ jobs:
         continue-on-error: true
         run: python3 data_quality_check.py
 
-      - name: Commit updated files (safety net)
-        # Per-resort commits happen inside the checker; this catches anything that slipped through
+      - name: Commit updated CSV (safety net)
+        # Per-resort commits happen inside the checker; this catches anything that slipped through.
+        # HTML generation is handled by build_site.yml, not this workflow.
         run: |
           git config user.name  "Booking Window Bot"
           git config user.email "bot@bookingwindow.co.uk"
-          git add clubmed/index.html _data/price_history.csv
+          git add _data/prices_clubmed.csv
           git diff --staged --quiet || git commit -m "Price update $(date -u +'%Y-%m-%d %H:%M UTC')"
           git pull --rebase
           git push

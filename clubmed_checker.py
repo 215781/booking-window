@@ -750,23 +750,8 @@ async def main_async(args):
             total_no_price += no_price
             total_rows     += row_count
 
-    print(f"\nAll resorts complete. Building RESORT_DATA for HTML injection...")
-    js_string = build_resort_data_js(all_results)
-    inject_into_html(js_string, test_mode=args.test)
-
-    if not args.test:
-        _run_git(f"git add {HTML_FILE}")
-        rc, out, err = _run_git('git commit -m "data: inject RESORT_DATA into HTML"')
-        combined = out + err
-        if rc == 0:
-            _run_git("git pull --rebase origin main")
-            rc2, _, err2 = _run_git("git push origin main")
-            if rc2 == 0:
-                print("  HTML commit pushed.")
-            else:
-                print(f"  HTML push failed: {err2[:120]}")
-        elif "nothing to commit" not in combined:
-            print(f"  HTML commit failed: {err[:120]}")
+    # HTML generation is handled by build_site.yml, which triggers on CSV changes.
+    print(f"\nAll resorts complete. CSV data committed per-resort.")
 
     prices_fetched = total_rows - total_no_price
     if total_errors > 0 and total_rows > 0 and total_errors / total_rows > 0.3:

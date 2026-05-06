@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (Under construction page 2575e57; site entry-point redirects 720f853 — site intentionally OFFLINE)
+Last updated: 2026-05-06 (Async checker rewrite 927784b + 9c41d58; under construction 2575e57 + 720f853 — site intentionally OFFLINE)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -37,7 +37,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
 - [ ] **Fix remaining 3 Saturday references in `clubmed/index.html`** — Alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
-- [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker. BLOCKED pending data architecture decision.
+- [x] **Grand Massif + Serre-Chevalier departure_day** — departure_day fixed to Sunday (6) in async rewrite (commit 927784b). — 2026-05-06
 
 ### 🔴 HIGH PRIORITY — Agent coordination
 
@@ -84,6 +84,10 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [ ] **Email sequence expansion** — extend Kit welcome sequence from 1 email to 4–6 emails over 2–3 weeks (how Club Med pricing works, resort comparison, what to watch). (MT-4)
 - [ ] **Price alert trigger — flash sale notification** — alert subscribers when the annual Club Med early booking flash sale opens (ski ~Feb, summer ~Oct). (MT-5)
 - [ ] **Booking-window analysis script** — target Oct 2026 when price_history.csv has 6+ months of data. Group by resort + departure date, plot price vs days_before_departure, find inflection points at 180d, 90d, 60d, 30d, 14d, 7d. (MT-6)
+
+### Future design constraints
+
+- [ ] **Flexible duration support (7 / 10 / 14 nights)** — DESIGN CONSTRAINT for summer resorts and multi-operator expansion. When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. The homepage display stays 7-night for comparability, but the raw CSV should capture all durations. Checker config per resort must use a `durations` parameter array (e.g. `durations: [7]` today, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not add this to existing winter Club Med checker without user instruction. Noted 2026-05-06.
 
 ### Summer resort expansion
 - [ ] **Phase 1: European summer resorts** — add 5–7 resorts: Magna Marbella (code `MMAC` — already verified), Cefalù, Gregolimano, Palmiye, Marrakech La Palmeraie, Da Balaia, La Palmyre. Requires: resort code discovery via DevTools, checker update, UI ski/beach toggle, date range update. Target: before Oct 2026 summer booking window. (See IMPROVEMENT_PLAN.md)
@@ -141,5 +145,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] Article 2 published: "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" — commit bcde757 — 2026-05-06
 - [x] Under construction page created: `under-construction.html` — on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form — commit 2575e57 — 2026-05-06
 - [x] Entry-point redirects added: `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file — commit 720f853 — 2026-05-06
+- [x] **Async rewrite of `clubmed_checker.py`** — aiohttp + asyncio, Semaphore(8) concurrency, per-resort CSV commits, 429 backoff, push retry logic, 7 User-Agent strings. Grand Massif + Serre-Chevalier departure_day fixed to Sunday (6). Estimated runtime: 15–20 min (was 160+). Dry-run confirmed: Tignes £3,648 (commits 927784b + 9c41d58) — 2026-05-06
+- [x] **`price_checker.yml` timeout reduced to 60 min** — aiohttp added to pip install step (commit 9c41d58) — 2026-05-06
 </content>
 </invoke>

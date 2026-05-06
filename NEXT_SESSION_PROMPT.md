@@ -14,7 +14,7 @@ Then read `PLAN.md` for the full task list.
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
 - **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS live and enforced.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
-- **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
+- **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `clubmed/index.html`.
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
 - **Price history:** `_data/price_history.csv` — ~9,000 rows (328 LP2C placeholder rows purged 2026-05-05). Append-only. In `_data/` so GitHub Pages won't serve it publicly.
 - **Mark Warner prices:** `_data/markwarner_prices.csv` — seeded 2026-05-04, daily runs active. Append-only.
@@ -96,6 +96,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **Mark Warner workflow fix** — `git pull --rebase` added to `markwarner_checker.yml` to prevent diverged-branch push failures (commit a746a74)
 - 2026-05-06 — **Under construction page created** — `under-construction.html`: on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form (commit 2575e57)
 - 2026-05-06 — **Entry-point redirects added** — `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file (commit 720f853). **Site is now OFFLINE.**
+- 2026-05-06 — **Async rewrite of `clubmed_checker.py`** — aiohttp + asyncio, Semaphore(8) concurrency, per-resort CSV commits, 429 backoff, push retry logic, 7 User-Agent strings. Grand Massif + Serre-Chevalier departure_day fixed to Sunday (6). Estimated runtime: 15–20 min (was 160+). Dry-run confirmed: Tignes £3,648. (commits 927784b + 9c41d58)
+- 2026-05-06 — **`price_checker.yml` timeout reduced to 60 min** — aiohttp added to pip install step (commit 9c41d58)
 
 ---
 
@@ -104,16 +106,16 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 ⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.
 
 ### 🔴 DATA ARCHITECTURE — approved by user
-1. **DATA ARCHITECTURE overhaul** — approved by user. Scope and approach to be defined by Orchestrator at session start. Do not begin without reading full brief from user.
+1. **Separate CSV files per company + build workflow (Layer 2+3 architecture)** — Next step in the DATA ARCHITECTURE overhaul. Scope and approach to be defined by Orchestrator at session start. Do not begin without reading full brief from user.
 
 ### Bug fixes
 2. **Fix remaining 3 Saturday references in `clubmed/index.html`** — alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
 
-### BLOCKED — pending architecture decision
-3. **Grand Massif + Serre-Chevalier departure_day fix + timeout raise** — BLOCKED pending data architecture decision. Revisit once overhaul is underway.
-
 ### Content (paused until site is back live)
-4. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
+3. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
+
+### Design constraint (for future operators / summer expansion)
+> **Flexible duration support (7 / 10 / 14 nights):** When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. Homepage display stays 7-night for comparability; raw CSV captures all durations. Checker config per resort must use a `durations` array (e.g. `durations: [7]` now, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not apply to existing winter Club Med checker without user instruction.
 
 ---
 
@@ -181,9 +183,9 @@ Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Upd
 | La Rosière | `LROC_WINTER` | Sunday |
 | La Plagne 2100 | `LP2C_WINTER` | Sunday |
 | Val d'Isère | `VDIC_WINTER` | Sunday |
-| Grand Massif | `GMAC_WINTER` | TBC |
+| Grand Massif | `GMAC_WINTER` | Sunday (fixed in 927784b) |
 | Val Thorens Sensations | `VTHC` | Sunday (no `_WINTER` suffix) |
-| Serre-Chevalier | `SECC_WINTER` | TBC |
+| Serre-Chevalier | `SECC_WINTER` | Sunday (fixed in 927784b) |
 
 ---
 

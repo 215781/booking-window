@@ -94,6 +94,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **Blog URLs added to sitemap.xml** — Blog index and all post URLs added to `sitemap.xml` (commit 7905b02)
 - 2026-05-06 — **Logo href and JSON-LD WebSite URL corrected** — Logo link href and JSON-LD `WebSite` url property corrected across root and blog pages (commit 6888363)
 - 2026-05-06 — **Mark Warner workflow fix** — `git pull --rebase` added to `markwarner_checker.yml` to prevent diverged-branch push failures (commit a746a74)
+- 2026-05-06 — **Under construction page created** — `under-construction.html`: on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form (commit 2575e57)
+- 2026-05-06 — **Entry-point redirects added** — `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file (commit 720f853). **Site is now OFFLINE.**
 
 ---
 

@@ -2,9 +2,21 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (Quick fixes batch 1 — blog link to Club Med nav 4263be0; departure day copy e87cbb2; Twitter card meta tags 2342a16; blog URLs sitemap 7905b02; logo href + JSON-LD fix 6888363; MW workflow fix a746a74; Article 2 published bcde757)
+Last updated: 2026-05-06 (Under construction page 2575e57; site entry-point redirects 720f853 — site intentionally OFFLINE)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
+
+---
+
+## 🔴 SITE STATUS — OFFLINE (intentional)
+
+Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-construction.html` via meta-refresh. Source files are untouched — reverting is one line per file.
+
+- [x] **Under construction page created** — `under-construction.html`: on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form. (commit 2575e57) — 2026-05-06
+- [x] **Entry-point redirects added** — `index.html` and `clubmed/index.html` both redirect to `/under-construction.html` via meta-refresh. Revert = remove one `<meta>` line per file. (commit 720f853) — 2026-05-06
+
+**Do not restore the site until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.**
+**Next priority: DATA ARCHITECTURE overhaul — present plan to user before writing any code.**
 
 ---
 
@@ -127,5 +139,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] Logo href and JSON-LD `WebSite` url corrected — commit 6888363 — 2026-05-06
 - [x] Mark Warner workflow: `git pull --rebase` added to `markwarner_checker.yml` to prevent diverged-branch push failures — commit a746a74 — 2026-05-06
 - [x] Article 2 published: "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" — commit bcde757 — 2026-05-06
+- [x] Under construction page created: `under-construction.html` — on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form — commit 2575e57 — 2026-05-06
+- [x] Entry-point redirects added: `index.html` and `clubmed/index.html` meta-refresh to `/under-construction.html`; source files untouched, revert is one line per file — commit 720f853 — 2026-05-06
 </content>
 </invoke>

@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (Article 2 published — "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" — bcde757)
+Last updated: 2026-05-06 (Quick fixes batch 1 — blog link to Club Med nav 4263be0; departure day copy e87cbb2; Twitter card meta tags 2342a16; blog URLs sitemap 7905b02; logo href + JSON-LD fix 6888363; MW workflow fix a746a74; Article 2 published bcde757)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -24,7 +24,8 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
-- [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker.
+- [ ] **Fix remaining 3 Saturday references in `clubmed/index.html`** — Alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
+- [ ] **Grand Massif + Serre-Chevalier departure day** — both show Sat+Sun prices. Needs data accumulation to confirm correct departure day, then lock it in the checker. BLOCKED pending data architecture decision.
 
 ### 🔴 HIGH PRIORITY — Agent coordination
 
@@ -34,15 +35,21 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ### 🔴 HIGH PRIORITY — Start data collection now (before sites are built)
 
 - [x] **Build Mark Warner price checker** — `markwarner_checker.py` built and verified 2026-05-04. API: POST `/resort/getresortsearchcriteria` with `{resortId: 957, adults, children, childAges, airport: "LGW", duration: 7, checkIn: today}`. Returns `validDates[]` with `pr` (promo total), `prpp` (promo pp), `wp` (was-total), `wppp` (was-pp), room type. 18 departure dates per party size, 3 party sizes = 54 rows/run. Seeded with 54 rows. GitHub Actions at 07:00 UTC daily. Note: `resortId` (957) is embedded in page HTML — update if they redesign. One resort only (Tignes); PLAN.md will note when a MW Tignes tracker page is worth building. — 2026-05-04
+- [x] **Mark Warner workflow fix — git pull --rebase** — Added `git pull --rebase` to `markwarner_checker.yml` to prevent push failures on diverged branches (commit a746a74) — 2026-05-06
 - [ ] **Build Sandals price checker** — GitHub references confirm an "official Sandals booking API" exists but it's not publicly documented — may require a partner relationship. Try reverse-engineering `sandals.co.uk` via DevTools first. Also check for a `/developers` or `/partner` portal. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions.
 - [ ] **Add both new checkers to GitHub Actions** — Create `.github/workflows/markwarner_checker.yml` and `.github/workflows/sandals_checker.yml` (or extend `price_checker.yml`). Daily at offset times (e.g. 07:00 and 08:00 UTC) to avoid concurrent runs. Commit updated CSVs.
 
 ### 🔴 HIGH PRIORITY — Blog / editorial content
 
 - [x] **Set up Jekyll blog infrastructure** — `_posts/` directory created; blog nav link + footer link added to `index.html`. GitHub Pages serves Jekyll natively. (commits ba1a6a0 + e6e1125) — 2026-05-06
+- [x] **Blog link added to Club Med page nav and footer** — Blog navigation and footer links added to `clubmed/index.html` (commit 4263be0) — 2026-05-06
+- [x] **Departure day copy corrected** — "Saturday" → "Sunday" across `clubmed/index.html` (commit e87cbb2) — 2026-05-06. Note: 3 instances remain — see pending item above.
+- [x] **Twitter card meta tags added** — Open Graph / Twitter card `<meta>` tags added to root `index.html`, blog index, and `_layouts/post.html` (commit 2342a16) — 2026-05-06
+- [x] **Blog URLs added to sitemap.xml** — Blog index and post URLs added to `sitemap.xml` (commit 7905b02) — 2026-05-06
+- [x] **Logo href and JSON-LD WebSite URL corrected** — Logo link href and JSON-LD `WebSite` url property corrected across root and blog pages (commit 6888363) — 2026-05-06
 - [x] **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained" live at `/blog/2026/05/06/when-to-book-club-med-ski-holiday/`. 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words. Unapproved draft (`why-timing-matters-when-booking-club-med`) removed (efaedce). (commit 894ee8b) — 2026-05-06
 - [x] **Publish article 2** — "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" live at `_posts/2026-05-06-club-med-tignes-vs-les-arcs.md`. 1,412 words, UK English, comparison table, JSON-LD schema, links to /clubmed, no banned words. (commit bcde757) — 2026-05-06
-- [ ] **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Target term: `is Club Med ski worth it`. Must go through Content Writer agent with web keyword research before Builder publishes. Full brief in NEXT_SESSION_PROMPT.md. (MT-3c)
+- [ ] **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Target term: `is Club Med ski worth it`. Must go through Content Writer agent with web keyword research before Builder publishes. Full brief in NEXT_SESSION_PROMPT.md. **Paused until site is back live.** (MT-3c)
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
 ---
@@ -113,5 +120,12 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] Date display fix: dates now "6–13 Dec 2026" format (departure + 7 nights, cross-month handled). Removed stale `w/c` strip from calendar `shortDate`. Commit 7093c2e — 2026-05-05
 - [x] LP2C placeholder purge: 328 rows with £3,322 price removed from `price_history.csv`; RESORT_DATA regenerated via `--inject-only` (commit c8df916) — 2026-05-05
 - [x] Reverted `clubmed/index.html` to d651c28 after c500fb8 introduced touchstart/touchend regression (broke card clicks, party size tabs, Show Optimal Dates on desktop and mobile) — 2026-05-05
+- [x] Blog link added to Club Med page nav and footer (`clubmed/index.html`) — commit 4263be0 — 2026-05-06
+- [x] Departure day copy corrected: "Saturday" → "Sunday" in `clubmed/index.html` (partial — 3 instances remain) — commit e87cbb2 — 2026-05-06
+- [x] Twitter card meta tags added to root `index.html`, blog index, and `_layouts/post.html` — commit 2342a16 — 2026-05-06
+- [x] Blog URLs added to `sitemap.xml` — commit 7905b02 — 2026-05-06
+- [x] Logo href and JSON-LD `WebSite` url corrected — commit 6888363 — 2026-05-06
+- [x] Mark Warner workflow: `git pull --rebase` added to `markwarner_checker.yml` to prevent diverged-branch push failures — commit a746a74 — 2026-05-06
+- [x] Article 2 published: "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" — commit bcde757 — 2026-05-06
 </content>
 </invoke>

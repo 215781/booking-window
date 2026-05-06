@@ -88,25 +88,30 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **Unapproved draft deleted:** `_posts/2026-05-06-why-timing-matters-when-booking-club-med.md` removed — not from approved content brief (efaedce)
 - 2026-05-06 — **Article 1 published:** "When to Book a Club Med Ski Holiday: The Price Window Explained" at `_posts/2026-05-06-when-to-book-club-med-ski-holiday.md` — 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words (894ee8b)
 - 2026-05-06 — **Article 2 published:** "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" at `_posts/2026-05-06-club-med-tignes-vs-les-arcs.md` — 1,412 words, UK English, comparison table, JSON-LD schema, links to /clubmed, no banned words (bcde757)
+- 2026-05-06 — **Blog link added to Club Med page nav and footer** — Blog navigation and footer links added to `clubmed/index.html` (commit 4263be0)
+- 2026-05-06 — **Departure day copy corrected** — "Saturday" → "Sunday" across `clubmed/index.html` (commit e87cbb2). Note: 3 instances remain — alert form, How It Works, modal subtitle.
+- 2026-05-06 — **Twitter card meta tags added** — Open Graph / Twitter card meta tags added to root `index.html`, blog index, and `_layouts/post.html` (commit 2342a16)
+- 2026-05-06 — **Blog URLs added to sitemap.xml** — Blog index and all post URLs added to `sitemap.xml` (commit 7905b02)
+- 2026-05-06 — **Logo href and JSON-LD WebSite URL corrected** — Logo link href and JSON-LD `WebSite` url property corrected across root and blog pages (commit 6888363)
+- 2026-05-06 — **Mark Warner workflow fix** — `git pull --rebase` added to `markwarner_checker.yml` to prevent diverged-branch push failures (commit a746a74)
 
 ---
 
 ## Up Next (priority order)
 
-### Data health — monitor
-1. **Investigate data staleness** — Data Analyst health check found data 44h old at session start (2026-05-06). Check GitHub Actions run log for the 06:00 UTC run on 2026-05-05 and 2026-05-06.
-2. **Monitor VDIC_WINTER price swings** — 108% overnight jump (£10,430→£21,678) flagged by Data Analyst. Could be legitimate new bookings opening or API noise. Monitor 2–3 more days before acting.
+⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.
 
-### 🔴 HIGH PRIORITY — Data collection
-3. **Build Sandals price checker** — Reverse-engineer `sandals.co.uk` API via DevTools. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions at 08:00 UTC.
+### 🔴 DATA ARCHITECTURE — approved by user
+1. **DATA ARCHITECTURE overhaul** — approved by user. Scope and approach to be defined by Orchestrator at session start. Do not begin without reading full brief from user.
 
-### Blog / editorial content
-4. **Publish article 3** — Articles 1 (894ee8b) and 2 (bcde757) are live. Next: "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". **⚠️ Must go through Content Writer agent first** — web keyword research required before Builder writes or publishes. Full brief in Blog article ideas section below.
-5. **Create CONTENT_WRITER.md agent file** — agent for researching and publishing SEO posts to `_posts/`. Needed before article 3 proceeds.
+### Bug fixes
+2. **Fix remaining 3 Saturday references in `clubmed/index.html`** — alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
 
-### Cleanup
-7. **Delete branch `claude/nifty-shannon-d10066`** — content already on main; branch is stale.
-8. **Grand Massif + Serre-Chevalier departure day** — needs 4+ weeks of data; revisit late May 2026.
+### BLOCKED — pending architecture decision
+3. **Grand Massif + Serre-Chevalier departure_day fix + timeout raise** — BLOCKED pending data architecture decision. Revisit once overhaul is underway.
+
+### Content (paused until site is back live)
+4. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
 
 ---
 

@@ -85,6 +85,13 @@
       letter-spacing: 0.01em;
     }
 
+    .header-nav { margin-left: auto; display: flex; gap: 24px; }
+    .header-nav a {
+      color: rgba(245,240,232,0.75); font-size: 13px;
+      font-weight: 500; text-decoration: none; letter-spacing: 0.04em;
+    }
+    .header-nav a:hover { color: var(--bg); }
+
     main {
       flex: 1;
       max-width: 960px;
@@ -256,6 +263,10 @@
   <header>
     <div class="logo-mark">W</div>
     <span class="logo-text">When To Book</span>
+    <nav class="header-nav">
+      <a href="/clubmed">Club Med tracker</a>
+      <a href="/blog">Blog</a>
+    </nav>
   </header>
 
   <main>
@@ -291,7 +302,7 @@
   </main>
 
   <footer>
-    <p>Built by Drop Media Ltd &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></p>
+    <p>Built by Drop Media Ltd &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></p>
   </footer>
 
 </body>

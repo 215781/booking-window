@@ -70,3 +70,4 @@ Before finishing, instruct the scribe to:
 - Begin work without reading `NEXT_SESSION_PROMPT.md` first
 - Make product decisions — surface them to the user
 - Change `DATA_SUFFICIENT` in `WhentoBook.html` without explicit user instruction
+- Run two Builder or Scribe sessions simultaneously — git lock contention freezes both; serialise agent tasks

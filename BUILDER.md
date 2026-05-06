@@ -48,15 +48,26 @@ Always tell the orchestrator:
 
 ## Git workflow
 
+### Git rules — non-negotiable
+
+1. **Always commit to `main`** — never to a worktree branch. Work in `/Users/connormartin/booking-window/` (main repo), not `.claude/worktrees/`.
+2. **Commit after every completed task** — do not accumulate uncommitted changes across tasks.
+3. **Never run two Builder sessions simultaneously** — concurrent sessions cause git lock contention and freeze both.
+4. **Pull before push** — always `git pull --rebase` before `git push` to avoid divergence.
+5. **Use the SSH key** — always set `GIT_SSH_COMMAND` or ensure the key is loaded.
+
 ```bash
 # Stage specific files — never use git add -A
+git config user.name "Booking Window Bot"
+git config user.email "bot@bookingwindow.co.uk"
 git add <specific-file-1> <specific-file-2>
 git commit -m "Brief description of what changed and why"
-git push
+git pull --rebase
+GIT_SSH_COMMAND="ssh -i ~/.ssh/booking_window_deploy -o StrictHostKeyChecking=no" git push origin main
 ```
 
 If push fails:
 ```bash
 git remote set-url origin git@github.com:215781/booking-window.git
-git push
+GIT_SSH_COMMAND="ssh -i ~/.ssh/booking_window_deploy -o StrictHostKeyChecking=no" git push origin main
 ```

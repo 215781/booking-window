@@ -63,6 +63,17 @@ Before finishing, instruct the scribe to:
 
 ---
 
+## ⚠️ GIT RULES — NON-NEGOTIABLE
+
+A session failure on 2026-05-05 was caused by git lock contention and the Builder committing to a worktree branch instead of `main`. These rules prevent a repeat.
+
+1. **Never delegate two Builder tasks simultaneously** — only one Builder session may run at a time. Git lock contention freezes both sessions and corrupts the working tree.
+2. **Builder must commit to `main` only** — when delegating, explicitly instruct the Builder to work in `/Users/connormartin/booking-window/` (main repo) and never in `.claude/worktrees/`.
+3. **Builder must check `git branch` before every commit** — confirm it is on `main` before staging anything. Include this as a step in every delegation prompt.
+4. **Commits happen after each task** — do not let the Builder defer commits to session end; verify a commit hash is reported after every task.
+
+---
+
 ## Things you must not do
 
 - Write or edit code (that is the builder's job)

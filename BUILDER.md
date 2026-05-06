@@ -46,15 +46,16 @@ Always tell the orchestrator:
 
 ---
 
-## Git workflow
+## ⚠️ GIT RULES — NON-NEGOTIABLE
 
-### Git rules — non-negotiable
+Failure to follow these rules caused a session failure on 2026-05-05 (git lock contention + commit to wrong branch).
 
 1. **Always commit to `main`** — never to a worktree branch. Work in `/Users/connormartin/booking-window/` (main repo), not `.claude/worktrees/`.
-2. **Commit after every completed task** — do not accumulate uncommitted changes across tasks.
-3. **Never run two Builder sessions simultaneously** — concurrent sessions cause git lock contention and freeze both.
-4. **Pull before push** — always `git pull --rebase` before `git push` to avoid divergence.
-5. **Use the SSH key** — always set `GIT_SSH_COMMAND` or ensure the key is loaded.
+2. **Check `git branch` before every commit** — confirm you are on `main`. If you are not on `main`, stop and switch: `git checkout main`.
+3. **Commit after every completed task** — do not accumulate uncommitted changes across tasks.
+4. **Never run two Builder sessions simultaneously** — concurrent sessions cause git lock contention and freeze both.
+5. **Pull before push** — always `git pull --rebase` before `git push` to avoid divergence.
+6. **Use the SSH key** — always set `GIT_SSH_COMMAND` or ensure the key is loaded.
 
 ```bash
 # Stage specific files — never use git add -A

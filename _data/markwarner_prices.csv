@@ -89,3 +89,57 @@ timestamp,resort,location,departure_date,duration_nights,party_size,adults,child
 2026-05-05T11:49:01Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-28,7,2A,2,0,Twin room,3498,1749,3598,1799,FIRSTTRACKS,GBP
 2026-05-05T11:49:01Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-04,7,2A,2,0,Double room (ensuite bath),3298,1649,3398,1699,FIRSTTRACKS,GBP
 2026-05-05T11:49:01Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-11,7,2A,2,0,Twin room,2798,1399,2898,1449,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-06,7,2A2C,2,2,Family twin room,2681,670,2881,720,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-13,7,2A2C,2,2,Family twin room,3821,955,4021,1005,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-20,7,2A2C,2,2,Family double room,6046,1511,6246,1561,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-27,7,2A2C,2,2,Family double room,8546,2136,8746,2186,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-03,7,2A2C,2,2,Family double room,4181,1045,4381,1095,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-10,7,2A2C,2,2,Family twin room,3981,995,4181,1045,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-17,7,2A2C,2,2,Family twin room,4061,1015,4261,1065,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-24,7,2A2C,2,2,Family double room,4061,1015,4261,1065,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-31,7,2A2C,2,2,Family double room,4061,1015,4261,1065,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-07,7,2A2C,2,2,Family twin room,4821,1205,5021,1255,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-14,7,2A2C,2,2,Family double room,9096,2274,9296,2324,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-21,7,2A2C,2,2,Family double room,4591,1147,4791,1197,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-28,7,2A2C,2,2,Family twin room,4821,1205,5021,1255,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-07,7,2A2C,2,2,Family double room,4821,1205,5021,1255,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-21,7,2A2C,2,2,Pair of interconnecting rooms,5571,1392,5771,1442,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-28,7,2A2C,2,2,Family double room,6446,1611,6646,1661,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-04,7,2A2C,2,2,Family double room,5846,1461,6046,1511,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-11,7,2A2C,2,2,Family double room,4746,1186,4946,1236,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-06,7,2A1C,2,1,Family twin room,2182,727,2332,777,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-13,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3107,1035,3257,1085,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-20,7,2A1C,2,1,Twin (with extra bed and ensuite bath),4607,1535,4757,1585,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-27,7,2A1C,2,1,Twin (with extra bed and ensuite bath),6857,2285,7007,2335,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-03,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3417,1139,3567,1189,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-10,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3267,1089,3417,1139,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-17,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3337,1112,3487,1162,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-24,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3337,1112,3487,1162,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-31,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3337,1112,3487,1162,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-07,7,2A1C,2,1,Family twin room,3872,1290,4022,1340,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-14,7,2A1C,2,1,Family double room,7247,2415,7397,2465,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-21,7,2A1C,2,1,Family double room,3742,1247,3892,1297,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-28,7,2A1C,2,1,Family twin room,3872,1290,4022,1340,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-07,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3857,1285,4007,1335,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-21,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3757,1252,3907,1302,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-28,7,2A1C,2,1,Twin (with extra bed and ensuite bath),5157,1719,5307,1769,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-04,7,2A1C,2,1,Twin (with extra bed and ensuite bath),4707,1569,4857,1619,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-11,7,2A1C,2,1,Twin (with extra bed and ensuite bath),3757,1252,3907,1302,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-06,7,2A,2,0,Double room (ensuite bath),1658,829,1758,879,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-13,7,2A,2,0,Double room (ensuite bath),2398,1199,2498,1249,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-20,7,2A,2,0,"Twin (ensuite bath, no balcony)",3098,1549,3198,1599,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2026-12-27,7,2A,2,0,Twin room,4698,2349,4798,2399,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-03,7,2A,2,0,Twin room,2658,1329,2758,1379,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-10,7,2A,2,0,Twin room,2558,1279,2658,1329,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-17,7,2A,2,0,"Twin (ensuite bath, no balcony)",2618,1309,2718,1359,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-24,7,2A,2,0,Double room (ensuite bath),2618,1309,2718,1359,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-01-31,7,2A,2,0,Twin room,2618,1309,2718,1359,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-07,7,2A,2,0,Twin room,2898,1449,2998,1499,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-14,7,2A,2,0,"Twin (ensuite bath, no balcony)",4898,2449,4998,2499,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-21,7,2A,2,0,Double room (ensuite bath),2858,1429,2958,1479,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-02-28,7,2A,2,0,Twin room,2898,1449,2998,1499,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-07,7,2A,2,0,Twin room,2898,1449,2998,1499,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-21,7,2A,2,0,Twin room,2798,1399,2898,1449,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-03-28,7,2A,2,0,Twin room,3498,1749,3598,1799,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-04,7,2A,2,0,Double room (ensuite bath),3198,1599,3298,1649,FIRSTTRACKS,GBP
+2026-05-06T12:20:59Z,Chalet Hotel L'Écrin,"Tignes, France",2027-04-11,7,2A,2,0,Twin room,2798,1399,2898,1449,FIRSTTRACKS,GBP

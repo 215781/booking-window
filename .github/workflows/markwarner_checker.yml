@@ -34,4 +34,5 @@ jobs:
           git config user.email "bot@bookingwindow.co.uk"
           git add _data/markwarner_prices.csv
           git diff --staged --quiet || git commit -m "Mark Warner price update $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git pull --rebase origin main
           git push

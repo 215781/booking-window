@@ -102,6 +102,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **CSV architecture: `price_history.csv` → `prices_clubmed.csv`** — operator-specific naming; placeholder `prices_markwarner.csv` and `prices_sandals.csv` created; checker updated (commit 8236d90)
 - 2026-05-06 — **`build_site.yml` created** — dedicated HTML build workflow triggered by `_data/prices_*.csv` changes; runs `--inject-only`; concurrency-queued (commit 4718bc5)
 - 2026-05-06 — **HTML generation decoupled from price checker** — price checker is CSV-only; `build_site.yml` owns all HTML rebuilds (commit 711f8c7)
+- 2026-05-07 — **UX redesign plan added to PLAN.md** — 7 items under "UX Redesign: Resort Cards + Smart Party Size": remove homepage form, signal-first resort cards, party size sliders inside modal, 2A default price, smart data lookup on slider change, expanded stored party size combinations (2A/2A+1C/2A+2C/3A/4A/2A+3C), live API fallback for edge cases. Positioning framed as timing tool, not price comparison. Club Med ~2/3 families context noted.
 
 ---
 
@@ -120,6 +121,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 
 ### Post-launch (plan now, execute at go-live)
 4. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent to run Content Writer and auto-publish 2 posts per week. User decision: 2026-05-06.
+
+### UX redesign (plan ready — implement at go-live)
+5. **Resort cards + smart party size sliders** — Full plan in PLAN.md under "UX Redesign: Resort Cards + Smart Party Size" (7 items, UX-1 through UX-7). Key decisions: remove homepage form, signal-first cards, party size sliders inside modal, 2A default, smart lookup + live API fallback on slider change, expand stored combinations to 2A/2A+1C/2A+2C/3A/4A/2A+3C. Do not begin before go-live.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. Homepage display stays 7-night for comparability; raw CSV captures all durations. Checker config per resort must use a `durations` array (e.g. `durations: [7]` now, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not apply to existing winter Club Med checker without user instruction.

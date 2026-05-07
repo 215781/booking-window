@@ -71,6 +71,24 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 
 ---
 
+## UX Redesign: Resort Cards + Smart Party Size
+
+**Decided: 2026-05-07.** Product discussion concluded. These items are design-approved — the Builder should implement them once the site is back online (target: end of May 2026).
+
+**Positioning note:** The site is a **timing tool**, not a price comparison tool. This is the key differentiator from Iglu Ski, Thomas Cook etc. All design and copy decisions should reinforce timing intelligence over price search.
+
+**Audience note:** Club Med's customer base is ~2/3 families. The product should reflect this in defaults and UX.
+
+- [ ] **Remove the search form from the top of the page** — the form-first layout frames the site as a search engine. Remove it. Resort cards become the primary landing experience. (UX-1)
+- [ ] **Resort cards: signal-first, price-secondary** — lead with price movement signal (Favourable / Watch / Hold badge); show price as a smaller supporting label ("from £X for 2 adults"). Card is the hero, not the form. (UX-2)
+- [ ] **Party size configuration moves inside the resort card/modal** — sliders for adults and children, shown when the user is already engaged with a specific resort. Not upfront on the homepage. (UX-3)
+- [ ] **Default display price: 2 adults** — always show a price before the user touches anything; 2A is the minimum viable default. (UX-4)
+- [ ] **Smart data lookup on slider change** — if the combination is in stored data, update price instantly; if not (e.g. 5 adults), show a brief loading state, make a live Club Med API call, then show the real price. Signal (Favourable/Watch/Hold) must update alongside the price, not just the number. (UX-5)
+- [ ] **Expand stored party size combinations** — current default is 2A only. Collect data for priority combinations: 2A, 2A+1C (age 6–11), 2A+2C (age 6–11), 3A, 4A, 2A+3C. These cover ~95% of real-world use cases. Requires checker update and expanded CSV schema. (UX-6)
+- [ ] **Live API fallback for edge cases** — for combinations outside stored data (e.g. 10A + 3C), show an honest loading screen, make a live Club Med API call, and display the result with a trend-based signal overlay. (UX-7)
+
+---
+
 ## Backlog (future work, not yet prioritised)
 
 ### Quick wins (high value, low effort)

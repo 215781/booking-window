@@ -1604,7 +1604,7 @@
             </label>
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
-          <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above — we'll begin tracking your combination immediately.</p>
+          <p class="alert-form-note">We track Sunday departures for standard party sizes. If your dates differ, use the search above — we'll begin tracking your combination immediately.</p>
           <div id="alert-confirmation" class="form-confirmation"></div>
           <div id="alert-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:Inter,sans-serif;">Something went wrong — please try again.</div>
         </form>
@@ -1622,7 +1622,7 @@
       <div class="step">
         <div class="step-number">01</div>
         <h3 class="step-title">We track live Club Med pricing, updated daily.</h3>
-        <p class="step-body">Every major ski resort. Every Saturday departure across the season. Standard party sizes. We've been building this price history since spring 2026 — and it compounds in value with every passing week.</p>
+        <p class="step-body">Every major ski resort. Every Sunday departure across the season. Standard party sizes. We've been building this price history since spring 2026 — and it compounds in value with every passing week.</p>
       </div>
       <div class="step">
         <div class="step-number">02</div>
@@ -1651,7 +1651,7 @@
     <div class="search-modal-header">
       <div>
         <h2 class="search-modal-title" id="search-modal-title">Finding optimal window...</h2>
-        <p class="search-modal-subtitle" id="search-modal-subtitle">2 Adults · 7 nights accommodation · Saturday departures</p>
+        <p class="search-modal-subtitle" id="search-modal-subtitle">2 Adults · 7 nights accommodation · Sunday departures</p>
       </div>
       <button class="modal-close" id="search-modal-close" aria-label="Close">&times;</button>
     </div>
@@ -1675,7 +1675,7 @@
           <div id="search-kit-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:'Inter',sans-serif;">Something went wrong — please try again.</div>
         </form>
       </div>
-      <p class="date-rows-label" id="search-modal-rows-label">All Saturday departures — ranked by price, lowest first</p>
+      <p class="date-rows-label" id="search-modal-rows-label">All Sunday departures — ranked by price, lowest first</p>
       <div id="search-modal-date-rows"></div>
       <div class="alt-months" id="search-modal-alt-months"></div>
     </div>
@@ -1721,7 +1721,7 @@
 // ═══════════════════════════════════════════════════
 // RESORT DATA — single source of truth
 // Python price checker writes to this array.
-// Each resort has departures[] covering every Saturday
+// Each resort has departures[] covering every Sunday
 // in the tracked season. The search modal reads across
 // all departures; the cards show the best signal only.
 // ═══════════════════════════════════════════════════

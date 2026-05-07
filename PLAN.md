@@ -112,6 +112,32 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 
 ---
 
+## Club Med Summer Resorts Data Collection
+
+Club Med operates summer seasons at the same Alpine resorts as winter (e.g. Les Arcs Altitude, Valmorel, Grand Massif — same resort sites, summer activity season). This section tracks the work to extend data collection to summer departures.
+
+**Prerequisites — do not begin until:**
+- Winter data collection is confirmed reliable for 7 consecutive clean days, AND
+- The site has gone live (target: end of May 2026)
+
+**Architectural constraints:**
+- **Separate workflow** — build `clubmed_summer_checker.yml`; never add summer resorts to the existing `price_checker.yml`. Adding summer scope to the winter job risks timeout.
+- **Separate CSV** — output to `_data/prices_clubmed_summer.csv` to keep winter and summer data clearly separated.
+- **Same async pattern** — aiohttp + asyncio + Semaphore(8), 60-min timeout, same structure as `clubmed_checker.py`.
+- **Smart scoping** — collect peak summer weeks only (late July, August, early September); do not collect every possible week.
+- **Resort codes need confirmation** — summer codes may differ from winter (e.g. `GMAC_SUMMER` vs `GMAC_WINTER`); confirm via HAR file analysis before building.
+- **Departure day likely Saturday** (vs Sunday for winter) — needs verification via HAR file.
+- **Duration likely 7 nights** — needs confirmation before building.
+
+- [ ] **SUMMER-1: Identify Club Med summer Alpine resort codes** — HAR file analysis via DevTools on clubmed.co.uk summer Alpine resort pages. Confirm which winter resort codes have active summer seasons and what their summer codes are. Document findings before any building.
+- [ ] **SUMMER-2: Confirm summer departure day and available durations** — Verify via HAR whether summer departures are Saturday, Sunday, or both. Confirm 7-night stays are available and whether 10/14-night are also offered. Update checker config accordingly.
+- [ ] **SUMMER-3: Build `clubmed_summer_checker.py`** — Async aiohttp, same pattern as `clubmed_checker.py`: Semaphore(8), rotating User-Agent pool, 429 backoff, per-resort CSV commits. Scope to peak summer weeks only (late July, August, early September). Output to `_data/prices_clubmed_summer.csv`. Include `--test`, `--verify`, `--inject-only` flags.
+- [ ] **SUMMER-4: Build `clubmed_summer_checker.yml` workflow** — Separate GitHub Actions workflow with its own cron schedule (offset from winter job, e.g. 07:30 UTC) and 60-minute timeout. Never combined with `price_checker.yml`. Uses same repository secrets as the winter job.
+- [ ] **SUMMER-5: Add summer CSV to `build_site.yml` trigger paths** — Add `_data/prices_clubmed_summer.csv` to the `paths:` filter in `build_site.yml` so the HTML rebuild triggers when summer data updates.
+- [ ] **SUMMER-6: Build summer-facing UI** — Separate page (`clubmed-summer/index.html`) or tabbed view on the existing Club Med tracker. Design TBD — discuss with user before building.
+
+---
+
 ## Completed
 
 - [x] Built single-file HTML/CSS/JS site (`WhentoBook.html`) — 2026-04-21

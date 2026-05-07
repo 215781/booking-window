@@ -102,6 +102,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **CSV architecture: `price_history.csv` → `prices_clubmed.csv`** — operator-specific naming; placeholder `prices_markwarner.csv` and `prices_sandals.csv` created; checker updated (commit 8236d90)
 - 2026-05-06 — **`build_site.yml` created** — dedicated HTML build workflow triggered by `_data/prices_*.csv` changes; runs `--inject-only`; concurrency-queued (commit 4718bc5)
 - 2026-05-06 — **HTML generation decoupled from price checker** — price checker is CSV-only; `build_site.yml` owns all HTML rebuilds (commit 711f8c7)
+- 2026-05-07 — **Mark Warner async rewrite** — Full async rewrite of `markwarner_checker.py`: aiohttp + asyncio, Semaphore(8), per-resort git commits, 7 rotating User-Agents, 429 backoff, 3-attempt push retry with exponential backoff (2s/4s/8s). `--verify` confirmed £1,658 for 2026-12-06. (commit eaccfd2)
+- 2026-05-07 — **`markwarner_checker.yml` fix** — timeout 180→60 min, aiohttp added to pip install, safety-net commit path corrected to `_data/prices_markwarner.csv`, HTML commit step removed. (commit 3f10acf)
 
 ---
 
@@ -109,17 +111,14 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 
 ⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts. **Target go-live: end of May 2026 (approx 2026-05-31).**
 
-### 🔴 NEXT — Mark Warner checker: async + separate CSV pattern
-1. **Apply async rewrite + CSV architecture to `markwarner_checker.py`** — Same pattern as Club Med: aiohttp + asyncio, write to `_data/prices_markwarner.csv` only, HTML generation via separate build workflow. Do not begin without reading current checker code and confirming scope with user.
-
-### Bug fixes
-2. **Fix remaining 3 Saturday references in `clubmed/index.html`** — alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
+### 🔴 NEXT — Bug fixes
+1. **Fix remaining 3 "Saturday" copy errors in `clubmed/index.html`** — alert form, How It Works body, and modal subtitle still say "Saturday" instead of "Sunday departure". The departure day copy fix (e87cbb2) was partial.
 
 ### Content (paused until site is back live)
-3. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
+2. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
 
 ### Post-launch (plan now, execute at go-live)
-4. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent to run Content Writer and auto-publish 2 posts per week. User decision: 2026-05-06.
+3. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent to run Content Writer and auto-publish 2 posts per week. User decision: 2026-05-06.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. Homepage display stays 7-night for comparability; raw CSV captures all durations. Checker config per resort must use a `durations` array (e.g. `durations: [7]` now, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not apply to existing winter Club Med checker without user instruction.

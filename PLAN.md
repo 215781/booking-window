@@ -17,7 +17,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 
 **Do not restore the site until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.**
 **Target go-live: end of May 2026 (approx 2026-05-31) — site staying offline to accumulate clean data.**
-**Next priority: Apply same async + separate CSV pattern to Mark Warner checker.**
+**Next priority: Fix 3 remaining "Saturday" copy errors in clubmed/index.html (alert form, How It Works body, modal subtitle).**
 
 ---
 
@@ -53,6 +53,8 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 
 - [x] **Build Mark Warner price checker** — `markwarner_checker.py` built and verified 2026-05-04. API: POST `/resort/getresortsearchcriteria` with `{resortId: 957, adults, children, childAges, airport: "LGW", duration: 7, checkIn: today}`. Returns `validDates[]` with `pr` (promo total), `prpp` (promo pp), `wp` (was-total), `wppp` (was-pp), room type. 18 departure dates per party size, 3 party sizes = 54 rows/run. Seeded with 54 rows. GitHub Actions at 07:00 UTC daily. Note: `resortId` (957) is embedded in page HTML — update if they redesign. One resort only (Tignes); PLAN.md will note when a MW Tignes tracker page is worth building. — 2026-05-04
 - [x] **Mark Warner workflow fix — git pull --rebase** — Added `git pull --rebase` to `markwarner_checker.yml` to prevent push failures on diverged branches (commit a746a74) — 2026-05-06
+- [x] **Mark Warner async rewrite** — Full async rewrite using aiohttp + asyncio, Semaphore(8) concurrency, per-resort git commits, 7 rotating User-Agent strings, 429 backoff, push retry with 3-attempt exponential backoff (2s/4s/8s). `fetch_price_async()` replaces synchronous version. `--verify` confirmed £1,658 for 2026-12-06. (commit eaccfd2) — 2026-05-07
+- [x] **`markwarner_checker.yml` fix — timeout, aiohttp, CSV path** — timeout 180→60 min, `aiohttp` added to pip install, safety-net commit updated to `_data/prices_markwarner.csv`, HTML commit step removed. (commit 3f10acf) — 2026-05-07
 - [ ] **Build Sandals price checker** — GitHub references confirm an "official Sandals booking API" exists but it's not publicly documented — may require a partner relationship. Try reverse-engineering `sandals.co.uk` via DevTools first. Also check for a `/developers` or `/partner` portal. Build `sandals_checker.py` + `_data/sandals_prices.csv`. Add to Actions.
 - [ ] **Add both new checkers to GitHub Actions** — Create `.github/workflows/markwarner_checker.yml` and `.github/workflows/sandals_checker.yml` (or extend `price_checker.yml`). Daily at offset times (e.g. 07:00 and 08:00 UTC) to avoid concurrent runs. Commit updated CSVs.
 

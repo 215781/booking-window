@@ -41,7 +41,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
-- [ ] **Fix remaining 3 Saturday references in `clubmed/index.html`** — Alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
+- [x] **Fix remaining Saturday references in `clubmed/index.html`** — All 5 remaining instances corrected to "Sunday departure": alert form note, How It Works step body, modal subtitle, search rows label, JS comment (commit 4701ea0) — 2026-05-07
 - [x] **Grand Massif + Serre-Chevalier departure_day** — departure_day fixed to Sunday (6) in async rewrite (commit 927784b). — 2026-05-06
 
 ### 🔴 HIGH PRIORITY — Agent coordination

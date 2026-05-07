@@ -5,13 +5,17 @@ on:
     - cron: "0 7 * * *"    # 07:00 UTC daily (offset from Club Med at 06:00)
   workflow_dispatch:        # manual trigger from GitHub Actions tab
 
+concurrency:
+  group: markwarner-checker
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
 jobs:
   check-prices:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 60
 
     steps:
       - name: Checkout repo
@@ -23,16 +27,17 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install requests
+        run: pip install aiohttp requests
 
       - name: Run Mark Warner price checker
         run: python markwarner_checker.py
 
-      - name: Commit updated CSV
+      - name: Safety net — commit any uncommitted CSV changes
+        if: always()
         run: |
           git config user.name  "Booking Window Bot"
           git config user.email "bot@bookingwindow.co.uk"
-          git add _data/markwarner_prices.csv
-          git diff --staged --quiet || git commit -m "Mark Warner price update $(date -u +'%Y-%m-%d %H:%M UTC')"
+          git add _data/prices_markwarner.csv
+          git diff --staged --quiet || git commit -m "Mark Warner safety-net commit $(date -u +'%Y-%m-%d %H:%M UTC')"
           git pull --rebase origin main
           git push

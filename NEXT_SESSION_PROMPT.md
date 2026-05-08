@@ -15,7 +15,7 @@ Then read `PLAN.md` for the full task list.
 - **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS live and enforced.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
-- **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
+- **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/prices_markwarner.csv`
 - **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
 - **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
 - **Sandals prices:** `_data/prices_sandals.csv` — placeholder created (headers only); checker not yet built.
@@ -104,6 +104,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-06 — **HTML generation decoupled from price checker** — price checker is CSV-only; `build_site.yml` owns all HTML rebuilds (commit 711f8c7)
 - 2026-05-07 — **Mark Warner async rewrite** — Full async rewrite of `markwarner_checker.py`: aiohttp + asyncio, Semaphore(8), per-resort git commits, 7 rotating User-Agents, 429 backoff, 3-attempt push retry with exponential backoff (2s/4s/8s). `--verify` confirmed £1,658 for 2026-12-06. (commit eaccfd2)
 - 2026-05-07 — **`markwarner_checker.yml` fix** — timeout 180→60 min, aiohttp added to pip install, safety-net commit path corrected to `_data/prices_markwarner.csv`, HTML commit step removed. (commit 3f10acf)
+- 2026-05-07 — **Saturday copy fix completed** — All 5 remaining "Saturday" departure references in `clubmed/index.html` updated to "Sunday": alert form note, How It Works body, modal subtitle, search modal rows label, JS comment. (commit 4701ea0)
+- 2026-05-08 — **Jekyll Pages build failure fixed** — Root cause: Python `csv.DictWriter` default `lineterminator='\r\n'` wrote CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF. Fix applied: (1) stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4); (2) added `lineterminator='\n'` to `csv.DictWriter` in both checkers to prevent recurrence (commit c2f6020). Pages build `25541486848` confirmed passing.
+- 2026-05-08 — **Price checker safety net hardened** — `price_checker.yml` safety net step now uses explicit `git pull --rebase origin main` and `git push origin main` instead of bare commands. Bare `git push` failed with exit code 128 in run #24. (commit c2f6020)
 
 ---
 
@@ -111,8 +114,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 
 ⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts. **Target go-live: end of May 2026 (approx 2026-05-31).**
 
-### 🔴 NEXT — Bug fixes
-1. **Fix remaining 3 "Saturday" copy errors in `clubmed/index.html`** — alert form, How It Works body, and modal subtitle still say "Saturday" instead of "Sunday departure". The departure day copy fix (e87cbb2) was partial.
+### 🔴 NEXT — Monitor data collection reliability
+1. **Verify 7 consecutive days of clean data** — Site cannot go live until Club Med checker runs cleanly for 7 consecutive days across all 11 resorts. Check that the CRLF fix (c2f6020) has resolved any ongoing Pages build issues and that today's checker run succeeds without the safety-net step failing.
 
 ### Content (paused until site is back live)
 2. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.

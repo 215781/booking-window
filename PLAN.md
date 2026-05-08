@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-06 (CSV architecture 8236d90 + 4718bc5 + 711f8c7 — price_history.csv → prices_clubmed.csv, build_site.yml, HTML generation decoupled)
+Last updated: 2026-05-08 (Jekyll CRLF fix 2558ac4 + c2f6020 — Pages build restored; Saturday copy fix 4701ea0)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -17,7 +17,6 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 
 **Do not restore the site until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.**
 **Target go-live: end of May 2026 (approx 2026-05-31) — site staying offline to accumulate clean data.**
-**Next priority: Fix 3 remaining "Saturday" copy errors in clubmed/index.html (alert form, How It Works body, modal subtitle).**
 
 ---
 
@@ -41,7 +40,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
-- [ ] **Fix remaining 3 Saturday references in `clubmed/index.html`** — Alert form, How It Works section, and modal subtitle still say "Saturday" instead of "Sunday". The departure day copy fix (e87cbb2) was partial.
+- [x] **Fix remaining Saturday references in `clubmed/index.html`** — All 5 remaining "Saturday" departure references updated to "Sunday": alert form note, How It Works body, modal subtitle, search modal rows label, JS comment (commit 4701ea0) — 2026-05-07
 - [x] **Grand Massif + Serre-Chevalier departure_day** — departure_day fixed to Sunday (6) in async rewrite (commit 927784b). — 2026-05-06
 
 ### 🔴 HIGH PRIORITY — Agent coordination
@@ -158,5 +157,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **CSV architecture: `price_history.csv` → `prices_clubmed.csv`** — renamed with operator-specific naming convention; placeholder CSVs for Mark Warner and Sandals created (headers only); `clubmed_checker.py` updated (commit 8236d90) — 2026-05-06
 - [x] **`build_site.yml` created** — dedicated HTML regeneration workflow triggered by `_data/prices_*.csv` changes; runs `--inject-only`; concurrency-queued (commit 4718bc5) — 2026-05-06
 - [x] **HTML generation decoupled from price checker** — price checker writes CSV only; `build_site.yml` owns HTML rebuild; removed HTML commit step from `price_checker.yml` and checker (commit 711f8c7) — 2026-05-06
+- [x] **Jekyll Pages build failure fixed** — Root cause: `csv.DictWriter` default `lineterminator='\r\n'` was writing Windows-style CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF in unquoted fields. Fix: stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4), added `lineterminator='\n'` to `csv.DictWriter` in both `clubmed_checker.py` and `markwarner_checker.py` (commit c2f6020). Pages build confirmed passing. — 2026-05-08
+- [x] **Price checker safety net made explicit** — `price_checker.yml` safety net step changed from bare `git pull --rebase` / `git push` to `git pull --rebase origin main` / `git push origin main` to prevent ambiguous-ref failures (commit c2f6020) — 2026-05-08
 </content>
 </invoke>

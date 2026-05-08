@@ -215,7 +215,7 @@ def log_to_csv(rows, test_mode=False):
         return
     file_exists = Path(CSV_FILE).exists()
     with open(CSV_FILE, "a", newline="") as f:
-        writer = csv.DictWriter(f, fieldnames=CSV_HEADERS)
+        writer = csv.DictWriter(f, fieldnames=CSV_HEADERS, lineterminator='\n')
         if not file_exists:
             writer.writeheader()
         writer.writerows(rows)

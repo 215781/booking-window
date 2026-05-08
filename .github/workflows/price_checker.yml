@@ -44,5 +44,5 @@ jobs:
           git config user.email "bot@bookingwindow.co.uk"
           git add _data/prices_clubmed.csv
           git diff --staged --quiet || git commit -m "Price update $(date -u +'%Y-%m-%d %H:%M UTC')"
-          git pull --rebase
-          git push
+          git pull --rebase origin main
+          git push origin main

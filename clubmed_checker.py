@@ -578,6 +578,47 @@ def git_setup():
     _run_git("git config user.name 'Booking Window Bot'")
     _run_git("git config user.email 'bot@bookingwindow.co.uk'")
 
+
+def git_push_with_retry(label, max_attempts=3):
+    """Pull then push. Uses GITHUB_TOKEN (HTTPS) if in Actions, else SSH key."""
+    token = os.environ.get('GITHUB_TOKEN')
+    if token:
+        result = subprocess.run(
+            ['git', 'remote', 'get-url', 'origin'],
+            capture_output=True, text=True
+        )
+        remote_url = result.stdout.strip()
+        if remote_url.startswith('git@github.com:'):
+            repo_path = remote_url.replace('git@github.com:', '')
+            remote_url = f'https://x-access-token:{token}@github.com/{repo_path}'
+        elif 'github.com' in remote_url and not remote_url.startswith('https://x-access-token'):
+            remote_url = remote_url.replace('https://', f'https://x-access-token:{token}@')
+        push_target = remote_url
+        push_env = os.environ.copy()
+    else:
+        push_target = 'origin'
+        push_env = os.environ.copy()
+        if os.path.exists(_SSH_KEY):
+            push_env['GIT_SSH_COMMAND'] = f'ssh -i {_SSH_KEY} -o StrictHostKeyChecking=no'
+
+    for attempt in range(1, max_attempts + 1):
+        subprocess.run(
+            ['git', 'pull', '--rebase', push_target, 'main'],
+            capture_output=True, env=push_env
+        )
+        result = subprocess.run(
+            ['git', 'push', push_target, 'main'],
+            capture_output=True, text=True, env=push_env
+        )
+        if result.returncode == 0:
+            return True
+        err = result.stderr.strip()
+        print(f"  [{label}] Push attempt {attempt}/{max_attempts} failed: {err[:120]}")
+        if attempt < max_attempts:
+            time.sleep(2 ** attempt + random.uniform(0, 1))
+    return False
+
+
 def git_commit_resort(resort_code, run_date, retries=3):
     """Atomically commit and push CSV rows for one resort. Retries on push failure."""
     date_str   = run_date.isoformat()
@@ -597,18 +638,10 @@ def git_commit_resort(resort_code, run_date, retries=3):
             print(f"  [{resort_code}] git commit failed: {err}")
         return
 
-    for attempt in range(1, retries + 1):
-        _run_git("git pull --rebase origin main")
-        rc, _, err = _run_git("git push origin main")
-        if rc == 0:
-            print(f"  [{resort_code}] Pushed: {commit_msg}")
-            return
-        print(f"  [{resort_code}] Push failed (attempt {attempt}/{retries}): {err[:120]}")
-        if attempt < retries:
-            wait = (2 ** attempt) + random.uniform(0, 1)
-            time.sleep(wait)
-
-    print(f"  [{resort_code}] All push retries exhausted — data saved locally, run continues")
+    if git_push_with_retry(resort_code, retries):
+        print(f"  [{resort_code}] Pushed: {commit_msg}")
+    else:
+        print(f"  [{resort_code}] All push retries exhausted — data saved locally, run continues")
 
 # ─────────────────────────────────────────────────────────────
 # ASYNC RESORT PROCESSING

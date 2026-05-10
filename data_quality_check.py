@@ -11,7 +11,7 @@ from collections import defaultdict
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
-CSV_PATH = Path("_data/price_history.csv")
+CSV_PATH = Path("_data/prices_clubmed.csv")
 LOG_PATH = Path("AGENT_LOG.md")
 
 PLACEHOLDER_THRESHOLD = 10   # same price >N times in one resort+run = placeholder signal

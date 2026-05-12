@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-08 (Jekyll CRLF fix 2558ac4 + c2f6020 — Pages build restored; Saturday copy fix 4701ea0)
+Last updated: 2026-05-12 (Club Med summer checker built — 7 resort codes verified, checker + workflow live on PR)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -97,7 +97,11 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [ ] **Flexible duration support (7 / 10 / 14 nights)** — DESIGN CONSTRAINT for summer resorts and multi-operator expansion. When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. The homepage display stays 7-night for comparability, but the raw CSV should capture all durations. Checker config per resort must use a `durations` parameter array (e.g. `durations: [7]` today, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not add this to existing winter Club Med checker without user instruction. Noted 2026-05-06.
 
 ### Summer resort expansion
-- [ ] **Phase 1: European summer resorts** — add 5–7 resorts: Magna Marbella (code `MMAC` — already verified), Cefalù, Gregolimano, Palmiye, Marrakech La Palmeraie, Da Balaia, La Palmyre. Requires: resort code discovery via DevTools, checker update, UI ski/beach toggle, date range update. Target: before Oct 2026 summer booking window. (See IMPROVEMENT_PLAN.md)
+- [x] **Phase 1: Club Med summer checker** — `clubmed_summer_checker.py` built; all 7 resort codes verified via GraphQL API (productId cross-check). Codes: `MMAC` (Magna Marbella), `CFAC` (Cefalù), `GREC` (Gregolimano), `PALC` (Palmiye), `DBAC` (Da Balaia), `LPAC` (La Palmyre Atlantique), `MPAC` (Marrakech La Palmeraie — year-round). 17 Saturday departures June–September 2026, 2A accommodation-only, price per person. Workflow at 07:30 UTC. `_data/prices_clubmed_summer.csv` created. --verify confirmed £1,959 pp for MMAC Jul 4. PR open, pending merge + first workflow_dispatch run. — 2026-05-12
+- [ ] **Phase 1 follow-up: summer tracker UI** — build `clubmed/summer.html` (or ski/beach toggle on existing page) once ~1 month of summer price data is collected. Ski/beach toggle or separate URL. Target: July 2026.
+- [ ] **Phase 1 follow-up: bonus resort codes found** — `PCAC` (year-round, possibly Punta Cana) and `LAPC` (year-round, possibly La Plantation d'Albion/Mauritius) confirmed real via API. Add to Phase 2/3 scope.
+- [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana (`PCAC` confirmed), Les Boucaniers. (after Phase 1 stable)
+- [ ] **Phase 3: Indian Ocean + Asia** — La Plantation d'Albion/Mauritius (`LAPC` confirmed), Maldives, Phuket. (after Phase 2 stable)
 - [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana, Les Boucaniers. (after Phase 1 stable)
 - [ ] **Phase 3: Indian Ocean + Asia** — Maldives, Mauritius, Phuket, Bali. (after Phase 2 stable)
 - [ ] **Phase 4: Remaining ski resorts** — Pragelato Sestriere (Italy), Saint-Moritz Roi Soleil (Switzerland). (low priority — small incremental value over existing 11)
@@ -159,5 +163,6 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **HTML generation decoupled from price checker** — price checker writes CSV only; `build_site.yml` owns HTML rebuild; removed HTML commit step from `price_checker.yml` and checker (commit 711f8c7) — 2026-05-06
 - [x] **Jekyll Pages build failure fixed** — Root cause: `csv.DictWriter` default `lineterminator='\r\n'` was writing Windows-style CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF in unquoted fields. Fix: stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4), added `lineterminator='\n'` to `csv.DictWriter` in both `clubmed_checker.py` and `markwarner_checker.py` (commit c2f6020). Pages build confirmed passing. — 2026-05-08
 - [x] **Price checker safety net made explicit** — `price_checker.yml` safety net step changed from bare `git pull --rebase` / `git push` to `git pull --rebase origin main` / `git push origin main` to prevent ambiguous-ref failures (commit c2f6020) — 2026-05-08
+- [x] **Club Med summer checker built** — `clubmed_summer_checker.py` + `.github/workflows/clubmed_summer_checker.yml` + `_data/prices_clubmed_summer.csv`. All 7 resort codes discovered and verified via GraphQL productId cross-check: MMAC, CFAC, GREC, PALC, DBAC, LPAC, MPAC. Async pattern, GITHUB_TOKEN push, 07:30 UTC cron. --verify: £3,918 / £1,959 pp for MMAC. (commits fecca10, 03f1d1e, 2ea10e5 — PR pending merge) — 2026-05-12
 </content>
 </invoke>

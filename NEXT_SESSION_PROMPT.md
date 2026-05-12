@@ -16,8 +16,10 @@ Then read `PLAN.md` for the full task list.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/prices_markwarner.csv`
+- **Summer checker:** `clubmed_summer_checker.py` — 9 summer resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. No HTML page yet — data collection only.
 - **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
 - **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
+- **Summer prices:** `_data/prices_clubmed_summer.csv` — initialised 2026-05-12 with full headers; daily checker writes here from 07:30 UTC. Append-only.
 - **Sandals prices:** `_data/prices_sandals.csv` — placeholder created (headers only); checker not yet built.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
@@ -107,6 +109,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-07 — **Saturday copy fix completed** — All 5 remaining "Saturday" departure references in `clubmed/index.html` updated to "Sunday": alert form note, How It Works body, modal subtitle, search modal rows label, JS comment. (commit 4701ea0)
 - 2026-05-08 — **Jekyll Pages build failure fixed** — Root cause: Python `csv.DictWriter` default `lineterminator='\r\n'` wrote CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF. Fix applied: (1) stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4); (2) added `lineterminator='\n'` to `csv.DictWriter` in both checkers to prevent recurrence (commit c2f6020). Pages build `25541486848` confirmed passing.
 - 2026-05-08 — **Price checker safety net hardened** — `price_checker.yml` safety net step now uses explicit `git pull --rebase origin main` and `git push origin main` instead of bare commands. Bare `git push` failed with exit code 128 in run #24. (commit c2f6020)
+- 2026-05-12 — **Club Med summer price checker built** — `clubmed_summer_checker.py`, `.github/workflows/clubmed_summer_checker.yml` (07:30 UTC daily), `_data/prices_clubmed_summer.csv` (header-only). 9 resort codes confirmed via GraphQL productId probe: `GREC` Gregolimano (Greece), `MMAC` Magna Marbella (Spain), `DBAC` Da Balaia (Portugal), `CARC` La Caravelle (Corsica), `LAPC` La Palmyre Atlantique (France), `LPAC` La Palmyre (France), `PALC` La Palmeraie (Marrakech), `TURC` Palmiye (Turkey), `AGAC` Agadir (Morocco). `--verify` confirmed £3,918 MMAC. Cefalù not found — CEFC/CEFX/CEFS all return the ARPC_WINTER placeholder (invalid). (commits 346d391, effbf4e, 808724b)
 
 ---
 
@@ -123,8 +126,11 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 ### Post-launch (plan now, execute at go-live)
 3. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent to run Content Writer and auto-publish 2 posts per week. User decision: 2026-05-06.
 
+### Summer tracker UI (next summer task)
+4. **Build `clubmed_summer/index.html`** — Summer resort tracker page. Add `--inject-only` to `clubmed_summer_checker.py` and update `build_site.yml` to also run summer inject. Verify resort names LAPC/LPAC/PALC/TURC against Club Med UK website before going live — they're confirmed-valid productIds but names are best-guesses from probing. Consider a ski/beach toggle on the root site vs a separate `/summer` URL.
+
 ### Design constraint (for future operators / summer expansion)
-> **Flexible duration support (7 / 10 / 14 nights):** When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. Homepage display stays 7-night for comparability; raw CSV captures all durations. Checker config per resort must use a `durations` array (e.g. `durations: [7]` now, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not apply to existing winter Club Med checker without user instruction.
+> **Flexible duration support (7 / 10 / 14 nights):** Summer checker currently queries 7-night durations only. When summer tracker UI is built, consider expanding to `durations: [7, 10, 14]` per the design constraint in PLAN.md. Do not apply to existing winter Club Med checker without user instruction.
 
 ---
 
@@ -238,9 +244,11 @@ index.html                  — Root brand landing page
 WhentoBook.html             — Redirect to /clubmed
 clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
 markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
+clubmed_summer_checker.py   — Summer resort price checker (flags: --test, --verify); 9 resorts, June–Sep 2026
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
 _data/prices_clubmed.csv    — Club Med price log (~9,000+ rows, append-only; renamed from price_history.csv)
 _data/prices_markwarner.csv — Mark Warner price log (placeholder; daily runs active, append-only)
+_data/prices_clubmed_summer.csv — Summer resort price log (initialised 2026-05-12; daily runs from 07:30 UTC)
 _data/prices_sandals.csv    — Sandals price log (placeholder; checker not yet built)
 vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/

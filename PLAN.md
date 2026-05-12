@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-08 (Jekyll CRLF fix 2558ac4 + c2f6020 — Pages build restored; Saturday copy fix 4701ea0)
+Last updated: 2026-05-12 (Club Med summer price checker built — clubmed_summer_checker.py, workflow, CSV placeholder)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -97,7 +97,8 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [ ] **Flexible duration support (7 / 10 / 14 nights)** — DESIGN CONSTRAINT for summer resorts and multi-operator expansion. When adding summer Club Med resorts or new operators (Mark Warner, Sandals), the checker must query all relevant durations. The homepage display stays 7-night for comparability, but the raw CSV should capture all durations. Checker config per resort must use a `durations` parameter array (e.g. `durations: [7]` today, `durations: [7, 10, 14]` for summer operators) rather than hardcoding 7. Do not add this to existing winter Club Med checker without user instruction. Noted 2026-05-06.
 
 ### Summer resort expansion
-- [ ] **Phase 1: European summer resorts** — add 5–7 resorts: Magna Marbella (code `MMAC` — already verified), Cefalù, Gregolimano, Palmiye, Marrakech La Palmeraie, Da Balaia, La Palmyre. Requires: resort code discovery via DevTools, checker update, UI ski/beach toggle, date range update. Target: before Oct 2026 summer booking window. (See IMPROVEMENT_PLAN.md)
+- [x] **Phase 1a: Summer data collection infrastructure** — `clubmed_summer_checker.py` built, 9 resort codes confirmed via GraphQL productId probe (May 2026): `GREC` Gregolimano, `MMAC` Magna Marbella, `DBAC` Da Balaia, `CARC` La Caravelle (Corsica), `LAPC` La Palmyre Atlantique, `LPAC` La Palmyre, `PALC` La Palmeraie (Marrakech), `TURC` Palmiye (Turkey), `AGAC` Agadir. GitHub Actions workflow at 07:30 UTC daily. `_data/prices_clubmed_summer.csv` initialised. `--verify` confirmed MMAC £3,918. Note: Cefalù (Sicily) codes not found — all variants returned ARPC_WINTER placeholder. (commits 346d391, effbf4e, 808724b) — 2026-05-12
+- [ ] **Phase 1b: Summer tracker UI** — Build `clubmed_summer/index.html` tracker page for summer resorts. Requires: ski/beach toggle or separate page at `/summer`, inject-only mode added to `clubmed_summer_checker.py`, `build_site.yml` updated to also run summer inject. Target: summer 2026 (resorts are bookable now). Note: resort names LAPC/LPAC/PALC/TURC are best-guess — verify against Club Med UK website before going live. (See IMPROVEMENT_PLAN.md)
 - [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana, Les Boucaniers. (after Phase 1 stable)
 - [ ] **Phase 3: Indian Ocean + Asia** — Maldives, Mauritius, Phuket, Bali. (after Phase 2 stable)
 - [ ] **Phase 4: Remaining ski resorts** — Pragelato Sestriere (Italy), Saint-Moritz Roi Soleil (Switzerland). (low priority — small incremental value over existing 11)
@@ -159,5 +160,6 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **HTML generation decoupled from price checker** — price checker writes CSV only; `build_site.yml` owns HTML rebuild; removed HTML commit step from `price_checker.yml` and checker (commit 711f8c7) — 2026-05-06
 - [x] **Jekyll Pages build failure fixed** — Root cause: `csv.DictWriter` default `lineterminator='\r\n'` was writing Windows-style CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF in unquoted fields. Fix: stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4), added `lineterminator='\n'` to `csv.DictWriter` in both `clubmed_checker.py` and `markwarner_checker.py` (commit c2f6020). Pages build confirmed passing. — 2026-05-08
 - [x] **Price checker safety net made explicit** — `price_checker.yml` safety net step changed from bare `git pull --rebase` / `git push` to `git pull --rebase origin main` / `git push origin main` to prevent ambiguous-ref failures (commit c2f6020) — 2026-05-08
+- [x] **Club Med summer price checker built** — `clubmed_summer_checker.py` (aiohttp/asyncio, Semaphore(8), same architecture as winter checker), `.github/workflows/clubmed_summer_checker.yml` (07:30 UTC daily, 60-min timeout), `_data/prices_clubmed_summer.csv` (header-only placeholder). 9 resort codes confirmed via GraphQL productId probe. `--verify` confirmed £3,918 for MMAC. Cefalù not found — all CEFC/CEFX/etc codes return ARPC_WINTER placeholder. (commits 346d391, effbf4e, 808724b) — 2026-05-12
 </content>
 </invoke>

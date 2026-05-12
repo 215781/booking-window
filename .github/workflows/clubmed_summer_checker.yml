@@ -1,0 +1,45 @@
+name: Club Med Summer Price Checker
+
+on:
+  schedule:
+    - cron: "30 7 * * *"   # 07:30 UTC daily — 90 min after winter checker to avoid overlap
+  workflow_dispatch:         # manual trigger available from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  check-summer-prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30      # 7 resorts × 18 dates = 126 calls; async finishes in <10 min
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install aiohttp
+
+      - name: Run summer price checker
+        env:
+          GMAIL_ADDRESS:  ${{ secrets.GMAIL_ADDRESS }}
+          GMAIL_APP_PASS: ${{ secrets.GMAIL_APP_PASS }}
+          ALERT_TO:       ${{ secrets.ALERT_TO }}
+          GITHUB_TOKEN:   ${{ secrets.GITHUB_TOKEN }}
+        run: python clubmed_summer_checker.py
+
+      - name: Commit updated CSV (safety net)
+        # Per-resort commits happen inside the checker; this catches anything that slipped through.
+        if: always()
+        run: |
+          git config user.name  "Booking Window Bot"
+          git config user.email "bot@bookingwindow.co.uk"
+          git pull --rebase origin main || true
+          git add _data/prices_clubmed_summer.csv
+          git diff --staged --quiet || git commit -m "data: club med summer prices $(date +%Y-%m-%d) [safety net]"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main || true

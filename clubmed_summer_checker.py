@@ -146,6 +146,13 @@ RESORTS = [
         "bookingUrl":    "https://www.clubmed.co.uk/r/agadir",
         "departure_day": None,
     },
+    {
+        "id":            "kani",
+        "name":          "Kani",
+        "resortCode":    "KANC",           # confirmed May 2026 — Maldives
+        "bookingUrl":    "https://www.clubmed.co.uk/r/kani",
+        "departure_day": None,
+    },
 ]
 
 # Pre-compute windows per resort
@@ -482,13 +489,13 @@ async def process_resort(session, semaphore, resort, historical_stats, timestamp
     rid   = resort["id"]
     rcode = resort["resortCode"]
     rname = resort["name"]
-    total_queries = len(resort["combos"]) * len(resort["windows"])
+    total_queries = len(_COMBOS) * len(resort["windows"])
 
     print(f"\n[{rname} / {rcode}] Starting {total_queries} queries (semaphore=8)...")
 
     task_meta = []
     tasks = []
-    for combo in resort["combos"]:
+    for combo in _COMBOS:
         for window in resort["windows"]:
             task_meta.append((combo, window))
             tasks.append(fetch_price_async(

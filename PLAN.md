@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-17 (go-live; signal-first resort cards; article 3; Kani resort added to summer checker; combos crash bug fixed)
+Last updated: 2026-05-17 (go-live; signal-first cards; articles 3–7; summer tracker /summer live; inject-only for summer checker)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -98,7 +98,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ### Summer resort expansion
 - [x] **Phase 1a: Summer data collection infrastructure** — `clubmed_summer_checker.py` built, 9 resort codes confirmed via GraphQL productId probe (May 2026): `GREC` Gregolimano, `MMAC` Magna Marbella, `DBAC` Da Balaia, `CARC` La Caravelle (Corsica), `LAPC` La Palmyre Atlantique, `LPAC` La Palmyre, `PALC` La Palmeraie (Marrakech), `TURC` Palmiye (Turkey), `AGAC` Agadir. GitHub Actions workflow at 07:30 UTC daily. `_data/prices_clubmed_summer.csv` initialised. `--verify` confirmed MMAC £3,918. Note: Cefalù (Sicily) codes not found — all variants returned ARPC_WINTER placeholder. (commits 346d391, effbf4e, 808724b) — 2026-05-12
 - [x] **Summer checker: Kani Maldives added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe 2026-05-17 and added to RESORTS dict (10 total). Fixed `resort["combos"]` KeyError bug — `_COMBOS` global was never assigned to resort dict; replaced all references in `process_resort` with `_COMBOS` direct (would have crashed on first run). (commit 7fc1677) — 2026-05-17
-- [ ] **Phase 1b: Summer tracker UI** — Build `clubmed_summer/index.html` tracker page for summer resorts. Requires: ski/beach toggle or separate page at `/summer`, inject-only mode added to `clubmed_summer_checker.py`, `build_site.yml` updated to also run summer inject. Target: summer 2026 (resorts are bookable now). Note: resort names LAPC/LPAC/PALC/TURC are best-guess — verify against Club Med UK website before going live. (See IMPROVEMENT_PLAN.md)
+- [x] **Phase 1b: Summer tracker UI** — `summer/index.html` live at `whentobook.co.uk/summer`. 10-resort card grid (party-size filter, signal-first layout, empty-state notice, Kit alert signup). `--inject-only` added to `clubmed_summer_checker.py`. `build_site.yml` updated to rebuild both winter + summer HTML on CSV changes. Root `index.html` updated with Summer tracker card. Winter nav updated with Summer link. (commit 1d784e3) — 2026-05-17
 - [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana, Les Boucaniers. (after Phase 1 stable)
 - [ ] **Phase 3: Indian Ocean + Asia** — Maldives, Mauritius, Phuket, Bali. (after Phase 2 stable)
 - [ ] **Phase 4: Remaining ski resorts** — Pragelato Sestriere (Italy), Saint-Moritz Roi Soleil (Switzerland). (low priority — small incremental value over existing 11)
@@ -165,5 +165,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Resort cards lead with price movement signal** — movementHTML moved above card-price; % change added (e.g. ↓ £438 (−9%) in 14 days). Signal-first layout. (commit 34a74c0) — 2026-05-17
 - [x] **Article 3 published** — "Is Club Med Ski Worth the Money? An Honest Assessment" at `_posts/2026-05-17-is-club-med-ski-worth-it.md`. ~1,100 words, target `is Club Med ski worth it`, UK English, CTA to /clubmed, internal links to articles 1+2, sitemap updated. (commit 0cf9154) — 2026-05-17
 - [x] **Summer checker: Kani (KANC) added + combos crash bug fixed** — KANC confirmed via GraphQL productId probe; added to RESORTS (10 total). Fixed `resort["combos"]` KeyError in `process_resort`. (commit 7fc1677) — 2026-05-17
+- [x] **Articles 4–7 published** — Per-resort guides using live price data: Val d'Isère (commit 809f0bf), Tignes + Les Arcs (commit 3a6a5b4), Alpe d'Huez (commit 3f07025). Each ~900–1,100 words, live price tables, seasonal value windows, sitemap updated. Blog now has 7 articles total. — 2026-05-17
+- [x] **Summer tracker launched at /summer** — `summer/index.html` live: 10 summer resort cards, party-size filter, Kit alert signup, empty-state notice. `--inject-only` added to summer checker. `build_site.yml` rebuilds both trackers. Root landing page + winter nav updated. (commit 1d784e3) — 2026-05-17
 </content>
 </invoke>

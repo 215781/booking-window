@@ -16,7 +16,8 @@ Then read `PLAN.md` for the full task list.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/prices_markwarner.csv`
-- **Summer checker:** `clubmed_summer_checker.py` — 10 summer resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC, KANC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. No HTML page yet — data collection only. KANC = Kani Maldives (confirmed 2026-05-17). Critical `resort["combos"]` crash bug fixed (commit 7fc1677).
+- **Summer checker:** `clubmed_summer_checker.py` — 10 resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC, KANC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. Supports `--inject-only` to rebuild `summer/index.html`. KANC = Kani Maldives. `resort["combos"]` crash bug fixed 2026-05-17 — first real data expected 2026-05-18.
+- **Summer tracker:** `summer/index.html` — live at `whentobook.co.uk/summer`. 10-resort card grid, party-size filter, Kit alert CTA. Rebuilt by `build_site.yml` when `prices_clubmed_summer.csv` changes.
 - **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
 - **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
 - **Summer prices:** `_data/prices_clubmed_summer.csv` — initialised 2026-05-12 with full headers; daily checker writes here from 07:30 UTC. Append-only.
@@ -114,24 +115,27 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-17 — **Resort cards lead with price movement signal** — movementHTML moved above card-price; % change added to movement display (e.g. ↓ £438 (−9%) in 14 days). Signal-first layout aligned with booking-intelligence positioning. (commit 34a74c0)
 - 2026-05-17 — **Article 3 published** — "Is Club Med Ski Worth the Money? An Honest Assessment" at `_posts/2026-05-17-is-club-med-ski-worth-it.md`. ~1,100 words, target keyword `is Club Med ski worth it`, UK English, covers package vs DIY + timing angle, CTA to tracker, internal links to articles 1+2, sitemap updated. (commit 0cf9154)
 - 2026-05-17 — **Summer checker: Kani (KANC) added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe and added to RESORTS dict (10 total). Fixed critical bug: `resort["combos"]` was never set in RESORTS config — would have caused KeyError on first run. Replaced all `resort["combos"]` references in `process_resort` with global `_COMBOS`. (commit 7fc1677)
+- 2026-05-17 — **Articles 4–7 published** — Per-resort guides using live price data: "Best Time to Book Club Med Val d'Isère" (£3,150–£13,608 data), "Best Time to Book Club Med Tignes" (£2,760–£8,830), "Best Time to Book Club Med Les Arcs" (£2,874–£7,304), "Best Time to Book Club Med Alpe d'Huez" (unusual Mar 21 spike £8,480 documented). Blog now has 7 articles total. (commits 809f0bf, 3a6a5b4, 3f07025)
+- 2026-05-17 — **Summer tracker launched at `/summer`** — `summer/index.html`: 10-resort card grid, party-size filter, signal-first layout, Kit email alert CTA, empty-state handling. `--inject-only` added to `clubmed_summer_checker.py`. `build_site.yml` now rebuilds both winter + summer HTML when any `prices_*.csv` changes. Root `index.html` updated with Summer tracker card (Live). Winter nav updated with Summer link. (commit 1d784e3)
 
 ---
 
 ## Up Next (priority order)
 
-✅ **Site is LIVE** — went live 2026-05-17 (commit 859fe56). All 4 session tasks completed.
+✅ **Site is LIVE** — went live 2026-05-17 (commit 859fe56). Both ski and summer trackers live.
+✅ **Blog has 7 articles** — per-resort guides for Val d'Isère, Tignes, Les Arcs, Alpe d'Huez now live.
+✅ **Summer tracker live at `/summer`** — 10 resorts, inject-only pipeline wired up.
 
 ### 🔴 NEXT — Post-launch content & growth
-1. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent (via `anthropic-skills:schedule`) to run Content Writer and auto-publish 2 posts per week. User confirmed interest in this on 2026-05-06.
+1. **Remaining per-resort articles** — CONTENT_WRITER.md priority list: La Plagne data is flat (£2,874–£3,322, low variation — defer until more price movement observed). Next targets: Valmorel, La Rosière, Val Thorens Sensations. Then Eurostar Snow article (timely — July 9 ticket sale).
 
-2. **Article 4 onwards** — Next keyword targets per CONTENT_WRITER.md: "best time to book Club Med [resort name]" (per-resort variants for Val d'Isère, La Plagne, Tignes, Les Arcs, Alpe d'Huez). High intent, per-resort articles rank well.
+2. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent (via `anthropic-skills:schedule`). User confirmed interest 2026-05-06. Now the blog has momentum, this is worth setting up.
 
-### Summer tracker UI
-3. **Build `clubmed_summer/index.html`** — Summer resort tracker page for 10 confirmed resorts (GREC/MMAC/DBAC/CARC/LAPC/LPAC/PALC/TURC/AGAC/KANC). Add `--inject-only` to `clubmed_summer_checker.py` and update `build_site.yml` to run summer inject. Verify resort names against Club Med UK before going live — productIds are confirmed but display names are best-guess. Consider `/summer` URL or ski/beach toggle.
+3. **Summer tracker first data** — Summer checker `combos` bug was fixed 2026-05-17 (commit 7fc1677). First successful data run expected at 07:30 UTC 2026-05-18. After a few days of data, summer cards will populate. Monitor `_data/prices_clubmed_summer.csv` for first rows.
 
-### Blog backlog
-4. **Create CONTENT_WRITER.md scheduled task** — already exists; set up automation.
-5. **Article 4** — "Best time to book Club Med Val d'Isère" — per-resort targeting.
+### Post-launch quick wins
+4. **Verify resort names for summer resorts** — LAPC/LPAC/PALC/TURC names were inferred from GraphQL codes. Verify against Club Med UK website before promoting summer tracker heavily.
+5. **Mobile responsiveness audit** — site uses CSS Grid with fixed columns; needs testing on mobile viewport.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** Summer checker currently queries 7-night durations only. When summer tracker UI is built, consider expanding to `durations: [7, 10, 14]` per the design constraint in PLAN.md. Do not apply to existing winter Club Med checker without user instruction.

@@ -7746,12 +7746,14 @@ function renderCards(partySize, resortFilter) {
     if (!dep) return; // resort has no price data yet — skip rather than crash
     const move = getPriceMovement(dep);
     const absDiff = Math.abs(move);
+    const pctChange = dep.previousPrice > 0 ? Math.round((absDiff / dep.previousPrice) * 100) : 0;
+    const pctStr = pctChange > 0 ? ` (${move < 0 ? '−' : '+'}${pctChange}%)` : '';
 
     let movementHTML;
     if (move < -10) {
-      movementHTML = `<span class="price-movement price-down">↓ ${formatPrice(absDiff)} in 14 days</span>`;
+      movementHTML = `<span class="price-movement price-down">↓ ${formatPrice(absDiff)}${pctStr} in 14 days</span>`;
     } else if (move > 10) {
-      movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)} in 14 days</span>`;
+      movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)}${pctStr} in 14 days</span>`;
     } else {
       movementHTML = `<span class="price-movement price-stable">— Stable over 14 days</span>`;
     }
@@ -7773,9 +7775,9 @@ function renderCards(partySize, resortFilter) {
           ${getSignalBadgeHTML(dep.signal)}
         </div>
         <p class="card-location">${resort.region} &middot; ${resort.altitude}</p>
+        ${movementHTML}
         <div class="card-price">${formatPrice(dep.currentPrice)}</div>
         <div class="card-price-label">per party &mdash; ${activeDuration} nights</div>
-        ${movementHTML}
         <div class="sparkline-wrap">${buildSparklineSVG(dep, dep.signal)}</div>
         ${(() => { const t = getTrend(dep); return t ? `<p class="dept-trend-label" style="margin-bottom:6px;">${t}</p>` : ''; })()}
         <p class="departure-date">Best signal — ${dep.displayDate}</p>

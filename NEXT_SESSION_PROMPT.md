@@ -16,8 +16,8 @@ Then read `PLAN.md` for the full task list.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/prices_markwarner.csv`
-- **Summer checker:** `clubmed_summer_checker.py` — 10 resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC, KANC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. Supports `--inject-only` to rebuild `summer/index.html`. KANC = Kani Maldives. `resort["combos"]` crash bug fixed 2026-05-17 — first real data expected 2026-05-18.
-- **Summer tracker:** `summer/index.html` — live at `whentobook.co.uk/summer`. 10-resort card grid, party-size filter, Kit alert CTA. Rebuilt by `build_site.yml` when `prices_clubmed_summer.csv` changes.
+- **Summer checker:** `clubmed_summer_checker.py` — 10 resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC, KANC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. Supports `--inject-only` to rebuild `clubmed/index.html` (injects `RESORT_DATA_SUMMER` block). KANC = Kani Maldives. `resort["combos"]` crash bug fixed 2026-05-17 — first real data expected 2026-05-18.
+- **Summer tracker:** Ski/Summer toggle in `clubmed/index.html` — live at `whentobook.co.uk/clubmed`. 10-resort card grid, party-size filter, Kit alert CTA. `summer/index.html` is a redirect to `/clubmed`. Rebuilt by `build_site.yml` when `prices_clubmed_summer.csv` changes (runs `--inject-only` on `clubmed/index.html`).
 - **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
 - **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
 - **Summer prices:** `_data/prices_clubmed_summer.csv` — initialised 2026-05-12 with full headers; daily checker writes here from 07:30 UTC. Append-only.
@@ -116,7 +116,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-17 — **Article 3 published** — "Is Club Med Ski Worth the Money? An Honest Assessment" at `_posts/2026-05-17-is-club-med-ski-worth-it.md`. ~1,100 words, target keyword `is Club Med ski worth it`, UK English, covers package vs DIY + timing angle, CTA to tracker, internal links to articles 1+2, sitemap updated. (commit 0cf9154)
 - 2026-05-17 — **Summer checker: Kani (KANC) added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe and added to RESORTS dict (10 total). Fixed critical bug: `resort["combos"]` was never set in RESORTS config — would have caused KeyError on first run. Replaced all `resort["combos"]` references in `process_resort` with global `_COMBOS`. (commit 7fc1677)
 - 2026-05-17 — **Articles 4–7 published** — Per-resort guides using live price data: "Best Time to Book Club Med Val d'Isère" (£3,150–£13,608 data), "Best Time to Book Club Med Tignes" (£2,760–£8,830), "Best Time to Book Club Med Les Arcs" (£2,874–£7,304), "Best Time to Book Club Med Alpe d'Huez" (unusual Mar 21 spike £8,480 documented). Blog now has 7 articles total. (commits 809f0bf, 3a6a5b4, 3f07025)
-- 2026-05-17 — **Summer tracker launched at `/summer`** — `summer/index.html`: 10-resort card grid, party-size filter, signal-first layout, Kit email alert CTA, empty-state handling. `--inject-only` added to `clubmed_summer_checker.py`. `build_site.yml` now rebuilds both winter + summer HTML when any `prices_*.csv` changes. Root `index.html` updated with Summer tracker card (Live). Winter nav updated with Summer link. (commit 1d784e3)
+- 2026-05-17 — **Summer tracker launched then consolidated** — Initially launched as `summer/index.html` (commit 1d784e3), then consolidated into `/clubmed` with a Ski/Summer toggle (commit d59b799). `RESORT_DATA_SUMMER` injectable block and `RESORT_GRADIENTS_SUMMER` added to `clubmed/index.html`. Summer checker (`clubmed_summer_checker.py`) now targets `clubmed/index.html`, injecting `RESORT_DATA_SUMMER`. `summer/index.html` is now a redirect to `/clubmed`. Root landing page consolidated to single Club Med card. `sitemap.xml` `/summer/` entry removed.
 
 ---
 
@@ -124,7 +124,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 
 ✅ **Site is LIVE** — went live 2026-05-17 (commit 859fe56). Both ski and summer trackers live.
 ✅ **Blog has 7 articles** — per-resort guides for Val d'Isère, Tignes, Les Arcs, Alpe d'Huez now live.
-✅ **Summer tracker live at `/summer`** — 10 resorts, inject-only pipeline wired up.
+✅ **Summer tracker consolidated into `/clubmed`** — Ski/Summer toggle at `/clubmed`. `RESORT_DATA_SUMMER` injectable block added. Summer checker injects into `clubmed/index.html`. `/summer` redirects to `/clubmed`. (commits 1d784e3, d59b799)
 
 ### 🔴 NEXT — Post-launch content & growth
 1. **Remaining per-resort articles** — CONTENT_WRITER.md priority list: La Plagne data is flat (£2,874–£3,322, low variation — defer until more price movement observed). Next targets: Valmorel, La Rosière, Val Thorens Sensations. Then Eurostar Snow article (timely — July 9 ticket sale).
@@ -252,7 +252,8 @@ index.html                  — Root brand landing page
 WhentoBook.html             — Redirect to /clubmed
 clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
 markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
-clubmed_summer_checker.py   — Summer resort price checker (flags: --test, --verify); 9 resorts, June–Sep 2026
+clubmed_summer_checker.py   — Summer resort price checker (flags: --test, --verify, --inject-only); 10 resorts; injects RESORT_DATA_SUMMER into clubmed/index.html
+summer/index.html           — Redirect to /clubmed (was tracker; now consolidated into clubmed/index.html Ski/Summer toggle)
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
 _data/prices_clubmed.csv    — Club Med price log (~9,000+ rows, append-only; renamed from price_history.csv)
 _data/prices_markwarner.csv — Mark Warner price log (placeholder; daily runs active, append-only)

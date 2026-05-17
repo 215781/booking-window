@@ -16,7 +16,7 @@ Then read `PLAN.md` for the full task list.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — async rewrite (aiohttp + asyncio, Semaphore(8), 15–20 min runtime). Runs daily at 06:00 UTC via GitHub Actions (60 min timeout). Writes to `_data/prices_clubmed.csv` only — HTML rebuild handled by `build_site.yml`.
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/prices_markwarner.csv`
-- **Summer checker:** `clubmed_summer_checker.py` — 9 summer resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. No HTML page yet — data collection only.
+- **Summer checker:** `clubmed_summer_checker.py` — 10 summer resort codes (GREC, MMAC, DBAC, CARC, LAPC, LPAC, PALC, TURC, AGAC, KANC), runs daily at 07:30 UTC, appends to `_data/prices_clubmed_summer.csv`. No HTML page yet — data collection only. KANC = Kani Maldives (confirmed 2026-05-17). Critical `resort["combos"]` crash bug fixed (commit 7fc1677).
 - **Price history:** `_data/prices_clubmed.csv` — renamed from `price_history.csv` (commit 8236d90). ~9,000+ rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
 - **Mark Warner prices:** `_data/prices_markwarner.csv` — placeholder created (headers only); daily checker writes here. Append-only.
 - **Summer prices:** `_data/prices_clubmed_summer.csv` — initialised 2026-05-12 with full headers; daily checker writes here from 07:30 UTC. Append-only.
@@ -110,24 +110,28 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-08 — **Jekyll Pages build failure fixed** — Root cause: Python `csv.DictWriter` default `lineterminator='\r\n'` wrote CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF. Fix applied: (1) stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4); (2) added `lineterminator='\n'` to `csv.DictWriter` in both checkers to prevent recurrence (commit c2f6020). Pages build `25541486848` confirmed passing.
 - 2026-05-08 — **Price checker safety net hardened** — `price_checker.yml` safety net step now uses explicit `git pull --rebase origin main` and `git push origin main` instead of bare commands. Bare `git push` failed with exit code 128 in run #24. (commit c2f6020)
 - 2026-05-12 — **Club Med summer price checker built** — `clubmed_summer_checker.py`, `.github/workflows/clubmed_summer_checker.yml` (07:30 UTC daily), `_data/prices_clubmed_summer.csv` (header-only). 9 resort codes confirmed via GraphQL productId probe: `GREC` Gregolimano (Greece), `MMAC` Magna Marbella (Spain), `DBAC` Da Balaia (Portugal), `CARC` La Caravelle (Corsica), `LAPC` La Palmyre Atlantique (France), `LPAC` La Palmyre (France), `PALC` La Palmeraie (Marrakech), `TURC` Palmiye (Turkey), `AGAC` Agadir (Morocco). `--verify` confirmed £3,918 MMAC. Cefalù not found — CEFC/CEFX/CEFS all return the ARPC_WINTER placeholder (invalid). (commits 346d391, effbf4e, 808724b)
+- 2026-05-17 — **Site went live** — Meta-refresh redirects removed from `index.html` and `clubmed/index.html`. whentobook.co.uk is live. (commit 859fe56)
+- 2026-05-17 — **Resort cards lead with price movement signal** — movementHTML moved above card-price; % change added to movement display (e.g. ↓ £438 (−9%) in 14 days). Signal-first layout aligned with booking-intelligence positioning. (commit 34a74c0)
+- 2026-05-17 — **Article 3 published** — "Is Club Med Ski Worth the Money? An Honest Assessment" at `_posts/2026-05-17-is-club-med-ski-worth-it.md`. ~1,100 words, target keyword `is Club Med ski worth it`, UK English, covers package vs DIY + timing angle, CTA to tracker, internal links to articles 1+2, sitemap updated. (commit 0cf9154)
+- 2026-05-17 — **Summer checker: Kani (KANC) added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe and added to RESORTS dict (10 total). Fixed critical bug: `resort["combos"]` was never set in RESORTS config — would have caused KeyError on first run. Replaced all `resort["combos"]` references in `process_resort` with global `_COMBOS`. (commit 7fc1677)
 
 ---
 
 ## Up Next (priority order)
 
-⚠️ **Site is OFFLINE (under construction page).** Do not restore until data collection is confirmed reliable for 7 consecutive days across all 11 resorts. **Target go-live: end of May 2026 (approx 2026-05-31).**
+✅ **Site is LIVE** — went live 2026-05-17 (commit 859fe56). All 4 session tasks completed.
 
-### 🔴 NEXT — Monitor data collection reliability
-1. **Verify 7 consecutive days of clean data** — Site cannot go live until Club Med checker runs cleanly for 7 consecutive days across all 11 resorts. Check that the CRLF fix (c2f6020) has resolved any ongoing Pages build issues and that today's checker run succeeds without the safety-net step failing.
+### 🔴 NEXT — Post-launch content & growth
+1. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent (via `anthropic-skills:schedule`) to run Content Writer and auto-publish 2 posts per week. User confirmed interest in this on 2026-05-06.
 
-### Content (paused until site is back live)
-2. **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Must go through Content Writer agent with keyword research before Builder publishes. Full brief in Blog article ideas section below. Do not publish while site is offline.
+2. **Article 4 onwards** — Next keyword targets per CONTENT_WRITER.md: "best time to book Club Med [resort name]" (per-resort variants for Val d'Isère, La Plagne, Tignes, Les Arcs, Alpe d'Huez). High intent, per-resort articles rank well.
 
-### Post-launch (plan now, execute at go-live)
-3. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent to run Content Writer and auto-publish 2 posts per week. User decision: 2026-05-06.
+### Summer tracker UI
+3. **Build `clubmed_summer/index.html`** — Summer resort tracker page for 10 confirmed resorts (GREC/MMAC/DBAC/CARC/LAPC/LPAC/PALC/TURC/AGAC/KANC). Add `--inject-only` to `clubmed_summer_checker.py` and update `build_site.yml` to run summer inject. Verify resort names against Club Med UK before going live — productIds are confirmed but display names are best-guess. Consider `/summer` URL or ski/beach toggle.
 
-### Summer tracker UI (next summer task)
-4. **Build `clubmed_summer/index.html`** — Summer resort tracker page. Add `--inject-only` to `clubmed_summer_checker.py` and update `build_site.yml` to also run summer inject. Verify resort names LAPC/LPAC/PALC/TURC against Club Med UK website before going live — they're confirmed-valid productIds but names are best-guesses from probing. Consider a ski/beach toggle on the root site vs a separate `/summer` URL.
+### Blog backlog
+4. **Create CONTENT_WRITER.md scheduled task** — already exists; set up automation.
+5. **Article 4** — "Best time to book Club Med Val d'Isère" — per-resort targeting.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** Summer checker currently queries 7-night durations only. When summer tracker UI is built, consider expanding to `durations: [7, 10, 14]` per the design constraint in PLAN.md. Do not apply to existing winter Club Med checker without user instruction.

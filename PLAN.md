@@ -2,21 +2,19 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-12 (Club Med summer price checker built — clubmed_summer_checker.py, workflow, CSV placeholder)
+Last updated: 2026-05-17 (go-live; signal-first resort cards; article 3; Kani resort added to summer checker; combos crash bug fixed)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
 ---
 
-## 🔴 SITE STATUS — OFFLINE (intentional)
+## ✅ SITE STATUS — LIVE
 
-Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-construction.html` via meta-refresh. Source files are untouched — reverting is one line per file.
+`whentobook.co.uk` and `whentobook.co.uk/clubmed` are live as of 2026-05-17.
 
 - [x] **Under construction page created** — `under-construction.html`: on-brand dark teal, "We're sharpening our data. Back soon.", Kit email signup form. (commit 2575e57) — 2026-05-06
-- [x] **Entry-point redirects added** — `index.html` and `clubmed/index.html` both redirect to `/under-construction.html` via meta-refresh. Revert = remove one `<meta>` line per file. (commit 720f853) — 2026-05-06
-
-**Do not restore the site until data collection is confirmed reliable for 7 consecutive days across all 11 resorts.**
-**Target go-live: end of May 2026 (approx 2026-05-31) — site staying offline to accumulate clean data.**
+- [x] **Entry-point redirects added** — `index.html` and `clubmed/index.html` both redirect to `/under-construction.html` via meta-refresh. (commit 720f853) — 2026-05-06
+- [x] **Go live — meta-refresh redirects removed** — Both entry points restored to live content. (commit 859fe56) — 2026-05-17
 
 ---
 
@@ -42,6 +40,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
 - [x] **Fix remaining Saturday references in `clubmed/index.html`** — All 5 remaining "Saturday" departure references updated to "Sunday": alert form note, How It Works body, modal subtitle, search modal rows label, JS comment (commit 4701ea0) — 2026-05-07
 - [x] **Grand Massif + Serre-Chevalier departure_day** — departure_day fixed to Sunday (6) in async rewrite (commit 927784b). — 2026-05-06
+- [x] **Resort cards lead with price movement signal** — movementHTML now appears above card-price; format includes % change (e.g. ↓ £438 (−9%) in 14 days). Signal-first layout consistent with booking-intelligence positioning. (commit 34a74c0) — 2026-05-17
 
 ### 🔴 HIGH PRIORITY — Agent coordination
 
@@ -67,7 +66,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Logo href and JSON-LD WebSite URL corrected** — Logo link href and JSON-LD `WebSite` url property corrected across root and blog pages (commit 6888363) — 2026-05-06
 - [x] **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained" live at `/blog/2026/05/06/when-to-book-club-med-ski-holiday/`. 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words. Unapproved draft (`why-timing-matters-when-booking-club-med`) removed (efaedce). (commit 894ee8b) — 2026-05-06
 - [x] **Publish article 2** — "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" live at `_posts/2026-05-06-club-med-tignes-vs-les-arcs.md`. 1,412 words, UK English, comparison table, JSON-LD schema, links to /clubmed, no banned words. (commit bcde757) — 2026-05-06
-- [ ] **Publish article 3** — "Is Club Med Ski Worth the Money? What You Get (And When to Get It Cheaper)". Target term: `is Club Med ski worth it`. Must go through Content Writer agent with web keyword research before Builder publishes. Full brief in NEXT_SESSION_PROMPT.md. **Paused until site is back live.** (MT-3c)
+- [x] **Publish article 3** — "Is Club Med Ski Worth the Money? An Honest Assessment". Target term: `is Club Med ski worth it`. 1,100 words. Package breakdown vs DIY, timing angle (Jan/March more favourable), CTA to tracker. Internal links to articles 1 and 2. Sitemap updated. (commit 0cf9154) — 2026-05-17
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
 ---
@@ -98,6 +97,7 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 
 ### Summer resort expansion
 - [x] **Phase 1a: Summer data collection infrastructure** — `clubmed_summer_checker.py` built, 9 resort codes confirmed via GraphQL productId probe (May 2026): `GREC` Gregolimano, `MMAC` Magna Marbella, `DBAC` Da Balaia, `CARC` La Caravelle (Corsica), `LAPC` La Palmyre Atlantique, `LPAC` La Palmyre, `PALC` La Palmeraie (Marrakech), `TURC` Palmiye (Turkey), `AGAC` Agadir. GitHub Actions workflow at 07:30 UTC daily. `_data/prices_clubmed_summer.csv` initialised. `--verify` confirmed MMAC £3,918. Note: Cefalù (Sicily) codes not found — all variants returned ARPC_WINTER placeholder. (commits 346d391, effbf4e, 808724b) — 2026-05-12
+- [x] **Summer checker: Kani Maldives added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe 2026-05-17 and added to RESORTS dict (10 total). Fixed `resort["combos"]` KeyError bug — `_COMBOS` global was never assigned to resort dict; replaced all references in `process_resort` with `_COMBOS` direct (would have crashed on first run). (commit 7fc1677) — 2026-05-17
 - [ ] **Phase 1b: Summer tracker UI** — Build `clubmed_summer/index.html` tracker page for summer resorts. Requires: ski/beach toggle or separate page at `/summer`, inject-only mode added to `clubmed_summer_checker.py`, `build_site.yml` updated to also run summer inject. Target: summer 2026 (resorts are bookable now). Note: resort names LAPC/LPAC/PALC/TURC are best-guess — verify against Club Med UK website before going live. (See IMPROVEMENT_PLAN.md)
 - [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana, Les Boucaniers. (after Phase 1 stable)
 - [ ] **Phase 3: Indian Ocean + Asia** — Maldives, Mauritius, Phuket, Bali. (after Phase 2 stable)
@@ -161,5 +161,9 @@ Both entry points (`index.html` and `clubmed/index.html`) redirect to `/under-co
 - [x] **Jekyll Pages build failure fixed** — Root cause: `csv.DictWriter` default `lineterminator='\r\n'` was writing Windows-style CRLF to all `_data/` CSV files; Jekyll's Ruby CSV parser rejects CRLF in unquoted fields. Fix: stripped CRLF from all three `_data/prices_*.csv` files (commit 2558ac4), added `lineterminator='\n'` to `csv.DictWriter` in both `clubmed_checker.py` and `markwarner_checker.py` (commit c2f6020). Pages build confirmed passing. — 2026-05-08
 - [x] **Price checker safety net made explicit** — `price_checker.yml` safety net step changed from bare `git pull --rebase` / `git push` to `git pull --rebase origin main` / `git push origin main` to prevent ambiguous-ref failures (commit c2f6020) — 2026-05-08
 - [x] **Club Med summer price checker built** — `clubmed_summer_checker.py` (aiohttp/asyncio, Semaphore(8), same architecture as winter checker), `.github/workflows/clubmed_summer_checker.yml` (07:30 UTC daily, 60-min timeout), `_data/prices_clubmed_summer.csv` (header-only placeholder). 9 resort codes confirmed via GraphQL productId probe. `--verify` confirmed £3,918 for MMAC. Cefalù not found — all CEFC/CEFX/etc codes return ARPC_WINTER placeholder. (commits 346d391, effbf4e, 808724b) — 2026-05-12
+- [x] **Go live** — Meta-refresh redirects removed from `index.html` and `clubmed/index.html`. Site live at whentobook.co.uk. (commit 859fe56) — 2026-05-17
+- [x] **Resort cards lead with price movement signal** — movementHTML moved above card-price; % change added (e.g. ↓ £438 (−9%) in 14 days). Signal-first layout. (commit 34a74c0) — 2026-05-17
+- [x] **Article 3 published** — "Is Club Med Ski Worth the Money? An Honest Assessment" at `_posts/2026-05-17-is-club-med-ski-worth-it.md`. ~1,100 words, target `is Club Med ski worth it`, UK English, CTA to /clubmed, internal links to articles 1+2, sitemap updated. (commit 0cf9154) — 2026-05-17
+- [x] **Summer checker: Kani (KANC) added + combos crash bug fixed** — KANC confirmed via GraphQL productId probe; added to RESORTS (10 total). Fixed `resort["combos"]` KeyError in `process_resort`. (commit 7fc1677) — 2026-05-17
 </content>
 </invoke>

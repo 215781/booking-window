@@ -33,7 +33,8 @@ from pathlib import Path
 # CONFIGURATION
 # ─────────────────────────────────────────────────────────────
 
-CSV_FILE = "_data/prices_clubmed_summer.csv"
+CSV_FILE  = "_data/prices_clubmed_summer.csv"
+HTML_FILE = "summer/index.html"
 
 GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")
 GMAIL_APP_PASS = os.environ.get("GMAIL_APP_PASS", "")
@@ -625,10 +626,156 @@ async def main_async(args):
               f"({total_errors} errors, rest are pre-season/closed).")
 
 
+# ─────────────────────────────────────────────────────────────
+# RESORT METADATA (for --inject-only HTML generation)
+# ─────────────────────────────────────────────────────────────
+
+RESORT_META = {
+    "gregolimano":            {"region": "Halkidiki, Greece"},
+    "magna-marbella":         {"region": "Costa del Sol, Spain"},
+    "da-balaia":              {"region": "Algarve, Portugal"},
+    "la-caravelle":           {"region": "Corsica, France"},
+    "la-palmyre-atlantique":  {"region": "Vendée, France"},
+    "la-palmyre":             {"region": "Charente-Maritime, France"},
+    "la-palmeraie-marrakech": {"region": "Marrakech, Morocco"},
+    "palmiye":                {"region": "Antalya, Turkey"},
+    "agadir":                 {"region": "Agadir, Morocco"},
+    "kani":                   {"region": "North Malé, Maldives"},
+}
+
+def calculate_availability(current_price, history):
+    """Simple availability heuristic based on price trend."""
+    if len(history) < 7:
+        return "good", "stable"
+    recent = [h["price"] for h in history[-7:]]
+    trend  = recent[-1] - recent[0]
+    if trend > 200:
+        return "limited", "tightening"
+    elif trend > 50:
+        return "moderate", "tightening"
+    elif trend < -200:
+        return "good", "easing"
+    return "good", "stable"
+
+def build_resort_data_js():
+    """Read summer CSV and build RESORT_DATA JS for injection into summer/index.html."""
+    import re as _re
+    now_iso = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+
+    resort_history = {}
+    if Path(CSV_FILE).exists():
+        with open(CSV_FILE, newline="") as f:
+            for row in csv.DictReader(f):
+                rid  = row.get("resort_id", "")
+                ps   = row.get("party_size", "")
+                sd   = row.get("departure_date", "")
+                dur  = int(row["duration_nights"]) if row.get("duration_nights") else 7
+                raw  = row.get("price_pp", "")
+                if not (rid and ps and sd and raw):
+                    continue
+                try:
+                    price = int(raw)
+                except (ValueError, TypeError):
+                    continue
+                key = (rid, ps, sd, dur)
+                if key not in resort_history:
+                    resort_history[key] = {}
+                resort_history[key][row.get("collected_at", "")[:10]] = price
+
+    lines = ["const RESORT_DATA = ["]
+
+    for resort in RESORTS:
+        rid   = resort["id"]
+        rname = resort["name"]
+        rcode = resort["resortCode"]
+        meta  = RESORT_META.get(rid, {"region": "—"})
+
+        lines.append("  {")
+        lines.append(f'    id: "{rid}",')
+        lines.append(f'    name: "{rname}",')
+        lines.append(f'    region: "{meta["region"]}",')
+        lines.append(f'    resortCode: "{rcode}",')
+        lines.append(f'    bookingUrl: "{resort["bookingUrl"]}",')
+        lines.append("    combinations: [")
+
+        for combo in _COMBOS:
+            ps       = combo["partySize"]
+            adults   = combo["adults"]
+            children = combo["children"]
+            bds_json = json.dumps(combo["birthdates"])
+
+            lines.append("      {")
+            lines.append(f'        partySize: "{ps}", adults: {adults}, children: {children}, birthdates: {bds_json},')
+            lines.append("        departures: [")
+
+            for window in resort["windows"]:
+                sd  = window["startDate"]
+                ed  = window["endDate"]
+                dur = window["duration"]
+                key = (rid, ps, sd, dur)
+                daily = resort_history.get(key, {})
+                if not daily:
+                    continue
+
+                history_sorted = [{"date": d, "price": p} for d, p in sorted(daily.items())]
+                history_30 = history_sorted[-30:]
+                prices = [h["price"] for h in history_30]
+                current_price  = prices[-1]
+                previous_price = prices[-14] if len(prices) >= 14 else prices[0]
+                signal = calculate_signal(history_30)
+                availability, avail_trend = calculate_availability(current_price, history_30)
+
+                dep_dt = datetime.strptime(sd, "%Y-%m-%d")
+                end_dt = dep_dt + timedelta(days=dur)
+                if dep_dt.month == end_dt.month:
+                    display_date = f"{dep_dt.day}–{end_dt.day} {dep_dt.strftime('%b %Y')}"
+                else:
+                    display_date = f"{dep_dt.strftime('%-d %b')}–{end_dt.strftime('%-d %b %Y')}"
+
+                history_js = json.dumps(history_30)
+                lines.append("          {")
+                lines.append(f'            duration: {dur}, date: "{sd}", displayDate: "{display_date}",')
+                lines.append(f'            currentPrice: {current_price}, previousPrice: {previous_price},')
+                lines.append(f'            priceHistory: {history_js},')
+                lines.append(f'            availability: "{availability}", availabilityTrend: "{avail_trend}",')
+                lines.append(f'            signal: "{signal}", lastUpdated: "{now_iso}"')
+                lines.append("          },")
+
+            lines.append("        ]")
+            lines.append("      },")
+
+        lines.append("    ]")
+        lines.append("  },")
+
+    lines.append("];")
+    return "\n".join(lines)
+
+def inject_into_html(js_string, test_mode=False):
+    """Replace the RESORT_DATA block in summer/index.html."""
+    import re as _re
+    if not Path(HTML_FILE).exists():
+        print(f"WARNING: {HTML_FILE} not found — skipping HTML injection.")
+        return
+    with open(HTML_FILE, "r", encoding="utf-8") as f:
+        html = f.read()
+    pattern = r"const RESORT_DATA = \[.*?\n\];"
+    new_html, count = _re.subn(pattern, js_string, html, count=1, flags=_re.DOTALL)
+    if count == 0:
+        print("WARNING: Could not find RESORT_DATA block in HTML — no injection performed.")
+        return
+    if test_mode:
+        print(f"  [test mode] Would have updated RESORT_DATA in {HTML_FILE}")
+        return
+    with open(HTML_FILE, "w", encoding="utf-8") as f:
+        f.write(new_html)
+    print(f"  Updated {HTML_FILE}")
+
+
 def main():
     parser = argparse.ArgumentParser(description="When To Book — Club Med summer price checker")
-    parser.add_argument("--test",   action="store_true", help="Fetch prices but don't write any files")
-    parser.add_argument("--verify", action="store_true", help="Test one API call and exit")
+    parser.add_argument("--test",        action="store_true", help="Fetch prices but don't write any files")
+    parser.add_argument("--verify",      action="store_true", help="Test one API call and exit")
+    parser.add_argument("--inject-only", action="store_true", help="Rebuild RESORT_DATA in summer/index.html from CSV, no API calls")
     args = parser.parse_args()
 
     now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")
@@ -636,7 +783,16 @@ def main():
     print(f"Booking Window summer price checker — {now_str}")
     if args.test:
         print("  MODE: test (no files will be written)")
+    if args.inject_only:
+        print("  MODE: inject-only (no API calls; rebuilding RESORT_DATA from CSV)")
     print(f"{'='*60}\n")
+
+    if args.inject_only:
+        print("Building RESORT_DATA from CSV...")
+        js_string = build_resort_data_js()
+        inject_into_html(js_string)
+        print("Done.")
+        return
 
     if args.verify:
         print("Verifying API with Magna Marbella (MMAC) 2A, 11 Jul 2026...")

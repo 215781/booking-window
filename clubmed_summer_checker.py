@@ -34,7 +34,7 @@ from pathlib import Path
 # ─────────────────────────────────────────────────────────────
 
 CSV_FILE  = "_data/prices_clubmed_summer.csv"
-HTML_FILE = "summer/index.html"
+HTML_FILE = "clubmed/index.html"
 
 GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")
 GMAIL_APP_PASS = os.environ.get("GMAIL_APP_PASS", "")
@@ -682,7 +682,7 @@ def build_resort_data_js():
                     resort_history[key] = {}
                 resort_history[key][row.get("collected_at", "")[:10]] = price
 
-    lines = ["const RESORT_DATA = ["]
+    lines = ["const RESORT_DATA_SUMMER = ["]
 
     for resort in RESORTS:
         rid   = resort["id"]
@@ -758,7 +758,7 @@ def inject_into_html(js_string, test_mode=False):
         return
     with open(HTML_FILE, "r", encoding="utf-8") as f:
         html = f.read()
-    pattern = r"const RESORT_DATA = \[.*?\n\];"
+    pattern = r"const RESORT_DATA_SUMMER = \[.*?\n\];"
     new_html, count = _re.subn(pattern, js_string, html, count=1, flags=_re.DOTALL)
     if count == 0:
         print("WARNING: Could not find RESORT_DATA block in HTML — no injection performed.")

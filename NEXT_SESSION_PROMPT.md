@@ -122,6 +122,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-18 — **Movement badge copy cleaned up** — "in 14 days" qualifier stripped from all movement badges on cards and search results. Format: `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable`. "Best signal" label now reads "Featured date" until DATA_SUFFICIENT = true. Modal narrative uses "recently". (commit b0547b1)
 - 2026-05-18 — **Hero search form replaced with best-opportunity card** — Hero `#hero-form` removed entirely (duration tabs, date-mode tabs, party size selectors). Replaced with JS-rendered `#hero-best-card`: `getBestOpportunity()` finds biggest price drop in active season; `renderHeroBestCard()` renders resort, date, price, drop, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed. (commit 5d7d42f)
 - 2026-05-18 — **AGENT_LOG: child age selector warning resolved** — Hero form removed entirely in commit 5d7d42f; age selectors no longer exist. AGENT_LOG entry updated to RESOLVED.
+- 2026-05-18 — **Booking URLs fixed** — All 11 resort `bookingUrl` values updated to `/r/{slug}/w` format; Tignes corrected from `tignes-val-claret` to `tignes`. Updated in `clubmed_checker.py` and injected into `clubmed/index.html`. (commit c7ce957)
+- 2026-05-18 — **RESORT_DATA refreshed + card UI improved** — `--inject-only` regenerated RESORT_DATA from CSV (data current to 2026-05-17). `getActiveDeparture` now tiebreaks equal signals by biggest price drop — aligns card and hero card display. `getSignalBadgeHTML` now shows movement-based text (↓/↑ £X since tracking, or Stable) instead of "Building data" when ≥2 price history points exist. `renderCards` updated: price label → "Prices for 2 adults — N nights"; "See more dates →" button added to every card. (commit 658a483)
+- 2026-05-18 — **Summer CSV checked** — `_data/prices_clubmed_summer.csv` has 0 data rows (header only) as of 2026-05-18. First data run expected 2026-05-18 07:30 UTC after combos bug fix. PLAN.md updated with monitoring task. (commit e9e39f3)
 
 ---
 
@@ -131,15 +134,17 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 ✅ **Blog has 10 articles** — per-resort guides through Val Thorens now live.
 ✅ **Hero best-opportunity card live** — hero search form replaced with dynamic best-price card (commit 5d7d42f).
 ✅ **Resort cards simplified** — party size tabs removed; movement badges clean (commit b0547b1).
+✅ **Booking URLs fixed** — all resort "Book on Club Med" links now use `/r/{slug}/w` format (commit c7ce957).
+✅ **Card signals live** — movement-based badges replace "Building data"; "See more dates →" button on every card (commit 658a483).
 
 ### 🔴 NEXT — Priority order
-1. **Verify hero best-price card on live site** — GitHub Pages deploy takes ~1–2 min after push. Check whentobook.co.uk to confirm card renders and the CTA works correctly.
+1. **PR to merge worktree branch** — changes are on `claude/gifted-tharp-4a2902`. Create PR or merge to main so build_site.yml deploys the fixes.
 
-2. **Mobile responsiveness audit: hero card** — the hero section uses a two-column layout; verify the best-price card renders well on small viewports (iOS Safari, Android Chrome). Check card sizing, text wrapping, and CTA tap target.
+2. **Monitor summer CSV** — `_data/prices_clubmed_summer.csv` still at 0 data rows. First data expected 2026-05-18 07:30 UTC. After first rows appear, run `--inject-only` on `clubmed_summer_checker.py` to update `RESORT_DATA_SUMMER`.
 
-3. **Verify summer resort names** — LAPC/LPAC/PALC/TURC names were inferred from GraphQL codes. Verify against Club Med UK website before promoting summer tracker heavily.
+3. **Mobile responsiveness audit: hero card** — the hero section uses a two-column layout; verify the best-price card renders well on small viewports (iOS Safari, Android Chrome). Check card sizing, text wrapping, and CTA tap target.
 
-4. **Summer tracker first data** — Combos bug fixed 2026-05-17 (commit 7fc1677). First successful data run expected 2026-05-18 at 07:30 UTC. Monitor `_data/prices_clubmed_summer.csv` for first rows.
+4. **Verify summer resort names** — LAPC/LPAC/PALC/TURC names were inferred from GraphQL codes. Verify against Club Med UK website before promoting summer tracker heavily.
 
 5. **Content articles 11–13** — Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides. Defer until after hero card and mobile responsiveness are verified stable.
 

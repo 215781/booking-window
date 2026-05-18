@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-18 (hero best-price card; party size filter removal; movement badge copy cleanup; articles 8–10)
+Last updated: 2026-05-18 (booking URL fix; RESORT_DATA refresh; card signal badges; See More button; summer CSV check)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -180,5 +180,8 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Party size filter tabs removed from resort grid** — 2A / +1 Child / +2 Children filter buttons removed; cards always show 2-adult baseline prices; family prices remain accessible via modal. (commit b0547b1) — 2026-05-18
 - [x] **Movement badge copy cleaned up** — "in 14 days" qualifier removed from all card and search-result movement badges. Clean format: `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable`. "Best signal" label renamed "Featured date" until DATA_SUFFICIENT = true. Modal narrative uses "recently". (commit b0547b1) — 2026-05-18
 - [x] **Hero search form replaced with best-opportunity card** — `#hero-form` and all child elements removed. Right side of hero is now JS-rendered best-opportunity card (`#hero-best-card`). `getBestOpportunity()` finds biggest price drop in active season dataset; falls back to lowest price. `renderHeroBestCard()` renders resort, date, price, drop amount, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed (stale `hero-month` DOM reference). (commit 5d7d42f) — 2026-05-18
+- [x] **Booking URLs fixed to /r/{slug}/w format** — All 11 resort `bookingUrl` values updated in `clubmed_checker.py` and injected into `clubmed/index.html`. Tignes corrected from `tignes-val-claret` to `tignes`. (commit c7ce957) — 2026-05-18
+- [x] **RESORT_DATA refreshed + card UI fixes** — `--inject-only` regenerated RESORT_DATA with data through 2026-05-17. `getActiveDeparture` now tiebreaks equal signals by price drop (aligns card and hero displays). `getSignalBadgeHTML` shows movement-based text (↓/↑ £X since tracking, Stable) instead of "Building data" when ≥2 history points. Card price label updated to "Prices for 2 adults — N nights". "See more dates →" button added to every resort card. (commit 658a483) — 2026-05-18
+- [x] **Summer CSV status checked** — `_data/prices_clubmed_summer.csv` confirmed 0 data rows as of 2026-05-18 (header only); combos bug fixed 2026-05-17 so first data expected 2026-05-18 07:30 UTC. Monitoring task added to PLAN.md. (commit e9e39f3) — 2026-05-18
 </content>
 </invoke>

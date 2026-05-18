@@ -122,6 +122,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-18 — **Movement badge copy cleaned up** — "in 14 days" qualifier stripped from all movement badges on cards and search results. Format: `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable`. "Best signal" label now reads "Featured date" until DATA_SUFFICIENT = true. Modal narrative uses "recently". (commit b0547b1)
 - 2026-05-18 — **Hero search form replaced with best-opportunity card** — Hero `#hero-form` removed entirely (duration tabs, date-mode tabs, party size selectors). Replaced with JS-rendered `#hero-best-card`: `getBestOpportunity()` finds biggest price drop in active season; `renderHeroBestCard()` renders resort, date, price, drop, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed. (commit 5d7d42f)
 - 2026-05-18 — **AGENT_LOG: child age selector warning resolved** — Hero form removed entirely in commit 5d7d42f; age selectors no longer exist. AGENT_LOG entry updated to RESOLVED.
+- 2026-05-18 — **GA4 event tracking added** — `resort_card_click` (resort cards + hero CTA), `book_link_click` (modal + search modal book links), `departure_selected` (departure table rows + search modal date rows) wired to existing G-G2RES5DX0K tag in `clubmed/index.html`. Book links use stopPropagation to prevent double-fire. (commit 960dc91)
 
 ---
 

@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-18 (hero best-price card; party size filter removal; movement badge copy cleanup; articles 8–10)
+Last updated: 2026-05-18 (hero best-price card; party size filter removal; movement badge copy cleanup; articles 8–10; GA4 event tracking)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -36,6 +36,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Enforce HTTPS on GitHub Pages** — Once cert is provisioned: go to `https://github.com/215781/booking-window/settings/pages`, tick "Enforce HTTPS". **User action — check in a few hours.** — 2026-05-05
 - [x] **Decommission Vercel** — DNS no longer routes to Vercel (points to GitHub Pages). Safe to remove Vercel project. `vercel.json` stays in repo for reference. **User action.** — 2026-05-05
 - [x] **Wire up GA4 measurement ID** — `G-G2RES5DX0K` live in both HTML files. CSP updated. — 2026-05-04
+- [x] **GA4 event tracking added** — `resort_card_click`, `book_link_click`, `departure_selected` events wired to resort cards, modal departure table rows, and search modal date rows. Hero best-card CTA also tracked. Uses existing GA4 tag (G-G2RES5DX0K) — no new script tag. (commit 960dc91) — 2026-05-18
 - [x] **Confirm `VMOC_WINTER` code** — verified correct in `clubmed_checker.py` and CSV. No space. The session note was erroneous. — 2026-05-04
 - [x] **Quality check gate** — `continue-on-error: true` added to quality check step in `price_checker.yml`; check always logs but never blocks data collection (commit d549110). — 2026-05-06
 - [x] **Fix remaining Saturday references in `clubmed/index.html`** — All 5 remaining "Saturday" departure references updated to "Sunday": alert form note, How It Works body, modal subtitle, search modal rows label, JS comment (commit 4701ea0) — 2026-05-07

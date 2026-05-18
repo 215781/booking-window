@@ -2,7 +2,7 @@
 
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
-Last updated: 2026-05-17 (go-live; signal-first cards; articles 3–7; summer tracker consolidated into /clubmed with Ski/Summer toggle)
+Last updated: 2026-05-18 (hero best-price card; party size filter removal; movement badge copy cleanup; articles 8–10)
 
 See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 
@@ -67,6 +67,9 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Publish first article** — "When to Book a Club Med Ski Holiday: The Price Window Explained" live at `/blog/2026/05/06/when-to-book-club-med-ski-holiday/`. 1,405 words, UK English, JSON-LD schema, links to /clubmed, no banned words. Unapproved draft (`why-timing-matters-when-booking-club-med`) removed (efaedce). (commit 894ee8b) — 2026-05-06
 - [x] **Publish article 2** — "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?" live at `_posts/2026-05-06-club-med-tignes-vs-les-arcs.md`. 1,412 words, UK English, comparison table, JSON-LD schema, links to /clubmed, no banned words. (commit bcde757) — 2026-05-06
 - [x] **Publish article 3** — "Is Club Med Ski Worth the Money? An Honest Assessment". Target term: `is Club Med ski worth it`. 1,100 words. Package breakdown vs DIY, timing angle (Jan/March more favourable), CTA to tracker. Internal links to articles 1 and 2. Sitemap updated. (commit 0cf9154) — 2026-05-17
+- [x] **Publish articles 4–7** — Per-resort guides: Val d'Isère, Tignes, Les Arcs, Alpe d'Huez. Each ~900–1,100 words with live price data, seasonal value windows, sitemap updated. (commits 809f0bf, 3a6a5b4, 3f07025) — 2026-05-17
+- [x] **Publish articles 8–10** — Per-resort guides: Valmorel, La Rosière, Val Thorens Sensations. Blog now has 10 articles total. Sitemap updated. (commit fec4679) — 2026-05-17
+- [ ] **Content articles 11–13** — Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides. Defer until after hero card and mobile responsiveness are verified stable.
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
 ---
@@ -74,6 +77,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ## Backlog (future work, not yet prioritised)
 
 ### Quick wins (high value, low effort)
+- [ ] **Mobile audit: hero best-price card** — the new hero best-opportunity card uses a two-column layout; verify it renders correctly on small viewports (iOS Safari, Android Chrome). Check hero section layout, card sizing, and CTA button tap target. Added 2026-05-18.
 - [ ] **Real resort photography** — card image areas are currently gradient placeholders. Source from Club Med press kit or Unsplash. (QW-5)
 - [x] **Improve OG image** — `og-image.png` created (1200×630 PNG from SVG via qlmanage+sips). Both `clubmed/index.html` and `index.html` updated to reference PNG with explicit width/height meta tags. — 2026-05-04
 
@@ -100,6 +104,9 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Summer checker: Kani Maldives added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe 2026-05-17 and added to RESORTS dict (10 total). Fixed `resort["combos"]` KeyError bug — `_COMBOS` global was never assigned to resort dict; replaced all references in `process_resort` with `_COMBOS` direct (would have crashed on first run). (commit 7fc1677) — 2026-05-17
 - [x] **Phase 1b: Summer tracker UI** — Originally launched as `summer/index.html`; consolidated into `/clubmed` with Ski/Summer toggle (see entry below). `--inject-only` added to `clubmed_summer_checker.py`. Root `index.html` and winter nav updated. (commits 1d784e3, d59b799) — 2026-05-17
 - [x] **Summer tracker consolidated into /clubmed** — Ski/Summer toggle added to `/clubmed`. `RESORT_DATA_SUMMER` injectable block added. `RESORT_GRADIENTS_SUMMER` dict added. Summer checker now targets `clubmed/index.html` (injects `RESORT_DATA_SUMMER`). `summer/index.html` is now a redirect to `/clubmed`. Root landing page consolidated to a single Club Med card. `sitemap.xml` `/summer/` entry removed. (commit d59b799) — 2026-05-17
+- [x] **Remove party size filter tabs from resort grid** — 2A / +1 Child / +2 Children filter buttons removed from above resort grid; cards always show 2-adult baseline prices; family prices remain accessible via modal. (commit b0547b1) — 2026-05-18
+- [x] **Remove "in 14 days" copy from movement badges** — Movement badges on cards and search results now show clean `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable` without the time-window qualifier. "Best signal" label reads "Featured date" until DATA_SUFFICIENT = true. Modal analysis narrative uses "recently" instead of "past 14 days". (commit b0547b1) — 2026-05-18
+- [x] **Replace hero search form with best-opportunity card** — Hero search form (`#hero-form`, duration/date-mode tabs, party size selectors) removed. Right side of hero replaced with JS-rendered best-opportunity card (`#hero-best-card`). `getBestOpportunity()` finds biggest price drop (falls back to lowest price). `renderHeroBestCard()` renders resort name, date, price, drop, "View price history →" CTA. Card updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed (stale `hero-month` reference removed). (commit 5d7d42f) — 2026-05-18
 - [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana, Les Boucaniers. (after Phase 1 stable)
 - [ ] **Phase 3: Indian Ocean + Asia** — Maldives, Mauritius, Phuket, Bali. (after Phase 2 stable)
 - [ ] **Phase 4: Remaining ski resorts** — Pragelato Sestriere (Italy), Saint-Moritz Roi Soleil (Switzerland). (low priority — small incremental value over existing 11)
@@ -168,5 +175,9 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Summer checker: Kani (KANC) added + combos crash bug fixed** — KANC confirmed via GraphQL productId probe; added to RESORTS (10 total). Fixed `resort["combos"]` KeyError in `process_resort`. (commit 7fc1677) — 2026-05-17
 - [x] **Articles 4–7 published** — Per-resort guides using live price data: Val d'Isère (commit 809f0bf), Tignes + Les Arcs (commit 3a6a5b4), Alpe d'Huez (commit 3f07025). Each ~900–1,100 words, live price tables, seasonal value windows, sitemap updated. Blog now has 7 articles total. — 2026-05-17
 - [x] **Summer tracker launched then consolidated** — Initially launched as `summer/index.html` (commit 1d784e3), then consolidated into `/clubmed` with a Ski/Summer toggle (commit d59b799). `RESORT_DATA_SUMMER` injectable block and `RESORT_GRADIENTS_SUMMER` added to `clubmed/index.html`. Summer checker injects into `clubmed/index.html` targeting `RESORT_DATA_SUMMER`. `summer/index.html` now redirects to `/clubmed`. Root landing page consolidated to single Club Med card. `sitemap.xml` `/summer/` entry removed. — 2026-05-17
+- [x] **Articles 8–10 published** — Per-resort guides: Valmorel, La Rosière, Val Thorens Sensations. Blog now has 10 articles total. Sitemap updated. (commit fec4679) — 2026-05-17
+- [x] **Party size filter tabs removed from resort grid** — 2A / +1 Child / +2 Children filter buttons removed; cards always show 2-adult baseline prices; family prices remain accessible via modal. (commit b0547b1) — 2026-05-18
+- [x] **Movement badge copy cleaned up** — "in 14 days" qualifier removed from all card and search-result movement badges. Clean format: `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable`. "Best signal" label renamed "Featured date" until DATA_SUFFICIENT = true. Modal narrative uses "recently". (commit b0547b1) — 2026-05-18
+- [x] **Hero search form replaced with best-opportunity card** — `#hero-form` and all child elements removed. Right side of hero is now JS-rendered best-opportunity card (`#hero-best-card`). `getBestOpportunity()` finds biggest price drop in active season dataset; falls back to lowest price. `renderHeroBestCard()` renders resort, date, price, drop amount, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed (stale `hero-month` DOM reference). (commit 5d7d42f) — 2026-05-18
 </content>
 </invoke>

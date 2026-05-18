@@ -117,25 +117,37 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-17 — **Summer checker: Kani (KANC) added + combos crash bug fixed** — `KANC` (Kani, Maldives) confirmed valid via GraphQL productId probe and added to RESORTS dict (10 total). Fixed critical bug: `resort["combos"]` was never set in RESORTS config — would have caused KeyError on first run. Replaced all `resort["combos"]` references in `process_resort` with global `_COMBOS`. (commit 7fc1677)
 - 2026-05-17 — **Articles 4–7 published** — Per-resort guides using live price data: "Best Time to Book Club Med Val d'Isère" (£3,150–£13,608 data), "Best Time to Book Club Med Tignes" (£2,760–£8,830), "Best Time to Book Club Med Les Arcs" (£2,874–£7,304), "Best Time to Book Club Med Alpe d'Huez" (unusual Mar 21 spike £8,480 documented). Blog now has 7 articles total. (commits 809f0bf, 3a6a5b4, 3f07025)
 - 2026-05-17 — **Summer tracker launched then consolidated** — Initially launched as `summer/index.html` (commit 1d784e3), then consolidated into `/clubmed` with a Ski/Summer toggle (commit d59b799). `RESORT_DATA_SUMMER` injectable block and `RESORT_GRADIENTS_SUMMER` added to `clubmed/index.html`. Summer checker (`clubmed_summer_checker.py`) now targets `clubmed/index.html`, injecting `RESORT_DATA_SUMMER`. `summer/index.html` is now a redirect to `/clubmed`. Root landing page consolidated to single Club Med card. `sitemap.xml` `/summer/` entry removed.
+- 2026-05-17 — **Articles 8–10 published** — Per-resort guides for Valmorel, La Rosière, Val Thorens Sensations. Blog now has 10 articles total. Sitemap updated. (commit fec4679)
+- 2026-05-18 — **Party size filter tabs removed** — 2A / +1 Child / +2 Children filter buttons removed from above resort grid. Cards always show 2-adult baseline; family prices remain in modal. (commit b0547b1)
+- 2026-05-18 — **Movement badge copy cleaned up** — "in 14 days" qualifier stripped from all movement badges on cards and search results. Format: `↓ £X (−Y%)` / `↑ £X (+Y%)` / `— Stable`. "Best signal" label now reads "Featured date" until DATA_SUFFICIENT = true. Modal narrative uses "recently". (commit b0547b1)
+- 2026-05-18 — **Hero search form replaced with best-opportunity card** — Hero `#hero-form` removed entirely (duration tabs, date-mode tabs, party size selectors). Replaced with JS-rendered `#hero-best-card`: `getBestOpportunity()` finds biggest price drop in active season; `renderHeroBestCard()` renders resort, date, price, drop, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed. (commit 5d7d42f)
+- 2026-05-18 — **AGENT_LOG: child age selector warning resolved** — Hero form removed entirely in commit 5d7d42f; age selectors no longer exist. AGENT_LOG entry updated to RESOLVED.
 
 ---
 
 ## Up Next (priority order)
 
 ✅ **Site is LIVE** — went live 2026-05-17 (commit 859fe56). Both ski and summer trackers live.
-✅ **Blog has 7 articles** — per-resort guides for Val d'Isère, Tignes, Les Arcs, Alpe d'Huez now live.
-✅ **Summer tracker consolidated into `/clubmed`** — Ski/Summer toggle at `/clubmed`. `RESORT_DATA_SUMMER` injectable block added. Summer checker injects into `clubmed/index.html`. `/summer` redirects to `/clubmed`. (commits 1d784e3, d59b799)
+✅ **Blog has 10 articles** — per-resort guides through Val Thorens now live.
+✅ **Hero best-opportunity card live** — hero search form replaced with dynamic best-price card (commit 5d7d42f).
+✅ **Resort cards simplified** — party size tabs removed; movement badges clean (commit b0547b1).
 
-### 🔴 NEXT — Post-launch content & growth
-1. **Remaining per-resort articles** — CONTENT_WRITER.md priority list: La Plagne data is flat (£2,874–£3,322, low variation — defer until more price movement observed). Next targets: Valmorel, La Rosière, Val Thorens Sensations. Then Eurostar Snow article (timely — July 9 ticket sale).
+### 🔴 NEXT — Priority order
+1. **Verify hero best-price card on live site** — GitHub Pages deploy takes ~1–2 min after push. Check whentobook.co.uk to confirm card renders and the CTA works correctly.
 
-2. **Schedule Content Writer agent — 2 blog posts/week** — Set up recurring scheduled agent (via `anthropic-skills:schedule`). User confirmed interest 2026-05-06. Now the blog has momentum, this is worth setting up.
+2. **Mobile responsiveness audit: hero card** — the hero section uses a two-column layout; verify the best-price card renders well on small viewports (iOS Safari, Android Chrome). Check card sizing, text wrapping, and CTA tap target.
 
-3. **Summer tracker first data** — Summer checker `combos` bug was fixed 2026-05-17 (commit 7fc1677). First successful data run expected at 07:30 UTC 2026-05-18. After a few days of data, summer cards will populate. Monitor `_data/prices_clubmed_summer.csv` for first rows.
+3. **Verify summer resort names** — LAPC/LPAC/PALC/TURC names were inferred from GraphQL codes. Verify against Club Med UK website before promoting summer tracker heavily.
 
-### Post-launch quick wins
-4. **Verify resort names for summer resorts** — LAPC/LPAC/PALC/TURC names were inferred from GraphQL codes. Verify against Club Med UK website before promoting summer tracker heavily.
-5. **Mobile responsiveness audit** — site uses CSS Grid with fixed columns; needs testing on mobile viewport.
+4. **Summer tracker first data** — Combos bug fixed 2026-05-17 (commit 7fc1677). First successful data run expected 2026-05-18 at 07:30 UTC. Monitor `_data/prices_clubmed_summer.csv` for first rows.
+
+5. **Content articles 11–13** — Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides. Defer until after hero card and mobile responsiveness are verified stable.
+
+6. **Eurostar Snow alert page** — deadline July 9 2026. Kit infrastructure ready; needs a new form + landing page. Build before ticket sale opens.
+
+7. **Schedule Content Writer — 2 blog posts/week** — Set up recurring scheduled agent (via `anthropic-skills:schedule`). User confirmed interest 2026-05-06. Blog has momentum now — worth setting up.
+
+8. **CONTENT_WRITER.md** — agent file for SEO blog posts. Template: research keyword → draft → optimise → publish.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** Summer checker currently queries 7-night durations only. When summer tracker UI is built, consider expanding to `durations: [7, 10, 14]` per the design constraint in PLAN.md. Do not apply to existing winter Club Med checker without user instruction.

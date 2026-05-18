@@ -1686,6 +1686,11 @@ function makeHistory(endPrice, delta, endDate) {
   });
 }
 
+// Club Med booking URL slug mapping — format: https://www.clubmed.co.uk/r/{slug}/w
+// tignes → tignes | les-arcs → les-arcs | peisey-vallandry → peisey-vallandry
+// valmorel → valmorel | alpe-dhuez → l-alpe-d-huez | la-rosiere → la-rosiere
+// la-plagne-2100 → la-plagne | val-disere → val-disere | grand-massif → grand-massif
+// val-thorens → val-thorens | serre-chevalier → serre-chevalier
 const RESORT_DATA = [
   {
     id: "tignes-val-claret",
@@ -1693,7 +1698,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "2100m",
     resortCode: "TIGC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/tignes-val-claret",
+    bookingUrl: "https://www.clubmed.co.uk/r/tignes/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -2222,7 +2227,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1950m",
     resortCode: "ARPC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/les-arcs",
+    bookingUrl: "https://www.clubmed.co.uk/r/les-arcs/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -2751,7 +2756,7 @@ const RESORT_DATA = [
     region: "Paradiski, French Alps",
     altitude: "1600m",
     resortCode: "PVAC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/peisey-vallandry",
+    bookingUrl: "https://www.clubmed.co.uk/r/peisey-vallandry/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -3280,7 +3285,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1460m",
     resortCode: "VMOC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/valmorel",
+    bookingUrl: "https://www.clubmed.co.uk/r/valmorel/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -3893,7 +3898,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1860m",
     resortCode: "ALHC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/alpe-dhuez",
+    bookingUrl: "https://www.clubmed.co.uk/r/l-alpe-d-huez/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -4422,7 +4427,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1850m",
     resortCode: "LROC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-rosiere",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-rosiere/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5035,7 +5040,7 @@ const RESORT_DATA = [
     region: "Paradiski, French Alps",
     altitude: "2100m",
     resortCode: "LP2C_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-plagne-2100",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-plagne/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5340,7 +5345,7 @@ const RESORT_DATA = [
     region: "French Alps, Espace Killy",
     altitude: "1850m",
     resortCode: "VDIC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/val-disere",
+    bookingUrl: "https://www.clubmed.co.uk/r/val-disere/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5869,7 +5874,7 @@ const RESORT_DATA = [
     region: "French Alps, Grand Massif",
     altitude: "720m",
     resortCode: "GMAC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/grand-massif",
+    bookingUrl: "https://www.clubmed.co.uk/r/grand-massif/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -6440,7 +6445,7 @@ const RESORT_DATA = [
     region: "French Alps, Three Valleys",
     altitude: "2300m",
     resortCode: "VTHC",
-    bookingUrl: "https://www.clubmed.co.uk/r/val-thorens",
+    bookingUrl: "https://www.clubmed.co.uk/r/val-thorens/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -6969,7 +6974,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1400m",
     resortCode: "SECC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/serre-chevalier",
+    bookingUrl: "https://www.clubmed.co.uk/r/serre-chevalier/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -7580,9 +7585,22 @@ function getAvailDotClass(dep) {
 // Set to true once several months of price history have accumulated (target: autumn 2026)
 const DATA_SUFFICIENT = false;
 
-function getSignalBadgeHTML(signal) {
+// dep is optional; when supplied and DATA_SUFFICIENT is false, signal is derived from priceHistory
+function getSignalBadgeHTML(signal, dep) {
   if (!DATA_SUFFICIENT) {
-    return '<span class="signal-badge signal-building">Building data</span>';
+    if (!dep || !dep.priceHistory || dep.priceHistory.length <= 1) {
+      return '<span class="signal-badge signal-building">Building data...</span>';
+    }
+    const firstPrice = dep.priceHistory[0].price;
+    const latestPrice = dep.priceHistory[dep.priceHistory.length - 1].price;
+    const diff = latestPrice - firstPrice;
+    if (diff < -50) {
+      return `<span class="signal-badge signal-favourable">↓ ${formatPrice(Math.abs(diff))} since tracking — consider booking</span>`;
+    }
+    if (diff > 50) {
+      return `<span class="signal-badge signal-watch">↑ ${formatPrice(Math.abs(diff))} since tracking — hold and monitor</span>`;
+    }
+    return '<span class="signal-badge signal-hold">Stable — no urgency yet</span>';
   }
   const map = {
     'favourable': '<span class="signal-badge signal-favourable">Favourable</span>',
@@ -7786,7 +7804,7 @@ function renderCards(partySize, resortFilter) {
       <div class="card-body">
         <div class="card-name-row">
           <span class="card-name">${resort.name}</span>
-          ${getSignalBadgeHTML(dep.signal)}
+          ${getSignalBadgeHTML(dep.signal, dep)}
         </div>
         <p class="card-location">${resort.region}${resort.altitude ? ` &middot; ${resort.altitude}` : ''}</p>
         ${movementHTML}
@@ -7972,7 +7990,7 @@ function buildDepartureTable(resort, deps, bestDep) {
       <td class="dept-td-date">${dep.displayDate}${isBest ? ` <span style="font-size:10px;color:var(--teal);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">${DATA_SUFFICIENT ? 'Best signal' : 'Featured'}</span>` : ''}</td>
       <td>${priceHTML}</td>
       <td>${movHTML}</td>
-      <td>${getSignalBadgeHTML(dep.signal)}</td>
+      <td>${getSignalBadgeHTML(dep.signal, dep)}</td>
       <td><a href="${bookUrl}" target="_blank" rel="noopener noreferrer" class="dept-book-link" onclick="event.stopPropagation();gtag('event','book_link_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}',departure_date:'${dep.date}',price:${dep.currentPrice}});">Book on Club Med ↗</a></td>
     </tr>`;
   }).join('');
@@ -8007,7 +8025,7 @@ function openModal(resortId, partySize) {
   const partySizeLabel = partySize === '2A' ? '2 Adults' : partySize === '2A1C' ? '2 Adults + 1 Child' : '2 Adults + 2 Children';
   document.getElementById('modal-title').textContent = resort.name;
   document.getElementById('modal-subtitle').textContent = `${resort.region} · ${resort.altitude} · ${partySizeLabel}`;
-  document.getElementById('modal-signal-badge').innerHTML = getSignalBadgeHTML(bestDep.signal);
+  document.getElementById('modal-signal-badge').innerHTML = getSignalBadgeHTML(bestDep.signal, bestDep);
 
   document.getElementById('modal-narrative').textContent = buildPriceNarrative(resort, combo, bestDep, pricedDeps);
   document.getElementById('modal-departures').innerHTML = buildDepartureTable(resort, deps, bestDep);
@@ -8255,7 +8273,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
           <div class="best-date-week">${cheapest.dep.displayDate}${resortLine}</div>
         </div>
         <div style="text-align:right;">
-          ${getSignalBadgeHTML(cheapest.dep.signal)}
+          ${getSignalBadgeHTML(cheapest.dep.signal, cheapest.dep)}
           <div style="font-size:13px;color:var(--text-muted);margin-top:10px;">${movLabel}</div>
           ${saving > 0 ? `<div style="font-size:12px;font-weight:600;color:var(--teal);margin-top:6px;">${formatPrice(saving)} range ${rangeLabel}</div>` : ''}
         </div>
@@ -8281,7 +8299,8 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   // Date rows
   const rowsEl = document.getElementById('search-modal-date-rows');
   rowsEl.innerHTML = entries.map((entry, i) => {
-    const { dep, resortName } = entry;
+    const { dep, resortName, resortId } = entry;
+    const bookUrl = (RESORT_DATA.find(r => r.id === resortId) || {}).bookingUrl || 'https://www.clubmed.co.uk';
     const isBest = i === 0;
     const move = dep.currentPrice - dep.previousPrice;
     const moveLabel = move < -10
@@ -8297,11 +8316,11 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
         <span class="date-row-week">${dep.displayDate}${resortBadge}</span>
         <span class="date-row-price">${formatPrice(dep.currentPrice)}</span>
         <span class="date-row-move">${moveLabel}</span>
-        <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
+        <span class="date-row-signal">${getSignalBadgeHTML(dep.signal, dep)}</span>
         <span class="date-row-book">
-          <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer"
+          <a href="${bookUrl}" target="_blank" rel="noopener noreferrer"
              class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;"
-             onclick="event.stopPropagation();gtag('event','book_link_click',{resort_name:'${resortName.replace(/'/g, "\\'")}',departure_date:'${dep.date}',price:${dep.currentPrice}});">
+             onclick="event.stopPropagation();gtag('event','book_link_click',{resort_name:'${resortName.replace(/'/g, "\\'")}',departure_date:'${dep.date}',price:${dep.currentPrice}})">
             Book on Club Med
           </a>
         </span>

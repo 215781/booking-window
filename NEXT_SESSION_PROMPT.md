@@ -23,7 +23,7 @@ Then read `PLAN.md` for the full task list.
 - **Summer prices:** `_data/prices_clubmed_summer.csv` — initialised 2026-05-12 with full headers; daily checker writes here from 07:30 UTC. Append-only.
 - **Sandals prices:** `_data/prices_sandals.csv` — placeholder created (headers only); checker not yet built.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
-- **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
+- **Signal state:** `DATA_SUFFICIENT = false` — badges show real price movement signals (↓/↑ £X since tracking, or Stable) when 2+ data points exist; "Building data..." only for 0–1 data points. The flag is still `false` and must not be changed until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
 - **Email alerts:** `clubmed_checker.py` only emails on genuine failures (>30% API error rate). All other alerts removed.
 - **GA4:** `G-G2RES5DX0K` — live in both `clubmed/index.html` and `index.html`.
@@ -123,6 +123,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-18 — **Hero search form replaced with best-opportunity card** — Hero `#hero-form` removed entirely (duration tabs, date-mode tabs, party size selectors). Replaced with JS-rendered `#hero-best-card`: `getBestOpportunity()` finds biggest price drop in active season; `renderHeroBestCard()` renders resort, date, price, drop, CTA. Updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed. (commit 5d7d42f)
 - 2026-05-18 — **AGENT_LOG: child age selector warning resolved** — Hero form removed entirely in commit 5d7d42f; age selectors no longer exist. AGENT_LOG entry updated to RESOLVED.
 - 2026-05-18 — **GA4 event tracking added** — `resort_card_click` (resort cards + hero CTA), `book_link_click` (modal + search modal book links), `departure_selected` (departure table rows + search modal date rows) wired to existing G-G2RES5DX0K tag in `clubmed/index.html`. Book links use stopPropagation to prevent double-fire. (commit 960dc91)
+- 2026-05-18 — **Signal badges now show real price movement** — `getSignalBadgeHTML` computes from `priceHistory`: ↓/↑ £X since tracking — consider booking / hold and monitor / Stable. "Building data..." only when ≤1 data points. `DATA_SUFFICIENT` flag retained — now only gates no-data fallback. All call sites pass `dep`. (commit 7572510)
+- 2026-05-18 — **Booking URLs corrected** — All 11 bookingUrls updated to `/r/{slug}/w` format. Corrected: tignes-val-claret → tignes, alpe-dhuez → l-alpe-d-huez, la-plagne-2100 → la-plagne. Search modal uses resort-specific URL. (commit 7572510)
 
 ---
 

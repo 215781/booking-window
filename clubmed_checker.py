@@ -89,7 +89,7 @@ RESORTS = [
         "id":             "tignes-val-claret",
         "name":           "Tignes",
         "resortCode":     "TIGC_WINTER",    # verified 21 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/tignes-val-claret",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/tignes/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -97,7 +97,7 @@ RESORTS = [
         "id":             "les-arcs",
         "name":           "Les Arcs Panorama",
         "resortCode":     "ARPC_WINTER",    # verified 21 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/les-arcs",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/les-arcs/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -105,7 +105,7 @@ RESORTS = [
         "id":             "peisey-vallandry",
         "name":           "Peisey-Vallandry",
         "resortCode":     "PVAC_WINTER",    # verified 21 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/peisey-vallandry",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/peisey-vallandry/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -113,7 +113,7 @@ RESORTS = [
         "id":             "valmorel",
         "name":           "Valmorel",
         "resortCode":     "VMOC_WINTER",    # verified 21 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/valmorel",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/valmorel/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -121,7 +121,7 @@ RESORTS = [
         "id":             "alpe-dhuez",
         "name":           "Alpe d'Huez",
         "resortCode":     "ALHC_WINTER",    # verified 21 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/alpe-dhuez",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/alpe-dhuez/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -129,7 +129,7 @@ RESORTS = [
         "id":             "la-rosiere",
         "name":           "La Rosière",
         "resortCode":     "LROC_WINTER",    # verified 21 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/la-rosiere",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/la-rosiere/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -137,7 +137,7 @@ RESORTS = [
         "id":             "la-plagne-2100",
         "name":           "La Plagne 2100",
         "resortCode":     "LP2C_WINTER",    # verified 26 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/la-plagne-2100",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/la-plagne-2100/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026
         "combos":         _COMBOS,
     },
@@ -145,7 +145,7 @@ RESORTS = [
         "id":             "val-disere",
         "name":           "Val d'Isère",
         "resortCode":     "VDIC_WINTER",    # confirmed 26 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/val-disere",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/val-disere/w",
         "departure_day":  6,                # Sunday — confirmed 26 Apr 2026 via API probe
         "combos":         _COMBOS,
     },
@@ -153,7 +153,7 @@ RESORTS = [
         "id":             "grand-massif",
         "name":           "Grand Massif Samoëns Morillon",
         "resortCode":     "GMAC_WINTER",    # confirmed 27 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/grand-massif",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/grand-massif/w",
         "departure_day":  6,                # Sunday — confirmed via HAR analysis 06 May 2026 (was None)
         "combos":         _COMBOS,
     },
@@ -161,7 +161,7 @@ RESORTS = [
         "id":             "val-thorens",
         "name":           "Val Thorens Sensations",
         "resortCode":     "VTHC",           # confirmed 27 Apr 2026 — year-round, no _WINTER suffix
-        "bookingUrl":     "https://www.clubmed.co.uk/r/val-thorens",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/val-thorens/w",
         "departure_day":  6,                # Sunday — Sat returns "not for sale"
         "combos":         _COMBOS,
     },
@@ -169,7 +169,7 @@ RESORTS = [
         "id":             "serre-chevalier",
         "name":           "Serre-Chevalier",
         "resortCode":     "SECC_WINTER",    # confirmed 27 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/serre-chevalier",
+        "bookingUrl":     "https://www.clubmed.co.uk/r/serre-chevalier/w",
         "departure_day":  6,                # Sunday — confirmed via HAR analysis 06 May 2026 (was None)
         "combos":         _COMBOS,
     },

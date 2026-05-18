@@ -7737,7 +7737,7 @@ function renderHeroBestCard() {
     <p style="font-size:13px;color:var(--text-muted);margin:0 0 22px;">${dep.displayDate} &middot; 7 nights &middot; 2 adults</p>
     <div style="font-family:'Playfair Display',Georgia,serif;font-size:40px;font-weight:700;color:var(--text);line-height:1;margin-bottom:8px;">${formatPrice(dep.currentPrice)}</div>
     ${hasDropped ? `<div style="font-size:17px;font-weight:600;color:var(--teal);margin-bottom:24px;">&#8595; ${formatPrice(absDiff)}${pctChange > 0 ? ' (−' + pctChange + '%)' : ''}</div>` : '<div style="margin-bottom:24px;"></div>'}
-    <button onclick="openModal('${resort.id}', '2A')" style="background:var(--teal);color:white;border:none;border-radius:6px;padding:13px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;">View price history &#8594;</button>
+    <button onclick="gtag('event','resort_card_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}'}); openModal('${resort.id}', '2A')" style="background:var(--teal);color:white;border:none;border-radius:6px;padding:13px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;">View price history &#8594;</button>
   `;
 }
 
@@ -7805,7 +7805,10 @@ function renderCards(partySize, resortFilter) {
       </div>
     `;
 
-    card.addEventListener('click', () => openModal(resort.id, partySize));
+    card.addEventListener('click', () => {
+      gtag('event', 'resort_card_click', { resort_name: resort.name });
+      openModal(resort.id, partySize);
+    });
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(resort.id, partySize); });
 
     grid.appendChild(card);
@@ -7965,12 +7968,12 @@ function buildDepartureTable(resort, deps, bestDep) {
     const priceHTML = dep.currentPrice > 0
       ? `<strong style="font-family:'Playfair Display',Georgia,serif;font-size:15px;">${formatPrice(dep.currentPrice)}</strong>`
       : `<span style="color:#bbb5aa;font-size:12px;">Not yet on sale</span>`;
-    return `<tr class="${isBest ? 'dept-row-best' : ''}">
+    return `<tr class="${isBest ? 'dept-row-best' : ''}" onclick="gtag('event','departure_selected',{resort_name:'${resort.name.replace(/'/g, "\\'")}',departure_date:'${dep.date}'})">
       <td class="dept-td-date">${dep.displayDate}${isBest ? ` <span style="font-size:10px;color:var(--teal);letter-spacing:0.06em;text-transform:uppercase;font-weight:600;">${DATA_SUFFICIENT ? 'Best signal' : 'Featured'}</span>` : ''}</td>
       <td>${priceHTML}</td>
       <td>${movHTML}</td>
       <td>${getSignalBadgeHTML(dep.signal)}</td>
-      <td><a href="${bookUrl}" target="_blank" rel="noopener noreferrer" class="dept-book-link">Book on Club Med ↗</a></td>
+      <td><a href="${bookUrl}" target="_blank" rel="noopener noreferrer" class="dept-book-link" onclick="event.stopPropagation();gtag('event','book_link_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}',departure_date:'${dep.date}',price:${dep.currentPrice}});">Book on Club Med ↗</a></td>
     </tr>`;
   }).join('');
   return `<table class="dept-table">
@@ -8290,14 +8293,15 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
       ? `<span style="display:block;font-size:11px;color:var(--text-muted);font-family:'Inter',sans-serif;margin-top:2px;">${resortName}</span>`
       : '';
     return `
-      <div class="date-row${isBest ? ' best-row' : ''}">
+      <div class="date-row${isBest ? ' best-row' : ''}" onclick="gtag('event','departure_selected',{resort_name:'${resortName.replace(/'/g, "\\'")}',departure_date:'${dep.date}'})">
         <span class="date-row-week">${dep.displayDate}${resortBadge}</span>
         <span class="date-row-price">${formatPrice(dep.currentPrice)}</span>
         <span class="date-row-move">${moveLabel}</span>
         <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
         <span class="date-row-book">
           <a href="https://www.clubmed.co.uk" target="_blank" rel="noopener noreferrer"
-             class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;">
+             class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;"
+             onclick="event.stopPropagation();gtag('event','book_link_click',{resort_name:'${resortName.replace(/'/g, "\\'")}',departure_date:'${dep.date}',price:${dep.currentPrice}});">
             Book on Club Med
           </a>
         </span>

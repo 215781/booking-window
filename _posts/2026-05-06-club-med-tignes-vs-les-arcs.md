@@ -78,3 +78,11 @@ If you are comparing both resorts across several potential weeks, manually check
 Both Tignes and Les Arcs Panorama are strong entries in the Club Med network. The resort choice matters less than many buyers assume at the research stage — the all-inclusive model and ski instruction quality are broadly consistent. What matters is matching the terrain to your group's ability level, and making sure you are paying appropriately for the premium Tignes carries.
 
 At 8–12% above Les Arcs, Tignes asks you to justify that gap. For the right group, on the right week, it earns it. For others, Les Arcs offers comparable skiing, a broader range of terrain across ability levels, and room to redirect the price difference toward flights, insurance, or simply a slightly longer trip.
+
+<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
+<strong>Track Tignes and Les Arcs prices daily.</strong> The When To Book tracker monitors all departure dates across both resorts. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View live prices →</a>
+</div>
+
+---
+
+*Related reading: [When to Book a Club Med Ski Holiday: The Price Window Explained](/blog/when-to-book-club-med-ski-holiday/) · [Is Club Med Ski Worth the Money?](/blog/is-club-med-ski-worth-it/)*

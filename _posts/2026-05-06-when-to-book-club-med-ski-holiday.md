@@ -91,6 +91,10 @@ You can also sign up for a price alert. When a meaningful price shift occurs for
 
 ---
 
-The families who consistently pay less for the same Club Med resorts and the same ski weeks are not lucky. They understand the booking window, they know when promotional framing obscures rather than clarifies value, and they are watching the right data when it matters.
+The families who consistently book at the right point in the cycle are not lucky. They understand the booking window, they know when promotional framing obscures rather than clarifies value, and they are watching the right data when it matters.
 
 Timing your booking well is not a complicated skill. It requires knowing where prices have been, where they are now, and what movements tend to precede a genuine shift. That is what this site is built to help with.
+
+<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
+<strong>Track prices before you book.</strong> The When To Book tracker monitors Club Med ski resort prices daily across all eleven French Alps resorts. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View the tracker →</a>
+</div>

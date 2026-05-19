@@ -59,7 +59,7 @@ The booking timing matters too. Our [Club Med price tracker](/clubmed) shows tha
 
 Is Club Med ski worth it? For families with young children, for beginner and intermediate skiers, and for anyone who values a genuinely stress-free week over marginal cost optimisation — yes, the all-inclusive model holds up well against the alternative when you run the full comparison honestly.
 
-The caveat is timing. Booking a Christmas half-term week at full peak pricing without monitoring the cycle is how families end up paying £1,600 more than the family in the next chalet. Booking the same resort in January or early March, at the right point in the pricing cycle, changes the equation significantly.
+The caveat is timing. The families who book with confidence are the ones who understand where current pricing sits in the cycle — not those who booked the same week without that context. Booking the same resort in January or early March, at the right point in the pricing cycle, changes the equation significantly.
 
 The intelligence to make that call is exactly what this site tracks. If you want to know when prices move at the resort you are considering, the [When To Book Club Med tracker](/clubmed) shows daily price data across all eleven French Alps resorts.
 

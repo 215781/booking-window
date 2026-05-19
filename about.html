@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
+  <title>About | When To Book</title>
+  <meta name="description" content="How a family ski trip — and one overheard conversation — became a price intelligence tool. The story behind When To Book.">
+  <link rel="canonical" href="https://whentobook.co.uk/about">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whentobook.co.uk/about">
+  <meta property="og:title" content="About | When To Book">
+  <meta property="og:description" content="How a family ski trip — and one overheard conversation — became a price intelligence tool.">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
+  <meta property="og:site_name" content="When To Book">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2RES5DX0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G2RES5DX0K');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8;
+      --teal: #1a4a42;
+      --amber: #8a6a2a;
+      --text: #2c2c2c;
+      --muted: #6b6560;
+      --border: #d8d0c4;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: var(--teal);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: var(--bg);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--teal); flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600;
+      color: var(--bg); letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .header-nav {
+      margin-left: auto;
+      display: flex; gap: 24px;
+    }
+    .header-nav a {
+      color: rgba(245,240,232,0.75);
+      font-size: 13px; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .header-nav a:hover { color: var(--bg); }
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 40px 80px;
+      width: 100%;
+    }
+    .page-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 16px;
+    }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 42px);
+      font-weight: 700;
+      color: var(--teal);
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+    .standfirst {
+      font-size: 18px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 40px;
+      line-height: 1.6;
+    }
+    p {
+      font-size: 16px;
+      line-height: 1.75;
+      color: var(--text);
+      margin-bottom: 24px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--teal);
+      margin: 48px 0 16px;
+    }
+    .callout {
+      background: var(--bg);
+      border-left: 4px solid var(--amber);
+      padding: 20px 24px;
+      margin: 32px 0;
+      border-radius: 0 6px 6px 0;
+    }
+    .callout p {
+      margin: 0;
+      font-size: 17px;
+      color: var(--teal);
+      font-weight: 500;
+    }
+    .callout span {
+      display: block;
+      font-size: 14px;
+      color: var(--amber);
+      margin-top: 8px;
+      font-style: italic;
+    }
+    .what-we-track {
+      background: var(--teal);
+      color: var(--bg);
+      padding: 28px 32px;
+      border-radius: 8px;
+      margin: 40px 0;
+    }
+    .what-we-track h2 {
+      color: var(--bg);
+      margin-top: 0;
+      margin-bottom: 16px;
+      font-size: 20px;
+    }
+    .what-we-track p {
+      color: rgba(245,240,232,0.85);
+      margin-bottom: 10px;
+      font-size: 15px;
+    }
+    .what-we-track p:last-child { margin-bottom: 0; }
+    .who-we-are {
+      border-top: 1px solid var(--border);
+      margin-top: 48px;
+      padding-top: 32px;
+    }
+    .who-we-are p { margin-bottom: 12px; }
+    .who-we-are a { color: var(--teal); }
+    .who-we-are a:hover { color: var(--amber); }
+    .cta-wrap {
+      margin-top: 48px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .cta-wrap a {
+      display: inline-block;
+      background: var(--teal);
+      color: var(--bg);
+      text-decoration: none;
+      padding: 14px 32px;
+      border-radius: 4px;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+    .cta-wrap a:hover { background: #143830; }
+    footer {
+      background: var(--teal);
+      color: rgba(245,240,232,0.6);
+      text-align: center;
+      padding: 20px 40px;
+      font-size: 12px;
+    }
+    footer a { color: rgba(245,240,232,0.6); }
+    footer a:hover { color: var(--bg); }
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .header-nav a:not(:last-child) { display: none; }
+      main { padding: 40px 20px 60px; }
+      .what-we-track { padding: 20px 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo-mark">W</a>
+    <a href="/" class="logo-text">When To Book</a>
+    <nav class="header-nav">
+      <a href="/clubmed">Club Med tracker</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <p class="page-label">About</p>
+    <h1>About When To Book</h1>
+    <p class="standfirst">How a family ski trip — and one overheard conversation — became a price intelligence tool.</p>
+
+    <p>Skiing is everything to me. I try to go every year, and I could not wait for my daughter to turn four so we could take her for her first proper trip. But planning a ski holiday with a young child is a different beast entirely. How close is the accommodation to ski school? Will there be food she'll actually eat? And — honestly — how much is all of this going to cost?</p>
+
+    <p>My partner cut through the noise: just book Club Med. And boy, was she right. We went to Club Med La Plagne and had the absolute time of our lives. It couldn't have been more perfect.</p>
+
+    <p>When we got home, I kept thinking about a conversation I'd had with another guest on that trip.</p>
+
+    <div class="callout">
+      <p>They had enjoyed the exact same resort, the exact same week — for £1,600 less than we paid.</p>
+      <span>Not because they'd found a code or a scheme. Because of <em>when</em> they'd booked.</span>
+    </div>
+
+    <p>Club Med was worth every penny — it genuinely is a priceless experience. But that conversation stuck with me. Wouldn't it be useful to know, before you commit, whether you're booking at the right moment? Which weeks tend to sell out early and go up in price as they do? Which weeks are quieter, and might move in your favour if you wait a little longer?</p>
+
+    <p>That question became When To Book.</p>
+
+    <p>This is not a price comparison site. There are no voucher codes here, no cashback schemes. It is a timing tool — somewhere you can find out whether the data suggests getting in there now, or whether conditions are likely to become more favourable before the booking window closes.</p>
+
+    <div class="what-we-track">
+      <h2>What we track</h2>
+      <p>Club Med French Alps ski — all 11 resorts, every Sunday departure across the 2026/27 season. Daily pricing data collected since April 2026.</p>
+      <p>Club Med summer — 10 resorts across Europe, North Africa, and the Maldives. Daily pricing data collected from May 2026.</p>
+      <p>Mark Warner ski — Chalet Hotel L'Écrin, Tignes. Daily pricing data collected from May 2026.</p>
+    </div>
+
+    <div class="who-we-are">
+      <h2>Who we are</h2>
+      <p>When To Book is published by Drop Media Ltd, a UK media company.</p>
+      <p><a href="mailto:hello@whentobook.co.uk">hello@whentobook.co.uk</a></p>
+    </div>
+
+    <div class="cta-wrap">
+      <a href="/clubmed">Check the latest price movements →</a>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Drop Media Ltd &nbsp;·&nbsp; <a href="/about">About</a> &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="mailto:hello@whentobook.co.uk">hello@whentobook.co.uk</a><!-- <a href="/affiliate-disclosure.html">Affiliate Disclosure</a> --></p>
+  </footer>
+</body>
+</html>

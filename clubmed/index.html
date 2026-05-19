@@ -12895,6 +12895,19 @@ const RESORT_GRADIENTS = {
 };
 const RESORT_GRADIENT_DEFAULT = 'linear-gradient(150deg, #1a3040 0%, #2a5060 100%)';
 
+const RESORT_IMAGES = {
+  'tignes-val-claret': '../images/Tignes.jpg',
+  'les-arcs':          '../images/Les-Arcs.jpg',
+  'peisey-vallandry':  '../images/Peisey-Vallandry.jpg',
+  'valmorel':          '../images/Valmorel.jpg',
+  'alpe-dhuez':        '../images/Alpe-dhuez.jpg',
+  'la-rosiere':        '../images/La-Rosiere.jpg',
+  'la-plagne-2100':    '../images/La-plagne.jpg',
+  'val-disere':        '../images/Val-Disere.jpg',
+  'grand-massif':      '../images/Grand-Massif.jpg',
+  'val-thorens':       '../images/Val-Thorens.jpg',
+};
+
 const RESORT_GRADIENTS_SUMMER = {
   'gregolimano':            'linear-gradient(150deg,#0e4060 0%,#1e6080 50%,#2e8070 100%)',
   'magna-marbella':         'linear-gradient(150deg,#6a3010 0%,#8a5020 50%,#b06830 100%)',
@@ -12995,7 +13008,7 @@ function renderCards(partySize, resortFilter) {
     card.setAttribute('aria-label', `View details for ${resort.name}`);
 
     card.innerHTML = `
-      <div class="card-image" style="background:${gradients[resort.id] || RESORT_GRADIENT_DEFAULT};">
+      <div class="card-image" style="${RESORT_IMAGES[resort.id] ? `background:linear-gradient(to bottom,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.42) 100%),url('${RESORT_IMAGES[resort.id]}') center/cover no-repeat` : `background:${gradients[resort.id] || RESORT_GRADIENT_DEFAULT}`};">
         <span class="card-region">${resort.region}</span>
       </div>
       <div class="card-body">

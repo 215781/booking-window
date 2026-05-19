@@ -130,58 +130,41 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-18 — **Full business audit completed** — `BUSINESS_AUDIT.md` created covering site quality, data architecture, earning potential, risks, and business plan foundations. Key finding: API fragility is highest technical risk; affiliate approval is the primary business milestone.
 - 2026-05-18 — **PLAN_V2.md created** — Comprehensive affiliate-readiness plan with 15 agent tasks (B1–B15), 7 owner actions (A1–A7), phased timeline, and Awin application readiness checklist. Supersedes `PLAN.md` for strategic work.
 - 2026-05-18 — **hello@whentobook.co.uk created** — Zoho Mail (EU) free tier. DNS records added to Squarespace: 3×MX (mx.zoho.eu/10, mx2.zoho.eu/20, mx3.zoho.eu/50), SPF TXT (v=spf1 include:zohomail.eu ~all, replacing existing), DKIM TXT (zmail._domainkey). Allow up to 24h for propagation.
-- 2026-05-18 — **Founding story written by owner** — Saved as `about.md` at repo root. Full styled page with CSS, personal story, "What the site does today" section, CTA. Needs "What we track" and "Who we are" sections to be added by agent (task B3).
+- 2026-05-18 — **Founding story written by owner** — Saved as `about.md` at repo root. Full styled page with CSS, personal story, "What the site does today" section, CTA.
+- 2026-05-19 — **All PLAN_V2.md B tasks completed** — B1–B13 + B15 all done in single session. See commits 3cc1483 (structural), e0d0728 (pages), c542d1c (content fixes), ab7a605 (articles). Full detail below.
 
 ---
 
 ## Up Next (priority order)
 
-> **Read `PLAN_V2.md` for the full task list with acceptance criteria. Summary below.**
+✅ **Site is LIVE** — went live 2026-05-17.
+✅ **Blog has 13 articles** — all 11 French Alps ski resorts now covered.
+✅ **All PLAN_V2.md B tasks done** — B1–B13 + B15 complete. B14 blocked on Awin approval.
 
-✅ **Site is LIVE** — went live 2026-05-17. Both ski and summer trackers live.
-✅ **Blog has 10 articles** — per-resort guides through Val Thorens now live.
-✅ **Hero best-opportunity card live** — hero search form replaced with dynamic best-price card (commit 5d7d42f).
-✅ **hello@whentobook.co.uk set up** — Zoho Mail (EU), DNS records added to Squarespace 2026-05-18. Allow 24h for propagation. Verify at mailadmin.zoho.eu.
-✅ **Founding story written** — saved as `about.md` at repo root. Full styled page. Needs "What we track" + "Who we are / hello@..." sections added (agent task B3).
-✅ **Business audit complete** — see `BUSINESS_AUDIT.md`.
-✅ **PLAN_V2.md created** — 15 agent tasks, phased timeline, Awin affiliate readiness checklist.
+### 🔴 NEXT OWNER ACTION — Apply to Awin
 
-### 🔴 PLAN_V2.md PHASE 1 — Start immediately (no owner input needed)
+The site now meets the readiness checklist in PLAN_V2.md:
+- ✅ About page live at `/about` with founding story
+- ✅ hello@whentobook.co.uk in footer
+- ✅ Affiliate disclosure page built (`/affiliate-disclosure.html`, footer link commented out)
+- ✅ Consistent dark teal header across tracker, blog, and article pages
+- ✅ Footer expanded with About · Blog · Privacy · contact email on all pages
+- ✅ Hero subtitle rewritten (partner framing)
+- ✅ Signal descriptions (Hold/Favourable) rewritten
+- ✅ How It Works Step 2 rewritten
+- ✅ JS modal copy fixed
+- ✅ Mobile hero verified and CTA tap target ≥44px
+- ✅ All 13 resort guides published (complete set — all 11 French Alps resorts)
+- ✅ All articles end with consistent teal CTA box
+- ✅ Summer nav link fixed
 
-These tasks are fully unblocked. Execute in a single Builder session, commit per-task:
-
-| Task | Description | File(s) |
-|---|---|---|
-| **B15** | Fix Kit form submission (JSON → URL-encoded) + checkbox pointer-events | `clubmed/index.html` |
-| **B2** | Reorder tracker page sections (How it works moves up to position 3) | `clubmed/index.html` |
-| **B7** | 5 copy rewrites: hero sub, Hold signal ×2, Favourable signal, How It Works step 2 | `clubmed/index.html` |
-| **B8** | 4 JS modal copy fixes in `buildPriceNarrative` + search modal labels | `clubmed/index.html` |
-| **B13** | Fix Summer nav link — trigger `switchSeason('summer')` instead of navigating to `/summer` | `clubmed/index.html` |
-| **B12** | Mobile audit: hero grid collapse at 375/390/414px, CTA tap target ≥44px | `clubmed/index.html` |
-| **B10** | Verify Val d'Isère "22 departure dates" claim against CSV | `_posts/` + CSV |
-| **B4** | Build `affiliate-disclosure.html` (footer link commented out until Awin approval) | new file |
-
-### 🟡 PLAN_V2.md PHASE 2 — Also unblocked (email + story now done)
-
-| Task | Description | File(s) |
-|---|---|---|
-| **B1** | Unify header — dark teal header from `_layouts/post.html` into `clubmed/index.html` (owner chose Option 1) | `clubmed/index.html`, `_layouts/post.html` |
-| **B3** | Complete About page — add "What we track" + "Who we are / hello@whentobook.co.uk" to existing `about.md` | `about.md` |
-| **B5** | Expand footer: `© Drop Media · About · Blog · Privacy · hello@whentobook.co.uk` across all 4 templates | `clubmed/index.html`, `_layouts/post.html`, `blog/index.html`, `index.html` |
-| **B6** | Add founding story pull quote to tracker hero (`.hero-quote` div) | `clubmed/index.html` |
-| **B9** | Fix 2 article closing lines + standardise teal CTA box across all 11 articles | `_posts/*.md` |
-
-### 🟢 PLAN_V2.md PHASE 3
-
-| Task | Description |
-|---|---|
-| **B11** | Write resort articles 11–13: Peisey-Vallandry, Grand Massif, Serre-Chevalier (after B9 done) |
+**Owner action:** Apply to Awin per A7 instructions in PLAN_V2.md. Submit URL: `https://whentobook.co.uk/clubmed`.
 
 ### ⏸ BLOCKED / DEFERRED
 
-- **B14** — Affiliate link integration. Blocked until Awin approval (owner applies at end of Phase 3).
-- **Eurostar Snow** — Blog articles only (content writer has brief). Deadline 9 July 2026. No landing page needed.
-- **Summer resort names** — LAPC/LPAC/PALC/TURC names to verify against Club Med UK before promoting.
+- **B14** — Affiliate link integration. Do not action until Awin sends approval email. Then: update all 11 `bookingUrl` values in `RESORT_DATA`, update summer resort URLs, uncomment affiliate disclosure footer link, add disclosure line to articles with direct affiliate links.
+- **Summer resort names** — LAPC/LPAC/PALC/TURC names to verify against Club Med UK before promoting summer tracker heavily.
+- **Eurostar Snow** — Blog articles only. Deadline 9 July 2026.
 
 ### Kit form bug (B15) — detail for Builder
 

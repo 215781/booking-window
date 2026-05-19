@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Val d'Isère: What the Price Data Shows"
-date: 2026-05-17
+date: 2026-03-19
 description: "Best time to book Club Med Val d'Isère? Live price tracking data shows a £8,000+ gap between peak and shoulder weeks. Here's what the numbers show."
 permalink: /blog/best-time-to-book-club-med-val-disere/
 category: booking-intelligence

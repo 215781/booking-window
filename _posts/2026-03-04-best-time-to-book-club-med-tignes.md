@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Tignes: Price Data Across the Full Season"
-date: 2026-05-17
+date: 2026-03-04
 description: "Best time to book Club Med Tignes? Live price tracking shows a £6,000+ spread across departure dates. Here is what the data reveals about the Tignes pricing cycle."
 permalink: /blog/best-time-to-book-club-med-tignes/
 category: booking-intelligence

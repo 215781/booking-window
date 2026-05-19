@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Les Arcs: Live Price Data for 2026/27"
-date: 2026-05-17
+date: 2026-03-11
 description: "Best time to book Club Med Les Arcs? Price tracking shows a £4,400 gap between the most and least expensive weeks. Here is what the data shows."
 permalink: /blog/best-time-to-book-club-med-les-arcs/
 category: booking-intelligence

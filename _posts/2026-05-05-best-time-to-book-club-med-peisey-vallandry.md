@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Peisey-Vallandry: What the Price Data Shows"
-date: 2026-05-19
+date: 2026-05-05
 description: "Best time to book Club Med Peisey-Vallandry? Live price tracking data shows a £3,000+ gap between peak and shoulder weeks. Here's what the numbers show."
 permalink: /blog/best-time-to-book-club-med-peisey-vallandry/
 category: booking-intelligence

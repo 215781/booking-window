@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?"
-date: 2026-05-06
+date: 2026-02-25
 description: "Club Med Tignes typically runs 8–12% higher than Les Arcs Panorama. Is it worth it? A side-by-side comparison of terrain, village feel, and pricing across both resorts."
 permalink: /blog/club-med-tignes-vs-les-arcs/
 category: booking-intelligence

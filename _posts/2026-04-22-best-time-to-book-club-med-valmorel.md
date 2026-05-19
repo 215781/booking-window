@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Valmorel: What the Price Data Shows"
-date: 2026-05-17
+date: 2026-04-22
 description: "Best time to book Club Med Valmorel? Live price data shows a 4x gap between February half-term and late-March departures — here is what the numbers show."
 permalink: /blog/best-time-to-book-club-med-valmorel/
 category: booking-intelligence

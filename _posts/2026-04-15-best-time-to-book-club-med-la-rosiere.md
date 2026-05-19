@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med La Rosière: What the Price Data Shows"
-date: 2026-05-17
+date: 2026-04-15
 description: "Best time to book Club Med La Rosière? The resort has one of the longest seasons in the Club Med portfolio — and the data shows clear value windows. Here is what the numbers show."
 permalink: /blog/best-time-to-book-club-med-la-rosiere/
 category: booking-intelligence

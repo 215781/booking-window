@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "When to Book a Club Med Ski Holiday: The Price Window Explained"
-date: 2026-05-06
+date: 2026-02-09
 description: "Club Med ski holiday prices don't follow a simple early-bird rule. Understanding the booking window — and when the February flash sale distorts it — can save your family hundreds of pounds."
 permalink: /blog/when-to-book-club-med-ski-holiday/
 category: booking-intelligence

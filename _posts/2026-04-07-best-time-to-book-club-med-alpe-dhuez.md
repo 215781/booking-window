@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Alpe d'Huez: An Unusual Pricing Pattern"
-date: 2026-05-17
+date: 2026-04-07
 description: "Best time to book Club Med Alpe d'Huez? Live price data reveals an unusual spike in late March. Here is what the 2026/27 pricing cycle shows."
 permalink: /blog/best-time-to-book-club-med-alpe-dhuez/
 category: booking-intelligence

@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Is Club Med Ski Worth the Money? An Honest Assessment"
-date: 2026-05-17
+date: 2026-02-17
 description: "Is Club Med ski worth it? We break down exactly what you get, what you pay, and when the timing makes the value calculation significantly stronger."
 permalink: /blog/is-club-med-ski-worth-it/
 category: booking-intelligence

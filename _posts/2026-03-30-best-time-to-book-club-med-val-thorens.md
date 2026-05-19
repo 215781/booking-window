@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Best Time to Book Club Med Val Thorens: What the Price Data Shows"
-date: 2026-05-17
+date: 2026-03-30
 description: "Best time to book Club Med Val Thorens Sensations? As Europe's highest ski resort and a year-round destination, it has unique pricing behaviour. Here is what the live data shows."
 permalink: /blog/best-time-to-book-club-med-val-thorens/
 category: booking-intelligence

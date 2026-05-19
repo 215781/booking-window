@@ -1,0 +1,44 @@
+name: Auto-merge Claude branches to main
+
+on:
+  push:
+    branches:
+      - 'claude/**'
+
+jobs:
+  merge-to-main:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repo (full history)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git
+        run: |
+          git config user.name "GitHub Actions (auto-merge)"
+          git config user.email "actions@github.com"
+
+      - name: Merge Claude branch into main
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          echo "Merging $BRANCH into main..."
+          git checkout main
+          git pull origin main
+          if git merge --ff-only origin/"$BRANCH"; then
+            echo "Fast-forward merge succeeded."
+          else
+            echo "Fast-forward not possible - creating merge commit."
+            git merge --no-ff origin/"$BRANCH" -m "Auto-merge $BRANCH to main [skip ci]"
+          fi
+          git push origin main
+          echo "Pushed to main. GitHub Pages deployment will follow shortly."
+
+      - name: Delete merged Claude branch
+        run: |
+          BRANCH="${{ github.ref_name }}"
+          git push origin --delete "$BRANCH" || echo "Branch already deleted or not found - skipping."

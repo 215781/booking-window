@@ -2,6 +2,13 @@
 
 **Read this file first at the start of every session, before doing anything else.**
 
+## Last session (2026-05-19)
+- Blog infrastructure live: _config.yml, _layouts/post.html, blog/index.html
+- bookingUrl CTA audit: OPEN - Tester found bookingUrl exists in checker but unclear if wired into HTML CTAs
+- Child age band pricing: OPEN - awaiting product decision from Connor (split by under-4/4-11/12+ or single bucket?)
+- Founders photo: added to about page (in progress)
+- Next: first blog post, bookingUrl fix if needed, Data Analyst positive signal emails
+
 > ⚠️ **ACTIVE PLAN HAS CHANGED — read `PLAN_V2.md` instead of `PLAN.md`.**
 > `PLAN_V2.md` is the current working plan as of 2026-05-18. It was produced from a full business audit and contains 15 fully-scoped agent tasks (B1–B15) plus owner actions. `PLAN.md` is now superseded for strategic work — it remains useful only as a technical history log. **Always read `PLAN_V2.md` at session start.**
 

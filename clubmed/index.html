@@ -532,24 +532,24 @@
     }
 
     .card-price {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       font-weight: 400;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 4px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
     }
 
     .card-price-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+      display: none;
     }
 
     .price-movement {
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 12px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
     .price-down { color: var(--teal); }
@@ -12964,8 +12964,8 @@ function renderHeroBestCard() {
     <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin:0 0 18px;">Best available price</p>
     <div style="font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:6px;">${resort.name}</div>
     <p style="font-size:13px;color:var(--text-muted);margin:0 0 22px;">${dep.displayDate} &middot; 7 nights &middot; 2 adults</p>
-    <div style="font-family:'Playfair Display',Georgia,serif;font-size:40px;font-weight:700;color:var(--text);line-height:1;margin-bottom:8px;">${formatPrice(dep.currentPrice)}</div>
-    ${hasDropped ? `<div style="font-size:17px;font-weight:600;color:var(--teal);margin-bottom:24px;">&#8595; ${formatPrice(absDiff)}${pctChange > 0 ? ' (−' + pctChange + '%)' : ''}</div>` : '<div style="margin-bottom:24px;"></div>'}
+    ${hasDropped ? `<div style="font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--teal);line-height:1.1;margin-bottom:8px;">&#8595; ${formatPrice(absDiff)}${pctChange > 0 ? ' &middot; &minus;' + pctChange + '%' : ''}</div>` : `<div style="font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:8px;">${formatPrice(dep.currentPrice)}</div>`}
+    <div style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">from ${formatPrice(dep.currentPrice)} &middot; 7 nights &middot; per party</div>
     <button onclick="gtag('event','resort_card_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}'}); openModal('${resort.id}', '2A')" style="background:var(--teal);color:white;border:none;border-radius:6px;padding:13px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;">View price history &#8594;</button>
   `;
 }

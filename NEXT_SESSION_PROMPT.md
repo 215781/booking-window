@@ -1,7 +1,9 @@
 # Next Session Prompt — When To Book
 
 **Read this file first at the start of every session, before doing anything else.**
-Then read `PLAN.md` for the full task list.
+
+> ⚠️ **ACTIVE PLAN HAS CHANGED — read `PLAN_V2.md` instead of `PLAN.md`.**
+> `PLAN_V2.md` is the current working plan as of 2026-05-18. It was produced from a full business audit and contains 15 fully-scoped agent tasks (B1–B15) plus owner actions. `PLAN.md` is now superseded for strategic work — it remains useful only as a technical history log. **Always read `PLAN_V2.md` at session start.**
 
 ---
 
@@ -125,32 +127,76 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-18 — **GA4 event tracking added** — `resort_card_click` (resort cards + hero CTA), `book_link_click` (modal + search modal book links), `departure_selected` (departure table rows + search modal date rows) wired to existing G-G2RES5DX0K tag in `clubmed/index.html`. Book links use stopPropagation to prevent double-fire. (commit 960dc91)
 - 2026-05-18 — **Signal badges now show real price movement** — `getSignalBadgeHTML` computes from `priceHistory`: ↓/↑ £X since tracking — consider booking / hold and monitor / Stable. "Building data..." only when ≤1 data points. `DATA_SUFFICIENT` flag retained — now only gates no-data fallback. All call sites pass `dep`. (commit 7572510)
 - 2026-05-18 — **Booking URLs corrected** — All 11 bookingUrls updated to `/r/{slug}/w` format. Corrected: tignes-val-claret → tignes, alpe-dhuez → l-alpe-d-huez, la-plagne-2100 → la-plagne. Search modal uses resort-specific URL. (commit 7572510)
+- 2026-05-18 — **Full business audit completed** — `BUSINESS_AUDIT.md` created covering site quality, data architecture, earning potential, risks, and business plan foundations. Key finding: API fragility is highest technical risk; affiliate approval is the primary business milestone.
+- 2026-05-18 — **PLAN_V2.md created** — Comprehensive affiliate-readiness plan with 15 agent tasks (B1–B15), 7 owner actions (A1–A7), phased timeline, and Awin application readiness checklist. Supersedes `PLAN.md` for strategic work.
+- 2026-05-18 — **hello@whentobook.co.uk created** — Zoho Mail (EU) free tier. DNS records added to Squarespace: 3×MX (mx.zoho.eu/10, mx2.zoho.eu/20, mx3.zoho.eu/50), SPF TXT (v=spf1 include:zohomail.eu ~all, replacing existing), DKIM TXT (zmail._domainkey). Allow up to 24h for propagation.
+- 2026-05-18 — **Founding story written by owner** — Saved as `about.md` at repo root. Full styled page with CSS, personal story, "What the site does today" section, CTA. Needs "What we track" and "Who we are" sections to be added by agent (task B3).
 
 ---
 
 ## Up Next (priority order)
 
-✅ **Site is LIVE** — went live 2026-05-17 (commit 859fe56). Both ski and summer trackers live.
+> **Read `PLAN_V2.md` for the full task list with acceptance criteria. Summary below.**
+
+✅ **Site is LIVE** — went live 2026-05-17. Both ski and summer trackers live.
 ✅ **Blog has 10 articles** — per-resort guides through Val Thorens now live.
 ✅ **Hero best-opportunity card live** — hero search form replaced with dynamic best-price card (commit 5d7d42f).
-✅ **Resort cards simplified** — party size tabs removed; movement badges clean (commit b0547b1).
+✅ **hello@whentobook.co.uk set up** — Zoho Mail (EU), DNS records added to Squarespace 2026-05-18. Allow 24h for propagation. Verify at mailadmin.zoho.eu.
+✅ **Founding story written** — saved as `about.md` at repo root. Full styled page. Needs "What we track" + "Who we are / hello@..." sections added (agent task B3).
+✅ **Business audit complete** — see `BUSINESS_AUDIT.md`.
+✅ **PLAN_V2.md created** — 15 agent tasks, phased timeline, Awin affiliate readiness checklist.
 
-### 🔴 NEXT — Priority order
-1. **Verify hero best-price card on live site** — GitHub Pages deploy takes ~1–2 min after push. Check whentobook.co.uk to confirm card renders and the CTA works correctly.
+### 🔴 PLAN_V2.md PHASE 1 — Start immediately (no owner input needed)
 
-2. **Mobile responsiveness audit: hero card** — the hero section uses a two-column layout; verify the best-price card renders well on small viewports (iOS Safari, Android Chrome). Check card sizing, text wrapping, and CTA tap target.
+These tasks are fully unblocked. Execute in a single Builder session, commit per-task:
 
-3. **Verify summer resort names** — LAPC/LPAC/PALC/TURC names were inferred from GraphQL codes. Verify against Club Med UK website before promoting summer tracker heavily.
+| Task | Description | File(s) |
+|---|---|---|
+| **B15** | Fix Kit form submission (JSON → URL-encoded) + checkbox pointer-events | `clubmed/index.html` |
+| **B2** | Reorder tracker page sections (How it works moves up to position 3) | `clubmed/index.html` |
+| **B7** | 5 copy rewrites: hero sub, Hold signal ×2, Favourable signal, How It Works step 2 | `clubmed/index.html` |
+| **B8** | 4 JS modal copy fixes in `buildPriceNarrative` + search modal labels | `clubmed/index.html` |
+| **B13** | Fix Summer nav link — trigger `switchSeason('summer')` instead of navigating to `/summer` | `clubmed/index.html` |
+| **B12** | Mobile audit: hero grid collapse at 375/390/414px, CTA tap target ≥44px | `clubmed/index.html` |
+| **B10** | Verify Val d'Isère "22 departure dates" claim against CSV | `_posts/` + CSV |
+| **B4** | Build `affiliate-disclosure.html` (footer link commented out until Awin approval) | new file |
 
-4. **Summer tracker first data** — Combos bug fixed 2026-05-17 (commit 7fc1677). First successful data run expected 2026-05-18 at 07:30 UTC. Monitor `_data/prices_clubmed_summer.csv` for first rows.
+### 🟡 PLAN_V2.md PHASE 2 — Also unblocked (email + story now done)
 
-5. **Content articles 11–13** — Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides. Defer until after hero card and mobile responsiveness are verified stable.
+| Task | Description | File(s) |
+|---|---|---|
+| **B1** | Unify header — dark teal header from `_layouts/post.html` into `clubmed/index.html` (owner chose Option 1) | `clubmed/index.html`, `_layouts/post.html` |
+| **B3** | Complete About page — add "What we track" + "Who we are / hello@whentobook.co.uk" to existing `about.md` | `about.md` |
+| **B5** | Expand footer: `© Drop Media · About · Blog · Privacy · hello@whentobook.co.uk` across all 4 templates | `clubmed/index.html`, `_layouts/post.html`, `blog/index.html`, `index.html` |
+| **B6** | Add founding story pull quote to tracker hero (`.hero-quote` div) | `clubmed/index.html` |
+| **B9** | Fix 2 article closing lines + standardise teal CTA box across all 11 articles | `_posts/*.md` |
 
-6. **Eurostar Snow alert page** — deadline July 9 2026. Kit infrastructure ready; needs a new form + landing page. Build before ticket sale opens.
+### 🟢 PLAN_V2.md PHASE 3
 
-7. **Schedule Content Writer — 2 blog posts/week** — Set up recurring scheduled agent (via `anthropic-skills:schedule`). User confirmed interest 2026-05-06. Blog has momentum now — worth setting up.
+| Task | Description |
+|---|---|
+| **B11** | Write resort articles 11–13: Peisey-Vallandry, Grand Massif, Serre-Chevalier (after B9 done) |
 
-8. **CONTENT_WRITER.md** — agent file for SEO blog posts. Template: research keyword → draft → optimise → publish.
+### ⏸ BLOCKED / DEFERRED
+
+- **B14** — Affiliate link integration. Blocked until Awin approval (owner applies at end of Phase 3).
+- **Eurostar Snow** — Blog articles only (content writer has brief). Deadline 9 July 2026. No landing page needed.
+- **Summer resort names** — LAPC/LPAC/PALC/TURC names to verify against Club Med UK before promoting.
+
+### Kit form bug (B15) — detail for Builder
+
+Both Kit form fetch calls in `clubmed/index.html` use `Content-Type: application/json`. Kit's public form endpoint expects `application/x-www-form-urlencoded`. Fix:
+```javascript
+const params = new URLSearchParams();
+params.append('email_address', email);
+params.append('fields[resort_interest]', resortName);
+fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+  body: params.toString()
+})
+```
+Apply the same fix to the search modal form (ID `f197f8f414`). Also check `#alert-consent` and `#search-kit-consent` checkboxes for pointer-events issues.
 
 ### Design constraint (for future operators / summer expansion)
 > **Flexible duration support (7 / 10 / 14 nights):** Summer checker currently queries 7-night durations only. When summer tracker UI is built, consider expanding to `durations: [7, 10, 14]` per the design constraint in PLAN.md. Do not apply to existing winter Club Med checker without user instruction.

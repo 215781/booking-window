@@ -85,53 +85,57 @@
     }
 
     /* ── Navigation ── */
-    nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
+    header {
+      background: var(--teal);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .logo-mark {
+      width: 36px; height: 36px;
       background: var(--bg);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .nav-inner {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 0 40px;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .logo {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 22px;
-      font-weight: 400;
-      color: var(--text);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--teal); flex-shrink: 0;
       text-decoration: none;
     }
 
-    .logo span {
-      color: var(--teal);
-      font-style: italic;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--text-muted);
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600;
+      color: var(--bg); letter-spacing: 0.01em;
       text-decoration: none;
-      transition: color 0.2s;
     }
 
-    .nav-links a:hover { color: var(--text); }
+    .header-nav {
+      margin-left: auto;
+      display: flex; align-items: center; gap: 28px;
+    }
+
+    .header-nav a {
+      color: rgba(245,240,232,0.8);
+      font-size: 13px; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+
+    .header-nav a:hover { color: var(--bg); }
+
+    .header-nav .btn-alert {
+      background: var(--amber);
+      color: #fff;
+      padding: 9px 20px;
+      border-radius: 2px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .header-nav .btn-alert:hover { background: #7a5c24; color: #fff; }
 
     .btn {
       display: inline-block;
@@ -1260,8 +1264,8 @@
       .container { padding: 0 24px; }
       .section { padding: 64px 0; }
 
-      .nav-inner { padding: 0 24px; }
-      .nav-links { gap: 24px; }
+      header { padding: 16px 24px; }
+      .header-nav { gap: 20px; }
 
       .hero-inner {
         grid-template-columns: 1fr;
@@ -1292,12 +1296,15 @@
       .container { padding: 0 16px; }
       .section { padding: 48px 0; }
 
-      .nav-inner { padding: 0 16px; height: 56px; }
-      .nav-links { display: none; }
+      header { padding: 14px 16px; }
+      .header-nav { gap: 16px; }
+      .header-nav a:not(.btn-alert) { display: none; }
 
       #signals-hero { padding: 48px 0 40px; }
       .hero-headline { font-size: 30px; }
       .hero-form-wrap { padding: 24px 20px; }
+      .hero-form-wrap button { min-height: 44px; }
+      .hero-quote { margin-bottom: 24px; }
 
       /* touch targets — 44px minimum */
       .form-group select,
@@ -1406,19 +1413,15 @@
 <body>
 
 <!-- ── Navigation ── -->
-<nav>
-  <div class="nav-inner">
-    <a href="/" class="logo">When To <span>Book</span></a>
-    <ul class="nav-links">
-      <li><a href="#signals">Signals</a></li>
-      <li><a href="#how-it-works">How it Works</a></li>
-      <li><a href="#alerts">Alerts</a></li>
-      <li><a href="/summer">Summer</a></li>
-      <li><a href="/blog">Blog</a></li>
-    </ul>
-    <a href="#alerts" class="btn btn-primary">Set Alert</a>
-  </div>
-</nav>
+<header>
+  <a href="/" class="logo-mark">W</a>
+  <a href="/" class="logo-text">When To Book</a>
+  <nav class="header-nav">
+    <a href="/clubmed">Club Med Tracker</a>
+    <a href="/blog">Blog</a>
+    <a href="#alerts" class="btn-alert">Set Alert</a>
+  </nav>
+</header>
 
 <!-- ── Hero ── -->
 <section id="signals-hero">
@@ -1427,7 +1430,10 @@
       <div class="hero-left">
         <p class="section-label">When To Book</p>
         <h1 class="hero-headline">Knowing <em>when</em> to book is as important as knowing where.</h1>
-        <p class="hero-sub">We track Club Med availability and pricing so you can see if a resort is about to sell out, or if prices have recently dropped and now is a good time to book.</p>
+        <p class="hero-sub">We track Club Med availability and pricing daily — so you can see whether now is a well-timed moment to book, or whether the picture is likely to improve if you wait a little longer.</p>
+        <div class="hero-quote">
+          <p>"Two families. Same Club Med resort. Same week. One paid £1,600 more — not because they booked something different, but because they booked at a different moment in the cycle. This site exists to close that gap."</p>
+        </div>
       </div>
       <div class="hero-right">
         <div class="hero-form-wrap" id="hero-best-card">
@@ -1460,32 +1466,26 @@
   </div>
 </section>
 
-<!-- ── Signal Guide ── -->
-<section id="signal-guide" class="section" style="padding:80px 0;">
+<!-- ── How It Works ── -->
+<section id="how-it-works" class="section" style="padding:80px 0;">
   <div class="container">
-    <p class="section-label">Signal Guide</p>
-    <h2 class="guide-heading">What each signal means</h2>
-    <div class="guide-panels">
-      <div class="guide-panel guide-panel-teal">
-        <div class="guide-panel-header">
-          <span class="signal-badge signal-favourable">Favourable</span>
-        </div>
-        <p class="guide-panel-lead">"Conditions suggest a reasonable time to book."</p>
-        <p class="guide-panel-body">Price is stable or has plateaued at a historically favourable level, or availability signals suggest further drops are unlikely. The data points toward acting now — but timing is yours to judge.</p>
+    <p class="section-label">The Method</p>
+    <h2 class="method-heading">How When To Book works</h2>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <h3 class="step-title">We track live Club Med pricing, updated daily.</h3>
+        <p class="step-body">Every major ski resort. Every Sunday departure across the season. Standard party sizes. We've been building this price history since spring 2026 — and it compounds in value with every passing week.</p>
       </div>
-      <div class="guide-panel guide-panel-amber">
-        <div class="guide-panel-header">
-          <span class="signal-badge signal-watch">Watch</span>
-        </div>
-        <p class="guide-panel-lead">"Price has moved recently. Direction is still resolving."</p>
-        <p class="guide-panel-body">Price has shifted meaningfully in the past week, or the booking window suggests movement is likely soon. The picture isn't clear enough to signal either way — check back in the next few days.</p>
+      <div class="step">
+        <div class="step-number">02</div>
+        <h3 class="step-title">We analyse trends and availability over time.</h3>
+        <p class="step-body">A raw price is just a number. Context is what makes it actionable. We measure price direction, velocity of change, and availability tightening — the kind of longitudinal context that only consistent daily tracking over time can reveal.</p>
       </div>
-      <div class="guide-panel guide-panel-grey">
-        <div class="guide-panel-header">
-          <span class="signal-badge signal-hold">Hold</span>
-        </div>
-        <p class="guide-panel-lead">"Stable conditions. Further drops are likely."</p>
-        <p class="guide-panel-body">Price has risen recently, availability is comfortable, and the booking window suggests further drops are likely before the season closes. Patience is the rational position here.</p>
+      <div class="step">
+        <div class="step-number">03</div>
+        <h3 class="step-title">We tell you whether to book now, watch, or hold.</h3>
+        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated daily. The decision is always yours — we just make sure you're making it with the right information.</p>
       </div>
     </div>
   </div>
@@ -1559,26 +1559,32 @@
   </div>
 </section>
 
-<!-- ── How It Works ── -->
-<section id="how-it-works" class="section" style="padding:80px 0;">
+<!-- ── Signal Guide ── -->
+<section id="signal-guide" class="section" style="padding:80px 0;">
   <div class="container">
-    <p class="section-label">The Method</p>
-    <h2 class="method-heading">How When To Book works</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">01</div>
-        <h3 class="step-title">We track live Club Med pricing, updated daily.</h3>
-        <p class="step-body">Every major ski resort. Every Sunday departure across the season. Standard party sizes. We've been building this price history since spring 2026 — and it compounds in value with every passing week.</p>
+    <p class="section-label">Signal Guide</p>
+    <h2 class="guide-heading">What each signal means</h2>
+    <div class="guide-panels">
+      <div class="guide-panel guide-panel-teal">
+        <div class="guide-panel-header">
+          <span class="signal-badge signal-favourable">Favourable</span>
+        </div>
+        <p class="guide-panel-lead">"Conditions suggest a reasonable time to book."</p>
+        <p class="guide-panel-body">Price has stabilised at a historically reasonable level, or availability signals suggest the booking window is narrowing. The data points toward acting now — but the decision is always yours.</p>
       </div>
-      <div class="step">
-        <div class="step-number">02</div>
-        <h3 class="step-title">We analyse trends and availability over time.</h3>
-        <p class="step-body">A raw price is just a number. Context is what makes it actionable. We measure price direction, velocity of change, and availability tightening — the signals that Club Med's own site cannot give you.</p>
+      <div class="guide-panel guide-panel-amber">
+        <div class="guide-panel-header">
+          <span class="signal-badge signal-watch">Watch</span>
+        </div>
+        <p class="guide-panel-lead">"Price has moved recently. Direction is still resolving."</p>
+        <p class="guide-panel-body">Price has shifted meaningfully in the past week, or the booking window suggests movement is likely soon. The picture isn't clear enough to signal either way — check back in the next few days.</p>
       </div>
-      <div class="step">
-        <div class="step-number">03</div>
-        <h3 class="step-title">We tell you whether to book now, watch, or hold.</h3>
-        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated daily. The decision is always yours — we just make sure you're making it with the right information.</p>
+      <div class="guide-panel guide-panel-grey">
+        <div class="guide-panel-header">
+          <span class="signal-badge signal-hold">Hold</span>
+        </div>
+        <p class="guide-panel-lead">"The picture hasn't yet resolved in your favour."</p>
+        <p class="guide-panel-body">Prices are at or near a recent high and availability remains comfortable. The data suggests patience is the rational position — conditions are likely to become more favourable before the booking window closes.</p>
       </div>
     </div>
   </div>
@@ -1587,7 +1593,7 @@
 <!-- ── Footer ── -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-copy">© 2026 Drop Media Ltd &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a></span>
+    <span class="footer-copy">© 2026 Drop Media Ltd &nbsp;·&nbsp; <a href="/about">About</a> &nbsp;·&nbsp; <a href="/blog">Blog</a> &nbsp;·&nbsp; <a href="/privacy.html">Privacy</a> &nbsp;·&nbsp; <a href="mailto:hello@whentobook.co.uk">hello@whentobook.co.uk</a><!-- <a href="/affiliate-disclosure.html">Affiliate Disclosure</a> --></span>
   </div>
 </footer>
 
@@ -1605,7 +1611,7 @@
       <div id="search-modal-best-banner"></div>
       <div class="search-kit-wrap" id="search-kit-wrap">
         <p class="search-kit-label">Stay informed</p>
-        <p class="search-kit-intro">Let me know if there are improvements on these results.</p>
+        <p class="search-kit-intro">We'll notify you if conditions shift in your favour.</p>
         <form id="search-kit-form" autocomplete="off">
           <div class="search-kit-row">
             <input type="email" id="search-kit-email" placeholder="your@email.com">
@@ -1621,7 +1627,7 @@
           <div id="search-kit-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:'Inter',sans-serif;">Something went wrong — please try again.</div>
         </form>
       </div>
-      <p class="date-rows-label" id="search-modal-rows-label">All Sunday departures — ranked by price, lowest first</p>
+      <p class="date-rows-label" id="search-modal-rows-label">All Sunday departures — most favourable pricing first</p>
       <div id="search-modal-date-rows"></div>
       <div class="alt-months" id="search-modal-alt-months"></div>
     </div>
@@ -7968,8 +7974,8 @@ function buildPriceNarrative(resort, combo, bestDep, pricedDeps) {
   const maxPrice = Math.max(...allPrices);
   const cheapestDep = pricedDeps.find(d => d.currentPrice === minPrice);
   const recentDrops = pricedDeps.filter(d => getPriceMovement(d) < -10).length;
-  let narrative = `For a ${partySizeLabel} party, ${resort.name} currently ranges from ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} across the season. The lowest-priced week currently available is ${cheapestDep.displayDate}.`;
-  if (recentDrops > 0) narrative += ` ${recentDrops} departure${recentDrops > 1 ? 's have' : ' has'} seen a price drop since the last check.`;
+  let narrative = `For a ${partySizeLabel} party, ${resort.name} currently ranges from ${formatPrice(minPrice)} to ${formatPrice(maxPrice)} across the season. The most competitively priced week currently available is ${cheapestDep.displayDate}.`;
+  if (recentDrops > 0) narrative += ` ${recentDrops} departure${recentDrops > 1 ? 's have' : ' has'} moved in your favour since the last check.`;
   narrative += ` December 27 and February half-term weeks typically command the highest premiums; early December, late March and April tend to be quieter. Richer signals will develop as price movement data accumulates over the coming months.`;
   return narrative;
 }
@@ -8148,13 +8154,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (err) err.style.display = 'none';
 
     try {
+      const params7f = new URLSearchParams();
+      params7f.append('email_address', email);
+      params7f.append('fields[resort_interest]', resortName === 'Any resort — show all' ? 'All resorts' : resortName);
       const res = await fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email_address: email,
-          fields: { resort_interest: resortName === 'Any resort — show all' ? 'All resorts' : resortName }
-        })
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: params7f.toString()
       });
       if (!res.ok) throw new Error('Network response was not ok');
       conf.innerHTML = `You're on the list. We'll email you when prices move for ${resortName === 'Any resort — show all' ? 'your selected resorts' : resortName}.`;
@@ -8189,13 +8195,13 @@ document.addEventListener('DOMContentLoaded', () => {
     err.style.display = 'none';
 
     try {
+      const paramsF1 = new URLSearchParams();
+      paramsF1.append('email_address', email);
+      paramsF1.append('fields[resort_interest]', resortLabel + (dateLabel ? ' · ' + dateLabel : ''));
       const res = await fetch('https://app.kit.com/forms/f197f8f414/subscriptions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email_address: email,
-          fields: { resort_interest: resortLabel + (dateLabel ? ' · ' + dateLabel : '') }
-        })
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: paramsF1.toString()
       });
       if (!res.ok) throw new Error('Network response was not ok');
       document.getElementById('search-kit-form').style.display = 'none';
@@ -8293,7 +8299,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
     const labelBase = dateMode === 'month' && dateFilter ? 'All departures this month'
       : dateMode === 'specific' ? 'Departures on selected date'
       : 'All available departures';
-    rowsLabelEl.textContent = `${labelBase} — ranked by price, lowest first`;
+    rowsLabelEl.textContent = `${labelBase} — most favourable pricing first`;
   }
 
   // Date rows

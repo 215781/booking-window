@@ -54,7 +54,7 @@ The *when* of booking is as important as the *which week* for Val d'Isère, for 
 
 Christmas and February half-term at Club Med Val d'Isère are among the most in-demand weeks across the entire French Alps portfolio. If you want a Christmas or half-term booking and you are reading this after September, availability may already be constrained. The early-booking window for peak dates at this resort closes faster than at lower-demand resorts.
 
-Our [When To Book Club Med tracker](/clubmed) monitors Val d'Isère prices daily across all 22 departure dates in the 2026/27 season. When prices shift, we record it. Over time, this data will show exactly when the booking window tightens and at what point prices stop moving.
+Our [When To Book Club Med tracker](/clubmed) monitors Val d'Isère prices daily across all 42 departure dates in the 2026/27 season. When prices shift, we record it. Over time, this data will show exactly when the booking window tightens and at what point prices stop moving.
 
 ## Comparing Val d'Isère against the rest of the portfolio
 
@@ -73,7 +73,7 @@ The [Club Med Tignes vs Les Arcs](/blog/club-med-tignes-vs-les-arcs/) comparison
 The [When To Book tracker](/clubmed) shows live prices for Val d'Isère and all ten other Club Med French Alps resorts, updated daily. Set a price alert and we will notify you if the price on your target week shifts.
 
 <div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track Val d'Isère prices daily.</strong> The When To Book tracker monitors all 22 departure dates across the 2026/27 season. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View live prices →</a>
+<strong>Track Val d'Isère prices daily.</strong> The When To Book tracker monitors all 42 departure dates across the 2026/27 season. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View live prices →</a>
 </div>
 
 ---

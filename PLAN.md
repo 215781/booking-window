@@ -3,6 +3,41 @@
 > ⚠️ **SUPERSEDED — use `PLAN_V2.md` for all active work.**
 > As of 2026-05-18, `PLAN_V2.md` is the active strategic plan (affiliate readiness, 15 agent tasks, phased timeline). This file is retained as a technical history log only. Do not add new tasks here.
 
+---
+
+## 🔴 DO NOT REVERT — LOCKED CSS (commit e40e8b7, 2026-05-19)
+
+**Signal-first visual hierarchy on resort cards. These CSS rules are intentional and must not be changed:**
+
+```css
+.price-movement {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;       /* DOMINANT — the signal IS the headline */
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.card-price {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;       /* SECONDARY — absolute price is context, not the lead */
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.4;
+  margin-bottom: 12px;
+}
+
+.card-price-label { display: none; }  /* label is now part of .card-price text */
+```
+
+**Hero best-card:** drop amount 38px Playfair bold (teal), absolute price 14px muted secondary line.
+
+**Why:** The product is price intelligence, not a price list. Visitors need to see immediately whether prices are moving and in which direction — the % drop / rise IS the signal. The absolute price is supporting context. Reversing this hierarchy (showing £X,XXX at 32px) makes the card look like a standard booking engine and destroys the value proposition. This was previously implemented in commit a5e08b9 on branch claude/hopeful-dhawan-589840 but was never merged to main, causing a regression. Commit e40e8b7 restored it correctly.
+
+**Any agent touching `clubmed/index.html` CSS MUST preserve these sizes. Check before and after any edit.**
+
+---
+
 Current roadmap. Scribe keeps this updated. Orchestrator reads this at the start of every session.
 
 Last updated: 2026-05-18 (signal badges; booking URL fixes; GA4 event tracking)

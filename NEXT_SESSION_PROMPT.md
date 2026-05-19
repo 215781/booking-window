@@ -7,6 +7,21 @@
 
 ---
 
+## 🔴 LOCKED — DO NOT REVERT (commit e40e8b7, 2026-05-19)
+
+**Signal-first visual hierarchy on resort cards. These CSS values are locked:**
+
+- `.price-movement` = **22px Playfair Display bold** — this is the DOMINANT headline. The signal (% change / direction) is the product.
+- `.card-price` = **14px Inter, `color: var(--text-muted)`** — secondary. Shows "from £X,XXX · N nights · per party".
+- `.card-price-label` = `display: none` (label is now inline in `.card-price` text).
+- Hero best-card: drop amount = **38px Playfair bold teal**. Absolute price = **14px muted** secondary line.
+
+**Any agent editing `clubmed/index.html` must verify these sizes are intact before committing.**
+
+History: first implemented in `a5e08b9` on a worktree branch that was never merged. Regressed to old values (32px card-price, 13px price-movement) on main. Restored in `e40e8b7` (2026-05-19).
+
+---
+
 ## Context
 
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.

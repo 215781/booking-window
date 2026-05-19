@@ -520,6 +520,48 @@ Once Awin approval is confirmed, replace all Club Med booking links with affilia
 
 ---
 
+---
+
+## KNOWN ISSUES / TO FIX
+
+Issues identified during ops review. Fix before the next scheduled agent run or content cycle.
+
+---
+
+### KI-1 — CONTENT_QUEUE.md missing (Priority: fix before next content run)
+The scheduled Content Writer task references `CONTENT_QUEUE.md` but the file does not exist. Without it the agent guesses the next topic each run, producing unpredictable results.
+
+**Fix:** Create `CONTENT_QUEUE.md` at repo root with a prioritised article queue (resort name, target keyword, status: queued/in-progress/published). The Content Writer agent should read this file at the start of each run, pick the next queued item, and mark it in-progress.
+
+---
+
+### KI-2 — Scheduled task cannot push to GitHub (Priority: fix before next scheduled run)
+The Content Writer scheduled task runs in a sandbox without `GITHUB_TOKEN` in the environment. Commits are made locally but the push fails with 403.
+
+**Fix options:**
+- Provision `GITHUB_TOKEN` in the scheduled task environment, or
+- Add a host-side push step that runs after the task completes
+
+**Until fixed:** after every scheduled content run, someone must manually run `git push origin main` from `~/booking-window`.
+
+---
+
+### KI-3 — La Plagne 2100 placeholder pricing
+`_data/prices_clubmed.csv` shows uniform £2,874 across all La Plagne 2100 (`LP2C_WINTER`) weeks for 2-adult party. This looks like placeholder/fallback data rather than genuine daily variation.
+
+**Investigation needed:** verify that `clubmed_checker.py` is querying `LP2C_WINTER` correctly. May need resort code verification against the GraphQL API. Cross-reference with `--verify` flag output.
+
+---
+
+### KI-4 — Homepage + UX changes (from user review)
+Four UX improvements identified during review:
+
+1. **Email signup form — move to floating button:** Replace the bottom-of-page signup form with a fixed-position "live chat style" button at bottom-right. Expands into the form on click. Form should remain fully functional.
+2. **Remove £1,600 stat from homepage:** The founding story stat lives on the About page — it doesn't need to be repeated on the homepage too. Remove the reference from `clubmed/index.html`.
+3. **Move "How WhenToBook works" explainer:** Relocate the "How It Works" section from the homepage to the About page. The homepage should focus on the product (resort grid + signals); the About page is where the method explanation belongs.
+
+---
+
 ## TIMELINE — PHASED PLAN
 
 The Awin application is the goal of this entire plan, but it sits at the end of Phase 3 — not the beginning. There is meaningful site work to complete first. Applying too early risks rejection from a site that still reads as a work in progress.

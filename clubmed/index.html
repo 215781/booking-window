@@ -1361,6 +1361,78 @@
 
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
     }
+
+  /* ── Mobile Alert FAB ── */
+  @media (max-width: 768px) {
+    #alerts { display: none; }
+  }
+  .alert-fab { display: none; }
+  @media (max-width: 768px) {
+    .alert-fab {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      position: fixed;
+      bottom: 24px;
+      right: 20px;
+      z-index: 900;
+      background: #8a6a2a;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 20px;
+      font-family: Inter, sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    }
+    .alert-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.45);
+      z-index: 910;
+    }
+    .alert-overlay.open { display: block; }
+    .alert-panel {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 920;
+      background: #f5f0e8;
+      border-radius: 16px 16px 0 0;
+      padding: 24px 20px 40px;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      max-height: 85vh;
+      overflow-y: auto;
+    }
+    .alert-panel.open { transform: translateY(0); }
+    .alert-panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .alert-panel-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: #1a4a42;
+      margin: 0;
+    }
+    .alert-panel-close {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: #1a4a42;
+      cursor: pointer;
+      padding: 0 4px;
+      line-height: 1;
+    }
+  }
   </style>
   <script type="application/ld+json">
   {
@@ -5679,6 +5751,96 @@ function closeSearchModal() {
     <button onclick="localStorage.setItem('cookie-notice-dismissed','1');document.getElementById('cookie-banner').remove();" style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.25);color:#c8c0b4;font-family:Inter,sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:2px;">OK</button>
   `;
   document.body.appendChild(banner);
+})();
+</script>
+
+<!-- ── Mobile Alert FAB + Bottom Sheet ── -->
+<div class="alert-overlay" id="alert-overlay"></div>
+<div class="alert-panel" id="alert-panel" role="dialog" aria-modal="true" aria-label="Price alerts sign-up">
+  <div class="alert-panel-header">
+    <p class="alert-panel-title">Price Alerts</p>
+    <button class="alert-panel-close" id="alert-panel-close" aria-label="Close">×</button>
+  </div>
+  <form id="mobile-alert-form" autocomplete="off">
+    <div class="form-group">
+      <label for="mobile-alert-resort">Resort</label>
+      <select id="mobile-alert-resort" name="resort">
+        <option value="">Any resort — show all</option>
+        <option value="tignes-val-claret">Tignes</option>
+        <option value="les-arcs">Les Arcs Panorama</option>
+        <option value="peisey-vallandry">Peisey-Vallandry</option>
+        <option value="valmorel">Valmorel</option>
+        <option value="alpe-dhuez">Alpe d'Huez</option>
+        <option value="la-rosiere">La Rosière</option>
+        <option value="la-plagne-2100">La Plagne 2100</option>
+        <option value="val-disere">Val d'Isère</option>
+        <option value="grand-massif">Grand Massif Samoëns Morillon</option>
+        <option value="val-thorens">Val Thorens Sensations</option>
+        <option value="serre-chevalier">Serre-Chevalier</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="mobile-alert-month">Travel Month</label>
+      <select id="mobile-alert-month" name="month">
+        <option value="">Any month</option>
+        <option>December 2026</option>
+        <option>January 2027</option>
+        <option>February 2027</option>
+        <option>March 2027</option>
+        <option>April 2027</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="mobile-alert-party">Party Size</label>
+      <select id="mobile-alert-party" name="partySize">
+        <option value="2A">2 Adults</option>
+        <option value="2A1C">2 Adults + 1 Child</option>
+        <option value="2A2C">2 Adults + 2 Children</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="mobile-alert-email">Email Address</label>
+      <input type="email" id="mobile-alert-email" name="email" placeholder="you@example.com">
+    </div>
+    <div class="form-group">
+      <label class="consent-label">
+        <input type="checkbox" id="mobile-alert-consent">
+        <span>I agree to receive booking intelligence emails from When To Book. Unsubscribe any time.</span>
+      </label>
+    </div>
+    <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
+    <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above.</p>
+    <div id="mobile-alert-confirmation" class="form-confirmation"></div>
+    <div id="mobile-alert-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:Inter,sans-serif;">Something went wrong — please try again.</div>
+  </form>
+</div>
+<button class="alert-fab" id="alert-fab" aria-label="Open price alerts sign-up">🔔 Price alerts</button>
+<script>
+(function(){
+  const fab=document.getElementById('alert-fab'),panel=document.getElementById('alert-panel'),overlay=document.getElementById('alert-overlay');
+  const tog=open=>{panel.classList.toggle('open',open);overlay.classList.toggle('open',open);};
+  fab.addEventListener('click',()=>tog(true));
+  document.getElementById('alert-panel-close').addEventListener('click',()=>tog(false));
+  overlay.addEventListener('click',()=>tog(false));
+  document.getElementById('mobile-alert-form').addEventListener('submit',async e=>{
+    e.preventDefault();
+    const email=document.getElementById('mobile-alert-email').value.trim();
+    const consent=document.getElementById('mobile-alert-consent').checked;
+    if(!email)return document.getElementById('mobile-alert-email').focus();
+    if(!consent)return document.getElementById('mobile-alert-consent').focus();
+    const sel=document.getElementById('mobile-alert-resort');
+    const resortName=sel.options[sel.selectedIndex].text;
+    const btn=e.target.querySelector('button[type="submit"]');
+    const conf=document.getElementById('mobile-alert-confirmation'),err=document.getElementById('mobile-alert-error');
+    btn.disabled=true;btn.textContent='Setting alert…';conf.style.display='none';err.style.display='none';
+    try{
+      const res=await fetch('https://app.kit.com/forms/7f784a323c/subscriptions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email_address:email,fields:{resort_interest:resortName==='Any resort — show all'?'All resorts':resortName}})});
+      if(!res.ok)throw new Error();
+      conf.innerHTML=`You're on the list. We'll email you when prices move for ${resortName==='Any resort — show all'?'your selected resorts':resortName}.`;
+      conf.style.display='block';e.target.reset();
+    }catch(_){err.style.display='block';}
+    finally{btn.disabled=false;btn.textContent='Set Booking Alert';}
+  });
 })();
 </script>
 </body>

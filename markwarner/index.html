@@ -1,0 +1,779 @@
+---
+layout: null
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://app.kit.com https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
+  <title>When To Book — Mark Warner Price Intelligence</title>
+  <meta name="description" content="Track Mark Warner ski pricing at Chalet Hotel L'Écrin, Tignes. Daily price history across party sizes and departure dates — know the right time to book.">
+  <link rel="canonical" href="https://whentobook.co.uk/markwarner">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whentobook.co.uk/markwarner">
+  <meta property="og:title" content="When To Book — Mark Warner Price Intelligence">
+  <meta property="og:description" content="Track Mark Warner ski pricing at Chalet Hotel L'Écrin, Tignes. Daily price history — know the right time to book.">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:site_name" content="When To Book">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="When To Book — Mark Warner Price Intelligence">
+  <meta name="twitter:description" content="Track Mark Warner ski pricing at Chalet Hotel L'Écrin, Tignes. Daily price history — know the right time to book.">
+  <meta name="twitter:image" content="https://whentobook.co.uk/og-image.png">
+
+  <!-- Google Analytics 4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2RES5DX0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G2RES5DX0K');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f5f0e8;
+      --teal: #1a4a42;
+      --teal-light: #e8f0ee;
+      --amber: #8a6a2a;
+      --amber-light: #f5edd8;
+      --grey: #6b6b6b;
+      --card-bg: #faf8f4;
+      --border: #ddd8ce;
+      --text: #2a2520;
+      --text-muted: #7a736a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, .serif { font-family: 'Playfair Display', Georgia, serif; }
+
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 40px; }
+    .section { padding: 80px 0; }
+    .section-label {
+      font-family: 'Inter', sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+    }
+    .logo {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--teal);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+    .logo span { font-style: italic; }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 32px;
+      margin: 0;
+    }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-muted);
+      text-decoration: none;
+      letter-spacing: 0.03em;
+      transition: color 0.15s;
+    }
+    .nav-links a:hover,
+    .nav-links a.active { color: var(--teal); }
+    .btn {
+      display: inline-block;
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      padding: 10px 22px;
+      border: none;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .btn:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-primary { background: var(--teal); color: var(--bg); }
+    .btn-outline { background: transparent; border: 1.5px solid var(--teal); color: var(--teal); }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 72px 0 56px;
+      border-bottom: 1px solid var(--border);
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .hero-headline {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 600;
+      line-height: 1.15;
+      color: var(--teal);
+      margin-bottom: 20px;
+    }
+    .hero-headline em { font-style: italic; }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+    .hero-meta {
+      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      background: var(--teal-light);
+      border-radius: 2px;
+      padding: 5px 10px;
+    }
+    .hero-stat-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 28px 32px;
+    }
+    .hero-stat-box h3 {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+    .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-label { color: var(--text-muted); }
+    .stat-value { font-weight: 600; color: var(--text); }
+    .stat-value.teal { color: var(--teal); }
+
+    /* ── Signal notice ── */
+    .signal-notice {
+      background: var(--teal-light);
+      border: 1px solid rgba(26, 74, 66, 0.2);
+      border-radius: 4px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      margin: 40px 0;
+    }
+    .signal-notice-icon {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: var(--teal);
+    }
+    .signal-notice p {
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--teal);
+    }
+    .signal-notice strong { font-weight: 600; }
+
+    /* ── Party size tabs ── */
+    .party-tabs {
+      display: flex;
+      gap: 0;
+      border: 1.5px solid var(--teal);
+      border-radius: 2px;
+      overflow: hidden;
+      width: fit-content;
+      margin-bottom: 28px;
+    }
+    .party-tab {
+      font-family: 'Inter', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 8px 18px;
+      background: transparent;
+      color: var(--teal);
+      border: none;
+      border-right: 1.5px solid var(--teal);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+    .party-tab:last-child { border-right: none; }
+    .party-tab.active { background: var(--teal); color: var(--bg); }
+    .party-tab:hover:not(.active) { background: var(--teal-light); }
+
+    /* ── Price table ── */
+    .price-table-wrap { overflow-x: auto; }
+    .price-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    .price-table th {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      text-align: left;
+      padding: 10px 16px;
+      border-bottom: 2px solid var(--border);
+      white-space: nowrap;
+    }
+    .price-table td {
+      padding: 13px 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    .price-table tr:hover td { background: rgba(26, 74, 66, 0.03); }
+    .price-table tr:last-child td { border-bottom: none; }
+
+    .departure-date { font-weight: 600; color: var(--text); white-space: nowrap; }
+    .departure-year { font-size: 11px; color: var(--text-muted); font-weight: 400; }
+    .price-val { font-weight: 700; font-size: 15px; color: var(--teal); white-space: nowrap; }
+    .price-pp { font-size: 11px; color: var(--text-muted); display: block; margin-top: 1px; }
+    .was-price { font-size: 11px; color: var(--text-muted); text-decoration: line-through; margin-left: 6px; }
+
+    .movement-up { color: var(--amber); font-weight: 600; font-size: 12px; white-space: nowrap; }
+    .movement-down { color: var(--teal); font-weight: 600; font-size: 12px; white-space: nowrap; }
+    .movement-stable { color: var(--text-muted); font-size: 12px; }
+
+    .room-type-cell { color: var(--text-muted); font-size: 12px; max-width: 220px; }
+    .promo-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 2px 7px;
+      background: var(--amber-light);
+      color: var(--amber);
+      border-radius: 2px;
+    }
+    .book-link {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--teal);
+      text-decoration: none;
+      padding: 6px 12px;
+      border: 1px solid var(--teal);
+      border-radius: 2px;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .book-link:hover { background: var(--teal); color: var(--bg); }
+
+    /* ── Promo notice ── */
+    .promo-notice {
+      background: var(--amber-light);
+      border: 1px solid rgba(138, 106, 42, 0.25);
+      border-radius: 4px;
+      padding: 14px 20px;
+      font-size: 13px;
+      color: var(--amber);
+      margin-bottom: 28px;
+      line-height: 1.5;
+    }
+    .promo-notice strong { font-weight: 600; }
+
+    /* ── Email alerts ── */
+    #alerts {
+      background: var(--teal);
+      color: var(--bg);
+      padding: 80px 0;
+    }
+    .alerts-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .alerts-heading {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 600;
+      line-height: 1.2;
+      color: var(--bg);
+      margin-bottom: 16px;
+    }
+    .alerts-heading em { font-style: italic; }
+    .alerts-copy {
+      font-size: 15px;
+      color: rgba(245, 240, 232, 0.75);
+      line-height: 1.7;
+    }
+    .alert-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(245, 240, 232, 0.6);
+    }
+    .form-group input,
+    .form-group select {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(245,240,232,0.25);
+      color: var(--bg);
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      padding: 11px 14px;
+      border-radius: 2px;
+      outline: none;
+      transition: border-color 0.15s;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    .form-group input::placeholder { color: rgba(245,240,232,0.4); }
+    .form-group input:focus,
+    .form-group select:focus { border-color: rgba(245,240,232,0.6); }
+    .form-group select option { background: var(--teal); color: var(--bg); }
+    .consent-label {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      cursor: pointer;
+      font-size: 12px;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.5;
+    }
+    .consent-label input[type="checkbox"] { margin-top: 3px; flex-shrink: 0; }
+    .btn-light { background: var(--bg); color: var(--teal); }
+    .form-confirmation {
+      display: none;
+      font-size: 13px;
+      color: rgba(245,240,232,0.85);
+      padding: 10px 0;
+    }
+    .form-error {
+      display: none;
+      font-size: 13px;
+      color: #f5a0a0;
+      padding: 10px 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--bg);
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+    }
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .footer-copy {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+    .footer-links {
+      display: flex;
+      gap: 20px;
+      list-style: none;
+    }
+    .footer-links a {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .footer-links a:hover { color: var(--teal); }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      .container { padding: 0 24px; }
+      .nav-inner { padding: 0 24px; }
+      .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .alerts-inner { grid-template-columns: 1fr; gap: 40px; }
+      .footer-inner { padding: 0 24px; flex-direction: column; text-align: center; }
+    }
+    @media (max-width: 600px) {
+      .container { padding: 0 16px; }
+      .nav-inner { padding: 0 16px; height: 56px; }
+      .nav-links { display: none; }
+      .hero { padding: 48px 0 40px; }
+      .section { padding: 56px 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">When To <span>Book</span></a>
+    <ul class="nav-links">
+      <li><a href="/clubmed">Club Med</a></li>
+      <li><a href="/markwarner" class="active">Mark Warner</a></li>
+    </ul>
+    <a href="#alerts" class="btn btn-primary">Set Alert</a>
+  </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-inner">
+      <div>
+        <p class="section-label">Mark Warner · Booking Intelligence</p>
+        <h1 class="hero-headline">Chalet Hotel L'Écrin, Tignes — is the price going up or down?</h1>
+        <p class="hero-sub">We track Mark Warner pricing daily across all departure dates and party sizes. Every movement, every week — so you can see whether now is the right time to book.</p>
+        <div class="hero-meta">
+          <span class="meta-chip">7 nights · accommodation only</span>
+          <span class="meta-chip">Tignes, France</span>
+        </div>
+      </div>
+      <div class="hero-stat-box">
+        <h3>Tracker at a glance</h3>
+        <div class="stat-row">
+          <span class="stat-label">Resort</span>
+          <span class="stat-value">Chalet Hotel L'Écrin</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Location</span>
+          <span class="stat-value">Tignes, France</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Season tracked</span>
+          <span class="stat-value">Dec 2026 – Apr 2027</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Tracking since</span>
+          <span class="stat-value">4 May 2026</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Last updated</span>
+          <span class="stat-value teal" id="last-updated">—</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">Price signal</span>
+          <span class="stat-value" style="color:var(--text-muted);font-style:italic;font-size:12px;">Building data</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Prices ── -->
+<section class="section" id="prices">
+  <div class="container">
+    <p class="section-label">Current pricing</p>
+    <h2 class="serif" style="font-size:1.8rem;font-weight:600;color:var(--teal);margin-bottom:12px;">All departures — winter 2026/27</h2>
+    <p style="font-size:14px;color:var(--text-muted);margin-bottom:32px;line-height:1.6;">Prices below are the latest from Mark Warner's website. Tracking started 4 May 2026 — movements shown are relative to the first recorded price.</p>
+
+    <div class="signal-notice">
+      <svg class="signal-notice-icon" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.75">
+        <circle cx="10" cy="10" r="8.5"/>
+        <line x1="10" y1="6" x2="10" y2="10.5"/>
+        <circle cx="10" cy="13.5" r="0.75" fill="currentColor" stroke="none"/>
+      </svg>
+      <p><strong>Building data — booking intelligence signals arrive in autumn 2026.</strong> We're establishing a price history right now. Once we have several months of movement data, this page will show whether prices are in a Favourable, Watch, or Hold state for each departure.</p>
+    </div>
+
+    <div id="promo-banner" class="promo-notice" style="display:none;"></div>
+
+    <div class="party-tabs" role="group" aria-label="Party size">
+      <button class="party-tab active" data-ps="2A" onclick="switchParty('2A')">2 Adults</button>
+      <button class="party-tab" data-ps="2A1C" onclick="switchParty('2A1C')">2 Adults + 1 Child</button>
+      <button class="party-tab" data-ps="2A2C" onclick="switchParty('2A2C')">2 Adults + 2 Children</button>
+    </div>
+
+    <div class="price-table-wrap">
+      <table class="price-table" id="price-table">
+        <thead>
+          <tr>
+            <th>Departure</th>
+            <th>Total price</th>
+            <th>Per person</th>
+            <th>Movement</th>
+            <th>Room type</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="price-rows">
+          <tr><td colspan="6" style="padding:32px 16px;color:var(--text-muted);font-size:13px;">Loading...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ── Email Alerts ── -->
+<section id="alerts">
+  <div class="container">
+    <div class="alerts-inner">
+      <div>
+        <p class="section-label" style="color:rgba(245,240,232,0.5);">Booking Alerts</p>
+        <h2 class="alerts-heading">Know <em>immediately</em> when the price moves.</h2>
+        <p class="alerts-copy">Set a booking alert and we'll notify you the moment we detect a pricing shift on your chosen departure date — so you can act at the right moment, not a day too late.</p>
+      </div>
+      <form class="alert-form" id="mw-alert-form" autocomplete="off">
+        <div class="form-group">
+          <label for="mw-alert-month">Travel Month</label>
+          <select id="mw-alert-month" name="month">
+            <option value="">Any month</option>
+            <option>December 2026</option>
+            <option>January 2027</option>
+            <option>February 2027</option>
+            <option>March 2027</option>
+            <option>April 2027</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mw-alert-party">Party Size</label>
+          <select id="mw-alert-party" name="partySize">
+            <option value="2A">2 Adults</option>
+            <option value="2A1C">2 Adults + 1 Child</option>
+            <option value="2A2C">2 Adults + 2 Children</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mw-alert-email">Email Address</label>
+          <input type="email" id="mw-alert-email" name="email" placeholder="you@example.com" required>
+        </div>
+        <div class="form-group">
+          <label class="consent-label">
+            <input type="checkbox" id="mw-alert-consent" required>
+            <span>I agree to receive booking intelligence emails from When To Book. Unsubscribe any time.</span>
+          </label>
+        </div>
+        <button type="submit" class="btn btn-light" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
+        <div id="mw-alert-confirmation" class="form-confirmation">You're on the list — we'll be in touch when prices shift.</div>
+        <div id="mw-alert-error" class="form-error">Something went wrong — please try again.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="footer-inner">
+    <span class="footer-copy">© 2026 Drop Media Ltd</span>
+    <ul class="footer-links">
+      <li><a href="/privacy.html">Privacy</a></li>
+      <li><a href="/clubmed">Club Med tracker</a></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+// Price data injected from CSV via Jekyll
+var PRICE_DATA = {{ site.data.markwarner_prices | jsonify }};
+
+// Format helpers
+function formatPrice(p) {
+  return '£' + parseInt(p, 10).toLocaleString('en-GB');
+}
+function formatDate(d) {
+  var dt = new Date(d + 'T12:00:00Z');
+  return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+function formatDateShort(d) {
+  var dt = new Date(d + 'T12:00:00Z');
+  return dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+function formatDateYear(d) {
+  var dt = new Date(d + 'T12:00:00Z');
+  return dt.getFullYear().toString();
+}
+
+// Get unique sorted timestamps
+var timestamps = [...new Set(PRICE_DATA.map(function(r){ return r.timestamp; }))].sort();
+var latestTs = timestamps[timestamps.length - 1];
+var firstTs = timestamps[0];
+
+// Last updated display
+var lastUpdatedEl = document.getElementById('last-updated');
+if (latestTs) {
+  var d = new Date(latestTs);
+  lastUpdatedEl.textContent = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+// Check for active promo
+var latestRows = PRICE_DATA.filter(function(r){ return r.timestamp === latestTs; });
+var promoCode = latestRows.length ? latestRows[0].promo_code : '';
+if (promoCode) {
+  var promoBanner = document.getElementById('promo-banner');
+  var sampleRow2A = latestRows.find(function(r){ return r.party_size === '2A'; });
+  var saving = sampleRow2A ? parseInt(sampleRow2A.was_price_total, 10) - parseInt(sampleRow2A.price_total, 10) : 0;
+  promoBanner.style.display = 'block';
+  promoBanner.innerHTML = '<strong>Mark Warner promotional pricing currently active.</strong> Prices shown reflect code <strong>' + promoCode + '</strong>' + (saving > 0 ? ' — currently reducing headline prices by £' + saving + ' per booking' : '') + '. Prices may revert when this code expires.';
+}
+
+// Build departure table for a given party size
+function buildRows(partySize) {
+  var latest = PRICE_DATA.filter(function(r){ return r.timestamp === latestTs && r.party_size === partySize; });
+  var first  = PRICE_DATA.filter(function(r){ return r.timestamp === firstTs  && r.party_size === partySize; });
+
+  latest.sort(function(a, b){ return a.departure_date.localeCompare(b.departure_date); });
+
+  return latest.map(function(row) {
+    var firstRow   = first.find(function(r){ return r.departure_date === row.departure_date; });
+    var current    = parseInt(row.price_total, 10);
+    var currentPP  = parseInt(row.price_pp, 10);
+    var wasPrice   = row.was_price_total ? parseInt(row.was_price_total, 10) : null;
+    var firstPrice = firstRow ? parseInt(firstRow.price_total, 10) : null;
+    var movement   = firstPrice !== null ? current - firstPrice : 0;
+    return { date: row.departure_date, current: current, currentPP: currentPP, wasPrice: wasPrice, movement: movement, roomType: row.room_type, promo: row.promo_code };
+  });
+}
+
+function movementHtml(movement) {
+  if (movement === 0 || isNaN(movement)) {
+    return '<span class="movement-stable">No change</span>';
+  } else if (movement > 0) {
+    return '<span class="movement-up">↑ ' + formatPrice(movement) + '</span>';
+  } else {
+    return '<span class="movement-down">↓ ' + formatPrice(Math.abs(movement)) + '</span>';
+  }
+}
+
+function renderTable(partySize) {
+  var rows = buildRows(partySize);
+  var tbody = document.getElementById('price-rows');
+  if (!rows.length) {
+    tbody.innerHTML = '<tr><td colspan="6" style="padding:32px 16px;color:var(--text-muted);font-size:13px;">No data available for this party size.</td></tr>';
+    return;
+  }
+  tbody.innerHTML = rows.map(function(row) {
+    var wasHtml = row.wasPrice && row.wasPrice > row.current ? '<span class="was-price">' + formatPrice(row.wasPrice) + '</span>' : '';
+    return '<tr>' +
+      '<td><span class="departure-date">' + formatDateShort(row.date) + '</span> <span class="departure-year">' + formatDateYear(row.date) + '</span></td>' +
+      '<td><span class="price-val">' + formatPrice(row.current) + '</span>' + wasHtml + '</td>' +
+      '<td><span class="price-val" style="font-size:13px;">' + formatPrice(row.currentPP) + '</span><span class="price-pp">per person</span></td>' +
+      '<td>' + movementHtml(row.movement) + '</td>' +
+      '<td class="room-type-cell">' + (row.roomType || '—') + '</td>' +
+      '<td><a href="https://www.markwarner.co.uk/ski-holidays/france/tignes/chalet-hotel-l-ecrin" target="_blank" rel="noopener noreferrer" class="book-link">Book</a></td>' +
+    '</tr>';
+  }).join('');
+}
+
+// Tab switching
+var activeParty = '2A';
+function switchParty(ps) {
+  activeParty = ps;
+  document.querySelectorAll('.party-tab').forEach(function(btn) {
+    btn.classList.toggle('active', btn.dataset.ps === ps);
+  });
+  renderTable(ps);
+}
+
+// Initial render
+renderTable('2A');
+
+// Email alert form
+document.getElementById('mw-alert-form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  var email   = document.getElementById('mw-alert-email').value.trim();
+  var consent = document.getElementById('mw-alert-consent').checked;
+  var month   = document.getElementById('mw-alert-month').value;
+  var party   = document.getElementById('mw-alert-party').value;
+  if (!email || !consent) return;
+
+  var resortInterest = 'Mark Warner — Chalet Hotel L\'Écrin, Tignes' + (month ? ', ' + month : '') + (party ? ', ' + party : '');
+
+  var confirm = document.getElementById('mw-alert-confirmation');
+  var error   = document.getElementById('mw-alert-error');
+  confirm.style.display = 'none';
+  error.style.display   = 'none';
+
+  try {
+    var resp = await fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email_address: email, fields: { resort_interest: resortInterest } })
+    });
+    if (resp.ok || resp.status === 200) {
+      confirm.style.display = 'block';
+      document.getElementById('mw-alert-form').reset();
+    } else {
+      error.style.display = 'block';
+    }
+  } catch(err) {
+    error.style.display = 'block';
+  }
+});
+
+// Cookie banner
+(function() {
+  if (localStorage.getItem('cookie-notice-dismissed')) return;
+  var banner = document.createElement('div');
+  banner.id = 'cookie-banner';
+  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a2e2a;color:#c8c0b4;font-family:Inter,sans-serif;font-size:12px;line-height:1.5;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9999;border-top:1px solid rgba(255,255,255,0.08);';
+  banner.innerHTML = '<span>This site uses no tracking cookies. We collect no personal data beyond email addresses you choose to submit for price alerts. <a href="/privacy.html" style="color:#8ab5ac;text-decoration:underline;">Privacy policy</a></span><button onclick="localStorage.setItem(\'cookie-notice-dismissed\',\'1\');document.getElementById(\'cookie-banner\').remove();" style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.25);color:#c8c0b4;font-family:Inter,sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:2px;">OK</button>';
+  document.body.appendChild(banner);
+})();
+</script>
+</body>
+</html>

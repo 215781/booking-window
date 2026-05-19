@@ -5,6 +5,22 @@ Then read `PLAN.md` for the full task list.
 
 ---
 
+## Last session (2026-05-19)
+COMPLETED (on main):
+- Sort bar (lowest/highest/biggest drop) recovered from cranky-solomon branch
+- Mobile touch improvements (iOS tap) recovered from cranky-solomon branch
+- Booking URLs: all 11 resorts now have /w suffix + Tignes slug fixed
+- Mark Warner tracker page live at /markwarner/
+- Party size sliders + per-resort landing pages removed from plan (cancelled)
+
+OPEN - needs investigation next session:
+- Mobile hover/floating form button: was built on another account, may be in a lost branch
+- Form checkbox fix: was built, status unknown
+- Copy moves from homepage to about.html: about.html exists (282 lines) but verify homepage copy was trimmed
+- Mark Warner page needs build_site.yml update to auto-rebuild on CSV changes
+
+---
+
 ## Context
 
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.

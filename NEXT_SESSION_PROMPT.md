@@ -9,10 +9,10 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 168c5ad HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor c52d873 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`168c5ad`** (Auto-merge claude/frosty-ritchie-04d262 to main — La Plagne code fix PLAC)
+Last recorded push: **`c52d873`** (docs: session wrap-up 2026-05-20 late evening — La Plagne code fix LP2C_WINTER → PLAC, HEAD 168c5ad recorded)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 

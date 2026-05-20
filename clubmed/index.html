@@ -5033,6 +5033,19 @@ const RESORT_GRADIENTS = {
   'serre-chevalier':    'linear-gradient(150deg, #2a2818 0%, #485030 60%, #607848 100%)',
 };
 const RESORT_GRADIENT_DEFAULT = 'linear-gradient(150deg, #1a3040 0%, #2a5060 100%)';
+const RESORT_IMAGES = {
+  'tignes-val-claret': '../images/Tignes.jpg',
+  'les-arcs':          '../images/Les-Arcs.jpg',
+  'peisey-vallandry':  '../images/Peisey-Vallandry.jpg',
+  'valmorel':          '../images/Valmorel.jpg',
+  'alpe-dhuez':        '../images/Alpe-dhuez.jpg',
+  'la-rosiere':        '../images/La-Rosiere.jpg',
+  'la-plagne-2100':    '../images/La-plagne.jpg',
+  'val-disere':        '../images/Val-Disere.jpg',
+  'grand-massif':      '../images/Grand-Massif.jpg',
+  'val-thorens':       '../images/Val-Thorens.jpg',
+  'serre-chevalier':   '../images/Serre-chevalier.jpg',
+};
 
 function renderCards(partySize, resortFilter) {
   if (resortFilter !== undefined) activeResortFilter = resortFilter;
@@ -5090,7 +5103,7 @@ function renderCards(partySize, resortFilter) {
     card.setAttribute('aria-label', `View details for ${resort.name}`);
 
     card.innerHTML = `
-      <div class="card-image" style="background:${RESORT_GRADIENTS[resort.id] || RESORT_GRADIENT_DEFAULT};">
+      <div class="card-image" style="${RESORT_IMAGES[resort.id] ? `background:linear-gradient(to bottom,rgba(0,0,0,0.08) 0%,rgba(0,0,0,0.42) 100%),url('${RESORT_IMAGES[resort.id]}') center/cover no-repeat` : `background:${RESORT_GRADIENTS[resort.id] || RESORT_GRADIENT_DEFAULT}`};">
         <span class="card-region">${resort.region}</span>
       </div>
       <div class="card-body">

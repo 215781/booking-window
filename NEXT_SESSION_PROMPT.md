@@ -9,24 +9,27 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor c940c30 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 9160d9e HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`c940c30`** (docs: license attribution comments for summer resort images
+Last recorded push: **`9160d9e`** (docs: session wrap-up — HEAD c940c30 recorded)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `c940c30` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `9160d9e` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-05-20)
 
-**HEAD: c940c30** — Summer resort images added; RESORT_IMAGES updated in clubmed/index.html
+**HEAD: 9160d9e** — Summer resort images + license audit trail
 
 ### Commits made this session (newest first):
 ```
-c940c30  Merge branch 'main' of github.com:215781/booking-window (incorporating 6fd54b8)
+9160d9e  docs: session wrap-up — HEAD c940c30 recorded
+c940c30  docs: add license attribution comments for summer resort images in RESORT_IMAGES
+949b3e7  docs: session wrap-up 2026-05-20 — summer resort images, HEAD 95136a0 recorded
+95136a0  Merge branch 'main' of github.com:215781/booking-window
 6fd54b8  feat: add royalty-free images for all 9 summer resorts
 ```
 

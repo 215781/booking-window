@@ -59,6 +59,7 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 ## 🚨 CRITICAL — Fix immediately
 
 - [x] **Fix resort card click bug** — root cause: buildModalChart used hardcoded indices [0,6,13] assuming 14+ history points; pts[13] undefined with ~9 actual points; fixed with dynamic midIdx/lastIdx (commit 877c0dd). Language violations + diagnostic console.log cleaned up (commit d4c59c6). Tester PASS. — 2026-05-06
+- [x] **Fix resort card click regression** — commit 6982e63 (RESORT_DATA replacement) reintroduced hardcoded pts[6]/pts[13] in buildModalChart; all resorts now have 12 price history points causing TypeError on pts[13]; fixed with dynamic midIdx/lastIdx (commit 7e2efe8) — 2026-05-20
 
 ---
 
@@ -148,6 +149,10 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Replace hero search form with best-opportunity card** — Hero search form (`#hero-form`, duration/date-mode tabs, party size selectors) removed. Right side of hero replaced with JS-rendered best-opportunity card (`#hero-best-card`). `getBestOpportunity()` finds biggest price drop (falls back to lowest price). `renderHeroBestCard()` renders resort name, date, price, drop, "View price history →" CTA. Card updates on Ski/Summer toggle. Dead event listeners removed. `switchSearchMonth()` fixed (stale `hero-month` reference removed). (commit 5d7d42f) — 2026-05-18
 - [x] **Signal badges show real price movement** — `getSignalBadgeHTML` now derives signal from `priceHistory` (first vs latest price); shows ↓/↑ £X or Stable when 2+ data points exist; "Building data..." only when 0 or 1 points. All 5 call sites pass `dep`. `DATA_SUFFICIENT` flag retained but now only gates the no-data fallback. (commit 7572510) — 2026-05-18
 - [x] **Booking URLs corrected** — All 11 `bookingUrl` values updated to `https://www.clubmed.co.uk/r/{slug}/w`. Corrected slugs: tignes, l-alpe-d-huez, la-plagne. Search modal rows use resort-specific URL. Slug mapping comment added. (commit 7572510) — 2026-05-18
+- [x] **Remove 'How It Works' section from tracker** — Section removed from `clubmed/index.html` (HTML + all CSS incl. responsive overrides). Added to `about.md` between founder story and CTA. Saturday → Sunday corrected in step copy. (commit 7e2efe8) — 2026-05-20
+- [x] **Remove 'in 14 days' qualifier from movement badges** — Card movementHTML and search modal movLabel cleaned to `↓ £X` / `↑ £X` without time qualifier. (commit 7e2efe8) — 2026-05-20
+- [x] **Remove 'Saturday departures' note from email form** — `alert-form-note` paragraph removed from alert panel. (commit 7e2efe8) — 2026-05-20
+- [x] **Fix resort card click regression (buildModalChart crash)** — commit 6982e63 reintroduced hardcoded pts[6]/pts[13]; all resorts now have 12 history points causing TypeError; fixed with dynamic midIdx/lastIdx. (commit 7e2efe8) — 2026-05-20
 - [ ] **Phase 2: Caribbean resorts** — Cancún, Punta Cana, Les Boucaniers. (after Phase 1 stable)
 - [ ] **Phase 3: Indian Ocean + Asia** — Maldives, Mauritius, Phuket, Bali. (after Phase 2 stable)
 - [ ] **Phase 4: Remaining ski resorts** — Pragelato Sestriere (Italy), Saint-Moritz Roi Soleil (Switzerland). (low priority — small incremental value over existing 11)

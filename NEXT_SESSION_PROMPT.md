@@ -9,23 +9,25 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor e19474c HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 7e2efe8 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`e19474c`** (feat: ski/summer season toggle)
+Last recorded push: **`7e2efe8`** (fix: 4 copy/UX fixes — How It Works removal, '14 days' qualifier, Saturday note, modal chart crash)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `322bf0c` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `7e2efe8` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-20 — afternoon)
+## Last session (2026-05-20 — evening)
 
-**HEAD: e19474c** — feat: ski/summer season toggle
+**HEAD: 7e2efe8** — fix: 4 copy/UX fixes
 
 ### Commits made this session (newest first):
 ```
+7e2efe8  fix: 4 copy/UX fixes — remove How It Works section, drop '14 days' qualifier, remove Saturday note, fix modal chart crash
+6982e63  fix: replace stale RESORT_DATA with complete version from worktree  (prior session)
 e19474c  feat: ski/summer season toggle — inject SUMMER_RESORT_DATA (9 resorts), add tab UI, hero card responds to active tab
 9b113e4  refactor: remove 'Stable over 14 days' text, move price-change above current price on cards
 b4ca141  refactor: remove party size tabs + sort bar — hardcode 2A party, always sort by biggest price drop
@@ -34,26 +36,23 @@ b4ca141  refactor: remove party size tabs + sort bar — hardcode 2A party, alwa
 aeade8f  fix: restore checkbox interactivity — exclude type=checkbox from appearance:none rule
 ```
 
-### What was done this session:
-- **Task 1** — Hero best-card already fixed in prior session (aa1be20). No action needed.
-- **Task 2 (aeade8f)** — Checkbox fix: `.form-group input` had `appearance:none` applied to ALL inputs including checkboxes, stripping native rendering. Fixed with `:not([type="checkbox"])` selector.
-- **Task 3 (4dd53db)** — Inline alert form section removed. FAB extended to all screen sizes (was mobile-only). Desktop panel slides up from bottom-right (420px wide). Removed dead `alert-form` JS listener that was crashing `DOMContentLoaded` (root cause of Task 9 too).
-- **Task 4 (20a05f8)** — Dark teal `<header>` from blog layout applied to tracker. Nav: Home / Club Med / Blog / About.
-- **Tasks 5+6 (b4ca141)** — Party size tabs removed, sort bar removed. `activePartySize` and `activeSortOrder` hardcoded as consts. Dead CSS removed.
-- **Tasks 7+8 (9b113e4)** — "Stable over 14 days" replaced with empty string. `movementHTML` now renders BEFORE `card-price` in card body so price change is visually dominant.
-- **Task 9** — Resort cards not opening on click was caused by the null `getElementById('alert-form')` crash in Task 3. Fixed as side effect.
-- **Task 10 (e19474c)** — Summer resorts restored. Python script built `SUMMER_RESORT_DATA` from `_data/prices_clubmed_summer.csv` (9 resorts, 727 departures). Ski/summer toggle tabs added. `getSeasonData()` function drives both `renderCards` and `getBestOpportunity`.
+### What was done this session (evening):
+- **Fix 1 (7e2efe8)** — "How It Works" section removed from `clubmed/index.html` (HTML + CSS + responsive overrides). Added to `about.md` with matching styles, placed between founder story and CTA. Saturday → Sunday corrected in step 01 copy.
+- **Fix 2 (7e2efe8)** — "in 14 days" qualifier removed from card `movementHTML` (↓/↑ cases) and search modal `movLabel`. Cards now show clean `↓ £X` / `↑ £X`.
+- **Fix 3 (7e2efe8)** — `alert-form-note` paragraph ("We track Saturday departures…") removed from alert panel form.
+- **Fix 4 (7e2efe8)** — Root cause of card click regression identified: `buildModalChart` used hardcoded `pts[6]` and `pts[13]` (from earlier broken state, reintroduced by 6982e63). All resorts now have 12 price history points, so `pts[13]` = undefined → TypeError → modal never opens. Fixed with dynamic `midIdx = Math.floor((prices.length-1)/2)` and `lastIdx = prices.length-1`.
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards
-- `_data/prices_clubmed_summer.csv` — 2041 rows, 9 resorts with data (agadir/AGAC has no valid prices)
+- `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards, cards now clickable, no 'in 14 days' text
+- `about.md` — first commit; includes founder story, "How it works" 3-step section, CTA
+- `_data/prices_clubmed_summer.csv` — 2041 rows, 9 resorts with data
 - `markwarner/index.html` — Mark Warner tracker live at /markwarner/
 
 ### Open items for next session:
 - `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
 - Summer CSV injection: currently done via one-off Python script; needs to be integrated into `clubmed_checker.py --inject-only` or a dedicated summer checker
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
-- PLAN_V2.md tasks not yet reviewed this session (Task 11 deferred)
+- PLAN_V2.md tasks not yet reviewed
 
 ---
 

@@ -13,7 +13,7 @@ git log main -1 --oneline
 ```
 The result **must** be:
 ```
-a83cc65 docs: enforce push-before-session-end protocol across all agent files
+9493209 docs: update NEXT_SESSION_PROMPT with correct HEAD hash a83cc65
 ```
 If it is different, stop. Do not begin work. Diagnose what diverged and why before proceeding.
 
@@ -21,7 +21,7 @@ If it is different, stop. Do not begin work. Diagnose what diverged and why befo
 
 ## Last session (2026-05-20)
 
-**HEAD: a83cc65** — docs: enforce push-before-session-end protocol across all agent files
+**HEAD: 9493209** — docs: update NEXT_SESSION_PROMPT with correct HEAD hash
 
 ### Commits made this session (newest first):
 ```

@@ -9,35 +9,39 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 79eab59 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor fe8e411 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`79eab59`** (Auto-merge claude/eloquent-jennings-c9fecb — daily Google Drive backup script + launchd agent)
+Last recorded push: **`fe8e411`** (Auto-merge claude/peaceful-feistel-ffdc1a — Kit.com form Content-Type fix)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `79eab59` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `fe8e411` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-20 — night)
+## Last session (2026-05-20 — late night)
 
-**HEAD: 79eab59** — Auto-merge claude/eloquent-jennings-c9fecb (daily Google Drive backup)
+**HEAD: fe8e411** — Auto-merge claude/peaceful-feistel-ffdc1a (Kit.com form Content-Type fix)
 
 ### Commits made this session (newest first):
 ```
-79eab59  Auto-merge claude/eloquent-jennings-c9fecb to main [skip ci]
-9acc37e  feat: daily Google Drive backup — script + launchd agent
+fe8e411  Auto-merge claude/peaceful-feistel-ffdc1a to main [skip ci]
+e009b51  fix: Kit.com form submissions silently dropped due to wrong Content-Type
 ```
 
 ### What was done this session:
 
-**Daily Google Drive backup — script + launchd scheduling**
-- **`backup_to_gdrive.sh`** — rsync/cp backup of `_data/`, `clubmed/index.html`, `_posts/`, `_layouts/`, `.github/workflows/`, all `*.py`, and key `.md` files into `WhenToBook_Backups/YYYY-MM-DD/` inside the Google Drive for Desktop sync dir (`~/Library/CloudStorage/GoogleDrive-rw215781@gmail.com/My Drive/`)
-- **`co.whentobook.backup.plist`** — launchd agent installed to `~/Library/LaunchAgents/`; runs at 03:00 daily; logs to `backup.log`
-- **`.gitignore`** — `backup.log` excluded from git
-- First backup ran successfully: all expected files present in `WhenToBook_Backups/2026-05-20/`
-- launchd agent loaded and registered (`launchctl list | grep whentobook` returns `- 0 co.whentobook.backup`)
+**Kit.com email signup form bug fix**
+- **Root cause:** Both signup forms were posting `Content-Type: application/json` to the Kit.com public form endpoint (`https://app.kit.com/forms/{id}/subscriptions`), which expects `application/x-www-form-urlencoded`. Kit returned HTTP 200 regardless, so the JS showed success — but no subscriber was created in Kit.
+- **Fix:** Changed both fetch calls in `clubmed/index.html` to use `Content-Type: application/x-www-form-urlencoded` and `URLSearchParams` body encoding.
+  - Search popup form (`f197f8f414`) — line ~13365
+  - Mobile booking alert form (`7f784a323c`) — line ~13669
+- **Custom field encoding:** `fields[resort_interest]` now correctly encoded as a form field key (Kit's expected format for custom fields via form submissions).
+
+**Previous session (2026-05-20 — night): Daily Google Drive backup**
+- `backup_to_gdrive.sh` + `co.whentobook.backup.plist` (launchd, 03:00 daily)
+- First backup confirmed successful
 
 **Previous session (2026-05-20 — late evening): La Plagne 2100 resort code fixed LP2C_WINTER → PLAC**
 - LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7
@@ -125,6 +129,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-20 — **4 copy/UX fixes:** How It Works section removed from tracker + added to about.md; 'in 14 days' qualifier removed from movement badges; Saturday departures note removed from alert form; modal chart crash fixed (dynamic midIdx/lastIdx). (commit 7e2efe8)
 - 2026-05-20 — **La Plagne 2100 resort code fixed LP2C_WINTER → PLAC:** LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7. PLAC confirmed correct (year-round /y, 7-night only, season opens Dec 13 2026). Per-resort `durations` override added to `make_windows`. Stale-code filter (`resort_code` param) added to `load_price_history_from_csv`. CLAUDE.md resorts table corrected. (commit 6a9e323, merged 168c5ad)
 - 2026-05-20 — **Daily Google Drive backup:** `backup_to_gdrive.sh` + `co.whentobook.backup.plist` (launchd, 03:00 daily). Backs up `_data/`, `clubmed/index.html`, `_posts/`, `_layouts/`, `.github/`, `*.py`, and key `.md` files → `WhenToBook_Backups/YYYY-MM-DD/` in Google Drive for Desktop sync. First backup confirmed successful. `.gitignore` created (excludes `backup.log`). (commits 9acc37e, merged 79eab59)
+- 2026-05-20 — **Kit.com form bug fix:** Both email signup forms were posting JSON to the Kit.com public form endpoint, which silently accepted the wrong Content-Type and returned 200 without creating a subscriber. Fixed to `application/x-www-form-urlencoded` + `URLSearchParams`. Affects search popup (`f197f8f414`) and mobile booking alert (`7f784a323c`). (commits e009b51, merged fe8e411)
 
 ---
 

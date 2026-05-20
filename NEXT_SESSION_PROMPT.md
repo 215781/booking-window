@@ -9,42 +9,44 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor c52d873 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 79eab59 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`c52d873`** (docs: session wrap-up 2026-05-20 late evening — La Plagne code fix LP2C_WINTER → PLAC, HEAD 168c5ad recorded)
+Last recorded push: **`79eab59`** (Auto-merge claude/eloquent-jennings-c9fecb — daily Google Drive backup script + launchd agent)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `168c5ad` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `79eab59` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-20 — late evening)
+## Last session (2026-05-20 — night)
 
-**HEAD: 168c5ad** — Auto-merge claude/frosty-ritchie-04d262 to main (La Plagne code fix)
+**HEAD: 79eab59** — Auto-merge claude/eloquent-jennings-c9fecb (daily Google Drive backup)
 
 ### Commits made this session (newest first):
 ```
-168c5ad  Auto-merge claude/frosty-ritchie-04d262 to main [skip ci]
-6a9e323  fix: correct La Plagne 2100 resort code LP2C_WINTER → PLAC
-b38b775  docs: session wrap-up 2026-05-20 evening — 4 fixes complete, HEAD 7e2efe8 recorded
-7e2efe8  fix: 4 copy/UX fixes — remove How It Works section, drop '14 days' qualifier, remove Saturday note, fix modal chart crash
+79eab59  Auto-merge claude/eloquent-jennings-c9fecb to main [skip ci]
+9acc37e  feat: daily Google Drive backup — script + launchd agent
 ```
 
 ### What was done this session:
 
-**Data quality investigation and fix — La Plagne 2100 resort code**
-- **Root cause discovered:** Resort code `LP2C_WINTER` silently resolves to `ARPC_WINTER` (Les Arcs Panorama) in the Club Med GraphQL API. Any unrecognised code falls back to ARPC_WINTER rather than returning an error.
-- **Impact:** Every La Plagne 2100 query since May 7 returned Les Arcs prices (£2,874 for 6-night 2A, £3,322 for 7-night 2A) mislabelled as La Plagne data. 280 corrupt rows in `_data/prices_clubmed.csv`. Real La Plagne data collection was zero.
-- **Correct code confirmed:** `PLAC` — verified via API (returns genuine `productId=PLAC`, not ARPC fallback). La Plagne 2100 is a year-round resort (`/y` URL suffix, like Val Thorens Sensations), 7-night stays only (6-night → not_for_sale), season opens Dec 13 2026. Price curve: Xmas £5,206, Feb half-term £4,930, Easter £3,672, mid-Jan £4,094.
-- **Code changes (commit 6a9e323, merged as 168c5ad):**
-  - `clubmed_checker.py`: La Plagne entry `resortCode` LP2C_WINTER → PLAC, `bookingUrl` /w → /y, added `"durations": (7,)`
-  - `clubmed_checker.py`: `make_windows` now reads optional `durations` key per resort (defaults to (6,7))
-  - `clubmed_checker.py`: `load_price_history_from_csv` now accepts `resort_code=None` parameter + filter logic to prevent stale LP2C_WINTER rows contaminating PLAC signal calculations; both call sites pass `resort_code=resort["resortCode"]`
-  - `CLAUDE.md`: Resorts table corrected — LP2C_WINTER → PLAC; noted year-round + 7-night only
+**Daily Google Drive backup — script + launchd scheduling**
+- **`backup_to_gdrive.sh`** — rsync/cp backup of `_data/`, `clubmed/index.html`, `_posts/`, `_layouts/`, `.github/workflows/`, all `*.py`, and key `.md` files into `WhenToBook_Backups/YYYY-MM-DD/` inside the Google Drive for Desktop sync dir (`~/Library/CloudStorage/GoogleDrive-rw215781@gmail.com/My Drive/`)
+- **`co.whentobook.backup.plist`** — launchd agent installed to `~/Library/LaunchAgents/`; runs at 03:00 daily; logs to `backup.log`
+- **`.gitignore`** — `backup.log` excluded from git
+- First backup ran successfully: all expected files present in `WhenToBook_Backups/2026-05-20/`
+- launchd agent loaded and registered (`launchctl list | grep whentobook` returns `- 0 co.whentobook.backup`)
+
+**Previous session (2026-05-20 — late evening): La Plagne 2100 resort code fixed LP2C_WINTER → PLAC**
+- LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7
+- PLAC confirmed correct (year-round /y, 7-night only, season opens Dec 13 2026)
+- Per-resort `durations` override added to `make_windows`; stale-code filter added to `load_price_history_from_csv`
 
 ### What exists on main now (verified):
+- `backup_to_gdrive.sh` — daily backup to Google Drive; executable; launchd agent loaded at 03:00 via `co.whentobook.backup.plist`
+- `.gitignore` — excludes `backup.log`
 - `clubmed_checker.py` — La Plagne 2100 uses correct PLAC code; per-resort duration override support; stale-code filtering in CSV history loader
 - `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards, cards clickable
 - `about.md` — founder story + "How it works" section + CTA
@@ -54,6 +56,7 @@ b38b775  docs: session wrap-up 2026-05-20 evening — 4 fixes complete, HEAD 7e2
 
 ### Open items for next session:
 - La Plagne 2100 real data will not appear until the next checker run (06:00 UTC daily). No manual backfill needed — the checker will populate from Dec 2026 dates forward.
+- **Google Drive backup launchd agent** — loaded on this machine but requires `launchctl load ~/Library/LaunchAgents/co.whentobook.backup.plist` after any reboot. Agent label: `co.whentobook.backup`, fires daily 03:00.
 - `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
 - Summer CSV injection: currently done via one-off Python script; needs to be integrated into `clubmed_summer_checker.py --inject-only` or a dedicated pipeline
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
@@ -121,6 +124,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — **5 fixes applied:** (1) `markwarner_prices.csv` header corrected to 15-column schema; (2) `bookingUrl` added to all 11 Club Med resorts in `clubmed_checker.py` + emitted into JS; (3) 5 occurrences of "cheapest" replaced in `clubmed/index.html` (meta tags → "most favourable pricing", sort labels → "lowest price first"); (4) Mobile touch fixes: `touch-action: manipulation` on all interactive elements, `-webkit-overflow-scrolling: touch` on modals, party-size filter selector scoped to `[data-party]`; (5) Sort bar added below party size tabs — Lowest price first / Highest price first / Biggest price drop.
 - 2026-05-20 — **4 copy/UX fixes:** How It Works section removed from tracker + added to about.md; 'in 14 days' qualifier removed from movement badges; Saturday departures note removed from alert form; modal chart crash fixed (dynamic midIdx/lastIdx). (commit 7e2efe8)
 - 2026-05-20 — **La Plagne 2100 resort code fixed LP2C_WINTER → PLAC:** LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7. PLAC confirmed correct (year-round /y, 7-night only, season opens Dec 13 2026). Per-resort `durations` override added to `make_windows`. Stale-code filter (`resort_code` param) added to `load_price_history_from_csv`. CLAUDE.md resorts table corrected. (commit 6a9e323, merged 168c5ad)
+- 2026-05-20 — **Daily Google Drive backup:** `backup_to_gdrive.sh` + `co.whentobook.backup.plist` (launchd, 03:00 daily). Backs up `_data/`, `clubmed/index.html`, `_posts/`, `_layouts/`, `.github/`, `*.py`, and key `.md` files → `WhenToBook_Backups/YYYY-MM-DD/` in Google Drive for Desktop sync. First backup confirmed successful. `.gitignore` created (excludes `backup.log`). (commits 9acc37e, merged 79eab59)
 
 ---
 

@@ -9,48 +9,53 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 7e2efe8 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 168c5ad HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`7e2efe8`** (fix: 4 copy/UX fixes — How It Works removal, '14 days' qualifier, Saturday note, modal chart crash)
+Last recorded push: **`168c5ad`** (Auto-merge claude/frosty-ritchie-04d262 to main — La Plagne code fix PLAC)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `7e2efe8` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `168c5ad` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-20 — evening)
+## Last session (2026-05-20 — late evening)
 
-**HEAD: 7e2efe8** — fix: 4 copy/UX fixes
+**HEAD: 168c5ad** — Auto-merge claude/frosty-ritchie-04d262 to main (La Plagne code fix)
 
 ### Commits made this session (newest first):
 ```
+168c5ad  Auto-merge claude/frosty-ritchie-04d262 to main [skip ci]
+6a9e323  fix: correct La Plagne 2100 resort code LP2C_WINTER → PLAC
+b38b775  docs: session wrap-up 2026-05-20 evening — 4 fixes complete, HEAD 7e2efe8 recorded
 7e2efe8  fix: 4 copy/UX fixes — remove How It Works section, drop '14 days' qualifier, remove Saturday note, fix modal chart crash
-6982e63  fix: replace stale RESORT_DATA with complete version from worktree  (prior session)
-e19474c  feat: ski/summer season toggle — inject SUMMER_RESORT_DATA (9 resorts), add tab UI, hero card responds to active tab
-9b113e4  refactor: remove 'Stable over 14 days' text, move price-change above current price on cards
-b4ca141  refactor: remove party size tabs + sort bar — hardcode 2A party, always sort by biggest price drop
-20a05f8  feat: unified dark teal header across tracker — Blog + About nav links added
-4dd53db  feat: extend alert FAB to all screen sizes, remove inline alert form section
-aeade8f  fix: restore checkbox interactivity — exclude type=checkbox from appearance:none rule
 ```
 
-### What was done this session (evening):
-- **Fix 1 (7e2efe8)** — "How It Works" section removed from `clubmed/index.html` (HTML + CSS + responsive overrides). Added to `about.md` with matching styles, placed between founder story and CTA. Saturday → Sunday corrected in step 01 copy.
-- **Fix 2 (7e2efe8)** — "in 14 days" qualifier removed from card `movementHTML` (↓/↑ cases) and search modal `movLabel`. Cards now show clean `↓ £X` / `↑ £X`.
-- **Fix 3 (7e2efe8)** — `alert-form-note` paragraph ("We track Saturday departures…") removed from alert panel form.
-- **Fix 4 (7e2efe8)** — Root cause of card click regression identified: `buildModalChart` used hardcoded `pts[6]` and `pts[13]` (from earlier broken state, reintroduced by 6982e63). All resorts now have 12 price history points, so `pts[13]` = undefined → TypeError → modal never opens. Fixed with dynamic `midIdx = Math.floor((prices.length-1)/2)` and `lastIdx = prices.length-1`.
+### What was done this session:
+
+**Data quality investigation and fix — La Plagne 2100 resort code**
+- **Root cause discovered:** Resort code `LP2C_WINTER` silently resolves to `ARPC_WINTER` (Les Arcs Panorama) in the Club Med GraphQL API. Any unrecognised code falls back to ARPC_WINTER rather than returning an error.
+- **Impact:** Every La Plagne 2100 query since May 7 returned Les Arcs prices (£2,874 for 6-night 2A, £3,322 for 7-night 2A) mislabelled as La Plagne data. 280 corrupt rows in `_data/prices_clubmed.csv`. Real La Plagne data collection was zero.
+- **Correct code confirmed:** `PLAC` — verified via API (returns genuine `productId=PLAC`, not ARPC fallback). La Plagne 2100 is a year-round resort (`/y` URL suffix, like Val Thorens Sensations), 7-night stays only (6-night → not_for_sale), season opens Dec 13 2026. Price curve: Xmas £5,206, Feb half-term £4,930, Easter £3,672, mid-Jan £4,094.
+- **Code changes (commit 6a9e323, merged as 168c5ad):**
+  - `clubmed_checker.py`: La Plagne entry `resortCode` LP2C_WINTER → PLAC, `bookingUrl` /w → /y, added `"durations": (7,)`
+  - `clubmed_checker.py`: `make_windows` now reads optional `durations` key per resort (defaults to (6,7))
+  - `clubmed_checker.py`: `load_price_history_from_csv` now accepts `resort_code=None` parameter + filter logic to prevent stale LP2C_WINTER rows contaminating PLAC signal calculations; both call sites pass `resort_code=resort["resortCode"]`
+  - `CLAUDE.md`: Resorts table corrected — LP2C_WINTER → PLAC; noted year-round + 7-night only
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards, cards now clickable, no 'in 14 days' text
-- `about.md` — first commit; includes founder story, "How it works" 3-step section, CTA
-- `_data/prices_clubmed_summer.csv` — 2041 rows, 9 resorts with data
+- `clubmed_checker.py` — La Plagne 2100 uses correct PLAC code; per-resort duration override support; stale-code filtering in CSV history loader
+- `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards, cards clickable
+- `about.md` — founder story + "How it works" section + CTA
+- `_data/prices_clubmed.csv` — 280 corrupt LP2C_WINTER rows still present (stale data, not deleted per append-only invariant; filtered at query time by resort_code)
+- `_data/prices_clubmed_summer.csv` — summer resort data
 - `markwarner/index.html` — Mark Warner tracker live at /markwarner/
 
 ### Open items for next session:
+- La Plagne 2100 real data will not appear until the next checker run (06:00 UTC daily). No manual backfill needed — the checker will populate from Dec 2026 dates forward.
 - `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
-- Summer CSV injection: currently done via one-off Python script; needs to be integrated into `clubmed_checker.py --inject-only` or a dedicated summer checker
+- Summer CSV injection: currently done via one-off Python script; needs to be integrated into `clubmed_summer_checker.py --inject-only` or a dedicated pipeline
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
 - PLAN_V2.md tasks not yet reviewed
 
@@ -114,6 +119,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-04 — **Email alerts stripped:** `clubmed_checker.py` only emails on >30% API error rate. All signal/price-change/success emails removed.
 - 2026-05-04 — **Blog promoted to high priority** in PLAN.md. 3 article ideas generated (see below).
 - 2026-05-04 — **5 fixes applied:** (1) `markwarner_prices.csv` header corrected to 15-column schema; (2) `bookingUrl` added to all 11 Club Med resorts in `clubmed_checker.py` + emitted into JS; (3) 5 occurrences of "cheapest" replaced in `clubmed/index.html` (meta tags → "most favourable pricing", sort labels → "lowest price first"); (4) Mobile touch fixes: `touch-action: manipulation` on all interactive elements, `-webkit-overflow-scrolling: touch` on modals, party-size filter selector scoped to `[data-party]`; (5) Sort bar added below party size tabs — Lowest price first / Highest price first / Biggest price drop.
+- 2026-05-20 — **4 copy/UX fixes:** How It Works section removed from tracker + added to about.md; 'in 14 days' qualifier removed from movement badges; Saturday departures note removed from alert form; modal chart crash fixed (dynamic midIdx/lastIdx). (commit 7e2efe8)
+- 2026-05-20 — **La Plagne 2100 resort code fixed LP2C_WINTER → PLAC:** LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7. PLAC confirmed correct (year-round /y, 7-night only, season opens Dec 13 2026). Per-resort `durations` override added to `make_windows`. Stale-code filter (`resort_code` param) added to `load_price_history_from_csv`. CLAUDE.md resorts table corrected. (commit 6a9e323, merged 168c5ad)
 
 ---
 
@@ -194,7 +201,7 @@ Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Upd
 | Valmorel | `VMOC_WINTER` | Sunday |
 | Alpe d'Huez | `ALHC_WINTER` | Sunday |
 | La Rosière | `LROC_WINTER` | Sunday |
-| La Plagne 2100 | `LP2C_WINTER` | Sunday |
+| La Plagne 2100 | `PLAC` | Sunday (year-round /y, 7-night only) |
 | Val d'Isère | `VDIC_WINTER` | Sunday |
 | Grand Massif | `GMAC_WINTER` | TBC |
 | Val Thorens Sensations | `VTHC` | Sunday (no `_WINTER` suffix) |

@@ -509,24 +509,24 @@
     }
 
     .card-price {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 32px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       font-weight: 400;
-      color: var(--text);
-      line-height: 1;
-      margin-bottom: 4px;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 12px;
     }
 
     .card-price-label {
-      font-size: 11px;
-      color: var(--text-muted);
-      margin-bottom: 12px;
+      display: none;
     }
 
     .price-movement {
-      font-size: 13px;
-      font-weight: 500;
-      margin-bottom: 12px;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
     .price-down { color: var(--teal); }
@@ -1289,6 +1289,7 @@
       #signals-hero { padding: 48px 0 40px; }
       .hero-headline { font-size: 30px; }
       .hero-form-wrap { padding: 24px 20px; }
+      .hero-form-wrap button { min-height: 44px; }
 
       /* touch targets — 44px minimum */
       .form-group select,
@@ -1496,93 +1497,8 @@
         <p class="hero-sub">We track Club Med availability and pricing so you can see if a resort is about to sell out, or if prices have recently dropped and now is a good time to book.</p>
       </div>
       <div class="hero-right">
-        <div class="hero-form-wrap">
-          <h3>Find your optimal booking window</h3>
-          <form id="hero-form" autocomplete="off">
-            <div class="form-group">
-              <label for="hero-resort">Resort</label>
-              <select id="hero-resort" name="resort">
-                <option value="">Any resort — show all</option>
-                <option value="tignes-val-claret">Tignes</option>
-                <option value="les-arcs">Les Arcs Panorama</option>
-                <option value="peisey-vallandry">Peisey-Vallandry</option>
-                <option value="valmorel">Valmorel</option>
-                <option value="alpe-dhuez">Alpe d'Huez</option>
-                <option value="la-rosiere">La Rosière</option>
-                <option value="la-plagne-2100">La Plagne 2100</option>
-                <option value="val-disere">Val d'Isère</option>
-                <option value="grand-massif">Grand Massif Samoëns Morillon</option>
-                <option value="val-thorens">Val Thorens Sensations</option>
-                <option value="serre-chevalier">Serre-Chevalier</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Departure Dates</label>
-              <div class="date-mode-tabs" role="group" aria-label="Date selection mode">
-                <button type="button" class="date-mode-tab active" data-mode="month">Select month</button>
-                <button type="button" class="date-mode-tab" data-mode="specific">Specific date</button>
-                <button type="button" class="date-mode-tab" data-mode="all">All dates</button>
-              </div>
-              <div id="date-input-month">
-                <select id="hero-month" name="month">
-                  <option value="">Any available month</option>
-                  <option>December 2026</option>
-                  <option>January 2027</option>
-                  <option>February 2027</option>
-                  <option>March 2027</option>
-                  <option>April 2027</option>
-                </select>
-              </div>
-              <div id="date-input-specific" style="display:none;">
-                <input type="date" id="hero-date" name="date" min="2026-12-01" max="2027-04-30">
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="hero-duration">Stay Duration</label>
-              <select id="hero-duration" name="duration" style="color:var(--text);">
-                <option value="6">6 nights (Sun–Sat)</option>
-                <option value="7" selected>7 nights (Sun–Sun)</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Party</label>
-              <div class="party-adults-row">
-                <span>2 Adults</span>
-              </div>
-              <div class="party-children-row">
-                <label for="hero-children">Children</label>
-                <select id="hero-children" name="children">
-                  <option value="0">0</option>
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                </select>
-              </div>
-              <div class="child-ages" id="child-ages" style="display:none;">
-                <div class="child-age-row" id="child-age-row-1">
-                  <label for="hero-child-age-1">Child 1</label>
-                  <select id="hero-child-age-1">
-                    <option value="u4">Under 4</option>
-                    <option value="4-11" selected>4–11</option>
-                    <option value="12plus">12 or over</option>
-                  </select>
-                </div>
-                <div class="child-age-row" id="child-age-row-2" style="display:none;">
-                  <label for="hero-child-age-2">Child 2</label>
-                  <select id="hero-child-age-2">
-                    <option value="u4">Under 4</option>
-                    <option value="4-11" selected>4–11</option>
-                    <option value="12plus">12 or over</option>
-                  </select>
-                </div>
-                <p class="child-age-note">Club Med pricing changes significantly at age 12. Prices shown reflect the ages entered.</p>
-              </div>
-            </div>
-            <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Show Optimal Dates</button>
-            <p class="form-note">Select a resort to see the optimal booking window. Use the date mode tabs to narrow by month, pick a specific date, or search across all available dates.</p>
-            <div id="hero-confirmation" class="form-confirmation">
-              Showing optimal window for your search.
-            </div>
-          </form>
+        <div class="hero-form-wrap" id="hero-best-card">
+          <!-- populated by renderHeroBestCard() -->
         </div>
       </div>
     </div>
@@ -5047,6 +4963,53 @@ const RESORT_IMAGES = {
   'serre-chevalier':   '../images/Serre-chevalier.jpg',
 };
 
+function getBestOpportunity() {
+  let best = null;
+  let bestMove = -10;
+  RESORT_DATA.forEach(resort => {
+    const combo = getCombination(resort, '2A');
+    if (!combo) return;
+    combo.departures.filter(d => (d.duration || 7) === 7 && d.currentPrice > 0).forEach(dep => {
+      const move = getPriceMovement(dep);
+      if (move < bestMove) { bestMove = move; best = { resort, dep }; }
+    });
+  });
+  if (!best) {
+    let minPrice = Infinity;
+    RESORT_DATA.forEach(resort => {
+      const combo = getCombination(resort, '2A');
+      if (!combo) return;
+      combo.departures.filter(d => (d.duration || 7) === 7 && d.currentPrice > 0).forEach(dep => {
+        if (dep.currentPrice < minPrice) { minPrice = dep.currentPrice; best = { resort, dep }; }
+      });
+    });
+  }
+  return best;
+}
+
+function renderHeroBestCard() {
+  const el = document.getElementById('hero-best-card');
+  if (!el) return;
+  const best = getBestOpportunity();
+  if (!best) {
+    el.innerHTML = '<p style="font-size:13px;color:var(--text-muted);line-height:1.6;">Price data is building across the season — check back soon.</p>';
+    return;
+  }
+  const { resort, dep } = best;
+  const move = getPriceMovement(dep);
+  const absDiff = Math.abs(move);
+  const pctChange = dep.previousPrice > 0 ? Math.round((absDiff / dep.previousPrice) * 100) : 0;
+  const hasDropped = move < -10;
+  el.innerHTML = `
+    <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin:0 0 18px;">Best available price</p>
+    <div style="font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:6px;">${resort.name}</div>
+    <p style="font-size:13px;color:var(--text-muted);margin:0 0 22px;">${dep.displayDate} &middot; 7 nights &middot; 2 adults</p>
+    ${hasDropped ? `<div style="font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--teal);line-height:1.1;margin-bottom:8px;">&#8595; ${formatPrice(absDiff)}${pctChange > 0 ? ' &middot; &minus;' + pctChange + '%' : ''}</div>` : `<div style="font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:8px;">${formatPrice(dep.currentPrice)}</div>`}
+    <div style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">from ${formatPrice(dep.currentPrice)} &middot; 7 nights &middot; per party</div>
+    <button onclick="gtag('event','resort_card_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}'}); openModal('${resort.id}', '2A')" style="background:var(--teal);color:white;border:none;border-radius:6px;padding:13px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;">View price history &#8594;</button>
+  `;
+}
+
 function renderCards(partySize, resortFilter) {
   if (resortFilter !== undefined) activeResortFilter = resortFilter;
   const grid = document.getElementById('resort-grid');
@@ -5394,12 +5357,7 @@ function closeModal() {
 document.addEventListener('DOMContentLoaded', () => {
   // Initial render
   renderCards('2A');
-
-  // Duration selector
-  document.getElementById('hero-duration').addEventListener('change', function() {
-    activeDuration = parseInt(this.value);
-    renderCards(activePartySize);
-  });
+  renderHeroBestCard();
 
   // Party size filter
   document.querySelectorAll('.filter-btn[data-party]').forEach(btn => {
@@ -5429,51 +5387,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeModal();
   });
-
-  // Date mode tab switching
-  let activeDateMode = 'month';
-  document.querySelectorAll('.date-mode-tab').forEach(tab => {
-    tab.addEventListener('click', () => {
-      activeDateMode = tab.dataset.mode;
-      document.querySelectorAll('.date-mode-tab').forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-      document.getElementById('date-input-month').style.display    = activeDateMode === 'month'    ? '' : 'none';
-      document.getElementById('date-input-specific').style.display = activeDateMode === 'specific' ? '' : 'none';
-    });
-  });
-
-  // Children count — show/hide age selectors
-  document.getElementById('hero-children').addEventListener('change', function() {
-    const n = parseInt(this.value);
-    document.getElementById('child-ages').style.display       = n > 0 ? '' : 'none';
-    document.getElementById('child-age-row-2').style.display  = n > 1 ? '' : 'none';
-  });
-
-  // Hero form — always open search results modal
-  function runHeroSearch() {
-    const selectedResort = document.getElementById('hero-resort').value;
-    const children = parseInt(document.getElementById('hero-children').value);
-    const partySize = children === 0 ? '2A' : children === 1 ? '2A1C' : '2A2C';
-    let dateFilter = '';
-    if (activeDateMode === 'month')    dateFilter = document.getElementById('hero-month').value;
-    else if (activeDateMode === 'specific') dateFilter = document.getElementById('hero-date').value;
-    openSearchModal(selectedResort || null, dateFilter, partySize, activeDateMode);
-  }
-
-  document.getElementById('hero-form').addEventListener('submit', e => {
-    e.preventDefault();
-    runHeroSearch();
-  });
-
-  // touchend fallback — iOS sometimes swallows the submit event when a select
-  // was last focused; firing on touchend bypasses that path entirely.
-  const heroSubmitBtn = document.querySelector('#hero-form button[type="submit"]');
-  if (heroSubmitBtn) {
-    heroSubmitBtn.addEventListener('touchend', e => {
-      e.preventDefault(); // cancel ghost click / double-fire
-      runHeroSearch();
-    });
-  }
 
   // Search results modal close
   document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);
@@ -5742,8 +5655,6 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
 }
 
 function switchSearchMonth(resortId, monthStr, partySize) {
-  // Update the form dropdowns to match, then re-open
-  document.getElementById('hero-month').value = monthStr;
   closeSearchModal();
   setTimeout(() => openSearchModal(resortId, monthStr, partySize), 150);
 }

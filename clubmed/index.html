@@ -385,45 +385,6 @@
     }
 
     /* ── Party size filter ── */
-    .filter-bar {
-      display: flex;
-      gap: 2px;
-      background: var(--border);
-      border-radius: 2px;
-      padding: 2px;
-      align-self: flex-start;
-    }
-
-    .filter-btn {
-      padding: 8px 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      background: transparent;
-      border: none;
-      border-radius: 1px;
-      cursor: pointer;
-      transition: all 0.15s;
-      white-space: nowrap;
-      touch-action: manipulation;
-    }
-
-    .filter-btn.active {
-      background: #fff;
-      color: var(--teal);
-      font-weight: 500;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-    }
-
-    /* ── Sort bar ── */
-    .sort-bar-wrap {
-      margin-top: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-    }
-
     /* ── Resort grid ── */
     .resort-grid {
       display: grid;
@@ -1290,12 +1251,6 @@
       .form-group select,
       .form-group input:not([type="checkbox"]) { min-height: 44px; }
       .btn { min-height: 44px; }
-      .filter-btn { min-height: 44px; }
-
-      /* sort bar — allow horizontal scroll on narrow screens */
-      .sort-bar-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; justify-content: flex-start; }
-      .sort-bar-wrap .filter-bar { flex-shrink: 0; }
-      .sort-bar-wrap .filter-btn { font-size: 11px; padding: 8px 10px; }
 
       /* signals header: title then filter bar below */
       .signals-header {
@@ -1509,18 +1464,6 @@
         <p class="section-label">Live Signals</p>
         <h2 class="signals-title">Current booking signals across Club Med ski resorts</h2>
         <p class="signals-sub">Prices updated daily. Prices shown for 7 nights accommodation, Saturday departure. Click any resort for full price history.</p>
-      </div>
-      <div class="filter-bar" role="group" aria-label="Party size filter">
-        <button class="filter-btn active" data-party="2A">2 Adults</button>
-        <button class="filter-btn" data-party="2A1C">+1 Child</button>
-        <button class="filter-btn" data-party="2A2C">+2 Children</button>
-      </div>
-    </div>
-    <div class="sort-bar-wrap">
-      <div class="filter-bar" role="group" aria-label="Sort order">
-        <button class="filter-btn sort-btn active" data-sort="price-asc">Lowest price first</button>
-        <button class="filter-btn sort-btn" data-sort="price-desc">Highest price first</button>
-        <button class="filter-btn sort-btn" data-sort="drop-desc">Biggest price drop</button>
       </div>
     </div>
     <div class="resort-grid" id="resort-grid">
@@ -4858,10 +4801,10 @@ function buildSparklineSVG(dep, signal) {
 // CARD RENDERER
 // ═══════════════════════════════════════════════════
 
-let activePartySize = '2A';
+const activePartySize = '2A';
 let activeResortFilter = '';
 let activeDuration = 7;
-let activeSortOrder = 'price-asc';
+const activeSortOrder = 'drop-desc';
 
 const RESORT_GRADIENTS = {
   'tignes-val-claret':  'linear-gradient(150deg, #1a3050 0%, #2a6070 60%, #3a8080 100%)',
@@ -5287,26 +5230,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initial render
   renderCards('2A');
   renderHeroBestCard();
-
-  // Party size filter
-  document.querySelectorAll('.filter-btn[data-party]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.filter-btn[data-party]').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activePartySize = btn.getAttribute('data-party');
-      renderCards(activePartySize);
-    });
-  });
-
-  // Sort order
-  document.querySelectorAll('.sort-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.sort-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeSortOrder = btn.getAttribute('data-sort');
-      renderCards(activePartySize);
-    });
-  });
 
   // Modal close
   document.getElementById('modal-close').addEventListener('click', closeModal);

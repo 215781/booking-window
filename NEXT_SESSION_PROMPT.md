@@ -9,19 +9,20 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git log main -1 --oneline
+git merge-base --is-ancestor 322bf0c HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
-The result **must** be:
-```
-9493209 docs: update NEXT_SESSION_PROMPT with correct HEAD hash a83cc65
-```
-If it is different, stop. Do not begin work. Diagnose what diverged and why before proceeding.
+
+Last recorded push: **`322bf0c`** (docs: final NEXT_SESSION_PROMPT hash update)
+
+If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
+
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `322bf0c` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-05-20)
 
-**HEAD: 9493209** — docs: update NEXT_SESSION_PROMPT with correct HEAD hash
+**HEAD: 322bf0c** — docs: final NEXT_SESSION_PROMPT hash update
 
 ### Commits made this session (newest first):
 ```

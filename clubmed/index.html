@@ -746,21 +746,33 @@
     /* ── How it works ── */
     /* ── Footer ── */
     footer {
-      padding: 36px 0;
+      background: var(--teal);
+      padding: 40px 0;
+      text-align: center;
     }
 
     .footer-inner {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
     }
 
     .footer-copy {
       font-size: 13px;
-      color: var(--text-muted);
+      color: rgba(255,255,255,0.75);
+      line-height: 1.8;
+    }
+
+    .footer-copy a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: rgba(255,255,255,0.5);
+      margin-top: 8px;
     }
 
     /* ── Modal ── */
@@ -1290,7 +1302,7 @@
       .alt-months-row { flex-direction: column; gap: 8px; }
       .alt-month-pill { justify-content: space-between; }
 
-      .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+      .footer-inner { padding: 0 20px; }
     }
 
   /* ── Alert FAB (all screen sizes) ── */
@@ -1490,7 +1502,8 @@
 <!-- ── Footer ── -->
 <footer>
   <div class="footer-inner">
-    <span class="footer-copy">© 2026 Drop Media Ltd</span>
+    <p class="footer-copy">© 2026 WhenToBook. All rights reserved. &nbsp;·&nbsp; <a href="mailto:admin@whentobook.co.uk">admin@whentobook.co.uk</a> &nbsp;·&nbsp; <a href="/privacy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/">Terms of Use</a></p>
+    <p class="footer-tagline">WhenToBook helps you make smarter ski holiday booking decisions.</p>
   </div>
 </footer>
 
@@ -12775,8 +12788,8 @@ function formatPrice(n) {
 }
 
 function getPriceMovement(dep) {
-  const diff = dep.currentPrice - dep.previousPrice;
-  return diff; // negative = dropped, positive = rose, 0 = stable
+  if (!dep.currentPrice || !dep.previousPrice) return 0;
+  return dep.currentPrice - dep.previousPrice;
 }
 
 function getAvailabilityLabel(dep) {
@@ -12949,12 +12962,12 @@ function renderHeroBestCard() {
   const pctChange = dep.previousPrice > 0 ? Math.round((absDiff / dep.previousPrice) * 100) : 0;
   const hasDropped = move < -10;
   el.innerHTML = `
-    <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin:0 0 18px;">Best available price</p>
+    <p style="font-size:11px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--teal);margin:0 0 18px;">Most Favourable</p>
     <div style="font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;color:var(--text);margin-bottom:6px;">${resort.name}</div>
     <p style="font-size:13px;color:var(--text-muted);margin:0 0 22px;">${dep.displayDate} &middot; 7 nights &middot; 2 adults</p>
     ${hasDropped ? `<div style="font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--teal);line-height:1.1;margin-bottom:8px;">&#8595; ${formatPrice(absDiff)}${pctChange > 0 ? ' &middot; &minus;' + pctChange + '%' : ''}</div>` : `<div style="font-family:'Playfair Display',Georgia,serif;font-size:38px;font-weight:700;color:var(--text);line-height:1.1;margin-bottom:8px;">${formatPrice(dep.currentPrice)}</div>`}
     <div style="font-size:14px;color:var(--text-muted);margin-bottom:24px;">from ${formatPrice(dep.currentPrice)} &middot; 7 nights &middot; per party</div>
-    <button onclick="gtag('event','resort_card_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}'}); openModal('${resort.id}', '2A')" style="background:var(--teal);color:white;border:none;border-radius:6px;padding:13px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;">View price history &#8594;</button>
+    <a href="${resort.bookingUrl}" target="_blank" rel="noopener noreferrer" onclick="gtag('event','hero_book_click',{resort_name:'${resort.name.replace(/'/g, "\\'")}'})" style="display:block;background:var(--teal);color:white;border-radius:6px;padding:13px 20px;font-size:13px;font-weight:600;cursor:pointer;width:100%;letter-spacing:0.06em;text-transform:uppercase;text-decoration:none;text-align:center;box-sizing:border-box;">Book Now &#8594;</a>
   `;
 }
 

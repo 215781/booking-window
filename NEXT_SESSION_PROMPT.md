@@ -9,41 +9,51 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor c07fa97 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 95136a0 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`c07fa97`** (feat: hero label → Most Favourable, Book Now CTA, dark footer, price movement guard)
+Last recorded push: **`95136a0`** (Merge branch 'main' of github.com:215781/booking-window — summer resort images + RESORT_IMAGES update)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `c07fa97` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `95136a0` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-21)
+## Last session (2026-05-20)
 
-**HEAD: c07fa97** — feat: hero label → Most Favourable, Book Now CTA, dark footer, price movement guard
+**HEAD: 95136a0** — Summer resort images added; RESORT_IMAGES updated in clubmed/index.html
 
 ### Commits made this session (newest first):
 ```
-c07fa97  feat: hero label → Most Favourable, Book Now CTA, dark footer, price movement guard
+95136a0  Merge branch 'main' of github.com:215781/booking-window (incorporating 6fd54b8)
+6fd54b8  feat: add royalty-free images for all 9 summer resorts
 ```
 
 ### What was done this session:
 
-**4 UI + copy changes across `clubmed/index.html` and `index.html`**
+**Summer resort images sourced from Wikimedia Commons (CC-licensed) and wired up:**
 
-1. **Hero card label** — "Best available price" → "Most Favourable" (`renderHeroBestCard`, line ~12952)
-2. **Hero CTA** — "View price history →" button replaced with "Book Now →" anchor linking directly to `resort.bookingUrl` for the resort shown. Uses `target="_blank"` + GA4 `hero_book_click` event.
-3. **Price movement guard** — `getPriceMovement()` now returns 0 when `currentPrice` or `previousPrice` is 0/missing. Prevents `-£X` display if a departure goes unavailable mid-season.
-4. **Footer redesign (both pages)** — Dark teal background (`var(--teal)`), white text, centered, small font. Content: `© 2026 WhenToBook. All rights reserved. · admin@whentobook.co.uk · Privacy Policy (/privacy/) · Terms of Use (/terms/)` + tagline "WhenToBook helps you make smarter ski holiday booking decisions." Applied to both `clubmed/index.html` and `index.html`. Partial fulfilment of PLAN_V2 task B5.
+9 new image files added to `images/`:
+- `Da-Balaia.jpg` — Algarve coast at sunset (Portugal)
+- `Gregolimano.jpg` — Nea Styra shoreline (Evia, Greece)
+- `Kani.jpg` — Aerial Maldives resort shot (Anantara Kihavah, 2024)
+- `La-Caravelle.jpg` — Caribbean white sand beach (Guadeloupe)
+- `La-Palmeraie-Marrakech.jpg` — Jardin Majorelle, Marrakech (Morocco)
+- `La-Palmyre.jpg` — La plage de La Palmyre (Atlantic, France)
+- `La-Palmyre-Atlantique.jpg` — Plage de La Palmyre (Atlantic, France)
+- `Magna-Marbella.jpg` — Marbella Beach, Costa del Sol (Spain)
+- `Palmiye.jpg` — Kemer Beach (Antalya, Turkey)
 
-**Previous session (2026-05-20 — late night): Kit.com form bug fix**
-- Both email signup forms were posting `application/json` to Kit.com endpoint which expects `application/x-www-form-urlencoded`. Fixed to URLSearchParams. (commits e009b51, merged fe8e411)
+`RESORT_IMAGES` object in `clubmed/index.html` extended with all 9 summer resort entries. Summer resort cards now display real photos instead of gradient placeholders.
+
+**Previous session (2026-05-21): Hero label + CTA + footer**
+- "Best available price" → "Most Favourable"; "View price history →" → "Book Now →" anchor. Price movement guard. Dark teal footer on both pages. (commit c07fa97)
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — dark teal header, hero "Most Favourable" label + "Book Now" CTA, dark teal footer, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts
+- `clubmed/index.html` — dark teal header, hero "Most Favourable" label + "Book Now" CTA, dark teal footer, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts (all with real photos)
 - `index.html` — root brand landing page with dark teal footer
+- `images/` — 11 ski resort images + 9 summer resort images (all Wikimedia CC-licensed)
 - `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
 - `clubmed_checker.py` — PLAC code correct; per-resort duration override; stale-code filtering
 - `_data/prices_clubmed.csv` — 280 corrupt LP2C_WINTER rows present but filtered at query time
@@ -123,6 +133,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-21 — **Hero label + CTA:** "Best available price" → "Most Favourable"; "View price history →" button → "Book Now →" anchor linking to `resort.bookingUrl`. (commit c07fa97)
 - 2026-05-21 — **Price movement guard:** `getPriceMovement()` returns 0 when price is missing/zero — prevents any `-£X` display for unavailable departures. (commit c07fa97)
 - 2026-05-21 — **Footer redesign:** Both `clubmed/index.html` and `index.html` — dark teal background, white text, copyright WhenToBook, contact email, Privacy Policy, Terms of Use links, tagline. (commit c07fa97)
+- 2026-05-20 — **Summer resort images:** 9 Wikimedia Commons CC-licensed photos added to `images/` for all summer resorts. `RESORT_IMAGES` in `clubmed/index.html` wired up so summer cards display real photos instead of gradient placeholders. (commit 6fd54b8)
 
 ---
 

@@ -4926,7 +4926,7 @@ function renderCards(partySize, resortFilter) {
     } else if (move > 10) {
       movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)} in 14 days</span>`;
     } else {
-      movementHTML = `<span class="price-movement price-stable">— Stable over 14 days</span>`;
+      movementHTML = '';
     }
 
     const card = document.createElement('div');
@@ -4946,9 +4946,9 @@ function renderCards(partySize, resortFilter) {
           ${getSignalBadgeHTML(dep.signal)}
         </div>
         <p class="card-location">${resort.region} &middot; ${resort.altitude}</p>
+        ${movementHTML}
         <div class="card-price">${formatPrice(dep.currentPrice)}</div>
         <div class="card-price-label">per party &mdash; ${activeDuration} nights</div>
-        ${movementHTML}
         <div class="sparkline-wrap">${buildSparklineSVG(dep, dep.signal)}</div>
         ${(() => { const t = getTrend(dep); return t ? `<p class="dept-trend-label" style="margin-bottom:6px;">${t}</p>` : ''; })()}
         <p class="departure-date">Best signal — ${dep.displayDate}</p>
@@ -5340,7 +5340,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   if (cheapest) {
     const saving = entries.length > 1 ? entries[entries.length - 1].dep.currentPrice - cheapest.dep.currentPrice : 0;
     const move = cheapest.dep.currentPrice - cheapest.dep.previousPrice;
-    const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))} in 14 days` : move > 10 ? `↑ ${formatPrice(Math.abs(move))} in 14 days` : 'Stable over 14 days';
+    const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))} in 14 days` : move > 10 ? `↑ ${formatPrice(Math.abs(move))} in 14 days` : '';
     const rangeLabel = dateMode === 'month' && dateFilter ? 'this month' : dateMode === 'specific' ? 'on this date' : 'across all available dates';
     const resortLine = isAllResorts ? `<div style="font-size:13px;font-weight:600;color:var(--teal);margin-top:4px;">${cheapest.resortName}</div>` : '';
     bannerEl.innerHTML = `

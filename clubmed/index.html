@@ -13364,10 +13364,10 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
       const res = await fetch('https://app.kit.com/forms/f197f8f414/subscriptions', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
           email_address: email,
-          fields: { resort_interest: resortLabel + (dateLabel ? ' · ' + dateLabel : '') }
+          'fields[resort_interest]': resortLabel + (dateLabel ? ' · ' + dateLabel : '')
         })
       });
       if (!res.ok) throw new Error('Network response was not ok');
@@ -13666,7 +13666,7 @@ function closeSearchModal() {
     const conf=document.getElementById('mobile-alert-confirmation'),err=document.getElementById('mobile-alert-error');
     btn.disabled=true;btn.textContent='Setting alert…';conf.style.display='none';err.style.display='none';
     try{
-      const res=await fetch('https://app.kit.com/forms/7f784a323c/subscriptions',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email_address:email,fields:{resort_interest:resortName==='Any resort — show all'?'All resorts':resortName}})});
+      const res=await fetch('https://app.kit.com/forms/7f784a323c/subscriptions',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams({email_address:email,'fields[resort_interest]':resortName==='Any resort — show all'?'All resorts':resortName})});
       if(!res.ok)throw new Error();
       conf.innerHTML=`You're on the list. We'll email you when prices move for ${resortName==='Any resort — show all'?'your selected resorts':resortName}.`;
       conf.style.display='block';e.target.reset();

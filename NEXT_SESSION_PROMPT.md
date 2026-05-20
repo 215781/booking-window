@@ -13,7 +13,7 @@ git log main -1 --oneline
 ```
 The result **must** be:
 ```
-aa1be20 fix: restore hero best-card, signal-first CSS, card-price hierarchy
+a83cc65 docs: enforce push-before-session-end protocol across all agent files
 ```
 If it is different, stop. Do not begin work. Diagnose what diverged and why before proceeding.
 
@@ -21,7 +21,7 @@ If it is different, stop. Do not begin work. Diagnose what diverged and why befo
 
 ## Last session (2026-05-20)
 
-**HEAD: aa1be20** — fix: restore hero best-card, signal-first CSS, card-price hierarchy
+**HEAD: a83cc65** — docs: enforce push-before-session-end protocol across all agent files
 
 ### Commits made this session (newest first):
 ```

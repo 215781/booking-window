@@ -9,62 +9,52 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor fe8e411 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor c07fa97 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`fe8e411`** (Auto-merge claude/peaceful-feistel-ffdc1a — Kit.com form Content-Type fix)
+Last recorded push: **`c07fa97`** (feat: hero label → Most Favourable, Book Now CTA, dark footer, price movement guard)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `fe8e411` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `c07fa97` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-20 — late night)
+## Last session (2026-05-21)
 
-**HEAD: fe8e411** — Auto-merge claude/peaceful-feistel-ffdc1a (Kit.com form Content-Type fix)
+**HEAD: c07fa97** — feat: hero label → Most Favourable, Book Now CTA, dark footer, price movement guard
 
 ### Commits made this session (newest first):
 ```
-fe8e411  Auto-merge claude/peaceful-feistel-ffdc1a to main [skip ci]
-e009b51  fix: Kit.com form submissions silently dropped due to wrong Content-Type
+c07fa97  feat: hero label → Most Favourable, Book Now CTA, dark footer, price movement guard
 ```
 
 ### What was done this session:
 
-**Kit.com email signup form bug fix**
-- **Root cause:** Both signup forms were posting `Content-Type: application/json` to the Kit.com public form endpoint (`https://app.kit.com/forms/{id}/subscriptions`), which expects `application/x-www-form-urlencoded`. Kit returned HTTP 200 regardless, so the JS showed success — but no subscriber was created in Kit.
-- **Fix:** Changed both fetch calls in `clubmed/index.html` to use `Content-Type: application/x-www-form-urlencoded` and `URLSearchParams` body encoding.
-  - Search popup form (`f197f8f414`) — line ~13365
-  - Mobile booking alert form (`7f784a323c`) — line ~13669
-- **Custom field encoding:** `fields[resort_interest]` now correctly encoded as a form field key (Kit's expected format for custom fields via form submissions).
+**4 UI + copy changes across `clubmed/index.html` and `index.html`**
 
-**Previous session (2026-05-20 — night): Daily Google Drive backup**
-- `backup_to_gdrive.sh` + `co.whentobook.backup.plist` (launchd, 03:00 daily)
-- First backup confirmed successful
+1. **Hero card label** — "Best available price" → "Most Favourable" (`renderHeroBestCard`, line ~12952)
+2. **Hero CTA** — "View price history →" button replaced with "Book Now →" anchor linking directly to `resort.bookingUrl` for the resort shown. Uses `target="_blank"` + GA4 `hero_book_click` event.
+3. **Price movement guard** — `getPriceMovement()` now returns 0 when `currentPrice` or `previousPrice` is 0/missing. Prevents `-£X` display if a departure goes unavailable mid-season.
+4. **Footer redesign (both pages)** — Dark teal background (`var(--teal)`), white text, centered, small font. Content: `© 2026 WhenToBook. All rights reserved. · admin@whentobook.co.uk · Privacy Policy (/privacy/) · Terms of Use (/terms/)` + tagline "WhenToBook helps you make smarter ski holiday booking decisions." Applied to both `clubmed/index.html` and `index.html`. Partial fulfilment of PLAN_V2 task B5.
 
-**Previous session (2026-05-20 — late evening): La Plagne 2100 resort code fixed LP2C_WINTER → PLAC**
-- LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7
-- PLAC confirmed correct (year-round /y, 7-night only, season opens Dec 13 2026)
-- Per-resort `durations` override added to `make_windows`; stale-code filter added to `load_price_history_from_csv`
+**Previous session (2026-05-20 — late night): Kit.com form bug fix**
+- Both email signup forms were posting `application/json` to Kit.com endpoint which expects `application/x-www-form-urlencoded`. Fixed to URLSearchParams. (commits e009b51, merged fe8e411)
 
 ### What exists on main now (verified):
-- `backup_to_gdrive.sh` — daily backup to Google Drive; executable; launchd agent loaded at 03:00 via `co.whentobook.backup.plist`
-- `.gitignore` — excludes `backup.log`
-- `clubmed_checker.py` — La Plagne 2100 uses correct PLAC code; per-resort duration override support; stale-code filtering in CSV history loader
-- `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards, cards clickable
-- `about.md` — founder story + "How it works" section + CTA
-- `_data/prices_clubmed.csv` — 280 corrupt LP2C_WINTER rows still present (stale data, not deleted per append-only invariant; filtered at query time by resort_code)
+- `clubmed/index.html` — dark teal header, hero "Most Favourable" label + "Book Now" CTA, dark teal footer, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts
+- `index.html` — root brand landing page with dark teal footer
+- `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
+- `clubmed_checker.py` — PLAC code correct; per-resort duration override; stale-code filtering
+- `_data/prices_clubmed.csv` — 280 corrupt LP2C_WINTER rows present but filtered at query time
 - `_data/prices_clubmed_summer.csv` — summer resort data
 - `markwarner/index.html` — Mark Warner tracker live at /markwarner/
 
 ### Open items for next session:
-- La Plagne 2100 real data will not appear until the next checker run (06:00 UTC daily). No manual backfill needed — the checker will populate from Dec 2026 dates forward.
-- **Google Drive backup launchd agent** — loaded on this machine but requires `launchctl load ~/Library/LaunchAgents/co.whentobook.backup.plist` after any reboot. Agent label: `co.whentobook.backup`, fires daily 03:00.
+- **`/terms/` page doesn't exist yet** — footer links to `/terms/` which 404s. Build a minimal Terms of Use page at `terms/index.html` or `terms.html` to resolve this.
 - `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
-- Summer CSV injection: currently done via one-off Python script; needs to be integrated into `clubmed_summer_checker.py --inject-only` or a dedicated pipeline
+- Review PLAN_V2.md tasks B1–B15 for next priority — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
-- PLAN_V2.md tasks not yet reviewed
 
 ---
 
@@ -130,6 +120,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-20 — **La Plagne 2100 resort code fixed LP2C_WINTER → PLAC:** LP2C_WINTER silently fell back to ARPC_WINTER (Les Arcs) in Club Med API; 280 corrupt rows in CSV since May 7. PLAC confirmed correct (year-round /y, 7-night only, season opens Dec 13 2026). Per-resort `durations` override added to `make_windows`. Stale-code filter (`resort_code` param) added to `load_price_history_from_csv`. CLAUDE.md resorts table corrected. (commit 6a9e323, merged 168c5ad)
 - 2026-05-20 — **Daily Google Drive backup:** `backup_to_gdrive.sh` + `co.whentobook.backup.plist` (launchd, 03:00 daily). Backs up `_data/`, `clubmed/index.html`, `_posts/`, `_layouts/`, `.github/`, `*.py`, and key `.md` files → `WhenToBook_Backups/YYYY-MM-DD/` in Google Drive for Desktop sync. First backup confirmed successful. `.gitignore` created (excludes `backup.log`). (commits 9acc37e, merged 79eab59)
 - 2026-05-20 — **Kit.com form bug fix:** Both email signup forms were posting JSON to the Kit.com public form endpoint, which silently accepted the wrong Content-Type and returned 200 without creating a subscriber. Fixed to `application/x-www-form-urlencoded` + `URLSearchParams`. Affects search popup (`f197f8f414`) and mobile booking alert (`7f784a323c`). (commits e009b51, merged fe8e411)
+- 2026-05-21 — **Hero label + CTA:** "Best available price" → "Most Favourable"; "View price history →" button → "Book Now →" anchor linking to `resort.bookingUrl`. (commit c07fa97)
+- 2026-05-21 — **Price movement guard:** `getPriceMovement()` returns 0 when price is missing/zero — prevents any `-£X` display for unavailable departures. (commit c07fa97)
+- 2026-05-21 — **Footer redesign:** Both `clubmed/index.html` and `index.html` — dark teal background, white text, copyright WhenToBook, contact email, Privacy Policy, Terms of Use links, tagline. (commit c07fa97)
 
 ---
 

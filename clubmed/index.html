@@ -246,7 +246,7 @@
     }
 
     .form-group select,
-    .form-group input {
+    .form-group input:not([type="checkbox"]) {
       width: 100%;
       padding: 11px 14px;
       font-family: 'Inter', sans-serif;
@@ -262,7 +262,7 @@
       background-position: right 14px center;
     }
 
-    .form-group input { background-image: none; }
+    .form-group input:not([type="checkbox"]) { background-image: none; }
 
     .form-group select:focus,
     .form-group input:focus {
@@ -1293,7 +1293,7 @@
 
       /* touch targets — 44px minimum */
       .form-group select,
-      .form-group input { min-height: 44px; }
+      .form-group input:not([type="checkbox"]) { min-height: 44px; }
       .btn { min-height: 44px; }
       .filter-btn { min-height: 44px; }
 

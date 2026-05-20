@@ -90,7 +90,7 @@ _data/sandals_prices.csv          — Sandals price log (append-only)
 | Valmorel | `VMOC_WINTER` | Sunday |
 | Alpe d'Huez | `ALHC_WINTER` | Sunday |
 | La Rosière | `LROC_WINTER` | Sunday |
-| La Plagne 2100 | `LP2C_WINTER` | Sunday |
+| La Plagne 2100 | `PLAC` | Sunday — **no `_WINTER` suffix** (year-round resort); **7-night only** |
 | Val d'Isère | `VDIC_WINTER` | Sunday |
 | Grand Massif | `GMAC_WINTER` | TBC — both Sat+Sun return prices observed |
 | Val Thorens Sensations | `VTHC` | Sunday — **no `_WINTER` suffix** (year-round resort) |

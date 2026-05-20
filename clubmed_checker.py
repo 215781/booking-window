@@ -137,9 +137,10 @@ RESORTS = [
     {
         "id":             "la-plagne-2100",
         "name":           "La Plagne 2100",
-        "resortCode":     "LP2C_WINTER",    # verified 26 Apr 2026
-        "bookingUrl":     "https://www.clubmed.co.uk/r/la-plagne-2100/w",
-        "departure_day":  6,                # Sunday — confirmed 26 Apr 2026
+        "resortCode":     "PLAC",           # year-round resort (no _WINTER suffix) — confirmed 20 May 2026; LP2C_WINTER silently resolves to ARPC_WINTER (Les Arcs fallback) and is wrong
+        "bookingUrl":     "https://www.clubmed.co.uk/r/la-plagne-2100/y",
+        "departure_day":  6,                # Sunday only — confirmed 20 May 2026 via API probe (all other days return not_for_sale)
+        "durations":      (7,),             # 7-night only; 6-night returns not_for_sale for this product
         "combos":         _COMBOS,
     },
     {
@@ -176,9 +177,9 @@ RESORTS = [
     },
 ]
 
-# Pre-compute windows per resort based on departure_day
+# Pre-compute windows per resort based on departure_day (and optional per-resort durations)
 for _r in RESORTS:
-    _r["windows"] = make_windows(_r["departure_day"])
+    _r["windows"] = make_windows(_r["departure_day"], _r.get("durations", (6, 7)))
 
 # ─────────────────────────────────────────────────────────────
 # GRAPHQL API
@@ -353,8 +354,13 @@ def log_to_csv(rows, test_mode=False):
             writer.writeheader()
         writer.writerows(rows)
 
-def load_price_history_from_csv(resort_id, party_size, start_date, duration_nights=7):
-    """Load all historical price points for a given resort/party/date/duration combo from CSV."""
+def load_price_history_from_csv(resort_id, party_size, start_date, duration_nights=7, resort_code=None):
+    """Load all historical price points for a given resort/party/date/duration combo from CSV.
+
+    resort_code: if supplied, only rows with that exact resort_code are included. This prevents
+    stale rows from a wrong resort code (e.g. LP2C_WINTER data) from contaminating histories
+    after a code correction.
+    """
     if not Path(CSV_FILE).exists():
         return []
     history = []
@@ -362,6 +368,7 @@ def load_price_history_from_csv(resort_id, party_size, start_date, duration_nigh
         for row in csv.DictReader(f):
             row_dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
             if (row["resort_id"] == resort_id and
+                (resort_code is None or row.get("resort_code") == resort_code) and
                 row["party_size"] == party_size and
                 row["start_date"] == start_date and
                 row_dur == duration_nights and
@@ -456,8 +463,8 @@ def build_resort_data_js(all_results):
                 if price is None:
                     continue  # skip windows with no price — API returned nothing
 
-                # Load full history from CSV
-                history = load_price_history_from_csv(rid, ps, sd, dur)
+                # Load full history from CSV (filter by resort_code to exclude stale rows from corrected codes)
+                history = load_price_history_from_csv(rid, ps, sd, dur, resort_code=rcode)
                 if not history:
                     history = [{"date": sd, "price": price}]
 
@@ -573,7 +580,7 @@ RESORT_META = {
 # ALHC_WINTER — Alpe d'Huez (verified 21 Apr 2026)
 # LROC_WINTER — La Rosière (verified 21 Apr 2026)
 # (LROV_WINTER = La Rosière Espace Exclusive Collection — premium, separate product)
-# LP2C_WINTER — La Plagne 2100 (verified 26 Apr 2026)
+# PLAC        — La Plagne 2100 (confirmed 20 May 2026; year-round, no _WINTER; LP2C_WINTER was wrong — silently resolved to ARPC_WINTER)
 # VDIC_WINTER — Val d'Isère (confirmed 26 Apr 2026)
 # GMAC_WINTER — Grand Massif Samoëns Morillon (confirmed 27 Apr 2026)
 # VTHC       — Val Thorens Sensations (confirmed 27 Apr 2026; year-round resort, no _WINTER suffix)
@@ -681,8 +688,8 @@ def main():
                 else:
                     print(f"  {ps} {sd}: £{price:,}")
 
-                # Work out signal from accumulated history
-                history = load_price_history_from_csv(resort["id"], ps, sd, duration_n)
+                # Work out signal from accumulated history (filter by resort_code to avoid stale data)
+                history = load_price_history_from_csv(resort["id"], ps, sd, duration_n, resort_code=resort["resortCode"])
                 if price:
                     history.append({"date": timestamp[:10], "price": price})
                 signal = calculate_signal(history)

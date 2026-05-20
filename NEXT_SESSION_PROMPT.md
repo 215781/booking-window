@@ -9,10 +9,10 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 322bf0c HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor e19474c HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`322bf0c`** (docs: final NEXT_SESSION_PROMPT hash update)
+Last recorded push: **`e19474c`** (feat: ski/summer season toggle)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
@@ -20,41 +20,40 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 ---
 
-## Last session (2026-05-20)
+## Last session (2026-05-20 — afternoon)
 
-**HEAD: 322bf0c** — docs: final NEXT_SESSION_PROMPT hash update
+**HEAD: e19474c** — feat: ski/summer season toggle
 
 ### Commits made this session (newest first):
 ```
-aa1be20  fix: restore hero best-card, signal-first CSS, card-price hierarchy
-90ec002  fix: restore resort photo images on club med resort cards
-bedd2df  Log: BUILDER mobile FAB task complete — needs Tester review
-30fad1a  Add mobile floating alert button (FAB) for email signup
-4ced9d0  Orchestrator: session wrap-up 2026-05-19
-e2c1598  Add Mark Warner ski tracker page at /markwarner/
-1c526f0  Fix: add /w suffix to all Club Med booking URLs + correct Tignes slug
-e19af42  Scribe: remove cancelled features — party size sliders, per-resort landing pages
+e19474c  feat: ski/summer season toggle — inject SUMMER_RESORT_DATA (9 resorts), add tab UI, hero card responds to active tab
+9b113e4  refactor: remove 'Stable over 14 days' text, move price-change above current price on cards
+b4ca141  refactor: remove party size tabs + sort bar — hardcode 2A party, always sort by biggest price drop
+20a05f8  feat: unified dark teal header across tracker — Blog + About nav links added
+4dd53db  feat: extend alert FAB to all screen sizes, remove inline alert form section
+aeade8f  fix: restore checkbox interactivity — exclude type=checkbox from appearance:none rule
 ```
 
-### What was restored / fixed today:
-- `90ec002` — RESORT_IMAGES dict restored (11 resort photos as card backgrounds). Was accidentally deleted by the `f0bbeb3` cherry-pick.
-- `aa1be20` — Hero best-card (`renderHeroBestCard()`/`getBestOpportunity()`) restored. Signal-first CSS restored (`.price-movement` 22px Playfair 700, `.card-price` 14px Inter muted). Dead form event listeners removed.
-
-### Root cause diagnosed (see GIT_DIAGNOSIS.md):
-A 15-day-old commit (`f0bbeb3`, authored May 4) was cherry-picked onto main on May 19. It had regenerated `clubmed/index.html` wholesale from a stale template, wiping all improvements made between May 4 and May 19. Two restore commits fixed the damage May 20 morning.
+### What was done this session:
+- **Task 1** — Hero best-card already fixed in prior session (aa1be20). No action needed.
+- **Task 2 (aeade8f)** — Checkbox fix: `.form-group input` had `appearance:none` applied to ALL inputs including checkboxes, stripping native rendering. Fixed with `:not([type="checkbox"])` selector.
+- **Task 3 (4dd53db)** — Inline alert form section removed. FAB extended to all screen sizes (was mobile-only). Desktop panel slides up from bottom-right (420px wide). Removed dead `alert-form` JS listener that was crashing `DOMContentLoaded` (root cause of Task 9 too).
+- **Task 4 (20a05f8)** — Dark teal `<header>` from blog layout applied to tracker. Nav: Home / Club Med / Blog / About.
+- **Tasks 5+6 (b4ca141)** — Party size tabs removed, sort bar removed. `activePartySize` and `activeSortOrder` hardcoded as consts. Dead CSS removed.
+- **Tasks 7+8 (9b113e4)** — "Stable over 14 days" replaced with empty string. `movementHTML` now renders BEFORE `card-price` in card body so price change is visually dominant.
+- **Task 9** — Resort cards not opening on click was caused by the null `getElementById('alert-form')` crash in Task 3. Fixed as side effect.
+- **Task 10 (e19474c)** — Summer resorts restored. Python script built `SUMMER_RESORT_DATA` from `_data/prices_clubmed_summer.csv` (9 resorts, 727 departures). Ski/summer toggle tabs added. `getSeasonData()` function drives both `renderCards` and `getBestOpportunity`.
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — hero best-card live, signal-first CSS correct, all 11 resort images present, sort bar, mobile FAB (floating email signup button), booking URLs with /w suffix
+- `clubmed/index.html` — dark teal header, FAB on all screen sizes, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts, price-change dominant on cards
+- `_data/prices_clubmed_summer.csv` — 2041 rows, 9 resorts with data (agadir/AGAC has no valid prices)
 - `markwarner/index.html` — Mark Warner tracker live at /markwarner/
-- `GIT_DIAGNOSIS.md` — full forensic report on the regression mechanism
-- `SCRIBE.md`, `ORCHESTRATOR.md`, `CLAUDE.md` — updated with mandatory push protocol
 
-### Open items:
-- Mark Warner page: `build_site.yml` should be updated to also rebuild `/markwarner/` on CSV changes
-- `build_site.yml` only currently rebuilds `clubmed/index.html` — verify or fix
-- Orphaned commits NOT on main that may contain useful work:
-  - `claude/naughty-noyce-f4276b`: "copy: signal-first reframe — lead with £saved/% down" (May 10) — review and decide whether to merge
-  - `claude/elated-benz-92eda0`: Orchestrator session wrap-up (May 19 20:39) — docs only, low priority
+### Open items for next session:
+- `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
+- Summer CSV injection: currently done via one-off Python script; needs to be integrated into `clubmed_checker.py --inject-only` or a dedicated summer checker
+- Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
+- PLAN_V2.md tasks not yet reviewed this session (Task 11 deferred)
 
 ---
 

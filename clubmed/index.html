@@ -744,49 +744,6 @@
     }
 
     /* ── How it works ── */
-    #how-it-works {
-      padding: 80px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .method-heading {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 36px;
-      font-weight: 500;
-      margin-bottom: 56px;
-    }
-
-    .steps {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 48px;
-    }
-
-    .step {}
-
-    .step-number {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 72px;
-      font-weight: 600;
-      color: var(--border);
-      line-height: 1;
-      margin-bottom: 16px;
-    }
-
-    .step-title {
-      font-family: 'Playfair Display', Georgia, serif;
-      font-size: 20px;
-      font-weight: 500;
-      margin-bottom: 14px;
-      line-height: 1.3;
-    }
-
-    .step-body {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.75;
-    }
-
     /* ── Footer ── */
     footer {
       padding: 36px 0;
@@ -1257,9 +1214,6 @@
       }
       .alerts-heading { font-size: 32px; }
 
-      .steps { grid-template-columns: 1fr 1fr; gap: 32px; }
-      .steps .step:last-child { grid-column: span 2; }
-
       .footer-inner { padding: 0 24px; }
     }
 
@@ -1293,9 +1247,6 @@
       .guide-panels { grid-template-columns: 1fr; }
       .guide-panels .guide-panel:last-child { grid-column: auto; }
       .guide-panel { padding: 24px; }
-
-      .steps { grid-template-columns: 1fr; }
-      .steps .step:last-child { grid-column: auto; }
 
       .alerts-heading { font-size: 28px; }
 
@@ -1531,31 +1482,6 @@
         </div>
         <p class="guide-panel-lead">"Stable conditions. Further drops are likely."</p>
         <p class="guide-panel-body">Price has risen recently, availability is comfortable, and the booking window suggests further drops are likely before the season closes. Patience is the rational position here.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── How It Works ── -->
-<section id="how-it-works" class="section" style="padding:80px 0;">
-  <div class="container">
-    <p class="section-label">The Method</p>
-    <h2 class="method-heading">How When To Book works</h2>
-    <div class="steps">
-      <div class="step">
-        <div class="step-number">01</div>
-        <h3 class="step-title">We track live Club Med pricing, updated daily.</h3>
-        <p class="step-body">Every major ski resort. Every Saturday departure across the season. Standard party sizes. We've been building this price history since spring 2026 — and it compounds in value with every passing week.</p>
-      </div>
-      <div class="step">
-        <div class="step-number">02</div>
-        <h3 class="step-title">We analyse trends and availability over time.</h3>
-        <p class="step-body">A raw price is just a number. Context is what makes it actionable. We measure price direction, velocity of change, and availability tightening — the signals that Club Med's own site cannot give you.</p>
-      </div>
-      <div class="step">
-        <div class="step-number">03</div>
-        <h3 class="step-title">We tell you whether to book now, watch, or hold.</h3>
-        <p class="step-body">No noise. No raw data dumps. A clear three-state signal per combination, updated daily. The decision is always yours — we just make sure you're making it with the right information.</p>
       </div>
     </div>
   </div>
@@ -13073,9 +12999,9 @@ function renderCards(partySize, resortFilter) {
 
     let movementHTML;
     if (move < -10) {
-      movementHTML = `<span class="price-movement price-down">↓ ${formatPrice(absDiff)} in 14 days</span>`;
+      movementHTML = `<span class="price-movement price-down">↓ ${formatPrice(absDiff)}</span>`;
     } else if (move > 10) {
-      movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)} in 14 days</span>`;
+      movementHTML = `<span class="price-movement price-up">↑ ${formatPrice(absDiff)}</span>`;
     } else {
       movementHTML = '';
     }
@@ -13170,9 +13096,11 @@ function buildModalChart(dep, signal) {
     gridLines += `<text x="${padX}" y="${y - 3}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif">${formatPrice(Math.round(price))}</text>`;
   }
 
-  // date labels — show first, middle, last
+  // date labels — show first, middle, last (dynamic so it works for any history length)
+  const midIdx = Math.floor((prices.length - 1) / 2);
+  const lastIdx = prices.length - 1;
   let dateLabels = '';
-  [[0, pts[0][0]], [6, pts[6][0]], [13, pts[13][0]]].forEach(([i, x]) => {
+  [[0, pts[0][0]], [midIdx, pts[midIdx][0]], [lastIdx, pts[lastIdx][0]]].forEach(([i, x]) => {
     const d = new Date(dates[i]);
     const label = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
     dateLabels += `<text x="${x}" y="${h + 4}" font-size="9" fill="#9a9288" font-family="Inter,sans-serif" text-anchor="middle" dominant-baseline="hanging">${label}</text>`;
@@ -13507,7 +13435,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   if (cheapest) {
     const saving = entries.length > 1 ? entries[entries.length - 1].dep.currentPrice - cheapest.dep.currentPrice : 0;
     const move = cheapest.dep.currentPrice - cheapest.dep.previousPrice;
-    const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))} in 14 days` : move > 10 ? `↑ ${formatPrice(Math.abs(move))} in 14 days` : '';
+    const movLabel = move < -10 ? `↓ ${formatPrice(Math.abs(move))}` : move > 10 ? `↑ ${formatPrice(Math.abs(move))}` : '';
     const rangeLabel = dateMode === 'month' && dateFilter ? 'this month' : dateMode === 'specific' ? 'on this date' : 'across all available dates';
     const resortLine = isAllResorts ? `<div style="font-size:13px;font-weight:600;color:var(--teal);margin-top:4px;">${cheapest.resortName}</div>` : '';
     bannerEl.innerHTML = `
@@ -13713,7 +13641,7 @@ function closeSearchModal() {
       </label>
     </div>
     <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
-    <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above.</p>
+
     <div id="mobile-alert-confirmation" class="form-confirmation"></div>
     <div id="mobile-alert-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:Inter,sans-serif;">Something went wrong — please try again.</div>
   </form>

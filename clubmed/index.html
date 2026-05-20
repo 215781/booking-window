@@ -1363,76 +1363,78 @@
       .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
     }
 
-  /* ── Mobile Alert FAB ── */
-  @media (max-width: 768px) {
-    #alerts { display: none; }
+  /* ── Alert FAB (all screen sizes) ── */
+  .alert-fab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 900;
+    background: var(--teal);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    padding: 13px 20px;
+    font-family: Inter, sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.25);
   }
-  .alert-fab { display: none; }
-  @media (max-width: 768px) {
-    .alert-fab {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      position: fixed;
-      bottom: 24px;
-      right: 20px;
-      z-index: 900;
-      background: #8a6a2a;
-      color: #fff;
-      border: none;
-      border-radius: 50px;
-      padding: 13px 20px;
-      font-family: Inter, sans-serif;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      cursor: pointer;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
-    }
-    .alert-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.45);
-      z-index: 910;
-    }
-    .alert-overlay.open { display: block; }
+  .alert-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: 910;
+  }
+  .alert-overlay.open { display: block; }
+  .alert-panel {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 920;
+    background: #f5f0e8;
+    border-radius: 16px 16px 0 0;
+    padding: 24px 20px 40px;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
+    max-height: 85vh;
+    overflow-y: auto;
+  }
+  .alert-panel.open { transform: translateY(0); }
+  @media (min-width: 769px) {
     .alert-panel {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 920;
-      background: #f5f0e8;
+      left: auto;
+      right: 24px;
+      width: 420px;
       border-radius: 16px 16px 0 0;
-      padding: 24px 20px 40px;
-      transform: translateY(100%);
-      transition: transform 0.3s ease;
-      max-height: 85vh;
-      overflow-y: auto;
     }
-    .alert-panel.open { transform: translateY(0); }
-    .alert-panel-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-    .alert-panel-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 20px;
-      color: #1a4a42;
-      margin: 0;
-    }
-    .alert-panel-close {
-      background: none;
-      border: none;
-      font-size: 24px;
-      color: #1a4a42;
-      cursor: pointer;
-      padding: 0 4px;
-      line-height: 1;
-    }
+  }
+  .alert-panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  .alert-panel-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: #1a4a42;
+    margin: 0;
+  }
+  .alert-panel-close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #1a4a42;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
   }
   </style>
   <script type="application/ld+json">
@@ -1559,74 +1561,6 @@
         </div>
         <p class="guide-panel-lead">"Stable conditions. Further drops are likely."</p>
         <p class="guide-panel-body">Price has risen recently, availability is comfortable, and the booking window suggests further drops are likely before the season closes. Patience is the rational position here.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ── Alert Signup ── -->
-<section id="alerts" class="section" style="padding:80px 0;">
-  <div class="container">
-    <div class="alerts-inner">
-      <div class="alerts-left">
-        <p class="section-label">Booking Alerts</p>
-        <h2 class="alerts-heading">We'll tell you when the <em>window opens.</em></h2>
-        <p class="alerts-copy">Leave your search with us. When the booking signal shifts in your favour — we'll let you know. No noise. No daily emails. Just the signal, when it matters.</p>
-        <p class="alerts-note">We email only when the signal shifts to Favourable, or when a Watch resolves. You will not hear from us until the data justifies it.</p>
-      </div>
-      <div class="alerts-right">
-        <form id="alert-form" autocomplete="off">
-          <div class="form-group">
-            <label for="alert-resort">Resort</label>
-            <select id="alert-resort" name="resort">
-              <option value="">Any resort — show all</option>
-              <option value="tignes-val-claret">Tignes</option>
-              <option value="les-arcs">Les Arcs Panorama</option>
-              <option value="peisey-vallandry">Peisey-Vallandry</option>
-              <option value="valmorel">Valmorel</option>
-              <option value="alpe-dhuez">Alpe d'Huez</option>
-              <option value="la-rosiere">La Rosière</option>
-              <option value="la-plagne-2100">La Plagne 2100</option>
-              <option value="val-disere">Val d'Isère</option>
-              <option value="grand-massif">Grand Massif Samoëns Morillon</option>
-              <option value="val-thorens">Val Thorens Sensations</option>
-              <option value="serre-chevalier">Serre-Chevalier</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="alert-month">Travel Month</label>
-            <select id="alert-month" name="month">
-              <option value="">Any month</option>
-              <option>December 2026</option>
-              <option>January 2027</option>
-              <option>February 2027</option>
-              <option>March 2027</option>
-              <option>April 2027</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="alert-party">Party Size</label>
-            <select id="alert-party" name="partySize">
-              <option value="2A">2 Adults</option>
-              <option value="2A1C">2 Adults + 1 Child</option>
-              <option value="2A2C">2 Adults + 2 Children</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="alert-email">Email Address</label>
-            <input type="email" id="alert-email" name="email" placeholder="you@example.com">
-          </div>
-          <div class="form-group">
-            <label class="consent-label">
-              <input type="checkbox" id="alert-consent">
-              <span>I agree to receive booking intelligence emails from When To Book. Unsubscribe any time.</span>
-            </label>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;">Set Booking Alert</button>
-          <p class="alert-form-note">We track Saturday departures for standard party sizes. If your dates differ, use the search above — we'll begin tracking your combination immediately.</p>
-          <div id="alert-confirmation" class="form-confirmation"></div>
-          <div id="alert-error" style="display:none;margin-top:10px;font-size:13px;color:#8a2a2a;font-family:Inter,sans-serif;">Something went wrong — please try again.</div>
-        </form>
       </div>
     </div>
   </div>
@@ -5335,8 +5269,9 @@ function openModal(resortId, partySize) {
 
   document.getElementById('modal-set-alert-btn').onclick = () => {
     closeModal();
-    document.getElementById('alert-resort').value = resort.id;
-    document.querySelector('#alerts').scrollIntoView({ behavior: 'smooth' });
+    const sel = document.getElementById('mobile-alert-resort');
+    if (sel) sel.value = resort.id;
+    document.getElementById('alert-fab').click();
   };
 
   const overlay = document.getElementById('modal-overlay');
@@ -5392,45 +5327,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('search-modal-close').addEventListener('click', closeSearchModal);
   document.getElementById('search-modal-overlay').addEventListener('click', e => {
     if (e.target === document.getElementById('search-modal-overlay')) closeSearchModal();
-  });
-
-  // Alert form — submits to Kit public form endpoint
-  document.getElementById('alert-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const email = document.getElementById('alert-email').value.trim();
-    const consent = document.getElementById('alert-consent').checked;
-    if (!email) { document.getElementById('alert-email').focus(); return; }
-    if (!consent) { document.getElementById('alert-consent').focus(); return; }
-    const resortSelect = document.getElementById('alert-resort');
-    const resortName = resortSelect.options[resortSelect.selectedIndex].text;
-    const submitBtn = e.target.querySelector('button[type="submit"]');
-    const conf = document.getElementById('alert-confirmation');
-    const err  = document.getElementById('alert-error');
-
-    submitBtn.disabled = true;
-    submitBtn.textContent = 'Setting alert…';
-    conf.style.display = 'none';
-    if (err) err.style.display = 'none';
-
-    try {
-      const res = await fetch('https://app.kit.com/forms/7f784a323c/subscriptions', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email_address: email,
-          fields: { resort_interest: resortName === 'Any resort — show all' ? 'All resorts' : resortName }
-        })
-      });
-      if (!res.ok) throw new Error('Network response was not ok');
-      conf.innerHTML = `You're on the list. We'll email you when prices move for ${resortName === 'Any resort — show all' ? 'your selected resorts' : resortName}.`;
-      conf.style.display = 'block';
-      e.target.reset();
-    } catch (_) {
-      if (err) { err.style.display = 'block'; }
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Set Booking Alert';
-    }
   });
 
   // Search modal inline notification form

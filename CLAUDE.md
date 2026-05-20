@@ -2,6 +2,21 @@
 
 **whentobook.co.uk** — Club Med ski resort price intelligence site. Built by Drop Media Ltd.
 
+---
+
+## ⚠️ THE MOST IMPORTANT INVARIANT — READ THIS FIRST
+
+**Every session ends with `git push origin main` confirmed. No exceptions.**
+
+A session is not complete until the Scribe has pushed and reported the HEAD commit hash. The next session must verify its HEAD matches that recorded hash before doing any work. This rule exists because every regression in this project's history — resort images deleted, hero best-card wiped, CSS reverted — was caused by stale commits being cherry-picked onto `main` without verifying the result was pushed and correct.
+
+**Start of session:** `git log main -1 --oneline` → must match `HEAD:` in `NEXT_SESSION_PROMPT.md`  
+**End of session:** `git push origin main` → Scribe records confirmed hash in `NEXT_SESSION_PROMPT.md`
+
+See `ORCHESTRATOR.md` and `SCRIBE.md` for the full protocol.
+
+---
+
 ## What the site does
 
 Tracks live pricing across 11 Club Med French Alps ski resorts daily, builds a historical record, and shows visitors whether now is a good time to book. Signal states: **Favourable / Watch / Hold**. Email alerts via Kit (ConvertKit) when signals shift.
@@ -198,9 +213,11 @@ git push
 
 ## Important invariants
 
+- **`git push origin main` must succeed before any session ends.** Scribe records the HEAD hash in `NEXT_SESSION_PROMPT.md`. Next session verifies it matches before starting work. See the top of this file and `SCRIBE.md`.
 - `_data/prices_clubmed.csv` (and all `_data/prices_*.csv` files) are **append-only** — the historical record is the product. Never delete rows.
-- The checker injects `RESORT_DATA` directly into `clubmed/index.html` at runtime.
+- The checker injects `RESORT_DATA` directly into `clubmed/index.html` at runtime. **Never run `--inject-only` from a worktree** — always run from the main repo after pulling latest `main`, or it regenerates from a stale template and wipes newer work.
 - `DATA_SUFFICIENT = false` — do not change until autumn 2026.
-- `NEXT_SESSION_PROMPT.md` is the session handoff — the orchestrator reads it first every session.
+- `NEXT_SESSION_PROMPT.md` is the session handoff — the orchestrator reads it first every session AND verifies the HEAD hash.
 - `PLAN.md` tracks the current roadmap — the scribe keeps it updated.
 - Never use "deals", "discounts", "cheap", "vouchers", or "savings" anywhere in the site copy.
+- Before any push touching `clubmed/index.html`, verify: `grep -c "RESORT_IMAGES" clubmed/index.html` > 0 and `grep -c "renderHeroBestCard" clubmed/index.html` > 0. If either is 0, the file has regressed — do not push.

@@ -5,19 +5,55 @@ Then read `PLAN.md` for the full task list.
 
 ---
 
-## Last session (2026-05-19)
-COMPLETED (on main):
-- Sort bar (lowest/highest/biggest drop) recovered from cranky-solomon branch
-- Mobile touch improvements (iOS tap) recovered from cranky-solomon branch
-- Booking URLs: all 11 resorts now have /w suffix + Tignes slug fixed
-- Mark Warner tracker page live at /markwarner/
-- Party size sliders + per-resort landing pages removed from plan (cancelled)
+## ⚠️ START-OF-SESSION VERIFICATION — DO THIS BEFORE ANYTHING ELSE
 
-OPEN - needs investigation next session:
-- Mobile hover/floating form button: was built on another account, may be in a lost branch
-- Form checkbox fix: was built, status unknown
-- Copy moves from homepage to about.html: about.html exists (282 lines) but verify homepage copy was trimmed
-- Mark Warner page needs build_site.yml update to auto-rebuild on CSV changes
+Run:
+```bash
+git log main -1 --oneline
+```
+The result **must** be:
+```
+aa1be20 fix: restore hero best-card, signal-first CSS, card-price hierarchy
+```
+If it is different, stop. Do not begin work. Diagnose what diverged and why before proceeding.
+
+---
+
+## Last session (2026-05-20)
+
+**HEAD: aa1be20** — fix: restore hero best-card, signal-first CSS, card-price hierarchy
+
+### Commits made this session (newest first):
+```
+aa1be20  fix: restore hero best-card, signal-first CSS, card-price hierarchy
+90ec002  fix: restore resort photo images on club med resort cards
+bedd2df  Log: BUILDER mobile FAB task complete — needs Tester review
+30fad1a  Add mobile floating alert button (FAB) for email signup
+4ced9d0  Orchestrator: session wrap-up 2026-05-19
+e2c1598  Add Mark Warner ski tracker page at /markwarner/
+1c526f0  Fix: add /w suffix to all Club Med booking URLs + correct Tignes slug
+e19af42  Scribe: remove cancelled features — party size sliders, per-resort landing pages
+```
+
+### What was restored / fixed today:
+- `90ec002` — RESORT_IMAGES dict restored (11 resort photos as card backgrounds). Was accidentally deleted by the `f0bbeb3` cherry-pick.
+- `aa1be20` — Hero best-card (`renderHeroBestCard()`/`getBestOpportunity()`) restored. Signal-first CSS restored (`.price-movement` 22px Playfair 700, `.card-price` 14px Inter muted). Dead form event listeners removed.
+
+### Root cause diagnosed (see GIT_DIAGNOSIS.md):
+A 15-day-old commit (`f0bbeb3`, authored May 4) was cherry-picked onto main on May 19. It had regenerated `clubmed/index.html` wholesale from a stale template, wiping all improvements made between May 4 and May 19. Two restore commits fixed the damage May 20 morning.
+
+### What exists on main now (verified):
+- `clubmed/index.html` — hero best-card live, signal-first CSS correct, all 11 resort images present, sort bar, mobile FAB (floating email signup button), booking URLs with /w suffix
+- `markwarner/index.html` — Mark Warner tracker live at /markwarner/
+- `GIT_DIAGNOSIS.md` — full forensic report on the regression mechanism
+- `SCRIBE.md`, `ORCHESTRATOR.md`, `CLAUDE.md` — updated with mandatory push protocol
+
+### Open items:
+- Mark Warner page: `build_site.yml` should be updated to also rebuild `/markwarner/` on CSV changes
+- `build_site.yml` only currently rebuilds `clubmed/index.html` — verify or fix
+- Orphaned commits NOT on main that may contain useful work:
+  - `claude/naughty-noyce-f4276b`: "copy: signal-first reframe — lead with £saved/% down" (May 10) — review and decide whether to merge
+  - `claude/elated-benz-92eda0`: Orchestrator session wrap-up (May 19 20:39) — docs only, low priority
 
 ---
 

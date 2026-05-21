@@ -9,10 +9,10 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor b63c202 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor c5cd8dc HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`b63c202`** (Auto-merge claude/sharp-euler-d7443a to main — privacy, terms, cookie banner)
+Last recorded push: **`c5cd8dc`** (fix: correct all Club Med booking URLs + mobile modal table overflow)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
@@ -22,28 +22,39 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 ## Last session (2026-05-21)
 
-**HEAD: b63c202** — Privacy policy, terms of use, Jekyll page layout, cookie consent banner
+**HEAD: c5cd8dc** — Booking URL fixes (all 15 corrected) + mobile resort modal table overflow fix
 
 ### Commits made this session (newest first):
 ```
+c5cd8dc  fix: correct all Club Med booking URLs + mobile modal table overflow
+a0e17cc  docs: session wrap-up 2026-05-21 — privacy, terms, cookie banner, HEAD b63c202 recorded
 b63c202  Auto-merge claude/sharp-euler-d7443a to main [skip ci]
-98fba48  feat: privacy policy, terms of use, and cookie consent banner
 ```
 
 ### What was done this session:
 
-**Privacy, legal pages, and cookie consent banner:**
+**Booking URL fixes (clubmed/index.html):**
 
-New files added:
-- `_layouts/page.html` — Jekyll page layout matching site design tokens (teal/amber/off-white); used by `privacy.md` and `terms.md`
-- `privacy.md` — Full UK GDPR-compliant privacy policy at `/privacy/`; covers GA4, Kit.com, cookies table, data retention, user rights (access/deletion/objection/rectification/portability/restriction), ICO complaint route, legal basis for processing
-- `terms.md` — Terms of use at `/terms/`; covers information-only disclaimer, no-guarantee clause, affiliate disclosure, acceptable use, IP, liability disclaimer, governing law
+15 broken `bookingUrl` values corrected:
+- `les-arcs/w` → `les-arcs-panorama/w`
+- `alpe-dhuez/w` → `l-alpe-d-huez/w`
+- `la-plagne-2100/w` → `la-plagne-2100/y` (year-round resort, needs /y)
+- `val-disere/w` → `val-d-isere/w`
+- `grand-massif/w` → `grand-massif-samoens-morillon/w`
+- `val-thorens/w` → `val-thorens-sensations/y` (year-round, needs /y)
+- Summer resorts: da-balaia, gregolimano, kani, la-caravelle, la-palmeraie-marrakech, la-palmyre-atlantique (×2), magna-marbella, palmiye — all corrected from /w to /y (year-round) and slug fixes where needed
 
-`clubmed/index.html`:
-- Replaced outdated cookie banner (which incorrectly stated "no tracking cookies" — site has GA4) with new two-button banner: "Accept" (sets `wtb_cookie_consent = accepted` in localStorage) and "Learn more" (links to `/privacy/`); adds `padding-bottom` to body equal to banner height so content isn't obscured; z-index 10000
+Fallback URLs fixed:
+- Modal book button default: `https://www.clubmed.co.uk/r/ski/w` → `https://www.clubmed.co.uk/`
+- JS fallback in `buildDepartureTable`: same fix
+- Search modal book link: was hardcoded `r/ski/w`; now uses resort-specific `bookingUrl` from entries (entries.push now includes `bookingUrl: resort.bookingUrl`)
 
-`index.html`:
-- Added same cookie consent banner (was missing entirely)
+**Mobile resort modal fix:**
+
+The departure table's last column ("Book on Club Med ↗") was causing horizontal scroll on mobile.
+- JS: table wrapped in `<div class="dept-table-wrap">` with `overflow-x: auto`
+- CSS: `.dept-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 24px; }`
+- Mobile CSS (`@media max-width: 600px`): `.dept-table th:last-child, .dept-table td:last-child { display: none; }` — book column hidden on mobile; the `.modal-cta` button below handles booking
 
 ### What exists on main now (verified):
 - `clubmed/index.html` — updated cookie banner, affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts (all with real photos)
@@ -63,6 +74,7 @@ New files added:
 - Review PLAN_V2.md tasks B1–B15 for next priority — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
 - `post.html` footer still links to `/privacy.html` — should be updated to `/privacy/`
+- Articles 11–13 still pending: Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides
 
 ---
 
@@ -132,6 +144,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-21 — **Price movement guard:** `getPriceMovement()` returns 0 when price is missing/zero — prevents any `-£X` display for unavailable departures. (commit c07fa97)
 - 2026-05-21 — **Footer redesign:** Both `clubmed/index.html` and `index.html` — dark teal background, white text, copyright WhenToBook, contact email, Privacy Policy, Terms of Use links, tagline. (commit c07fa97)
 - 2026-05-20 — **Summer resort images:** 9 Wikimedia Commons CC-licensed photos added to `images/` for all summer resorts. `RESORT_IMAGES` in `clubmed/index.html` wired up so summer cards display real photos instead of gradient placeholders. (commit 6fd54b8)
+- 2026-05-21 — **Booking URLs corrected (all 15):** All ski + summer `bookingUrl` values fixed — correct Club Med slugs and /y vs /w suffixes for year-round resorts. Fallback URL in modal and JS fixed. Search modal now uses resort-specific `bookingUrl` from entries. (commit c5cd8dc)
+- 2026-05-21 — **Mobile resort modal table overflow fixed:** Departure table wrapped in scrollable div (`dept-table-wrap`). Book column hidden on mobile via `@media max-width: 600px` — `.modal-cta` button handles booking on mobile. (commit c5cd8dc)
 
 ---
 

@@ -9,23 +9,24 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 86d28c9 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 58f5e5e HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`86d28c9`** (feat: international ski price checker — 8 resorts)
+Last recorded push: **`58f5e5e`** (feat: expand party size combos to 8 — age bands, mixed families, 3-adult)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `b63c202` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `58f5e5e` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-05-21)
 
-**HEAD: 86d28c9** — International ski price checker (8 resorts: Italian Alps, Swiss Alps, Japan, China)
+**HEAD: 58f5e5e** — Expand party size combos to 8 across all three price checkers
 
 ### Commits made this session (newest first):
 ```
+58f5e5e  feat: expand party size combos to 8 — age bands, mixed families, 3-adult
 86d28c9  feat: international ski price checker — 8 resorts (Italian Alps, Swiss Alps, Japan, China)
 60af5ca  fix: summer inject-only variable name + RESORT_META for 14 new resorts
 52ec961  feat: add 14 new summer resorts to summer checker (24 total)
@@ -44,6 +45,8 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 **Content (commit 742a5b3):** Peisey-Vallandry per-resort guide published to `_posts/`.
 
+**Party size combo expansion (commit 58f5e5e):** `_COMBOS` expanded from 3 to 8 in all three checkers (`clubmed_checker.py`, `clubmed_summer_checker.py`, `clubmed_ski_international_checker.py`). Now covers all three Club Med child age bands — infant 0–3 (2026-03-15), child 4–11 (2018-09-01), junior 12+ (2013-06-01) — plus mixed child+junior families, two-child families, 3-adult triple rooms, and 3-adult+child. 4A excluded (= 2× 2A). Call volume ~2.7× baseline with existing rate limiting intact.
+
 **Note:** `clubmed/index.html` has NOT been updated to display international ski resorts or all new summer resorts. The HTML still shows 11 ski + 9 original summer resorts. New resorts are being collected to CSV only. A UI restructure decision is needed before adding them to the display (see Open items).
 
 ### What exists on main now (verified):
@@ -54,9 +57,9 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 - `_layouts/page.html` — Jekyll page layout for static pages
 - `images/` — 11 ski + 9 summer resort images (all Wikimedia CC-licensed)
 - `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
-- `clubmed_checker.py` — French Alps ski checker, 11 resorts, daily 06:00 UTC. PLAC code correct.
-- `clubmed_summer_checker.py` — summer beach checker, 24 resorts, daily 07:30 UTC
-- `clubmed_ski_international_checker.py` — international ski checker, 8 resorts, daily 09:00 UTC
+- `clubmed_checker.py` — French Alps ski checker, 11 resorts, 8 party size combos, daily 06:00 UTC. PLAC code correct.
+- `clubmed_summer_checker.py` — summer beach checker, 24 resorts, 8 party size combos, daily 07:30 UTC
+- `clubmed_ski_international_checker.py` — international ski checker, 8 resorts, 8 party size combos, daily 09:00 UTC
 - `_data/prices_clubmed.csv` — French Alps ski price log (280 corrupt LP2C_WINTER rows present but filtered at query time)
 - `_data/prices_clubmed_summer.csv` — summer resort data (24 resorts collecting)
 - `_data/prices_clubmed_ski_international.csv` — international ski data (header-only, collecting from 2026-05-21)

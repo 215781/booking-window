@@ -9,45 +9,48 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor db5c07c HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor b63c202 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`db5c07c`** (Auto-merge claude/focused-buck-37d3e3 to main)
+Last recorded push: **`b63c202`** (Auto-merge claude/sharp-euler-d7443a to main — privacy, terms, cookie banner)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `9160d9e` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `b63c202` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-05-21)
 
-**HEAD: db5c07c** — Affiliate-ready copy edits + iOS zoom fix
+**HEAD: b63c202** — Privacy policy, terms of use, Jekyll page layout, cookie consent banner
 
 ### Commits made this session (newest first):
 ```
-db5c07c  Auto-merge claude/focused-buck-37d3e3 to main [skip ci]
-4568b13  copy: affiliate-ready edits — signal copy, hero CTA, iOS zoom fix
+b63c202  Auto-merge claude/sharp-euler-d7443a to main [skip ci]
+98fba48  feat: privacy policy, terms of use, and cookie consent banner
 ```
 
 ### What was done this session:
 
-**5 affiliate-ready edits applied (Awin approval prep):**
+**Privacy, legal pages, and cookie consent banner:**
 
-`index.html`:
-- Hero paragraph: "and when to hold off" → "and act before the window closes"
+New files added:
+- `_layouts/page.html` — Jekyll page layout matching site design tokens (teal/amber/off-white); used by `privacy.md` and `terms.md`
+- `privacy.md` — Full UK GDPR-compliant privacy policy at `/privacy/`; covers GA4, Kit.com, cookies table, data retention, user rights (access/deletion/objection/rectification/portability/restriction), ICO complaint route, legal basis for processing
+- `terms.md` — Terms of use at `/terms/`; covers information-only disclaimer, no-guarantee clause, affiliate disclosure, acceptable use, IP, liability disclaimer, governing law
 
 `clubmed/index.html`:
-- Watch signal body: "check back in the next few days" → "Check back for an updated signal — and set an alert so you don't miss it."
-- Hold panel badge: "Hold" → "Monitoring" (both static guide panel + JS signal badge map)
-- Hold panel lead: "Stable conditions. Further drops are likely." → "The picture is still developing."
-- Hold panel body: replaced patience/drops framing with developing-trend copy
-- Search modal email intro: "Let me know if there are improvements on these results." → "Alert me when prices or availability change for these dates."
-- Mobile CSS: added `font-size: 16px` on `.form-group select` and `.form-group input:not([type="checkbox"])` inside `@media (max-width: 600px)` — prevents iOS Safari auto-zoom on input focus
+- Replaced outdated cookie banner (which incorrectly stated "no tracking cookies" — site has GA4) with new two-button banner: "Accept" (sets `wtb_cookie_consent = accepted` in localStorage) and "Learn more" (links to `/privacy/`); adds `padding-bottom` to body equal to banner height so content isn't obscured; z-index 10000
+
+`index.html`:
+- Added same cookie consent banner (was missing entirely)
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts (all with real photos)
-- `index.html` — updated hero copy, dark teal footer
+- `clubmed/index.html` — updated cookie banner, affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts (all with real photos)
+- `index.html` — cookie consent banner added, updated hero copy, dark teal footer
+- `privacy.md` → renders at `/privacy/` via Jekyll (full UK GDPR policy)
+- `terms.md` → renders at `/terms/` via Jekyll (terms of use) — footer 404 now resolved
+- `_layouts/page.html` — Jekyll page layout for static pages
 - `images/` — 11 ski + 9 summer resort images (all Wikimedia CC-licensed)
 - `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
 - `clubmed_checker.py` — PLAC code correct; per-resort duration override; stale-code filtering
@@ -56,10 +59,10 @@ db5c07c  Auto-merge claude/focused-buck-37d3e3 to main [skip ci]
 - `markwarner/index.html` — Mark Warner tracker live at /markwarner/
 
 ### Open items for next session:
-- **`/terms/` page doesn't exist yet** — footer links to `/terms/` which 404s. Build a minimal Terms of Use page at `terms/index.html` or `terms.html` to resolve this.
 - `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
 - Review PLAN_V2.md tasks B1–B15 for next priority — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
+- `post.html` footer still links to `/privacy.html` — should be updated to `/privacy/`
 
 ---
 

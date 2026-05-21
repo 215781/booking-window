@@ -76,9 +76,14 @@ def make_windows(departure_day, durations=(7,)):
     return windows
 
 _COMBOS = [
-    {"partySize": "2A",   "adults": 2, "children": 0, "birthdates": []},
-    {"partySize": "2A1C", "adults": 2, "children": 1, "birthdates": ["2021-04-28"]},
-    {"partySize": "2A2C", "adults": 2, "children": 2, "birthdates": ["2021-04-28", "2019-06-15"]},
+    {"partySize": "2A",     "adults": 2, "children": 0, "birthdates": []},
+    {"partySize": "2A1I",   "adults": 2, "children": 1, "birthdates": ["2024-03-15"]},                      # infant 0-3
+    {"partySize": "2A1C",   "adults": 2, "children": 1, "birthdates": ["2018-09-01"]},                      # child 4-11
+    {"partySize": "2A1J",   "adults": 2, "children": 1, "birthdates": ["2013-06-01"]},                      # junior 12+
+    {"partySize": "2A1C1J", "adults": 2, "children": 2, "birthdates": ["2018-09-01", "2013-06-01"]},        # child + junior
+    {"partySize": "2A2C",   "adults": 2, "children": 2, "birthdates": ["2018-09-01", "2016-06-01"]},        # 2 children 4-11 band
+    {"partySize": "3A",     "adults": 3, "children": 0, "birthdates": []},
+    {"partySize": "3A1C",   "adults": 3, "children": 1, "birthdates": ["2018-09-01"]},                      # 3 adults + child 4-11
 ]
 
 # departure_day: None = query both Saturday(5) and Sunday(6) — summer resorts use both.

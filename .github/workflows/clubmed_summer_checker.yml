@@ -11,7 +11,7 @@ permissions:
 jobs:
   check-summer-prices:
     runs-on: ubuntu-latest
-    timeout-minutes: 60     # summer: 24 resorts × ~17 dates × 3 party sizes ≈ ~1,224 queries; ~25 min expected
+    timeout-minutes: 60     # summer: 24 resorts × ~34 dates × 8 combos ≈ ~6,528 queries; ~25 min expected
 
     steps:
       - name: Checkout repo

@@ -739,6 +739,20 @@ RESORT_META = {
     "palmiye":                {"region": "Antalya, Turkey"},
     "agadir":                 {"region": "Agadir, Morocco"},
     "kani":                   {"region": "North Malé, Maldives"},
+    "cefalu":                   {"region": "Sicily, Italy"},
+    "opio-en-provence":         {"region": "Provence, France"},
+    "bodrum":                   {"region": "Bodrum, Turkey"},
+    "djerba-la-douce":          {"region": "Djerba, Tunisia"},
+    "bali":                     {"region": "Nusa Dua, Bali, Indonesia"},
+    "phuket":                   {"region": "Phuket, Thailand"},
+    "cherating-beach":          {"region": "Pahang, Malaysia"},
+    "the-finolhu-villas":       {"region": "Baa Atoll, Maldives"},
+    "la-plantation-d-albion":   {"region": "Black River, Mauritius"},
+    "la-pointe-aux-canonniers": {"region": "Grand Baie, Mauritius"},
+    "seychelles":               {"region": "Sainte Anne, Seychelles"},
+    "punta-cana":               {"region": "Punta Cana, Dominican Republic"},
+    "cancun":                   {"region": "Cancún, Mexico"},
+    "miches-playa-esmeralda":   {"region": "Miches, Dominican Republic"},
 }
 
 def calculate_availability(current_price, history):
@@ -780,7 +794,7 @@ def build_resort_data_js():
                     resort_history[key] = {}
                 resort_history[key][row.get("collected_at", "")[:10]] = price
 
-    lines = ["const RESORT_DATA_SUMMER = ["]
+    lines = ["const SUMMER_RESORT_DATA = ["]
 
     for resort in RESORTS:
         rid   = resort["id"]
@@ -856,7 +870,7 @@ def inject_into_html(js_string, test_mode=False):
         return
     with open(HTML_FILE, "r", encoding="utf-8") as f:
         html = f.read()
-    pattern = r"const RESORT_DATA_SUMMER = \[.*?\n\];"
+    pattern = r"const SUMMER_RESORT_DATA = \[.*?\n\];"
     new_html, count = _re.subn(pattern, js_string, html, count=1, flags=_re.DOTALL)
     if count == 0:
         print("WARNING: Could not find RESORT_DATA block in HTML — no injection performed.")

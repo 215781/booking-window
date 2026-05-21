@@ -1247,6 +1247,12 @@
       .form-group input:not([type="checkbox"]) { min-height: 44px; }
       .btn { min-height: 44px; }
 
+      /* prevent iOS Safari auto-zoom on input focus */
+      .form-group select,
+      .form-group input:not([type="checkbox"]) {
+        font-size: 16px;
+      }
+
       /* signals header: title then filter bar below */
       .signals-header {
         flex-direction: column;
@@ -1486,14 +1492,14 @@
           <span class="signal-badge signal-watch">Watch</span>
         </div>
         <p class="guide-panel-lead">"Price has moved recently. Direction is still resolving."</p>
-        <p class="guide-panel-body">Price has shifted meaningfully in the past week, or the booking window suggests movement is likely soon. The picture isn't clear enough to signal either way — check back in the next few days.</p>
+        <p class="guide-panel-body">Price has shifted meaningfully in the past week, or the booking window suggests movement is likely soon. The picture isn't clear enough to signal either way — Check back for an updated signal — and set an alert so you don't miss it.</p>
       </div>
       <div class="guide-panel guide-panel-grey">
         <div class="guide-panel-header">
-          <span class="signal-badge signal-hold">Hold</span>
+          <span class="signal-badge signal-hold">Monitoring</span>
         </div>
-        <p class="guide-panel-lead">"Stable conditions. Further drops are likely."</p>
-        <p class="guide-panel-body">Price has risen recently, availability is comfortable, and the booking window suggests further drops are likely before the season closes. Patience is the rational position here.</p>
+        <p class="guide-panel-lead">"The picture is still developing."</p>
+        <p class="guide-panel-body">Price has shifted from recent levels and the trend hasn't yet stabilised. Availability is still open, but windows can close quickly — check back for an updated signal before the week moves.</p>
       </div>
     </div>
   </div>
@@ -1521,7 +1527,7 @@
       <div id="search-modal-best-banner"></div>
       <div class="search-kit-wrap" id="search-kit-wrap">
         <p class="search-kit-label">Stay informed</p>
-        <p class="search-kit-intro">Let me know if there are improvements on these results.</p>
+        <p class="search-kit-intro">Alert me when prices or availability change for these dates.</p>
         <form id="search-kit-form" autocomplete="off">
           <div class="search-kit-row">
             <input type="email" id="search-kit-email" placeholder="your@email.com">
@@ -12816,7 +12822,7 @@ function getSignalBadgeHTML(signal) {
   const map = {
     'favourable': '<span class="signal-badge signal-favourable">Favourable</span>',
     'watch':      '<span class="signal-badge signal-watch">Watch</span>',
-    'hold':       '<span class="signal-badge signal-hold">Hold</span>'
+    'hold':       '<span class="signal-badge signal-hold">Monitoring</span>'
   };
   return map[signal] || '';
 }

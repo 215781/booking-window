@@ -1,0 +1,180 @@
+---
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src https://www.google-analytics.com https://region1.google-analytics.com; img-src 'self' data: https:; frame-src 'none'; object-src 'none';">
+  <title>{{ page.title }} | When To Book</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="canonical" href="https://whentobook.co.uk{{ page.url }}">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://whentobook.co.uk{{ page.url }}">
+  <meta property="og:title" content="{{ page.title }} | When To Book">
+  <meta property="og:image" content="https://whentobook.co.uk/og-image.png">
+  <meta property="og:site_name" content="When To Book">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-G2RES5DX0K"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-G2RES5DX0K');
+  </script>
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%231a4a42'/><text x='50%25' y='50%25' dominant-baseline='central' text-anchor='middle' font-family='Georgia,serif' font-size='20' font-weight='600' fill='%23f5f0e8'>W</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f5f0e8;
+      --teal: #1a4a42;
+      --amber: #8a6a2a;
+      --text: #2c2c2c;
+      --muted: #6b6560;
+      --border: #d8d0c4;
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: var(--teal);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 36px; height: 36px;
+      background: var(--bg);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 700;
+      color: var(--teal); flex-shrink: 0;
+      text-decoration: none;
+    }
+    .logo-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px; font-weight: 600;
+      color: var(--bg); letter-spacing: 0.01em;
+      text-decoration: none;
+    }
+    .header-nav {
+      margin-left: auto;
+      display: flex; gap: 24px;
+    }
+    .header-nav a {
+      color: rgba(245,240,232,0.75);
+      font-size: 13px; font-weight: 500;
+      text-decoration: none; letter-spacing: 0.04em;
+    }
+    .header-nav a:hover { color: var(--bg); }
+    main {
+      flex: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 64px 40px 80px;
+      width: 100%;
+    }
+    article h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 700; color: var(--teal);
+      line-height: 1.2; margin-bottom: 8px;
+    }
+    .page-updated {
+      font-size: 13px; color: var(--muted);
+      margin-bottom: 48px;
+    }
+    article h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px; font-weight: 600;
+      color: var(--teal); margin: 40px 0 14px;
+    }
+    article h3 {
+      font-size: 16px; font-weight: 600;
+      color: var(--text); margin: 28px 0 10px;
+    }
+    article p {
+      font-size: 16px; line-height: 1.75;
+      color: var(--text); margin-bottom: 18px;
+    }
+    article ul, article ol {
+      margin: 0 0 18px 24px;
+    }
+    article li {
+      font-size: 16px; line-height: 1.75;
+      color: var(--text); margin-bottom: 6px;
+    }
+    article a { color: var(--teal); }
+    article a:hover { color: var(--amber); }
+    article strong { font-weight: 600; }
+    article hr {
+      border: none; border-top: 1px solid var(--border);
+      margin: 40px 0;
+    }
+    footer {
+      background: var(--teal); color: rgba(245,240,232,0.6);
+      text-align: center; padding: 20px 40px;
+      font-size: 12px;
+    }
+    footer a { color: rgba(245,240,232,0.6); }
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      main { padding: 40px 20px 60px; }
+      .header-nav { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/" class="logo-mark">W</a>
+    <a href="/" class="logo-text">When To Book</a>
+    <nav class="header-nav">
+      <a href="/clubmed">Club Med tracker</a>
+      <a href="/blog">Blog</a>
+      <a href="/about">About</a>
+    </nav>
+  </header>
+
+  <main>
+    <article>
+      <h1>{{ page.title }}</h1>
+      {{ content }}
+    </article>
+  </main>
+
+  <footer>
+    <p>© {{ 'now' | date: "%Y" }} Drop Media Ltd &nbsp;·&nbsp; <a href="/privacy/">Privacy Policy</a> &nbsp;·&nbsp; <a href="/terms/">Terms of Use</a> &nbsp;·&nbsp; <a href="/about">About</a> &nbsp;·&nbsp; <a href="mailto:admin@whentobook.co.uk">admin@whentobook.co.uk</a></p>
+  </footer>
+
+  <script>
+  (function() {
+    if (localStorage.getItem('wtb_cookie_consent') === 'accepted') return;
+    var banner = document.createElement('div');
+    banner.id = 'wtb-cookie-banner';
+    banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a4a42;color:#fff;font-family:Inter,sans-serif;font-size:13px;line-height:1.5;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:10000;box-shadow:0 -2px 8px rgba(0,0,0,0.25);';
+    banner.innerHTML = '<span>We use cookies for analytics and to improve your experience. By continuing, you accept our cookie use.</span><span style="display:flex;gap:10px;flex-shrink:0;align-items:center;"><button id="wtb-cookie-accept" style="background:#fff;color:#1a4a42;border:none;font-family:Inter,sans-serif;font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:3px;">Accept</button><a href="/privacy/" style="color:rgba(255,255,255,0.75);font-size:12px;text-decoration:underline;white-space:nowrap;">Learn more</a></span>';
+    document.body.appendChild(banner);
+    document.body.style.paddingBottom = banner.offsetHeight + 'px';
+    document.getElementById('wtb-cookie-accept').addEventListener('click', function() {
+      localStorage.setItem('wtb_cookie_consent', 'accepted');
+      document.body.style.paddingBottom = '';
+      banner.remove();
+    });
+  })();
+  </script>
+</body>
+</html>

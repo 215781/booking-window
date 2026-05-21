@@ -13606,15 +13606,18 @@ function closeSearchModal() {
 
 // Cookie banner
 (function() {
-  if (localStorage.getItem('cookie-notice-dismissed')) return;
-  const banner = document.createElement('div');
-  banner.id = 'cookie-banner';
-  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a2e2a;color:#c8c0b4;font-family:Inter,sans-serif;font-size:12px;line-height:1.5;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:9999;border-top:1px solid rgba(255,255,255,0.08);';
-  banner.innerHTML = `
-    <span>This site uses no tracking cookies. We collect no personal data beyond email addresses you choose to submit for price alerts. <a href="/privacy.html" style="color:#8ab5ac;text-decoration:underline;">Privacy policy</a></span>
-    <button onclick="localStorage.setItem('cookie-notice-dismissed','1');document.getElementById('cookie-banner').remove();" style="flex-shrink:0;background:transparent;border:1px solid rgba(255,255,255,0.25);color:#c8c0b4;font-family:Inter,sans-serif;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;padding:6px 14px;cursor:pointer;border-radius:2px;">OK</button>
-  `;
+  if (localStorage.getItem('wtb_cookie_consent') === 'accepted') return;
+  var banner = document.createElement('div');
+  banner.id = 'wtb-cookie-banner';
+  banner.style.cssText = 'position:fixed;bottom:0;left:0;right:0;background:#1a4a42;color:#fff;font-family:Inter,sans-serif;font-size:13px;line-height:1.5;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;z-index:10000;box-shadow:0 -2px 8px rgba(0,0,0,0.25);';
+  banner.innerHTML = '<span>We use cookies for analytics and to improve your experience. By continuing, you accept our cookie use.</span><span style="display:flex;gap:10px;flex-shrink:0;align-items:center;"><button id="wtb-cookie-accept" style="background:#fff;color:#1a4a42;border:none;font-family:Inter,sans-serif;font-size:12px;font-weight:600;letter-spacing:0.05em;text-transform:uppercase;padding:7px 16px;cursor:pointer;border-radius:3px;">Accept</button><a href="/privacy/" style="color:rgba(255,255,255,0.75);font-size:12px;text-decoration:underline;white-space:nowrap;">Learn more</a></span>';
   document.body.appendChild(banner);
+  document.body.style.paddingBottom = banner.offsetHeight + 'px';
+  document.getElementById('wtb-cookie-accept').addEventListener('click', function() {
+    localStorage.setItem('wtb_cookie_consent', 'accepted');
+    document.body.style.paddingBottom = '';
+    banner.remove();
+  });
 })();
 </script>
 

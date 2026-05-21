@@ -154,6 +154,104 @@ RESORTS = [
         "bookingUrl":    "https://www.clubmed.co.uk/r/kani",
         "departure_day": None,
     },
+    {
+        "id":            "cefalu",
+        "name":          "Cefalù",
+        "resortCode":    "CFAC",           # confirmed May 2026 — Sicily, Italy
+        "bookingUrl":    "https://www.clubmed.co.uk/r/cefalu",
+        "departure_day": None,
+    },
+    {
+        "id":            "opio-en-provence",
+        "name":          "Opio en Provence",
+        "resortCode":    "OPIC",           # confirmed May 2026 — France
+        "bookingUrl":    "https://www.clubmed.co.uk/r/opio-en-provence",
+        "departure_day": None,
+    },
+    {
+        "id":            "bodrum",
+        "name":          "Bodrum",
+        "resortCode":    "BODC",           # confirmed May 2026 — Turkey
+        "bookingUrl":    "https://www.clubmed.co.uk/r/bodrum",
+        "departure_day": None,
+    },
+    {
+        "id":            "djerba-la-douce",
+        "name":          "Djerba La Douce",
+        "resortCode":    "DDOC",           # confirmed May 2026 — Tunisia
+        "bookingUrl":    "https://www.clubmed.co.uk/r/djerba-la-douce",
+        "departure_day": None,
+    },
+    {
+        "id":            "bali",
+        "name":          "Bali",
+        "resortCode":    "BALC",           # confirmed May 2026 — Indonesia
+        "bookingUrl":    "https://www.clubmed.co.uk/r/bali",
+        "departure_day": None,
+    },
+    {
+        "id":            "phuket",
+        "name":          "Phuket",
+        "resortCode":    "PHUC",           # confirmed May 2026 — Thailand
+        "bookingUrl":    "https://www.clubmed.co.uk/r/phuket",
+        "departure_day": None,
+    },
+    {
+        "id":            "cherating-beach",
+        "name":          "Cherating Beach",
+        "resortCode":    "CHEC",           # confirmed May 2026 — Malaysia
+        "bookingUrl":    "https://www.clubmed.co.uk/r/cherating-beach",
+        "departure_day": None,
+    },
+    {
+        "id":            "the-finolhu-villas",
+        "name":          "The Finolhu Villas",
+        "resortCode":    "KANV",           # confirmed May 2026 — Maldives (distinct from KANC/Kani)
+        "bookingUrl":    "https://www.clubmed.co.uk/r/the-finolhu-villas",
+        "departure_day": None,
+    },
+    {
+        "id":            "la-plantation-d-albion",
+        "name":          "La Plantation d'Albion",
+        "resortCode":    "ALBC",           # confirmed May 2026 — Mauritius
+        "bookingUrl":    "https://www.clubmed.co.uk/r/la-plantation-d-albion-club-med",
+        "departure_day": None,
+    },
+    {
+        "id":            "la-pointe-aux-canonniers",
+        "name":          "La Pointe aux Canonniers",
+        "resortCode":    "MAUC",           # confirmed May 2026 — Mauritius
+        "bookingUrl":    "https://www.clubmed.co.uk/r/la-pointe-aux-canonniers",
+        "departure_day": None,
+    },
+    {
+        "id":            "seychelles",
+        "name":          "Seychelles",
+        "resortCode":    "SEYC",           # confirmed May 2026
+        "bookingUrl":    "https://www.clubmed.co.uk/r/seychelles",
+        "departure_day": None,
+    },
+    {
+        "id":            "punta-cana",
+        "name":          "Punta Cana",
+        "resortCode":    "PCAC",           # confirmed May 2026 — Dominican Republic
+        "bookingUrl":    "https://www.clubmed.co.uk/r/punta-cana",
+        "departure_day": None,
+    },
+    {
+        "id":            "cancun",
+        "name":          "Cancún",
+        "resortCode":    "CANC",           # confirmed May 2026 — Mexico
+        "bookingUrl":    "https://www.clubmed.co.uk/r/cancun",
+        "departure_day": None,
+    },
+    {
+        "id":            "miches-playa-esmeralda",
+        "name":          "Michès Playa Esmeralda",
+        "resortCode":    "MPEC",           # confirmed May 2026 — Dominican Republic
+        "bookingUrl":    "https://www.clubmed.co.uk/r/miches-playa-esmeralda",
+        "departure_day": None,
+    },
 ]
 
 # Pre-compute windows per resort

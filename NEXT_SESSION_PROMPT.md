@@ -9,10 +9,10 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 9160d9e HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor db5c07c HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`9160d9e`** (docs: session wrap-up — HEAD c940c30 recorded)
+Last recorded push: **`db5c07c`** (Auto-merge claude/focused-buck-37d3e3 to main)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
@@ -20,43 +20,35 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 ---
 
-## Last session (2026-05-20)
+## Last session (2026-05-21)
 
-**HEAD: 9160d9e** — Summer resort images + license audit trail
+**HEAD: db5c07c** — Affiliate-ready copy edits + iOS zoom fix
 
 ### Commits made this session (newest first):
 ```
-9160d9e  docs: session wrap-up — HEAD c940c30 recorded
-c940c30  docs: add license attribution comments for summer resort images in RESORT_IMAGES
-949b3e7  docs: session wrap-up 2026-05-20 — summer resort images, HEAD 95136a0 recorded
-95136a0  Merge branch 'main' of github.com:215781/booking-window
-6fd54b8  feat: add royalty-free images for all 9 summer resorts
+db5c07c  Auto-merge claude/focused-buck-37d3e3 to main [skip ci]
+4568b13  copy: affiliate-ready edits — signal copy, hero CTA, iOS zoom fix
 ```
 
 ### What was done this session:
 
-**Summer resort images sourced from Wikimedia Commons (CC-licensed) and wired up:**
+**5 affiliate-ready edits applied (Awin approval prep):**
 
-9 new image files added to `images/`:
-- `Da-Balaia.jpg` — Algarve coast at sunset (Portugal)
-- `Gregolimano.jpg` — Nea Styra shoreline (Evia, Greece)
-- `Kani.jpg` — Aerial Maldives resort shot (Anantara Kihavah, 2024)
-- `La-Caravelle.jpg` — Caribbean white sand beach (Guadeloupe)
-- `La-Palmeraie-Marrakech.jpg` — Jardin Majorelle, Marrakech (Morocco)
-- `La-Palmyre.jpg` — La plage de La Palmyre (Atlantic, France)
-- `La-Palmyre-Atlantique.jpg` — Plage de La Palmyre (Atlantic, France)
-- `Magna-Marbella.jpg` — Marbella Beach, Costa del Sol (Spain)
-- `Palmiye.jpg` — Kemer Beach (Antalya, Turkey)
+`index.html`:
+- Hero paragraph: "and when to hold off" → "and act before the window closes"
 
-`RESORT_IMAGES` object in `clubmed/index.html` extended with all 9 summer resort entries. Summer resort cards now display real photos instead of gradient placeholders.
-
-**Previous session (2026-05-21): Hero label + CTA + footer**
-- "Best available price" → "Most Favourable"; "View price history →" → "Book Now →" anchor. Price movement guard. Dark teal footer on both pages. (commit c07fa97)
+`clubmed/index.html`:
+- Watch signal body: "check back in the next few days" → "Check back for an updated signal — and set an alert so you don't miss it."
+- Hold panel badge: "Hold" → "Monitoring" (both static guide panel + JS signal badge map)
+- Hold panel lead: "Stable conditions. Further drops are likely." → "The picture is still developing."
+- Hold panel body: replaced patience/drops framing with developing-trend copy
+- Search modal email intro: "Let me know if there are improvements on these results." → "Alert me when prices or availability change for these dates."
+- Mobile CSS: added `font-size: 16px` on `.form-group select` and `.form-group input:not([type="checkbox"])` inside `@media (max-width: 600px)` — prevents iOS Safari auto-zoom on input focus
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — dark teal header, hero "Most Favourable" label + "Book Now" CTA, dark teal footer, working checkboxes, ski/summer toggle, 11 ski resorts + 9 summer resorts (all with real photos)
-- `index.html` — root brand landing page with dark teal footer
-- `images/` — 11 ski resort images + 9 summer resort images (all Wikimedia CC-licensed)
+- `clubmed/index.html` — affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts (all with real photos)
+- `index.html` — updated hero copy, dark teal footer
+- `images/` — 11 ski + 9 summer resort images (all Wikimedia CC-licensed)
 - `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
 - `clubmed_checker.py` — PLAC code correct; per-resort duration override; stale-code filtering
 - `_data/prices_clubmed.csv` — 280 corrupt LP2C_WINTER rows present but filtered at query time

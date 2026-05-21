@@ -867,7 +867,6 @@
     .dept-table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 24px;
       font-size: 13px;
     }
 
@@ -899,6 +898,12 @@
       letter-spacing: 0.04em;
     }
     .dept-book-link:hover { text-decoration: underline; }
+
+    .dept-table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 24px;
+    }
 
     .dept-trend-label {
       font-size: 11px;
@@ -1308,6 +1313,10 @@
       .alt-months-row { flex-direction: column; gap: 8px; }
       .alt-month-pill { justify-content: space-between; }
 
+      /* departure table: hide book column on mobile — modal CTA button handles it */
+      .dept-table th:last-child,
+      .dept-table td:last-child { display: none; }
+
       .footer-inner { padding: 0 20px; }
     }
 
@@ -1578,7 +1587,7 @@
         <div id="modal-calendar"></div>
       </div>
       <div class="modal-cta">
-        <a href="https://www.clubmed.co.uk/r/ski/w" id="modal-book-btn" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Book on Club Med</a>
+        <a href="https://www.clubmed.co.uk/" id="modal-book-btn" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg">Book on Club Med</a>
         <button class="btn btn-outline" id="modal-set-alert-btn">Set alert for this resort</button>
       </div>
     </div>
@@ -2144,7 +2153,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1950m",
     resortCode: "ARPC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/les-arcs/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/les-arcs-panorama/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -3815,7 +3824,7 @@ const RESORT_DATA = [
     region: "French Alps",
     altitude: "1860m",
     resortCode: "ALHC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/alpe-dhuez/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/l-alpe-d-huez/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -4957,7 +4966,7 @@ const RESORT_DATA = [
     region: "Paradiski, French Alps",
     altitude: "2100m",
     resortCode: "LP2C_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-plagne-2100/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-plagne-2100/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5262,7 +5271,7 @@ const RESORT_DATA = [
     region: "French Alps, Espace Killy",
     altitude: "1850m",
     resortCode: "VDIC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/val-disere/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/val-d-isere/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -5791,7 +5800,7 @@ const RESORT_DATA = [
     region: "French Alps, Grand Massif",
     altitude: "720m",
     resortCode: "GMAC_WINTER",
-    bookingUrl: "https://www.clubmed.co.uk/r/grand-massif/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/grand-massif-samoens-morillon/w",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -6362,7 +6371,7 @@ const RESORT_DATA = [
     region: "French Alps, Three Valleys",
     altitude: "2300m",
     resortCode: "VTHC",
-    bookingUrl: "https://www.clubmed.co.uk/r/val-thorens/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/val-thorens-sensations/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -7424,7 +7433,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/da-balaia/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/da-balaia/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -8164,7 +8173,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/gregolimano/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/gregolimano/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -8687,7 +8696,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/kani/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/kani/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -9427,7 +9436,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-caravelle/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-caravelle/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -9894,7 +9903,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-palmeraie-marrakech/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/marrakech-la-palmeraie/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -10634,7 +10643,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-palmyre-atlantique/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-palmyre-atlantique/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -11332,7 +11341,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/la-palmyre-atlantique/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/la-palmyre-atlantique/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -11820,7 +11829,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/magna-marbella/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/magna-marbella/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -12497,7 +12506,7 @@ const SUMMER_RESORT_DATA = [
     altitude: "",
     resortType: "summer",
     resortCode: "",
-    bookingUrl: "https://www.clubmed.co.uk/r/palmiye/w",
+    bookingUrl: "https://www.clubmed.co.uk/r/palmiye/y",
     combinations: [
       {
         partySize: "2A", adults: 2, children: 0, birthdates: [],
@@ -13237,7 +13246,7 @@ function buildPriceNarrative(resort, combo, bestDep, pricedDeps) {
 }
 
 function buildDepartureTable(resort, deps, bestDep) {
-  const bookUrl = resort.bookingUrl || 'https://www.clubmed.co.uk/r/ski/w';
+  const bookUrl = resort.bookingUrl || 'https://www.clubmed.co.uk/';
   const rows = deps.map(dep => {
     const isBest = dep.date === bestDep.date;
     const move = getPriceMovement(dep);
@@ -13256,12 +13265,12 @@ function buildDepartureTable(resort, deps, bestDep) {
       <td><a href="${bookUrl}" target="_blank" rel="noopener noreferrer" class="dept-book-link">Book on Club Med ↗</a></td>
     </tr>`;
   }).join('');
-  return `<table class="dept-table">
+  return `<div class="dept-table-wrap"><table class="dept-table">
     <thead><tr>
       <th>Departure week</th><th>Price</th><th>vs last check</th><th>Signal</th><th></th>
     </tr></thead>
     <tbody>${rows}</tbody>
-  </table>`;
+  </table></div>`;
 }
 
 function getTrend(dep) {
@@ -13303,7 +13312,7 @@ function openModal(resortId, partySize) {
   }
 
   document.getElementById('modal-analysis').textContent = getModalAnalysis(resort, bestDep);
-  document.getElementById('modal-book-btn').href = resort.bookingUrl || 'https://www.clubmed.co.uk/r/ski/w';
+  document.getElementById('modal-book-btn').href = resort.bookingUrl || 'https://www.clubmed.co.uk/';
   document.getElementById('modal-calendar').innerHTML = buildCalendarGrid(deps, pricedDeps);
 
   // Tab switching — reset to "dates" tab each time modal opens
@@ -13455,7 +13464,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
     if (dateMode === 'specific') deps = getDeparturesForDate(combo, dateFilter);
     else if (dateMode === 'month' && dateFilter) deps = getDeparturesForMonth(combo, dateFilter);
     else deps = combo.departures;
-    deps.forEach(dep => entries.push({ dep, resortName: resort.name, resortId: resort.id }));
+    deps.forEach(dep => entries.push({ dep, resortName: resort.name, resortId: resort.id, bookingUrl: resort.bookingUrl }));
   });
 
   // Sort cheapest first
@@ -13510,7 +13519,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
   // Date rows
   const rowsEl = document.getElementById('search-modal-date-rows');
   rowsEl.innerHTML = entries.map((entry, i) => {
-    const { dep, resortName } = entry;
+    const { dep, resortName, bookingUrl } = entry;
     const isBest = i === 0;
     const move = dep.currentPrice - dep.previousPrice;
     const moveLabel = move < -10
@@ -13528,7 +13537,7 @@ function openSearchModal(resortId, dateFilter, partySize, dateMode) {
         <span class="date-row-move">${moveLabel}</span>
         <span class="date-row-signal">${getSignalBadgeHTML(dep.signal)}</span>
         <span class="date-row-book">
-          <a href="https://www.clubmed.co.uk/r/ski/w" target="_blank" rel="noopener noreferrer"
+          <a href="${bookingUrl || 'https://www.clubmed.co.uk/'}" target="_blank" rel="noopener noreferrer"
              class="btn btn-primary" style="font-size:11px;padding:7px 14px;letter-spacing:0.06em;">
             Book on Club Med
           </a>

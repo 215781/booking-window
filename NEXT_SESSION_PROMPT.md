@@ -9,10 +9,10 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor c5cd8dc HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 86d28c9 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`c5cd8dc`** (fix: correct all Club Med booking URLs + mobile modal table overflow)
+Last recorded push: **`86d28c9`** (feat: international ski price checker — 8 resorts)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
@@ -22,59 +22,53 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 ## Last session (2026-05-21)
 
-**HEAD: c5cd8dc** — Booking URL fixes (all 15 corrected) + mobile resort modal table overflow fix
+**HEAD: 86d28c9** — International ski price checker (8 resorts: Italian Alps, Swiss Alps, Japan, China)
 
 ### Commits made this session (newest first):
 ```
-c5cd8dc  fix: correct all Club Med booking URLs + mobile modal table overflow
-a0e17cc  docs: session wrap-up 2026-05-21 — privacy, terms, cookie banner, HEAD b63c202 recorded
-b63c202  Auto-merge claude/sharp-euler-d7443a to main [skip ci]
+86d28c9  feat: international ski price checker — 8 resorts (Italian Alps, Swiss Alps, Japan, China)
+60af5ca  fix: summer inject-only variable name + RESORT_META for 14 new resorts
+52ec961  feat: add 14 new summer resorts to summer checker (24 total)
+742a5b3  content: add Peisey-Vallandry resort guide
 ```
 
 ### What was done this session:
 
-**Booking URL fixes (clubmed/index.html):**
+**Resort expansion — 22 new resorts now tracked in CSV:**
 
-15 broken `bookingUrl` values corrected:
-- `les-arcs/w` → `les-arcs-panorama/w`
-- `alpe-dhuez/w` → `l-alpe-d-huez/w`
-- `la-plagne-2100/w` → `la-plagne-2100/y` (year-round resort, needs /y)
-- `val-disere/w` → `val-d-isere/w`
-- `grand-massif/w` → `grand-massif-samoens-morillon/w`
-- `val-thorens/w` → `val-thorens-sensations/y` (year-round, needs /y)
-- Summer resorts: da-balaia, gregolimano, kani, la-caravelle, la-palmeraie-marrakech, la-palmyre-atlantique (×2), magna-marbella, palmiye — all corrected from /w to /y (year-round) and slug fixes where needed
+**Summer resorts (14 new — commit 52ec961):** `clubmed_summer_checker.py` expanded from 10 to 24 resorts. New codes confirmed via GraphQL productId probe: Cefalù (CFAC), Opio en Provence (OPIC), Bodrum (BODC), Djerba La Douce (DDOC), Bali (BALC), Phuket (PHUC), Cherating Beach (CHEC), The Finolhu Villas (KANV), La Plantation d'Albion (ALBC), La Pointe aux Canonniers (MAUC), Seychelles (SEYC), Punta Cana (PCAC), Cancún (CANC), Michès Playa Esmeralda (MPEC). RESORT_META region strings added for all new resorts.
 
-Fallback URLs fixed:
-- Modal book button default: `https://www.clubmed.co.uk/r/ski/w` → `https://www.clubmed.co.uk/`
-- JS fallback in `buildDepartureTable`: same fix
-- Search modal book link: was hardcoded `r/ski/w`; now uses resort-specific `bookingUrl` from entries (entries.push now includes `bookingUrl: resort.bookingUrl`)
+**Summer inject-only bug fixed (commit 60af5ca):** `clubmed_summer_checker.py` was generating/searching for `RESORT_DATA_SUMMER` but `clubmed/index.html` uses `SUMMER_RESORT_DATA`. The inject-only step in `build_site.yml` was silently doing nothing for the summer block. Variable name corrected.
 
-**Mobile resort modal fix:**
+**International ski checker (commit 86d28c9):** New `clubmed_ski_international_checker.py` for 8 non-French-Alps ski resorts (all confirmed via GraphQL probe). Separate CSV (`_data/prices_clubmed_ski_international.csv`), separate workflow at 09:00 UTC (no conflict with French Alps 06:00 or summer 07:30). Uses `SKI_INTERNATIONAL_DATA` as JS variable for future HTML injection. Ixtapa Pacific (Mexico) confirmed permanently closed — not tracked.
 
-The departure table's last column ("Book on Club Med ↗") was causing horizontal scroll on mobile.
-- JS: table wrapped in `<div class="dept-table-wrap">` with `overflow-x: auto`
-- CSS: `.dept-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 24px; }`
-- Mobile CSS (`@media max-width: 600px`): `.dept-table th:last-child, .dept-table td:last-child { display: none; }` — book column hidden on mobile; the `.modal-cta` button below handles booking
+**Content (commit 742a5b3):** Peisey-Vallandry per-resort guide published to `_posts/`.
+
+**Note:** `clubmed/index.html` has NOT been updated to display international ski resorts or all new summer resorts. The HTML still shows 11 ski + 9 original summer resorts. New resorts are being collected to CSV only. A UI restructure decision is needed before adding them to the display (see Open items).
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — updated cookie banner, affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts (all with real photos)
+- `clubmed/index.html` — updated cookie banner, affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts displayed (all with real photos). New resorts tracked in CSV but not yet displayed.
 - `index.html` — cookie consent banner added, updated hero copy, dark teal footer
 - `privacy.md` → renders at `/privacy/` via Jekyll (full UK GDPR policy)
 - `terms.md` → renders at `/terms/` via Jekyll (terms of use) — footer 404 now resolved
 - `_layouts/page.html` — Jekyll page layout for static pages
 - `images/` — 11 ski + 9 summer resort images (all Wikimedia CC-licensed)
 - `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
-- `clubmed_checker.py` — PLAC code correct; per-resort duration override; stale-code filtering
-- `_data/prices_clubmed.csv` — 280 corrupt LP2C_WINTER rows present but filtered at query time
-- `_data/prices_clubmed_summer.csv` — summer resort data
+- `clubmed_checker.py` — French Alps ski checker, 11 resorts, daily 06:00 UTC. PLAC code correct.
+- `clubmed_summer_checker.py` — summer beach checker, 24 resorts, daily 07:30 UTC
+- `clubmed_ski_international_checker.py` — international ski checker, 8 resorts, daily 09:00 UTC
+- `_data/prices_clubmed.csv` — French Alps ski price log (280 corrupt LP2C_WINTER rows present but filtered at query time)
+- `_data/prices_clubmed_summer.csv` — summer resort data (24 resorts collecting)
+- `_data/prices_clubmed_ski_international.csv` — international ski data (header-only, collecting from 2026-05-21)
 - `markwarner/index.html` — Mark Warner tracker live at /markwarner/
 
 ### Open items for next session:
-- `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes
+- **Site UI restructure needed** — `clubmed/index.html` still only displays 11 French Alps ski + 9 original summer resorts. 14 new summer resorts + 8 international ski resorts tracked in CSV but not yet displayed. Needs regional navigation design decision before HTML work: see PLAN.md backlog item "Site UI restructure — accommodate full resort portfolio".
+- `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes. The `build_site.yml` does NOT yet call `clubmed_ski_international_checker.py --inject-only` — not needed until the HTML block is added.
 - Review PLAN_V2.md tasks B1–B15 for next priority — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
 - `post.html` footer still links to `/privacy.html` — should be updated to `/privacy/`
-- Articles 11–13 still pending: Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides
+- Articles 12–13 still pending: Grand Massif, Serre-Chevalier per-resort guides (Peisey-Vallandry published this session)
 
 ---
 
@@ -146,6 +140,9 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-20 — **Summer resort images:** 9 Wikimedia Commons CC-licensed photos added to `images/` for all summer resorts. `RESORT_IMAGES` in `clubmed/index.html` wired up so summer cards display real photos instead of gradient placeholders. (commit 6fd54b8)
 - 2026-05-21 — **Booking URLs corrected (all 15):** All ski + summer `bookingUrl` values fixed — correct Club Med slugs and /y vs /w suffixes for year-round resorts. Fallback URL in modal and JS fixed. Search modal now uses resort-specific `bookingUrl` from entries. (commit c5cd8dc)
 - 2026-05-21 — **Mobile resort modal table overflow fixed:** Departure table wrapped in scrollable div (`dept-table-wrap`). Book column hidden on mobile via `@media max-width: 600px` — `.modal-cta` button handles booking on mobile. (commit c5cd8dc)
+- 2026-05-21 — **Peisey-Vallandry resort guide published** — per-resort blog post added to `_posts/`. (commit 742a5b3)
+- 2026-05-21 — **14 new summer resorts added to checker** — `clubmed_summer_checker.py` now 24 resorts. Summer inject-only bug fixed (RESORT_DATA_SUMMER→SUMMER_RESORT_DATA). RESORT_META region strings for all new resorts. (commits 52ec961, 60af5ca)
+- 2026-05-21 — **International ski checker launched** — `clubmed_ski_international_checker.py` for 8 resorts (Pragelato Sestriere, St. Moritz, 3 × Japan, 2 × China). Separate CSV + 09:00 UTC workflow. Ixtapa Pacific confirmed permanently closed. (commit 86d28c9)
 
 ---
 
@@ -218,6 +215,8 @@ Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Upd
 
 ## Resort reference
 
+### French Alps ski (11 — displayed in clubmed/index.html)
+
 | Resort | Code | Departure |
 |---|---|---|
 | Tignes | `TIGC_WINTER` | Sunday |
@@ -231,6 +230,19 @@ Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Upd
 | Grand Massif | `GMAC_WINTER` | TBC |
 | Val Thorens Sensations | `VTHC` | Sunday (no `_WINTER` suffix) |
 | Serre-Chevalier | `SECC_WINTER` | TBC |
+
+### International ski (8 — CSV only, not yet displayed)
+
+| Resort | Code | Region |
+|---|---|---|
+| Pragelato Sestriere | `PRAC_WINTER` | Italian Alps |
+| St. Moritz Roi Soleil | `SMRC` | Swiss Alps (no `_WINTER` suffix) |
+| Tomamu Hokkaido | `TOMC_WINTER` | Japan |
+| Kiroro Peak | `KIPC_WINTER` | Japan |
+| Kiroro Grand | `KIGC_WINTER` | Japan |
+| Sahoro Hokkaido | `SAOC_WINTER` | Japan |
+| Beidahu | `BEIC_WINTER` | China |
+| Changbaishan | `CBAC_WINTER` | China |
 
 ---
 

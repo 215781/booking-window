@@ -23,7 +23,7 @@ Topics for the Content Writer agent to work through in order. Check off each ite
 
 ## Priority 2 — Timely and strategic articles
 
-- [ ] Eurostar Snow 2026 guide — timely before July 9 ticket sale; compare with flying to Club Med resorts
+- [x] Eurostar Snow 2026 guide — timely before July 9 ticket sale; compare with flying to Club Med resorts — `2026-05-26-eurostar-snow-2026-guide-club-med.md`
 - [ ] Club Med early booking offer — how it works and whether it's genuinely better value
 - [ ] Club Med ski holiday 2027 prices — full season overview — `2026-05-19-club-med-ski-holiday-2027-prices.md` ✅
 

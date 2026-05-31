@@ -145,13 +145,16 @@ RESORTS = [
         "bookingUrl":    "https://www.clubmed.co.uk/r/palmiye",
         "departure_day": None,
     },
-    {
-        "id":            "agadir",
-        "name":          "Agadir",
-        "resortCode":    "AGAC",           # confirmed May 2026 — Morocco
-        "bookingUrl":    "https://www.clubmed.co.uk/r/agadir",
-        "departure_day": None,
-    },
+    # AGAC (Agadir) disabled — 0/3026 prices over 13 consecutive collection days (May–Jun 2026).
+    # Club Med Agadir does not appear to be sold via the UK site for summer 2026.
+    # Re-enable if availability returns.
+    # {
+    #     "id":            "agadir",
+    #     "name":          "Agadir",
+    #     "resortCode":    "AGAC",           # confirmed May 2026 — Morocco
+    #     "bookingUrl":    "https://www.clubmed.co.uk/r/agadir",
+    #     "departure_day": None,
+    # },
     {
         "id":            "kani",
         "name":          "Kani",
@@ -187,13 +190,16 @@ RESORTS = [
         "bookingUrl":    "https://www.clubmed.co.uk/r/djerba-la-douce",
         "departure_day": None,
     },
-    {
-        "id":            "bali",
-        "name":          "Bali",
-        "resortCode":    "BALC",           # confirmed May 2026 — Indonesia
-        "bookingUrl":    "https://www.clubmed.co.uk/r/bali",
-        "departure_day": None,
-    },
+    # BALC (Bali) disabled — 0/2720 prices over 10 consecutive collection days (May–Jun 2026).
+    # Club Med Bali does not appear to be sold via the UK site for summer 2026.
+    # Re-enable if availability returns.
+    # {
+    #     "id":            "bali",
+    #     "name":          "Bali",
+    #     "resortCode":    "BALC",           # confirmed May 2026 — Indonesia
+    #     "bookingUrl":    "https://www.clubmed.co.uk/r/bali",
+    #     "departure_day": None,
+    # },
     {
         "id":            "phuket",
         "name":          "Phuket",

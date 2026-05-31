@@ -912,6 +912,9 @@ def main():
 
     if args.inject_only:
         print("Building all_results from CSV (latest price per combo)...")
+        # Build a map of resort_id → current resort code so stale codes are excluded.
+        # This prevents LP2C_WINTER (corrected to PLAC) etc. from polluting prices.
+        current_code_map = {r["id"]: r["resortCode"] for r in RESORTS}
         all_results = {}
         if Path(CSV_FILE).exists():
             with open(CSV_FILE, newline="") as f:

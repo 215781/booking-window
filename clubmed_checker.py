@@ -1,16 +1,20 @@
 #!/usr/bin/env python3
 """
-clubmed_checker.py — When To Book price checker
-Runs 6x daily via GitHub Actions. Fetches live prices from the Club Med
-GraphQL API and writes them directly into clubmed/index.html + price_history.csv
+clubmed_checker.py — When To Book price checker (async)
+
+Uses aiohttp + asyncio for concurrent API calls (semaphore-controlled, max 8 simultaneous).
+After each resort completes, rows are appended to CSV and a git commit+push is made,
+so the site updates incrementally throughout the run.
 
 Usage:
-    python clubmed_checker.py           # Normal run
+    python clubmed_checker.py           # Normal run (~20 min, all resorts async)
     python clubmed_checker.py --test    # Fetch prices, print results, no file writes
-    python clubmed_checker.py --verify  # Test one resort code and exit
+    python clubmed_checker.py --verify  # Test one API call and exit
+    python clubmed_checker.py --inject-only  # Rebuild RESORT_DATA from CSV, no API calls
 """
 
-import requests
+import asyncio
+import aiohttp
 import json
 import csv
 import os
@@ -20,32 +24,27 @@ import time
 import random
 import smtplib
 import argparse
+import subprocess
 from datetime import datetime, date, timedelta
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 
 # ─────────────────────────────────────────────────────────────
-# CONFIGURATION — edit these before first run
+# CONFIGURATION
 # ─────────────────────────────────────────────────────────────
 
-# File paths (relative to this script — keep everything in the same repo folder)
 HTML_FILE = "clubmed/index.html"
-CSV_FILE  = "_data/price_history.csv"
+CSV_FILE  = "_data/prices_clubmed.csv"
 
-# Email alerts (set these as GitHub Actions secrets, or hardcode for local testing)
-GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")   # your gmail address
-GMAIL_APP_PASS = os.environ.get("GMAIL_APP_PASS", "")  # 16-char app password
-ALERT_TO       = os.environ.get("ALERT_TO", "")        # where to send alerts
+GMAIL_ADDRESS  = os.environ.get("GMAIL_ADDRESS", "")
+GMAIL_APP_PASS = os.environ.get("GMAIL_APP_PASS", "")
+ALERT_TO       = os.environ.get("ALERT_TO", "")
 
 # ─────────────────────────────────────────────────────────────
 # RESORT CONFIG
-# Each entry defines one resort and all the party/date combos to track.
-# Add Saturday departure dates for the full season you want to cover.
-# departureCity: "NO" = accommodation only (no flights) — intentional.
 # ─────────────────────────────────────────────────────────────
 
-# Helper: generate all dates matching a given weekday (0=Mon … 6=Sun) in a month
 def weekday_dates_in_month(year, month, weekday):
     dates = []
     d = date(year, month, 1)
@@ -198,6 +197,8 @@ _USER_AGENTS = [
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
     "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0",
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1",
 ]
 
 def _get_headers():
@@ -210,7 +211,6 @@ def _get_headers():
         "User-Agent":     random.choice(_USER_AGENTS),
     }
 
-# Keep a module-level HEADERS alias for any code that references it directly
 HEADERS = _get_headers()
 
 QUERY = """mutation SearchPrice($id: ID!, $options: SearchPriceOptions) {
@@ -223,12 +223,13 @@ QUERY = """mutation SearchPrice($id: ID!, $options: SearchPriceOptions) {
 
 NOT_FOR_SALE_REASONS = {"not for sale for the period", "the product is closed during this period"}
 
-def fetch_price(resort_code, adults, children, birthdates, start_date, end_date, retries=3):
-    """Fetch a single price from the Club Med GraphQL API.
+async def fetch_price_async(session, semaphore, resort_code, adults, children, birthdates,
+                             start_date, end_date, retries=4):
+    """Async price fetch with semaphore control, 429 backoff, and retry on error.
 
-    Returns (price_or_None, status) where status is one of:
+    Returns (price_or_None, status) where status is:
       "ok"           — price returned successfully
-      "not_for_sale" — API says period not on sale yet (expected pre-season)
+      "not_for_sale" — API says period not on sale yet
       "closed"       — resort closed for this period
       "no_price"     — API returned noPrice for another reason
       "error"        — network/HTTP failure after all retries
@@ -251,10 +252,74 @@ def fetch_price(resort_code, adults, children, birthdates, start_date, end_date,
         },
         "query": QUERY,
     }
-    # Random delay between requests to avoid burst traffic pattern
-    time.sleep(random.uniform(2, 8))
 
-    last_error = None
+    async with semaphore:
+        await asyncio.sleep(random.uniform(0.3, 1.2))
+
+        last_error = None
+        for attempt in range(1, retries + 1):
+            try:
+                timeout = aiohttp.ClientTimeout(total=25)
+                async with session.post(
+                    GRAPHQL_URL, json=payload, headers=_get_headers(), timeout=timeout
+                ) as r:
+                    if r.status == 429:
+                        wait = (2 ** attempt) + random.uniform(0, 2)
+                        print(f"  429 {resort_code} {start_date} — retry {attempt}/{retries} in {wait:.1f}s")
+                        await asyncio.sleep(wait)
+                        continue
+                    if r.status != 200:
+                        print(f"  HTTP {r.status} for {resort_code} {start_date} — skipping")
+                        return None, "error"
+                    data = await r.json()
+                    result = data.get("data", {}).get("searchPrice", {})
+                    price_obj = result.get("price")
+                    if price_obj and price_obj.get("bestPrice"):
+                        return int(price_obj["bestPrice"]), "ok"
+                    no_price = result.get("noPrice")
+                    if no_price:
+                        reason = no_price.get("reason", "unknown").lower()
+                        if "not for sale" in reason:
+                            return None, "not_for_sale"
+                        elif "closed" in reason:
+                            return None, "closed"
+                        else:
+                            return None, "no_price"
+                    return None, "no_price"
+            except asyncio.TimeoutError:
+                last_error = f"Timeout (attempt {attempt}/{retries})"
+            except Exception as e:
+                last_error = str(e)
+            if attempt < retries:
+                wait = (2 ** attempt) + random.uniform(0, 1)
+                await asyncio.sleep(wait)
+
+        print(f"  Error {resort_code} {start_date}: {last_error}")
+        return None, "error"
+
+
+def fetch_price_sync(resort_code, adults, children, birthdates, start_date, end_date, retries=3):
+    """Synchronous fetch — only used for --verify mode."""
+    import requests
+    payload = {
+        "operationName": "SearchPrice",
+        "variables": {
+            "id": resort_code,
+            "options": {
+                "adults":               adults,
+                "children":             children,
+                "startDate":            start_date,
+                "endDate":              end_date,
+                "flexible":             None,
+                "birthdates":           birthdates,
+                "departureCity":        "NO",
+                "isExclusiveSpacePage": False,
+                "shouldGetRealPrice":   True,
+            },
+        },
+        "query": QUERY,
+    }
+    time.sleep(random.uniform(1, 3))
     for attempt in range(1, retries + 1):
         try:
             r = requests.post(GRAPHQL_URL, json=payload, headers=_get_headers(), timeout=20)
@@ -266,32 +331,21 @@ def fetch_price(resort_code, adults, children, birthdates, start_date, end_date,
                 return int(price_obj["bestPrice"]), "ok"
             no_price = result.get("noPrice")
             if no_price:
-                reason = no_price.get("reason", "unknown")
-                reason_lower = reason.lower()
-                if "not for sale" in reason_lower:
+                reason = no_price.get("reason", "unknown").lower()
+                if "not for sale" in reason:
                     return None, "not_for_sale"
-                elif "closed" in reason_lower:
+                elif "closed" in reason:
                     return None, "closed"
-                else:
-                    print(f"  No price — reason: {reason}")
-                    return None, "no_price"
+                return None, "no_price"
             return None, "no_price"
-        except requests.exceptions.Timeout:
-            last_error = f"Timeout (attempt {attempt}/{retries})"
         except Exception as e:
-            last_error = str(e)
-        if attempt < retries:
+            if attempt == retries:
+                return None, "error"
             time.sleep(2 ** attempt)
-    print(f"  Error fetching {resort_code} {start_date}: {last_error}")
     return None, "error"
 
 # ─────────────────────────────────────────────────────────────
 # SIGNAL LOGIC
-# Determines Book Now / Watch / Hold based on price history.
-# Rules (adjust these as you accumulate more data):
-#   Book Now  — price has dropped £50+ in last 14 days AND is below 30-day average
-#   Watch     — price has risen £50+ in last 14 days, OR price is below 30-day avg but no clear drop
-#   Hold      — everything else (stable, insufficient data)
 # ─────────────────────────────────────────────────────────────
 
 def calculate_signal(price_history):
@@ -302,11 +356,9 @@ def calculate_signal(price_history):
     prices = [p["price"] for p in price_history]
     current = prices[-1]
 
-    # 14-day movement
     lookback_14 = prices[-14] if len(prices) >= 14 else prices[0]
-    move_14 = current - lookback_14  # negative = dropped, positive = risen
+    move_14 = current - lookback_14
 
-    # 30-day average (or whatever we have)
     avg = sum(prices) / len(prices)
 
     if move_14 <= -50 and current < avg:
@@ -319,10 +371,6 @@ def calculate_signal(price_history):
         return "hold"
 
 def calculate_availability(price, price_history):
-    """
-    Placeholder availability logic — replace with real availability data
-    when we find it in the API response. For now, inferred from price movement.
-    """
     if not price_history or len(price_history) < 7:
         return "good", "stable"
     prices = [p["price"] for p in price_history]
@@ -337,7 +385,6 @@ def calculate_availability(price, price_history):
 
 # ─────────────────────────────────────────────────────────────
 # CSV LOGGING
-# Every single check is written here — this is the historical record.
 # ─────────────────────────────────────────────────────────────
 
 CSV_HEADERS = [
@@ -348,7 +395,6 @@ CSV_HEADERS = [
 ]
 
 def log_to_csv(rows, test_mode=False):
-    """Append a list of result dicts to the CSV log."""
     if test_mode:
         print(f"  [test mode] Would have written {len(rows)} rows to {CSV_FILE}")
         return
@@ -382,7 +428,6 @@ def load_price_history_from_csv(resort_id, party_size, start_date, duration_nigh
                     "date":  row["timestamp"][:10],
                     "price": int(row["price"])
                 })
-    # deduplicate by date, keep latest
     seen = {}
     for entry in history:
         seen[entry["date"]] = entry["price"]
@@ -390,9 +435,9 @@ def load_price_history_from_csv(resort_id, party_size, start_date, duration_nigh
 
 def load_all_price_stats():
     """
-    Read price_history.csv once and return per-combo stats for enriching new rows.
-    Returns: {(resort_id, party_size, start_date, duration_nights): {min, max, first, count}}
-    CSV is appended chronologically so the first row encountered per key IS the first-ever price.
+    Read prices_clubmed.csv once and return per-combo stats for enriching new rows.
+    Key includes resort_code to prevent contamination from corrected codes (e.g. LP2C_WINTER→PLAC).
+    Returns: {(resort_id, resort_code, party_size, start_date, duration_nights): {min, max, first, count}}
     """
     stats = {}
     if not Path(CSV_FILE).exists():
@@ -407,7 +452,7 @@ def load_all_price_stats():
             except (ValueError, TypeError):
                 continue
             dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
-            key = (row["resort_id"], row["party_size"], row["start_date"], dur)
+            key = (row["resort_id"], row.get("resort_code", ""), row["party_size"], row["start_date"], dur)
             if key not in stats:
                 stats[key] = {"min": price, "max": price, "first": price, "count": 1}
             else:
@@ -417,10 +462,35 @@ def load_all_price_stats():
                 s["count"] += 1
     return stats
 
+def load_price_history_for_resort(resort_id, resort_code):
+    """Load all price history for a resort in one CSV pass (keyed by party/date/dur)."""
+    if not Path(CSV_FILE).exists():
+        return {}
+    raw = {}
+    with open(CSV_FILE, newline="") as f:
+        for row in csv.DictReader(f):
+            if row.get("resort_id") != resort_id:
+                continue
+            if row.get("resort_code") and row["resort_code"] != resort_code:
+                continue
+            if not row.get("price"):
+                continue
+            try:
+                price = int(row["price"])
+            except (ValueError, TypeError):
+                continue
+            dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
+            key = (row["party_size"], row["start_date"], dur)
+            if key not in raw:
+                raw[key] = {}
+            raw[key][row["timestamp"][:10]] = price
+    return {
+        k: [{"date": d, "price": p} for d, p in sorted(v.items())]
+        for k, v in raw.items()
+    }
+
 # ─────────────────────────────────────────────────────────────
 # HTML INJECTION
-# Finds the RESORT_DATA array in BookingWindow.html and replaces it
-# with fresh data. Everything else in the HTML is untouched.
 # ─────────────────────────────────────────────────────────────
 
 def build_resort_data_js(all_results):
@@ -436,7 +506,6 @@ def build_resort_data_js(all_results):
         rname = resort["name"]
         rcode = resort["resortCode"]
 
-        # Get region/altitude from a simple lookup (matches the HTML)
         meta = RESORT_META.get(rid, {"region": "French Alps", "altitude": "—"})
 
         lines.append("  {")
@@ -466,20 +535,17 @@ def build_resort_data_js(all_results):
                 key = (rid, ps, sd, dur)
                 price = all_results.get(key)
                 if price is None:
-                    continue  # skip windows with no price — API returned nothing
+                    continue
 
-                # Load full history from CSV (filter by resort_code to exclude stale rows from corrected codes)
                 history = load_price_history_from_csv(rid, ps, sd, dur, resort_code=rcode)
                 if not history:
                     history = [{"date": sd, "price": price}]
 
-                # Ensure today's price is in history
                 today_str = date.today().isoformat()
                 if not any(h["date"] == today_str for h in history):
                     history.append({"date": today_str, "price": price})
                 history.sort(key=lambda x: x["date"])
 
-                # Keep last 30 days max for the chart
                 history_30 = history[-30:]
 
                 current_price  = history_30[-1]["price"]
@@ -488,7 +554,6 @@ def build_resort_data_js(all_results):
                 signal = calculate_signal(history_30)
                 availability, avail_trend = calculate_availability(current_price, history_30)
 
-                # Display date: departure range e.g. "6–13 Dec 2026"
                 dep_dt = datetime.strptime(sd, "%Y-%m-%d")
                 end_dt = dep_dt + timedelta(days=dur)
                 if dep_dt.month == end_dt.month:
@@ -516,14 +581,11 @@ def build_resort_data_js(all_results):
     return "\n".join(lines)
 
 def inject_into_html(js_string, test_mode=False):
-    """Replace the RESORT_DATA block in BookingWindow.html."""
     if not Path(HTML_FILE).exists():
         print(f"WARNING: {HTML_FILE} not found — skipping HTML injection.")
         return
     with open(HTML_FILE, "r", encoding="utf-8") as f:
         html = f.read()
-    # Match from 'const RESORT_DATA = [' to the closing ']; on its own line.
-    # Non-greedy + \n before ]; prevents consuming JS functions that follow.
     pattern = r"const RESORT_DATA = \[.*?\n\];"
     new_html, count = re.subn(pattern, js_string, html, count=1, flags=re.DOTALL)
     if count == 0:
@@ -541,7 +603,6 @@ def inject_into_html(js_string, test_mode=False):
 # ─────────────────────────────────────────────────────────────
 
 def send_alert(subject, body):
-    """Send an alert email via Gmail SMTP."""
     if not GMAIL_ADDRESS or not GMAIL_APP_PASS or not ALERT_TO:
         print(f"  Email not configured — alert not sent: {subject}")
         return
@@ -558,9 +619,87 @@ def send_alert(subject, body):
     except Exception as e:
         print(f"  Failed to send alert: {e}")
 
+# ─────────────────────────────────────────────────────────────
+# GIT OPERATIONS
+# ─────────────────────────────────────────────────────────────
+
+_SSH_KEY = os.path.expanduser("~/.ssh/booking_window_deploy")
+
+def _run_git(cmd):
+    env = os.environ.copy()
+    if os.path.exists(_SSH_KEY):
+        env["GIT_SSH_COMMAND"] = f"ssh -i {_SSH_KEY} -o StrictHostKeyChecking=no"
+    result = subprocess.run(cmd, shell=True, capture_output=True, text=True, env=env)
+    return result.returncode, result.stdout.strip(), result.stderr.strip()
+
+def git_setup():
+    _run_git("git config user.name 'Booking Window Bot'")
+    _run_git("git config user.email 'bot@bookingwindow.co.uk'")
+
+def git_push_with_retry(label, max_attempts=3):
+    """Pull then push. Uses GITHUB_TOKEN (HTTPS) if in Actions, else SSH key."""
+    token = os.environ.get("GITHUB_TOKEN")
+    if token:
+        result = subprocess.run(
+            ["git", "remote", "get-url", "origin"],
+            capture_output=True, text=True
+        )
+        remote_url = result.stdout.strip()
+        if remote_url.startswith("git@github.com:"):
+            repo_path = remote_url.replace("git@github.com:", "")
+            remote_url = f"https://x-access-token:{token}@github.com/{repo_path}"
+        elif "github.com" in remote_url and not remote_url.startswith("https://x-access-token"):
+            remote_url = remote_url.replace("https://", f"https://x-access-token:{token}@")
+        push_target = remote_url
+        push_env = os.environ.copy()
+    else:
+        push_target = "origin"
+        push_env = os.environ.copy()
+        if os.path.exists(_SSH_KEY):
+            push_env["GIT_SSH_COMMAND"] = f"ssh -i {_SSH_KEY} -o StrictHostKeyChecking=no"
+
+    for attempt in range(1, max_attempts + 1):
+        subprocess.run(
+            ["git", "pull", "--rebase", push_target, "main"],
+            capture_output=True, env=push_env
+        )
+        result = subprocess.run(
+            ["git", "push", push_target, "main"],
+            capture_output=True, text=True, env=push_env
+        )
+        if result.returncode == 0:
+            return True
+        err = result.stderr.strip()
+        print(f"  [{label}] Push attempt {attempt}/{max_attempts} failed: {err[:120]}")
+        if attempt < max_attempts:
+            time.sleep(2 ** attempt + random.uniform(0, 1))
+    return False
+
+def git_commit_resort(resort_code, run_date, retries=3):
+    date_str   = run_date.isoformat()
+    commit_msg = f"data: {resort_code} prices {date_str}"
+
+    rc, _, err = _run_git(f"git add {CSV_FILE}")
+    if rc != 0:
+        print(f"  [{resort_code}] git add failed: {err}")
+        return
+
+    rc, out, err = _run_git(f'git commit -m "{commit_msg}"')
+    if rc != 0:
+        combined = out + err
+        if "nothing to commit" in combined or "nothing added" in combined:
+            print(f"  [{resort_code}] Nothing to commit — skipping push")
+        else:
+            print(f"  [{resort_code}] git commit failed: {err}")
+        return
+
+    if git_push_with_retry(resort_code, retries):
+        print(f"  [{resort_code}] Pushed: {commit_msg}")
+    else:
+        print(f"  [{resort_code}] All push retries exhausted — data saved locally, run continues")
 
 # ─────────────────────────────────────────────────────────────
-# RESORT METADATA (region, altitude — matches the HTML)
+# RESORT METADATA
 # ─────────────────────────────────────────────────────────────
 
 RESORT_META = {
@@ -592,8 +731,159 @@ RESORT_META = {
 # SECC_WINTER — Serre-Chevalier (confirmed 27 Apr 2026)
 
 # ─────────────────────────────────────────────────────────────
+# ASYNC RESORT PROCESSING
+# ─────────────────────────────────────────────────────────────
+
+async def process_resort(session, semaphore, resort, historical_stats, timestamp, run_date,
+                          test_mode=False):
+    """Fire all API queries for one resort concurrently, then commit results to CSV."""
+    rid   = resort["id"]
+    rcode = resort["resortCode"]
+    rname = resort["name"]
+    total_queries = len(resort["combos"]) * len(resort["windows"])
+
+    print(f"\n[{rname} / {rcode}] Starting {total_queries} queries (semaphore=8)...")
+
+    task_meta = []
+    tasks = []
+    for combo in resort["combos"]:
+        for window in resort["windows"]:
+            task_meta.append((combo, window))
+            tasks.append(fetch_price_async(
+                session, semaphore, rcode,
+                combo["adults"], combo["children"], combo["birthdates"],
+                window["startDate"], window["endDate"],
+            ))
+
+    api_results = await asyncio.gather(*tasks)
+
+    resort_history = load_price_history_for_resort(rid, rcode)
+
+    csv_rows       = []
+    prices_ok      = 0
+    error_count    = 0
+    no_price_count = 0
+
+    for (combo, window), (price, fetch_status) in zip(task_meta, api_results):
+        sd         = window["startDate"]
+        ed         = window["endDate"]
+        ps         = combo["partySize"]
+        duration_n = window["duration"]
+
+        if price is not None:
+            prices_ok += 1
+        else:
+            no_price_count += 1
+            if fetch_status == "error":
+                error_count += 1
+
+        hist_key = (ps, sd, duration_n)
+        history  = list(resort_history.get(hist_key, []))
+        if price:
+            history.append({"date": timestamp[:10], "price": price})
+        signal = calculate_signal(history)
+
+        departure_dt = datetime.strptime(sd, "%Y-%m-%d").date()
+        days_before  = (departure_dt - run_date).days
+        dow_sampled  = run_date.weekday()
+
+        key  = (rid, rcode, ps, sd, duration_n)
+        stat = historical_stats.get(key)
+        if stat:
+            min_seen    = min(stat["min"], price) if price else stat["min"]
+            max_seen    = max(stat["max"], price) if price else stat["max"]
+            first_seen  = stat["first"]
+            is_cheapest = 1 if (price and price <= stat["min"]) else 0
+        else:
+            min_seen    = price if price else ""
+            max_seen    = price if price else ""
+            first_seen  = price if price else ""
+            is_cheapest = 1 if price else ""
+
+        csv_rows.append({
+            "timestamp":             timestamp,
+            "resort_id":             rid,
+            "resort_code":           rcode,
+            "party_size":            ps,
+            "start_date":            sd,
+            "end_date":              ed,
+            "duration_nights":       duration_n,
+            "price":                 price if price else "",
+            "signal":                signal,
+            "days_before_departure": days_before,
+            "day_of_week_sampled":   dow_sampled,
+            "price_first_seen":      first_seen,
+            "price_min_seen":        min_seen,
+            "price_max_seen":        max_seen,
+            "is_cheapest_ever":      is_cheapest,
+        })
+
+    total = len(csv_rows)
+    print(f"  [{rname}] Complete: {prices_ok}/{total} prices OK "
+          f"({no_price_count} no-price, {error_count} errors)")
+
+    log_to_csv(csv_rows, test_mode)
+    if not test_mode:
+        git_commit_resort(rcode, run_date)
+
+    return error_count, no_price_count, total, {
+        (combo["partySize"], window["startDate"], window["duration"]): price
+        for (combo, window), (price, _) in zip(task_meta, api_results)
+        if price is not None
+    }
+
+# ─────────────────────────────────────────────────────────────
 # MAIN
 # ─────────────────────────────────────────────────────────────
+
+async def main_async(args):
+    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+    run_date  = date.today()
+
+    git_setup()
+    historical_stats = load_all_price_stats()
+
+    resorts_this_run = list(RESORTS)
+    random.shuffle(resorts_this_run)
+
+    total_errors   = 0
+    total_no_price = 0
+    total_rows     = 0
+
+    # all_results collects prices for HTML injection
+    all_results = {}
+
+    semaphore = asyncio.Semaphore(8)
+    connector = aiohttp.TCPConnector(limit=20, ttl_dns_cache=300)
+
+    async with aiohttp.ClientSession(connector=connector) as session:
+        for resort in resorts_this_run:
+            errors, no_price, row_count, resort_prices = await process_resort(
+                session, semaphore, resort, historical_stats, timestamp, run_date, args.test
+            )
+            total_errors   += errors
+            total_no_price += no_price
+            total_rows     += row_count
+
+            rid = resort["id"]
+            for (ps, sd, dur), price in resort_prices.items():
+                all_results[(rid, ps, sd, dur)] = price
+
+    print(f"\nAll resorts complete.")
+
+    prices_fetched = total_rows - total_no_price
+    if total_errors > 0 and total_rows > 0 and total_errors / total_rows > 0.3:
+        send_alert(
+            "When To Book health alert — winter checker API errors",
+            f"{total_errors}/{total_rows} fetches failed with network/API errors. "
+            f"Check the GitHub Actions logs.\n\nRun timestamp: {timestamp}"
+        )
+
+    print(f"\nDone. {prices_fetched}/{total_rows} prices fetched successfully.")
+    if total_no_price:
+        print(f"  {total_no_price} no-price responses "
+              f"({total_errors} errors, rest are pre-season/closed).")
+
 
 def main():
     parser = argparse.ArgumentParser()
@@ -611,17 +901,15 @@ def main():
         print("  MODE: inject-only (no API calls; rebuilding RESORT_DATA from CSV)")
     print(f"{'='*60}\n")
 
-    # Quick API verify mode
     if args.verify:
         print("Verifying API with Tignes (TIGC_WINTER) 2A, 17 Apr 2027...")
-        price, status = fetch_price("TIGC_WINTER", 2, 0, [], "2027-04-17", "2027-04-24")
+        price, status = fetch_price_sync("TIGC_WINTER", 2, 0, [], "2027-04-17", "2027-04-24")
         if price:
             print(f"  SUCCESS — price returned: £{price:,}")
         else:
             print(f"  No price returned (status: {status}) — API is {'reachable' if status != 'error' else 'unreachable'}")
         return
 
-    # Inject-only mode: rebuild RESORT_DATA from CSV without any API calls
     if args.inject_only:
         print("Building all_results from CSV (latest price per combo)...")
         all_results = {}
@@ -634,9 +922,13 @@ def main():
                         price_val = int(row["price"])
                     except (ValueError, TypeError):
                         continue
+                    # Skip contaminated LP2C_WINTER rows — only use rows matching each resort's current code
+                    resort_obj = next((r for r in RESORTS if r["id"] == row["resort_id"]), None)
+                    if resort_obj and row.get("resort_code") and row["resort_code"] != resort_obj["resortCode"]:
+                        continue
                     dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
                     key = (row["resort_id"], row["party_size"], row["start_date"], dur)
-                    all_results[key] = price_val  # later rows overwrite earlier (CSV is chronological)
+                    all_results[key] = price_val
         print(f"  Loaded {len(all_results)} price entries from CSV.")
         print("Building updated RESORT_DATA...")
         js_string = build_resort_data_js(all_results)
@@ -644,120 +936,8 @@ def main():
         print("Done.")
         return
 
-    # Load historical price stats once — used to compute enriched CSV fields
-    historical_stats = load_all_price_stats()
+    asyncio.run(main_async(args))
 
-    all_results = {}  # (resort_id, party_size, start_date) -> price
-    csv_rows    = []
-    error_count    = 0  # only real API errors (network/HTTP failures)
-    no_price_count = 0  # includes not_for_sale / closed — expected pre-season
-    timestamp = datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
-    run_date  = date.today()
-
-    # Randomise resort order each run so we don't always query the same resort first
-    resorts_this_run = list(RESORTS)
-    random.shuffle(resorts_this_run)
-
-    for resort_idx, resort in enumerate(resorts_this_run):
-        if resort_idx > 0:
-            # Longer pause between resorts to simulate a user navigating between pages
-            inter_resort_sleep = random.uniform(15, 30)
-            print(f"  Pausing {inter_resort_sleep:.0f}s before next resort...")
-            time.sleep(inter_resort_sleep)
-        print(f"Fetching: {resort['name']} ({resort['resortCode']})")
-        for combo in resort["combos"]:
-            for window in resort["windows"]:
-                sd = window["startDate"]
-                ed = window["endDate"]
-                ps = combo["partySize"]
-                duration_n = window["duration"]
-
-                price, fetch_status = fetch_price(
-                    resort["resortCode"],
-                    combo["adults"],
-                    combo["children"],
-                    combo["birthdates"],
-                    sd, ed
-                )
-
-                key = (resort["id"], ps, sd, duration_n)
-                all_results[key] = price
-
-                if price is None:
-                    no_price_count += 1
-                    if fetch_status == "error":
-                        error_count += 1
-                        print(f"  {ps} {sd}: API error")
-                    elif fetch_status not in ("not_for_sale", "closed"):
-                        print(f"  {ps} {sd}: no price ({fetch_status})")
-                else:
-                    print(f"  {ps} {sd}: £{price:,}")
-
-                # Work out signal from accumulated history (filter by resort_code to avoid stale data)
-                history = load_price_history_from_csv(resort["id"], ps, sd, duration_n, resort_code=resort["resortCode"])
-                if price:
-                    history.append({"date": timestamp[:10], "price": price})
-                signal = calculate_signal(history)
-
-                # Enriched fields
-                departure_dt   = datetime.strptime(sd, "%Y-%m-%d").date()
-                days_before    = (departure_dt - run_date).days
-                dow_sampled    = run_date.weekday()  # 0=Mon … 6=Sun
-
-                key = (resort["id"], ps, sd, duration_n)
-                hist = historical_stats.get(key)
-                if hist:
-                    min_seen   = min(hist["min"], price) if price else hist["min"]
-                    max_seen   = max(hist["max"], price) if price else hist["max"]
-                    first_seen = hist["first"]
-                    is_cheapest = 1 if (price and price <= hist["min"]) else 0
-                else:
-                    # First time we've ever seen this combo
-                    min_seen   = price if price else ""
-                    max_seen   = price if price else ""
-                    first_seen = price if price else ""
-                    is_cheapest = 1 if price else ""
-
-                csv_rows.append({
-                    "timestamp":             timestamp,
-                    "resort_id":             resort["id"],
-                    "resort_code":           resort["resortCode"],
-                    "party_size":            ps,
-                    "start_date":            sd,
-                    "end_date":              ed,
-                    "duration_nights":       duration_n,
-                    "price":                 price if price else "",
-                    "signal":                signal,
-                    "days_before_departure": days_before,
-                    "day_of_week_sampled":   dow_sampled,
-                    "price_first_seen":      first_seen,
-                    "price_min_seen":        min_seen,
-                    "price_max_seen":        max_seen,
-                    "is_cheapest_ever":      is_cheapest,
-                })
-
-    # Write CSV
-    print(f"\nLogging {len(csv_rows)} rows to {CSV_FILE}...")
-    log_to_csv(csv_rows, test_mode=args.test)
-
-    # Inject into HTML
-    print(f"Building updated RESORT_DATA...")
-    js_string = build_resort_data_js(all_results)
-    inject_into_html(js_string, test_mode=args.test)
-
-    # Health check — only alert on actual API errors, not pre-season "not for sale" responses
-    total = len(csv_rows)
-    prices_fetched = total - no_price_count
-    if error_count > 0 and total > 0 and error_count / total > 0.3:
-        send_alert(
-            "When To Book health alert — API errors detected",
-            f"{error_count}/{total} fetches failed with network/API errors (not including expected pre-season no-price responses). "
-            f"Check the GitHub Actions logs.\n\nRun timestamp: {timestamp}"
-        )
-
-    print(f"\nDone. {prices_fetched}/{total} prices fetched successfully.")
-    if no_price_count:
-        print(f"  {no_price_count} no-price responses ({error_count} errors, rest are pre-season/closed).")
 
 if __name__ == "__main__":
     main()

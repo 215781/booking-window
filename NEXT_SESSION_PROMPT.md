@@ -9,69 +9,59 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 58f5e5e HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 9bc85d7 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`58f5e5e`** (feat: expand party size combos to 8 — age bands, mixed families, 3-adult)
+Last recorded push: **`9bc85d7`** (fix: hero card blank + missing resort cards + invisible sparklines)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `58f5e5e` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `9bc85d7` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-05-21)
+## Last session (2026-05-31)
 
-**HEAD: 58f5e5e** — Expand party size combos to 8 across all three price checkers
+**HEAD: 9bc85d7** — Fix hero card blank + missing resort cards + invisible sparklines
 
 ### Commits made this session (newest first):
 ```
-58f5e5e  feat: expand party size combos to 8 — age bands, mixed families, 3-adult
-86d28c9  feat: international ski price checker — 8 resorts (Italian Alps, Swiss Alps, Japan, China)
-60af5ca  fix: summer inject-only variable name + RESORT_META for 14 new resorts
-52ec961  feat: add 14 new summer resorts to summer checker (24 total)
-742a5b3  content: add Peisey-Vallandry resort guide
+9bc85d7  fix: hero card blank + missing resort cards + invisible sparklines
+7b32d16  Auto-merge claude/kind-dewdney-806281 to main [skip ci]
+704473f  fix: async rewrite of winter checker + disable dead summer resorts
+5f16c61  data: TOMC_WINTER international ski prices 2026-05-31
+a052c94  content: publish Eurostar Snow 2026 guide for Club Med skiers
+b2c394f  content: publish best time to book Club Med La Plagne 2100
 ```
 
-### What was done this session:
+### What was done this session (2026-05-31):
 
-**Resort expansion — 22 new resorts now tracked in CSV:**
+**Three rendering bugs fixed (commit 9bc85d7):**
+1. **Hero card blank white box** — `renderCards()` crashed mid-forEach when 4 resorts had empty `departures[]` (La Plagne 2100, Grand Massif, Val Thorens, Serre-Chevalier). `getActiveDeparture()` returned `undefined`, then `getPriceMovement(undefined)` threw TypeError. This crash propagated out of the DOMContentLoaded handler before `renderHeroBestCard()` ran — leaving the hero card as an empty white box. Fix: added `if (!dep) return;` guard in `renderCards` + null-check in `getPriceMovement`.
+2. **Sparkline invisible** — `buildSparklinePath` placed the flat line at y=41 in a 44px viewBox (3px from bottom, essentially invisible) when all prices were equal (`range=0 → fallback of 1` placed all y near bottom). Fix: when `range===0` render the flat line at `h/2` (midpoint).
+3. **RESORT_DATA stale** — 4 resorts had empty `departures[]` because May 21 inject-only used stale CSV state and LP2C_WINTER rows contaminated La Plagne 2100. Regenerated RESORT_DATA from CSV with resort_code filter applied. Grand Massif/Val Thorens/Serre-Chevalier now have 24–26 priced deps. La Plagne 2100 stays at 0 until PLAC data accumulates. All resorts now have 8 party-size combos (was 3). Checker's inject-only also patched to filter stale resort codes.
 
-**Summer resorts (14 new — commit 52ec961):** `clubmed_summer_checker.py` expanded from 10 to 24 resorts. New codes confirmed via GraphQL productId probe: Cefalù (CFAC), Opio en Provence (OPIC), Bodrum (BODC), Djerba La Douce (DDOC), Bali (BALC), Phuket (PHUC), Cherating Beach (CHEC), The Finolhu Villas (KANV), La Plantation d'Albion (ALBC), La Pointe aux Canonniers (MAUC), Seychelles (SEYC), Punta Cana (PCAC), Cancún (CANC), Michès Playa Esmeralda (MPEC). RESORT_META region strings added for all new resorts.
-
-**Summer inject-only bug fixed (commit 60af5ca):** `clubmed_summer_checker.py` was generating/searching for `RESORT_DATA_SUMMER` but `clubmed/index.html` uses `SUMMER_RESORT_DATA`. The inject-only step in `build_site.yml` was silently doing nothing for the summer block. Variable name corrected.
-
-**International ski checker (commit 86d28c9):** New `clubmed_ski_international_checker.py` for 8 non-French-Alps ski resorts (all confirmed via GraphQL probe). Separate CSV (`_data/prices_clubmed_ski_international.csv`), separate workflow at 09:00 UTC (no conflict with French Alps 06:00 or summer 07:30). Uses `SKI_INTERNATIONAL_DATA` as JS variable for future HTML injection. Ixtapa Pacific (Mexico) confirmed permanently closed — not tracked.
-
-**Content (commit 742a5b3):** Peisey-Vallandry per-resort guide published to `_posts/`.
-
-**Party size combo expansion (commit 58f5e5e):** `_COMBOS` expanded from 3 to 8 in all three checkers (`clubmed_checker.py`, `clubmed_summer_checker.py`, `clubmed_ski_international_checker.py`). Now covers all three Club Med child age bands — infant 0–3 (2026-03-15), child 4–11 (2018-09-01), junior 12+ (2013-06-01) — plus mixed child+junior families, two-child families, 3-adult triple rooms, and 3-adult+child. 4A excluded (= 2× 2A). Call volume ~2.7× baseline with existing rate limiting intact.
-
-**Note:** `clubmed/index.html` has NOT been updated to display international ski resorts or all new summer resorts. The HTML still shows 11 ski + 9 original summer resorts. New resorts are being collected to CSV only. A UI restructure decision is needed before adding them to the display (see Open items).
+**Concurrent session (claude/kind-dewdney-806281, commit 704473f) fixed:**
+- **Root cause of 12-day data gap** — `clubmed_checker.py` was writing to `price_history.csv` instead of `prices_clubmed.csv`. No winter data had been collected since 2026-05-19. Fixed in async rewrite.
+- **Async rewrite** — full aiohttp + asyncio rewrite. Runs in ~20 min vs 5+ hours synchronous. Per-resort git commit+push added (mirrors summer/markwarner pattern).
+- **Two dead summer resorts disabled** — AGAC (Agadir) and BALC (Bali) had 0 priced rows over 10–13 collection days; disabled with comments.
+- **inject-only stale-code filter** — LP2C_WINTER contamination prevention also added by this session (same fix, different implementation — kept their version in conflict resolution).
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — updated cookie banner, affiliate-ready copy, "Monitoring" badge, iOS zoom fix, dark teal header/footer, hero "Most Favourable" + "Book Now" CTA, 11 ski + 9 summer resorts displayed (all with real photos). New resorts tracked in CSV but not yet displayed.
-- `index.html` — cookie consent banner added, updated hero copy, dark teal footer
-- `privacy.md` → renders at `/privacy/` via Jekyll (full UK GDPR policy)
-- `terms.md` → renders at `/terms/` via Jekyll (terms of use) — footer 404 now resolved
-- `_layouts/page.html` — Jekyll page layout for static pages
-- `images/` — 11 ski + 9 summer resort images (all Wikimedia CC-licensed)
-- `backup_to_gdrive.sh` — daily backup to Google Drive via launchd (03:00 daily)
-- `clubmed_checker.py` — French Alps ski checker, 11 resorts, 8 party size combos, daily 06:00 UTC. PLAC code correct.
-- `clubmed_summer_checker.py` — summer beach checker, 24 resorts, 8 party size combos, daily 07:30 UTC
-- `clubmed_ski_international_checker.py` — international ski checker, 8 resorts, 8 party size combos, daily 09:00 UTC
-- `_data/prices_clubmed.csv` — French Alps ski price log (280 corrupt LP2C_WINTER rows present but filtered at query time)
-- `_data/prices_clubmed_summer.csv` — summer resort data (24 resorts collecting)
-- `_data/prices_clubmed_ski_international.csv` — international ski data (header-only, collecting from 2026-05-21)
-- `markwarner/index.html` — Mark Warner tracker live at /markwarner/
+- `clubmed/index.html` — hero card fixed, resort cards fixed (10/11 with prices; La Plagne 2100 gracefully skipped while PLAC data builds), sparklines now visible. 8 party-size combos in RESORT_DATA. All other content unchanged from May 21.
+- `clubmed_checker.py` — async aiohttp rewrite, CSV_FILE bug fixed, LP2C_WINTER filter, daily 06:00 UTC
+- `clubmed_summer_checker.py` — 22 active resorts (was 24 — AGAC and BALC disabled)
+- `clubmed_ski_international_checker.py` — 8 resorts, collecting since 2026-05-21
+- `_data/prices_clubmed.csv` — LP2C_WINTER rows present but filtered at query time; fresh data from 2026-05-31 run will appear tomorrow
+- CONTENT_QUEUE.md — new file with queued blog content ideas (from concurrent session)
 
 ### Open items for next session:
-- **Site UI restructure needed** — `clubmed/index.html` still only displays 11 French Alps ski + 9 original summer resorts. 14 new summer resorts + 8 international ski resorts tracked in CSV but not yet displayed. Needs regional navigation design decision before HTML work: see PLAN.md backlog item "Site UI restructure — accommodate full resort portfolio".
-- `build_site.yml` only rebuilds `clubmed/index.html` — should also handle summer CSV injection when `prices_clubmed_summer.csv` changes. The `build_site.yml` does NOT yet call `clubmed_ski_international_checker.py --inject-only` — not needed until the HTML block is added.
-- Review PLAN_V2.md tasks B1–B15 for next priority — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
-- Review `claude/naughty-noyce-f4276b` branch: "copy: signal-first reframe — lead with £saved/% down" (May 10) — decide whether to merge
-- `post.html` footer still links to `/privacy.html` — should be updated to `/privacy/`
-- Articles 12–13 still pending: Grand Massif, Serre-Chevalier per-resort guides (Peisey-Vallandry published this session)
+- **La Plagne 2100 (PLAC) data gap** — 0 priced departures in HTML. Once the async checker runs tonight (06:00 UTC June 1) with the correct PLAC code, La Plagne data will accumulate. Run inject-only from main repo after tomorrow's CSV update to add La Plagne back to the display.
+- **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision.
+- `build_site.yml` does not yet trigger on summer/international CSV changes.
+- Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
+- `post.html` footer still links to `/privacy.html` — should be `/privacy/`
+- Articles 12–13 pending: Grand Massif, Serre-Chevalier per-resort guides
 
 ---
 
@@ -84,7 +74,7 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
 - **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
-- **Price history:** `_data/price_history.csv` — ~9,000 rows. Append-only. In `_data/` so GitHub Pages won't serve it publicly.
+- **Price history:** `_data/prices_clubmed.csv` — append-only. In `_data/` so GitHub Pages won't serve it publicly. (Note: was incorrectly writing to `price_history.csv` until async rewrite fixed this on 2026-05-31.)
 - **Mark Warner prices:** `_data/markwarner_prices.csv` — 54 rows seeded 2026-05-04. Append-only.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
@@ -146,6 +136,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-21 — **Peisey-Vallandry resort guide published** — per-resort blog post added to `_posts/`. (commit 742a5b3)
 - 2026-05-21 — **14 new summer resorts added to checker** — `clubmed_summer_checker.py` now 24 resorts. Summer inject-only bug fixed (RESORT_DATA_SUMMER→SUMMER_RESORT_DATA). RESORT_META region strings for all new resorts. (commits 52ec961, 60af5ca)
 - 2026-05-21 — **International ski checker launched** — `clubmed_ski_international_checker.py` for 8 resorts (Pragelato Sestriere, St. Moritz, 3 × Japan, 2 × China). Separate CSV + 09:00 UTC workflow. Ixtapa Pacific confirmed permanently closed. (commit 86d28c9)
+- 2026-05-31 — **Three rendering bugs fixed** — (1) Hero card blank: crash in `renderCards` when 4 resorts had empty `departures[]` prevented `renderHeroBestCard()` from running — fixed with `if (!dep) return` guard + null-check in `getPriceMovement`. (2) Sparkline invisible for stable prices: flat line was placed at bottom of chart (range=0 → fallback of 1 caused y≈bottom) — fixed to render at h/2 midpoint. (3) RESORT_DATA stale: regenerated with resort_code filter (excludes LP2C_WINTER contamination). All resorts now have 8 combos. (commit 9bc85d7)
+- 2026-05-31 — **Winter checker async rewrite** — Root cause of 12-day data gap found and fixed: `CSV_FILE` was `price_history.csv` instead of `prices_clubmed.csv`. Full async aiohttp rewrite (~20 min vs 5+ hours). Per-resort commit+push. Two dead summer resorts disabled (AGAC, BALC). inject-only LP2C_WINTER filter added. (commit 704473f)
 
 ---
 
@@ -290,7 +282,7 @@ WhentoBook.html             — Redirect to /clubmed
 clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
 markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
 backfill_prices.py          — Gap-fill script (run after multi-day outage)
-_data/price_history.csv     — Club Med price log (~9,000 rows, append-only)
+_data/prices_clubmed.csv    — Club Med price log (~27,000 rows, append-only)
 _data/markwarner_prices.csv — Mark Warner price log (54 rows seeded, append-only)
 vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/

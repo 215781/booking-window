@@ -24,15 +24,15 @@ Topics for the Content Writer agent to work through in order. Check off each ite
 ## Priority 2 — Timely and strategic articles
 
 - [x] Eurostar Snow 2026 guide — timely before July 9 ticket sale; compare with flying to Club Med resorts — `2026-05-26-eurostar-snow-2026-guide-club-med.md`
-- [ ] Club Med early booking offer — how it works and whether it's genuinely better value
-- [ ] Club Med ski holiday 2027 prices — full season overview — `2026-05-19-club-med-ski-holiday-2027-prices.md` ✅
+- [x] Club Med early booking offer — how it works and whether it's genuinely better value — `2026-05-31-club-med-early-booking-offer-how-it-works.md`
+- [x] Club Med ski holiday 2027 prices — full season overview — `2026-05-19-club-med-ski-holiday-2027-prices.md`
 
 ---
 
 ## Priority 3 — Comparisons
 
 - [x] Club Med Tignes vs Les Arcs — `2026-02-25-club-med-tignes-vs-les-arcs.md`
-- [ ] Club Med Val d'Isère vs La Plagne 2100 — two premium resorts compared
+- [x] Club Med Val d'Isère vs La Plagne 2100 — two premium resorts compared — `2026-06-22-club-med-val-disere-vs-la-plagne.md`
 - [ ] Club Med Alpe d'Huez vs Val Thorens Sensations
 - [ ] Club Med La Rosière vs Valmorel — beginner-friendly resorts compared
 

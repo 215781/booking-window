@@ -1,0 +1,43 @@
+name: Mark Warner Summer Price Checker
+
+on:
+  schedule:
+    - cron: "30 6 * * *"    # 06:30 UTC daily (offset from Club Med at 06:00, ski MW at 07:00)
+  workflow_dispatch:          # manual trigger from GitHub Actions tab
+
+concurrency:
+  group: markwarner-summer-checker
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  check-prices:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install aiohttp
+
+      - name: Run Mark Warner summer price checker
+        run: python markwarner_summer_checker.py
+
+      - name: Safety net — commit any uncommitted CSV changes
+        if: always()
+        run: |
+          git config user.name  "Booking Window Bot"
+          git config user.email "bot@bookingwindow.co.uk"
+          git pull --rebase origin main || true
+          git add _data/prices_markwarner_summer.csv
+          git diff --staged --quiet || git commit -m "data: markwarner summer prices $(date +%Y-%m-%d) [safety net]"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main || true

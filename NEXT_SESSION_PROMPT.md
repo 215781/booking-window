@@ -9,10 +9,10 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 9bc85d7 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 51a0cea HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`9bc85d7`** (fix: hero card blank + missing resort cards + invisible sparklines)
+Last recorded push: **`51a0cea`** (docs: add business and mobile UX audit reports)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
@@ -20,48 +20,50 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 ---
 
-## Last session (2026-05-31)
+## Last session (2026-06-22)
 
-**HEAD: 9bc85d7** — Fix hero card blank + missing resort cards + invisible sparklines
+**HEAD: 51a0cea** — docs: add business and mobile UX audit reports
 
 ### Commits made this session (newest first):
 ```
-9bc85d7  fix: hero card blank + missing resort cards + invisible sparklines
-7b32d16  Auto-merge claude/kind-dewdney-806281 to main [skip ci]
-704473f  fix: async rewrite of winter checker + disable dead summer resorts
-5f16c61  data: TOMC_WINTER international ski prices 2026-05-31
+51a0cea  docs: add business and mobile UX audit reports
+3017caa  content: publish EBO guide and Val d'Isère vs La Plagne comparison
+```
+
+Previously pushed (now on origin/main as of this session):
+```
 a052c94  content: publish Eurostar Snow 2026 guide for Club Med skiers
 b2c394f  content: publish best time to book Club Med La Plagne 2100
 ```
 
-### What was done this session (2026-05-31):
+### What was done this session (2026-06-22):
 
-**Three rendering bugs fixed (commit 9bc85d7):**
-1. **Hero card blank white box** — `renderCards()` crashed mid-forEach when 4 resorts had empty `departures[]` (La Plagne 2100, Grand Massif, Val Thorens, Serre-Chevalier). `getActiveDeparture()` returned `undefined`, then `getPriceMovement(undefined)` threw TypeError. This crash propagated out of the DOMContentLoaded handler before `renderHeroBestCard()` ran — leaving the hero card as an empty white box. Fix: added `if (!dep) return;` guard in `renderCards` + null-check in `getPriceMovement`.
-2. **Sparkline invisible** — `buildSparklinePath` placed the flat line at y=41 in a 44px viewBox (3px from bottom, essentially invisible) when all prices were equal (`range=0 → fallback of 1` placed all y near bottom). Fix: when `range===0` render the flat line at `h/2` (midpoint).
-3. **RESORT_DATA stale** — 4 resorts had empty `departures[]` because May 21 inject-only used stale CSV state and LP2C_WINTER rows contaminated La Plagne 2100. Regenerated RESORT_DATA from CSV with resort_code filter applied. Grand Massif/Val Thorens/Serre-Chevalier now have 24–26 priced deps. La Plagne 2100 stays at 0 until PLAC data accumulates. All resorts now have 8 party-size combos (was 3). Checker's inject-only also patched to filter stale resort codes.
-
-**Concurrent session (claude/kind-dewdney-806281, commit 704473f) fixed:**
-- **Root cause of 12-day data gap** — `clubmed_checker.py` was writing to `price_history.csv` instead of `prices_clubmed.csv`. No winter data had been collected since 2026-05-19. Fixed in async rewrite.
-- **Async rewrite** — full aiohttp + asyncio rewrite. Runs in ~20 min vs 5+ hours synchronous. Per-resort git commit+push added (mirrors summer/markwarner pattern).
-- **Two dead summer resorts disabled** — AGAC (Agadir) and BALC (Bali) had 0 priced rows over 10–13 collection days; disabled with comments.
-- **inject-only stale-code filter** — LP2C_WINTER contamination prevention also added by this session (same fix, different implementation — kept their version in conflict resolution).
+**Lock file cleared and pending articles published:**
+- `.git/index.lock` and `.git/HEAD.lock` removed (stale from May 31 session)
+- Local `main` was 1,245 commits behind origin/main (GitHub Actions automated runs). Stash → pull → pop → commit → push sequence used.
+- **EBO article published** — `_posts/2026-05-31-club-med-early-booking-offer-how-it-works.md`: "Club Med Early Booking Offer: How It Works — and Whether It's Genuinely Better Value". Covers the 15%-off EBO promise vs what pricing data shows.
+- **Val d'Isère vs La Plagne comparison published** — `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md`: data-backed comparison of prices, price movement, and optimal booking windows for 2026/27.
+- **CONTENT_QUEUE.md and sitemap.xml** updated to reflect both new posts.
+- **BUSINESS_AUDIT.md and MOBILE_AUDIT.md** committed — internal audit documents from May 2026.
 
 ### What exists on main now (verified):
-- `clubmed/index.html` — hero card fixed, resort cards fixed (10/11 with prices; La Plagne 2100 gracefully skipped while PLAC data builds), sparklines now visible. 8 party-size combos in RESORT_DATA. All other content unchanged from May 21.
-- `clubmed_checker.py` — async aiohttp rewrite, CSV_FILE bug fixed, LP2C_WINTER filter, daily 06:00 UTC
-- `clubmed_summer_checker.py` — 22 active resorts (was 24 — AGAC and BALC disabled)
-- `clubmed_ski_international_checker.py` — 8 resorts, collecting since 2026-05-21
-- `_data/prices_clubmed.csv` — LP2C_WINTER rows present but filtered at query time; fresh data from 2026-05-31 run will appear tomorrow
-- CONTENT_QUEUE.md — new file with queued blog content ideas (from concurrent session)
+- `clubmed/index.html` — invariants confirmed: `RESORT_IMAGES` ×2, `renderHeroBestCard` ×4
+- Blog: 12+ articles live (through Val d'Isère vs La Plagne comparison)
+- `_posts/2026-05-31-club-med-early-booking-offer-how-it-works.md` — EBO guide
+- `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md` — resort comparison
+- `_posts/2026-05-28-eurostar-snow-2026-guide.md` (or similar) — Eurostar Snow guide
+- `_posts/2026-05-XX-club-med-la-plagne-2100.md` — La Plagne guide
+- `CONTENT_QUEUE.md` — updated content queue
+- `BUSINESS_AUDIT.md`, `MOBILE_AUDIT.md` — internal audit docs
+- `_data/prices_clubmed.csv` — ~27,000+ rows, automated daily collection ongoing
 
 ### Open items for next session:
-- **La Plagne 2100 (PLAC) data gap** — 0 priced departures in HTML. Once the async checker runs tonight (06:00 UTC June 1) with the correct PLAC code, La Plagne data will accumulate. Run inject-only from main repo after tomorrow's CSV update to add La Plagne back to the display.
+- **Articles 12–13 pending**: Grand Massif, Serre-Chevalier per-resort guides
 - **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision.
 - `build_site.yml` does not yet trigger on summer/international CSV changes.
 - Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - `post.html` footer still links to `/privacy.html` — should be `/privacy/`
-- Articles 12–13 pending: Grand Massif, Serre-Chevalier per-resort guides
+- **La Plagne 2100 (PLAC)** — check whether data has accumulated since June 1 and run inject-only if so
 
 ---
 

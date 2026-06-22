@@ -109,7 +109,8 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Publish article 3** — "Is Club Med Ski Worth the Money? An Honest Assessment". Target term: `is Club Med ski worth it`. 1,100 words. Package breakdown vs DIY, timing angle (Jan/March more favourable), CTA to tracker. Internal links to articles 1 and 2. Sitemap updated. (commit 0cf9154) — 2026-05-17
 - [x] **Publish articles 4–7** — Per-resort guides: Val d'Isère, Tignes, Les Arcs, Alpe d'Huez. Each ~900–1,100 words with live price data, seasonal value windows, sitemap updated. (commits 809f0bf, 3a6a5b4, 3f07025) — 2026-05-17
 - [x] **Publish articles 8–10** — Per-resort guides: Valmorel, La Rosière, Val Thorens Sensations. Blog now has 10 articles total. Sitemap updated. (commit fec4679) — 2026-05-17
-- [ ] **Content articles 11–13** — Peisey-Vallandry, Grand Massif, Serre-Chevalier per-resort guides. Defer until after hero card and mobile responsiveness are verified stable.
+- [x] **Content article 11** — Peisey-Vallandry per-resort guide published (commit 742a5b3) — 2026-05-21
+- [ ] **Content articles 12–13** — Grand Massif, Serre-Chevalier per-resort guides. Defer until data confirms consistent departure days.
 - [ ] **Create CONTENT_WRITER.md agent file** — Write a dedicated agent file for researching and publishing SEO blog posts to `_posts/`. Template: research a keyword → draft → optimise → publish. Target 2 articles per month once blog is set up.
 
 ---
@@ -237,5 +238,9 @@ See `IMPROVEMENT_PLAN.md` for the full strategic context behind these items.
 - [x] **Booking URLs fully corrected (all 15 — ski + summer)** — ski: les-arcs-panorama, l-alpe-d-huez, la-plagne-2100/y, val-d-isere, grand-massif-samoens-morillon, val-thorens-sensations/y; summer: da-balaia, gregolimano, kani, la-caravelle, marrakech-la-palmeraie, la-palmyre-atlantique (×2), magna-marbella, palmiye — /w→/y for year-round resorts. Fallback URLs fixed. Search modal entries now include resort-specific `bookingUrl`. (commit c5cd8dc) — 2026-05-21
 - [x] **Mobile resort modal departure table overflow fixed** — Table wrapped in `<div class="dept-table-wrap">` (overflow-x: auto). Book column hidden at ≤600px via CSS (`th:last-child, td:last-child { display: none }`); `.modal-cta` button handles booking on mobile. (commit c5cd8dc) — 2026-05-21
 - [x] **Expanded party size data collection — 8 combos** — `_COMBOS` in all three checkers expanded from 3 to 8 combinations covering all Club Med child age bands (0–3/4–11/12+), mixed families, second-child pricing, and 3-adult triple rooms. 4A excluded (= 2× 2A). Call volume ~2.7× increase, within safe rate-limit bounds. (commit 58f5e5e) — 2026-05-21
+- [x] **Best time to book La Plagne 2100 article published** — `_posts/2026-05-...-club-med-la-plagne-2100.md`. Per-resort booking guide for La Plagne 2100. (commit b2c394f) — 2026-05-31
+- [x] **Eurostar Snow 2026 guide published** — `_posts/2026-05-...-eurostar-snow-2026-guide.md`. Guide to Eurostar Snow ski train for Club Med skiers. (commit a052c94) — 2026-05-31
+- [x] **Club Med EBO article published** — `_posts/2026-05-31-club-med-early-booking-offer-how-it-works.md`. Covers the early booking offer promise vs what pricing data actually shows. (commit 3017caa) — 2026-06-22
+- [x] **Val d'Isère vs La Plagne comparison published** — `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md`. Data-backed comparison of prices, price movement, and optimal booking windows. (commit 3017caa) — 2026-06-22
 </content>
 </invoke>

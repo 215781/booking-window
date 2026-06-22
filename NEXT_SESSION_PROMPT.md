@@ -9,58 +9,52 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 51a0cea HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 880cc5d HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`51a0cea`** (docs: add business and mobile UX audit reports)
+Last recorded push: **`880cc5d`** (ci: add daily cron to build_site.yml to fix stale HTML)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `9bc85d7` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `880cc5d` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-06-22)
 
-**HEAD: 51a0cea** — docs: add business and mobile UX audit reports
+**HEAD: 880cc5d** — ci: add daily cron to build_site.yml to fix stale HTML
 
 ### Commits made this session (newest first):
 ```
+880cc5d  ci: add daily cron to build_site.yml to fix stale HTML (merge commit)
+2e78f29  ci: add daily cron to build_site.yml to fix stale HTML
+75480c5  docs: scribe wrap-up 2026-06-22 — EBO + Val d'Isère/La Plagne articles published, HEAD 51a0cea recorded
 51a0cea  docs: add business and mobile UX audit reports
 3017caa  content: publish EBO guide and Val d'Isère vs La Plagne comparison
 ```
 
-Previously pushed (now on origin/main as of this session):
-```
-a052c94  content: publish Eurostar Snow 2026 guide for Club Med skiers
-b2c394f  content: publish best time to book Club Med La Plagne 2100
-```
-
 ### What was done this session (2026-06-22):
 
-**Lock file cleared and pending articles published:**
-- `.git/index.lock` and `.git/HEAD.lock` removed (stale from May 31 session)
-- Local `main` was 1,245 commits behind origin/main (GitHub Actions automated runs). Stash → pull → pop → commit → push sequence used.
-- **EBO article published** — `_posts/2026-05-31-club-med-early-booking-offer-how-it-works.md`: "Club Med Early Booking Offer: How It Works — and Whether It's Genuinely Better Value". Covers the 15%-off EBO promise vs what pricing data shows.
-- **Val d'Isère vs La Plagne comparison published** — `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md`: data-backed comparison of prices, price movement, and optimal booking windows for 2026/27.
-- **CONTENT_QUEUE.md and sitemap.xml** updated to reflect both new posts.
-- **BUSINESS_AUDIT.md and MOBILE_AUDIT.md** committed — internal audit documents from May 2026.
+**build_site.yml cron fix:**
+- Root cause: `GITHUB_TOKEN` pushes (from price_checker.yml) do not trigger `on: push` workflows (GitHub anti-loop protection). So 1,245+ CSV commits since May 31 never fired `build_site.yml` — the live site was stuck showing May 31 data.
+- Fix: added `schedule: - cron: '0 8 * * *'` to `build_site.yml` so it runs independently at 08:00 UTC every day regardless of who pushed.
+- `workflow_dispatch:` was already present — can be triggered manually via GitHub Actions UI.
+- **Immediate rebuild:** `gh` CLI not installed; manual trigger required — go to https://github.com/215781/booking-window/actions/workflows/build_site.yml and click "Run workflow" → Run on `main`.
+
+**Previous session work (articles published):**
+- Lock file cleared; local main synced with origin (1,245 commits behind)
+- EBO article, Val d'Isère vs La Plagne comparison, BUSINESS_AUDIT.md, MOBILE_AUDIT.md committed
 
 ### What exists on main now (verified):
 - `clubmed/index.html` — invariants confirmed: `RESORT_IMAGES` ×2, `renderHeroBestCard` ×4
+- `.github/workflows/build_site.yml` — now has daily 08:00 UTC cron + workflow_dispatch
 - Blog: 12+ articles live (through Val d'Isère vs La Plagne comparison)
-- `_posts/2026-05-31-club-med-early-booking-offer-how-it-works.md` — EBO guide
-- `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md` — resort comparison
-- `_posts/2026-05-28-eurostar-snow-2026-guide.md` (or similar) — Eurostar Snow guide
-- `_posts/2026-05-XX-club-med-la-plagne-2100.md` — La Plagne guide
-- `CONTENT_QUEUE.md` — updated content queue
-- `BUSINESS_AUDIT.md`, `MOBILE_AUDIT.md` — internal audit docs
 - `_data/prices_clubmed.csv` — ~27,000+ rows, automated daily collection ongoing
 
 ### Open items for next session:
+- **FIRST: trigger build_site.yml manually** if not already done — https://github.com/215781/booking-window/actions/workflows/build_site.yml
 - **Articles 12–13 pending**: Grand Massif, Serre-Chevalier per-resort guides
 - **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision.
-- `build_site.yml` does not yet trigger on summer/international CSV changes.
 - Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - `post.html` footer still links to `/privacy.html` — should be `/privacy/`
 - **La Plagne 2100 (PLAC)** — check whether data has accumulated since June 1 and run inject-only if so

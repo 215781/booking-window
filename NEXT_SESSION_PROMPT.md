@@ -9,23 +9,28 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 880cc5d HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 7050d61 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`880cc5d`** (ci: add daily cron to build_site.yml to fix stale HTML)
+Last recorded push: **`7050d61`** (data: phokaia-beach-resort summer prices 2026-06-22)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `880cc5d` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `7050d61` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-06-22)
 
-**HEAD: 880cc5d** — ci: add daily cron to build_site.yml to fix stale HTML
+**HEAD: 7050d61** — data: phokaia-beach-resort summer prices 2026-06-22
 
 ### Commits made this session (newest first):
 ```
+7050d61  data: phokaia-beach-resort summer prices 2026-06-22
+a3a8778  data: paleros-beach-resort summer prices 2026-06-22
+0ead85e  data: lemnos-beach-resort summer prices 2026-06-22
+82fefa8  data: aeolian-village summer prices 2026-06-22
+f545b5d  feat: Mark Warner summer beach price checker (4 resorts)
 880cc5d  ci: add daily cron to build_site.yml to fix stale HTML (merge commit)
 2e78f29  ci: add daily cron to build_site.yml to fix stale HTML
 75480c5  docs: scribe wrap-up 2026-06-22 — EBO + Val d'Isère/La Plagne articles published, HEAD 51a0cea recorded
@@ -35,26 +40,31 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 
 ### What was done this session (2026-06-22):
 
-**build_site.yml cron fix:**
-- Root cause: `GITHUB_TOKEN` pushes (from price_checker.yml) do not trigger `on: push` workflows (GitHub anti-loop protection). So 1,245+ CSV commits since May 31 never fired `build_site.yml` — the live site was stuck showing May 31 data.
-- Fix: added `schedule: - cron: '0 8 * * *'` to `build_site.yml` so it runs independently at 08:00 UTC every day regardless of who pushed.
-- `workflow_dispatch:` was already present — can be triggered manually via GitHub Actions UI.
-- **Immediate rebuild:** `gh` CLI not installed; manual trigger required — go to https://github.com/215781/booking-window/actions/workflows/build_site.yml and click "Run workflow" → Run on `main`.
+**Mark Warner summer beach checker launched:**
+- Built `markwarner_summer_checker.py` — tracks 4 MW summer beach resorts: Aeolian Village (Lesvos, ID 26928), Lemnos Beach Resort (ID 8), Paleros Beach Resort (ID 19300), Phokaia Beach Resort/Turkey (ID 16797).
+- Resort IDs discovered from `:resort-id="N"` attribute in resort page HTML (not the nav hash IDs 961/991/992/993 which are navigation anchors, not API IDs).
+- API: same POST endpoint as ski checker — `getresortsearchcriteria`. Confirms `success: true` for all 4 resorts.
+- Tracks: 7-night and 14-night durations × 3 party sizes × all available airports per resort (LGW-only for Aeolian/Lemnos; LGW+MAN+EDI+BRS for Paleros; BHX+LGW+MAN+STN+LTN for Phokaia).
+- Writes to `_data/prices_markwarner_summer.csv` (separate from ski data). ~1,200 rows/day.
+- GitHub Actions: `.github/workflows/markwarner_summer_checker.yml` — cron 06:30 UTC daily.
+- **Live seeded 2026-06-22**: 1,198 rows across 4 resorts, 4 separate commits + pushes.
+- Note: ski MW checker (`markwarner_checker.py`) is unchanged — still targets Chalet Hotel L'Écrin (ID 957). That checker produces 0 dates in summer (seasonal), will resume Aug/Sep 2026 when ski bookings reopen.
 
-**Previous session work (articles published):**
-- Lock file cleared; local main synced with origin (1,245 commits behind)
-- EBO article, Val d'Isère vs La Plagne comparison, BUSINESS_AUDIT.md, MOBILE_AUDIT.md committed
+**Previous session work (build_site.yml cron fix):**
+- build_site.yml now has daily 08:00 UTC cron added — fixes stale HTML from GITHUB_TOKEN push suppression.
 
 ### What exists on main now (verified):
 - `clubmed/index.html` — invariants confirmed: `RESORT_IMAGES` ×2, `renderHeroBestCard` ×4
-- `.github/workflows/build_site.yml` — now has daily 08:00 UTC cron + workflow_dispatch
+- `markwarner_summer_checker.py` — live, seeded, running daily at 06:30 UTC
+- `_data/prices_markwarner_summer.csv` — 1,198 rows (day 1 seed)
+- `_data/prices_markwarner.csv` — ski data, checker dormant until Aug/Sep
 - Blog: 12+ articles live (through Val d'Isère vs La Plagne comparison)
 - `_data/prices_clubmed.csv` — ~27,000+ rows, automated daily collection ongoing
 
 ### Open items for next session:
 - **FIRST: trigger build_site.yml manually** if not already done — https://github.com/215781/booking-window/actions/workflows/build_site.yml
 - **Articles 12–13 pending**: Grand Massif, Serre-Chevalier per-resort guides
-- **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision.
+- **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision. MW summer data is now accumulating — should eventually power a /markwarner tracker page.
 - Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - `post.html` footer still links to `/privacy.html` — should be `/privacy/`
 - **La Plagne 2100 (PLAC)** — check whether data has accumulated since June 1 and run inject-only if so
@@ -69,9 +79,11 @@ Note: the verification uses ancestry (`--is-ancestor`) rather than exact match b
 - **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert may now be provisioned — check and tick "Enforce HTTPS" in Pages Settings if available.
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
-- **Mark Warner checker:** `markwarner_checker.py` — runs daily at 07:00 UTC via GitHub Actions, appends to `_data/markwarner_prices.csv`
+- **Mark Warner ski checker:** `markwarner_checker.py` — runs daily at 07:00 UTC, appends to `_data/prices_markwarner.csv`. Dormant in summer (0 ski dates May–Aug) — resumes ~Aug/Sep 2026.
+- **Mark Warner summer checker:** `markwarner_summer_checker.py` — runs daily at 06:30 UTC, appends to `_data/prices_markwarner_summer.csv`. 4 beach resorts: Aeolian Village (26928), Lemnos (8), Paleros (19300), Phokaia (16797). Seeded 2026-06-22 (1,198 rows).
 - **Price history:** `_data/prices_clubmed.csv` — append-only. In `_data/` so GitHub Pages won't serve it publicly. (Note: was incorrectly writing to `price_history.csv` until async rewrite fixed this on 2026-05-31.)
-- **Mark Warner prices:** `_data/markwarner_prices.csv` — 54 rows seeded 2026-05-04. Append-only.
+- **Mark Warner ski prices:** `_data/prices_markwarner.csv` — 400+ rows seeded 2026-05-07. Append-only. (Legacy file `markwarner_prices.csv` also exists — old schema, ignore.)
+- **Mark Warner summer prices:** `_data/prices_markwarner_summer.csv` — 1,198 rows seeded 2026-06-22. Append-only.
 - **Resorts:** 11 French Alps Club Med resorts, all codes verified
 - **Signal state:** `DATA_SUFFICIENT = false` — badges show "Building data — check back in autumn". Do not change until autumn 2026.
 - **Email:** Kit (ConvertKit) — Booking Alert form `7f784a323c`, Search popup form `f197f8f414`. Welcome sequence live.
@@ -134,6 +146,8 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-21 — **International ski checker launched** — `clubmed_ski_international_checker.py` for 8 resorts (Pragelato Sestriere, St. Moritz, 3 × Japan, 2 × China). Separate CSV + 09:00 UTC workflow. Ixtapa Pacific confirmed permanently closed. (commit 86d28c9)
 - 2026-05-31 — **Three rendering bugs fixed** — (1) Hero card blank: crash in `renderCards` when 4 resorts had empty `departures[]` prevented `renderHeroBestCard()` from running — fixed with `if (!dep) return` guard + null-check in `getPriceMovement`. (2) Sparkline invisible for stable prices: flat line was placed at bottom of chart (range=0 → fallback of 1 caused y≈bottom) — fixed to render at h/2 midpoint. (3) RESORT_DATA stale: regenerated with resort_code filter (excludes LP2C_WINTER contamination). All resorts now have 8 combos. (commit 9bc85d7)
 - 2026-05-31 — **Winter checker async rewrite** — Root cause of 12-day data gap found and fixed: `CSV_FILE` was `price_history.csv` instead of `prices_clubmed.csv`. Full async aiohttp rewrite (~20 min vs 5+ hours). Per-resort commit+push. Two dead summer resorts disabled (AGAC, BALC). inject-only LP2C_WINTER filter added. (commit 704473f)
+- 2026-06-22 — **build_site.yml daily cron added** — GITHUB_TOKEN pushes don't trigger on:push; added 08:00 UTC cron so site rebuilds daily regardless. (commit 880cc5d)
+- 2026-06-22 — **Mark Warner summer beach checker launched** — `markwarner_summer_checker.py` tracks 4 beach resorts: Aeolian Village (Lesvos, ID 26928), Lemnos (ID 8), Paleros (ID 19300), Phokaia/Turkey (ID 16797). 7+14 night durations, 3 party sizes, all available airports per resort. ~1,200 rows/day. Separate CSV `_data/prices_markwarner_summer.csv`. Cron 06:30 UTC. Seeded 2026-06-22. Resort IDs found via `:resort-id` HTML attr (not nav hash IDs). (commit f545b5d)
 
 ---
 
@@ -272,14 +286,16 @@ Note: `resortId` (957) is embedded in the page HTML (`resort[_-]?id` regex). Upd
 ## Key files quick reference
 
 ```
-clubmed/index.html          — Club Med tracker (canonical live site)
-index.html                  — Root brand landing page
-WhentoBook.html             — Redirect to /clubmed
-clubmed_checker.py          — Price checker (flags: --test, --verify, --inject-only)
-markwarner_checker.py       — Mark Warner price checker (flags: --test, --verify)
-backfill_prices.py          — Gap-fill script (run after multi-day outage)
-_data/prices_clubmed.csv    — Club Med price log (~27,000 rows, append-only)
-_data/markwarner_prices.csv — Mark Warner price log (54 rows seeded, append-only)
+clubmed/index.html                     — Club Med tracker (canonical live site)
+index.html                             — Root brand landing page
+WhentoBook.html                        — Redirect to /clubmed
+clubmed_checker.py                     — Price checker (flags: --test, --verify, --inject-only)
+markwarner_checker.py                  — Mark Warner ski checker (flags: --test, --verify); dormant May–Aug
+markwarner_summer_checker.py           — Mark Warner summer beach checker (flags: --test, --verify)
+backfill_prices.py                     — Gap-fill script (run after multi-day outage)
+_data/prices_clubmed.csv               — Club Med price log (~27,000 rows, append-only)
+_data/prices_markwarner.csv            — Mark Warner ski price log (append-only)
+_data/prices_markwarner_summer.csv     — Mark Warner summer price log (1,198 rows seeded 2026-06-22, append-only)
 vercel.json                 — Routing + security headers (Vercel only)
 .github/workflows/
   price_checker.yml         — Club Med: daily 06:00 UTC

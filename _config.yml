@@ -4,3 +4,8 @@ url: https://whentobook.co.uk
 baseurl: ""
 timezone: Europe/London
 permalink: /blog/:year/:month/:day/:title/
+# Prevent Jekyll from loading _data/*.csv files as site data (prices_clubmed.csv
+# is 12 MB / 119K rows and causes the Pages build to fail with an OOM error).
+# _data/ is still excluded from _site/ output because directories starting with _
+# are never published by Jekyll regardless of data_dir.
+data_dir: _jekyll_data

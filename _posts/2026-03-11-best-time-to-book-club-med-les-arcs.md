@@ -2,7 +2,7 @@
 layout: post
 title: "Best Time to Book Club Med Les Arcs: Live Price Data for 2026/27"
 date: 2026-03-11
-description: "Best time to book Club Med Les Arcs? Price tracking shows a £4,400 gap between the most and least expensive weeks. Here is what the data shows."
+description: "Best time to book Club Med Les Arcs? Price tracking shows a significant gap between peak and late-season weeks. Here is what the data shows."
 permalink: /blog/best-time-to-book-club-med-les-arcs/
 category: booking-intelligence
 tags: [club-med, les-arcs, ski, booking-window, paradiski]
@@ -10,7 +10,7 @@ tags: [club-med, les-arcs, ski, booking-window, paradiski]
 
 Club Med Les Arcs Panorama sits in the Paradiski ski area — one of the largest linked areas in France, connecting Les Arcs and La Plagne across the Versant d'Aime. It consistently comes in below Tignes and Val d'Isère in price while offering comparable terrain access, which makes it one of the more interesting value propositions in the Club Med French Alps portfolio.
 
-Daily price tracking from April 2026 shows that a 7-night, 2-adult package at Club Med Les Arcs ranges from **£2,874 in late April to £7,304 at New Year** — a gap of over £4,400 on an identical package at the same resort.
+Daily price tracking from April 2026 shows that a 7-night, 2-adult package at Club Med Les Arcs ranges from **£2,874 in late April to £6,642 at New Year** — a gap of nearly £3,800 on an identical package at the same resort. *Prices updated 22 June 2026.*
 
 ## Les Arcs price data: the full season picture
 
@@ -20,21 +20,21 @@ Based on daily price monitoring across the 2026/27 winter season:
 |---|---|---|
 | 13 Dec 2026 | £3,716 – £4,294 | Early season |
 | 20 Dec 2026 | £5,798 – £6,376 | Christmas week |
-| 27 Dec 2026 | £7,304 | New Year — season peak |
+| 27 Dec 2026 | £6,642 | New Year — season peak |
 | 3–31 Jan 2027 | £5,396 – £7,006 | January |
 | 7–28 Feb 2027 | £6,150 – £6,458 | Half-term and post half-term |
 | 7–27 Mar 2027 | £4,840 – £5,762 | Spring shoulder |
 | 28 Mar – 17 Apr 2027 | £3,410 – £4,658 | Late season |
 | 18 Apr 2027 | £2,874 | Season close |
 
-The data shows a familiar seasonal curve — peak at New Year (£7,304) and February half-term (£6,458), lowest in late April (£2,874) — with an interesting pattern in January where one week (24 Jan) shows £7,006, significantly above surrounding weeks.
+The data shows a familiar seasonal curve — peak at New Year (£6,642) and February half-term (£6,458), lowest in late April (£2,874) — with an interesting pattern in January where one week (24 Jan) shows £7,006, significantly above surrounding weeks.
 
 ## Where Les Arcs sits in the portfolio
 
-Les Arcs is worth understanding in context. For the same New Year week:
-- Club Med Les Arcs: £7,304 (2 adults)
+Les Arcs is worth understanding in context. For the same New Year week (as of June 2026):
+- Club Med Les Arcs: £6,642 (2 adults)
 - Club Med Tignes: £6,798 – £8,830
-- Club Med Val d'Isère: £13,608
+- Club Med Val d'Isère: £8,816
 
 Les Arcs runs at the lower end of the Espace Killy and Paradiski price cluster. But it is not the most affordable resort in the range — Valmorel and La Rosière consistently undercut it. Les Arcs sits in the upper-middle tier: premium terrain access, mid-table pricing within the portfolio.
 
@@ -54,7 +54,7 @@ One observation from the data: the week of 24 January shows £7,006 — notably 
 
 ## Booking for peak dates
 
-New Year week at Les Arcs (27 Dec departure) shows £7,304 — this is a premium week that tends to sell out early. The same applies to February half-term. If either of these is your target, the booking logic is similar to any high-demand Club Med week: the early-booking window opens in May or June of the preceding year, and waiting typically does not improve the price.
+New Year week at Les Arcs (27 Dec departure) currently shows £6,642 — this is a premium week that tends to sell out early. The same applies to February half-term. If either of these is your target, the booking logic is similar to any high-demand Club Med week: the early-booking window opens in May or June of the preceding year, and waiting typically does not improve the price.
 
 The [When To Book tracker](/clubmed) records price movements at Club Med Les Arcs daily across all departure dates in the 2026/27 season.
 

@@ -2,13 +2,14 @@
 layout: post
 title: "Best Time to Book Club Med Peisey-Vallandry: What the Price Data Shows"
 date: 2026-05-17
-description: "Best time to book Club Med Peisey-Vallandry? Live price data shows the season runs unusually late and April departures hit the lowest price point — here is what the numbers show."
+last_modified_at: 2026-06-22
+description: "Best time to book Club Med Peisey-Vallandry? Live price data shows the season runs unusually late and late-season departures hit the lowest price point — here is what the numbers show."
 permalink: /blog/best-time-to-book-club-med-peisey-vallandry/
 category: booking-intelligence
 tags: [club-med, peisey-vallandry, ski, booking-window, paradiski]
 ---
 
-Club Med Peisey-Vallandry occupies a distinctive position in the French Alps portfolio: it is the gateway to Paradiski, the linked ski area connecting Les Arcs and La Plagne — a combined 600km² of terrain that ranks among the largest interconnected ski domains in the Alps. Price data tracked from April 2026 shows a total spread from **£3,094 to £12,054** for a 7-night, 2-adult package across the 2026/27 season.
+Club Med Peisey-Vallandry occupies a distinctive position in the French Alps portfolio: it is the gateway to Paradiski, the linked ski area connecting Les Arcs and La Plagne — a combined 600km² of terrain that ranks among the largest interconnected ski domains in the Alps. Price data tracked from April 2026 shows a total spread from **£3,260 to £12,054** for a 7-night, 2-adult package across the 2026/27 season. *Prices updated 22 June 2026.*
 
 That range is live price data, not a theoretical calculation. The key question is where the value windows sit — and what makes Peisey-Vallandry's pricing pattern distinct from comparable resorts in the range.
 
@@ -35,9 +36,9 @@ Based on daily data collected from the Club Med UK booking system, here is what 
 | 21 Mar 2027 | £5,212 | Late March |
 | 28 Mar 2027 | £3,682 – £4,222 | Late season |
 | 4 Apr 2027 | £4,088 | April |
-| 11 Apr 2027 | £3,094 – £3,576 | Season's lowest |
+| 11 Apr 2027 | £3,762 | Late season |
 
-One observation stands out immediately: January at Peisey-Vallandry is not the automatic value window it is at some other resorts. The January range spans £3,860 to £5,552 — a significant spread that reflects more price movement than you would see at, for example, Valmorel (where January clusters tightly between £3,330 and £3,996). This variation makes tracking particularly worthwhile here.
+One observation stands out immediately: January at Peisey-Vallandry is not the automatic value window it is at some other resorts. The January range spans £3,860 to £5,552 — a significant spread that reflects more price movement than you would see at, for example, Valmorel (where January clusters between £4,272 and £4,696). This variation makes tracking particularly worthwhile here.
 
 ## The Paradiski factor
 
@@ -49,7 +50,7 @@ That context matters for price comparison. If you are weighing up Club Med Les A
 
 Two windows stand out clearly in the data:
 
-**Mid-April (£3,094 – £3,576 for 2 adults):** The season runs unusually late at Peisey-Vallandry — through to mid-April — and the final departure weeks carry the season's lowest prices. The 11 April week at £3,094 is the lowest tracked price point for a 2-adult package at this resort. April in the Paradiski area typically offers good snow coverage at altitude combined with spring conditions lower down. For flexible skiers comfortable with variable conditions, this window represents the most compelling case in the data.
+**Mid-April (£3,762 for 2 adults, 11 Apr):** The season runs unusually late at Peisey-Vallandry — through to mid-April — and the final departure weeks carry the season's lowest Sunday prices. April in the Paradiski area typically offers good snow coverage at altitude combined with spring conditions lower down. For flexible skiers comfortable with variable conditions, this window represents a strong value case relative to peak-season pricing.
 
 **Pre-Christmas (£3,260 – £3,768 for 2 adults, 13 Dec):** The December 13th week sits in the same price tier as the April lows. Pre-Christmas skiing has a distinctive appeal — resorts are quiet, slopes uncrowded, and the festive atmosphere builds through the week. For those who can travel before the holiday premium kicks in on 20 December, this is a high-quality window.
 
@@ -67,7 +68,7 @@ Peisey-Vallandry's Christmas week (20 Dec) at £5,112 is moderate by portfolio s
 
 ## February half-term: a different picture
 
-Half-term at Peisey-Vallandry does not follow the extreme spike pattern seen at family-focused resorts like Valmorel. The peak week (7 Feb) sits at £6,634 — elevated, but not at the £10,000+ levels seen at resorts with a more concentrated family demographic during school holidays. This relative moderation at half-term is an interesting data point for families with fixed dates who might otherwise rule out Club Med on price grounds.
+Half-term at Peisey-Vallandry does not follow the extreme spike pattern seen at some resorts. The peak week (7 Feb) sits at £6,634 — elevated, but comparable to what family-focused resorts charge in the half-term window. This relative moderation at half-term is an interesting data point for families with fixed dates who might otherwise rule out Club Med on price grounds.
 
 ## When to book, not just which week
 
@@ -77,7 +78,7 @@ January requires more active monitoring given the price variability. Setting a p
 
 ## Practical takeaway
 
-- **Flexible on dates?** Mid-April and pre-Christmas (13 Dec) sit at the season's lowest price points. Late March is the third-best window.
+- **Flexible on dates?** Pre-Christmas (13 Dec) and late March–April sit at the season's lowest Sunday price points. The 11 April departure (£3,762) and 28 March (£3,682–£4,222) are the clearest value weeks.
 - **January target?** Monitor actively — the price range on individual January weeks is wider than at some comparable resorts, which means timing matters more.
 - **Half-term?** Less extreme price spikes than at the most family-focused resorts in the portfolio, but still significantly elevated above shoulder weeks.
 - **Comparing to Les Arcs?** Both access Paradiski. Read the [Club Med Les Arcs pricing guide](/blog/best-time-to-book-club-med-les-arcs/) alongside this one — the same ski terrain can show meaningfully different prices depending on the date.

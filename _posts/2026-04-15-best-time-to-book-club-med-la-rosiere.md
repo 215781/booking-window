@@ -2,13 +2,14 @@
 layout: post
 title: "Best Time to Book Club Med La Rosière: What the Price Data Shows"
 date: 2026-04-15
+last_modified_at: 2026-06-22
 description: "Best time to book Club Med La Rosière? The resort has one of the longest seasons in the Club Med portfolio — and the data shows clear value windows. Here is what the numbers show."
 permalink: /blog/best-time-to-book-club-med-la-rosiere/
 category: booking-intelligence
 tags: [club-med, la-rosiere, ski, booking-window, mont-blanc]
 ---
 
-Club Med La Rosière sits in an unusual position in the French Alps portfolio. At 1,850m above the Tarentaise valley — with a direct ski connection into Italy via the Mont Blanc ski area — it runs a longer season than almost every other Club Med resort and opens one of the earliest December departure dates in the range. Price data tracked from April 2026 shows a spread from **£3,288 to £9,716** for a 7-night, 2-adult package across the 2026/27 season.
+Club Med La Rosière sits in an unusual position in the French Alps portfolio. At 1,850m above the Tarentaise valley — with a direct ski connection into Italy via the Mont Blanc ski area — it runs a longer season than almost every other Club Med resort and opens one of the earliest December departure dates in the range. Price data tracked from April 2026 shows a spread from **£3,288 to £9,716** for a 7-night, 2-adult package across the 2026/27 season. *Prices updated 22 June 2026.*
 
 Understanding that range — and specifically when prices sit at either end of it — is the purpose of this article.
 
@@ -21,8 +22,8 @@ Based on live data collected daily from the Club Med UK booking system, here is 
 | 13 Dec 2026 | £3,618 – £4,180 | Earliest departure — good value |
 | 20 Dec 2026 | £5,458 – £5,744 | Christmas week |
 | 27 Dec 2026 | £6,608 | New Year |
-| 3 Jan 2027 | £5,128 | January |
-| 10–31 Jan 2027 | £5,128 – £7,960 | January — see note on departure day below |
+| 3 Jan 2027 | £4,618 | January |
+| 10–31 Jan 2027 | £4,618 | January — all Sunday departures |
 | 7 Feb 2027 | £6,220 | Half-term |
 | 14–28 Feb 2027 | £5,684 – £6,294 | Post half-term |
 | 7 Mar 2027 | £4,658 – £4,902 | Early March |
@@ -39,13 +40,13 @@ For families who can travel outside peak school holiday dates, this is materiall
 
 ## How the half-term premium compares
 
-La Rosière's February pricing is notable for what it *doesn't* do. Across the portfolio, February half-term triggers significant spikes: at Valmorel, mid-February weeks reached £11,786 for 2 adults; at Val d'Isère, half-term consistently exceeds £13,000. At La Rosière, the same half-term period shows prices of £6,220–£6,294 — elevated versus January, but not the dramatic compression seen elsewhere.
+La Rosière's February pricing is notable for what it *doesn't* do. Across the portfolio, February half-term triggers significant spikes: at Val d'Isère, half-term reaches £13,244 for 2 adults. At La Rosière, the same half-term period shows prices of £6,220–£6,294 — elevated versus January, but not the dramatic premium seen at the prestige resorts.
 
 One interpretation: La Rosière's longer season distributes demand more evenly. The resort has weeks available before and after the main school holiday windows, which gives it a different supply-demand profile than resorts constrained to a tighter operating window. It also means the urgency of booking well in advance for half-term is somewhat lower here than at more constrained alternatives.
 
 ## A note on departure day pricing at La Rosière
 
-The tracked data for La Rosière includes both Saturday and Sunday departure dates. Readers comparing prices should note that Saturday departures at this resort show meaningfully higher prices than adjacent Sunday departures in some weeks. For mid-January, Saturday departures tracked as high as £9,716 while the equivalent Sunday week for the same period showed £5,128–£7,960.
+The tracked data for La Rosière includes both Saturday and Sunday departure dates. Readers comparing prices should note that Saturday departures at this resort show meaningfully higher prices than adjacent Sunday departures in some weeks. For mid-January, Saturday departures tracked as high as £9,716, while the equivalent Sunday departures in January are now priced at £4,618.
 
 If you are comparing La Rosière prices across booking platforms, verify that you are comparing equivalent departure days. The Sunday departure price — which is the standard for most Club Med French Alps resorts — is the more representative benchmark for cross-resort comparisons.
 
@@ -67,7 +68,7 @@ For January and March shoulder dates, the booking window is less pressured. Set 
 
 ## La Rosière's position in the portfolio
 
-For the week of 3 January 2027, La Rosière is priced at £5,128 for 2 adults — higher than Valmorel (£3,330–£3,996) but below Les Arcs (approximately £4,200–£5,500) and well below Val d'Isère (£7,086). The Mont Blanc ski connection — which gives access to Courmayeur on the Italian side — adds a point of differentiation against similarly priced alternatives in the portfolio.
+For the week of 3 January 2027, La Rosière is priced at £4,618 for 2 adults — above Valmorel (£4,272–£4,696) and comparable to Les Arcs (approximately £5,396–£5,934), and well below Val d'Isère (£12,026). The Mont Blanc ski connection — which gives access to Courmayeur on the Italian side — adds a point of differentiation against similarly priced alternatives in the portfolio.
 
 The [Club Med Tignes vs Les Arcs](/blog/club-med-tignes-vs-les-arcs/) article provides a useful cross-resort comparison at a similar price tier.
 

@@ -9,44 +9,51 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 577bcf9 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor b98725a HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`577bcf9`** (Auto-merge claude/inspiring-borg-f6fda0 to main — stub price fix)
+Last recorded push: **`b98725a`** (Auto-merge claude/inspiring-borg-f6fda0 to main — full article price audit)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `577bcf9` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `b98725a` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
 ## Last session (2026-06-23)
 
-**HEAD: 577bcf9** — Auto-merge claude/inspiring-borg-f6fda0 to main (stub price fix)
+**HEAD: b98725a** — Auto-merge claude/inspiring-borg-f6fda0 to main (full article price audit)
 
 ### Commits made this session (newest first):
 ```
-577bcf9  Auto-merge claude/inspiring-borg-f6fda0 to main [skip ci]
-ee1ea4e  fix: replace stub prices with real API data in articles
+b98725a  Auto-merge claude/inspiring-borg-f6fda0 to main [skip ci]
+7f70d56  fix: update article prices to match live API data (June 2026)
 ```
 
 ### What was done this session (2026-06-23):
 
-**Critical data accuracy fix — stub prices replaced in 4 articles:**
+**Comprehensive article price audit — all 14 published articles verified against live Club Med API:**
 
-Root cause: LP2C_WINTER was the wrong resort code for La Plagne 2100. All prices under that code were test stubs (£2,874 for 2A, £3,322 for other party sizes) showing identical values across every departure date — no seasonal variation. Real resort code is PLAC, tracking since 1 June 2026.
+Built `verify_article_prices.py` (115 API checks, 27 mismatches found >10% threshold). Then fixed all 14 articles:
 
-Real PLAC prices (2A, 7-night, as of 22 June 2026):
-- Range: £3,054 (Apr 11, late season) to £5,466 (Dec 27, New Year)
-- Christmas Dec 20: £4,620 — genuine seasonal premium
-- Feb half-term: £4,930–£4,976
-- New Year Dec 27: £5,466 — season peak
+Key corrections by article:
+- **Valmorel**: half-term range reverted from £5,042–£10,288 to £5,082–£5,682; Jan corrected £3,330–£3,996→£4,272–£4,696; removed claims about prices exceeding £10,000
+- **Serre-Chevalier**: uniform ~17.5% batch increase across all dates; season range £3,460–£5,946→£4,066–£6,374; half-term premium recalculated (38%→18%)
+- **Val d'Isère**: Dec 27 £13,608→£8,816; Jan split into two tiers (Jan 3/10/31 at £12,026, Jan 17/24 at £7,926); season range updated to £3,640–£13,244
+- **Val Thorens**: Dec 6 range→£4,158 single price; Dec 27 £6,416→£6,736; Apr 18/25 corrected (+15.6%); season low updated to £2,880
+- **Alpe d'Huez**: Mar 21 anomaly confirmed sold out (validates original analysis); Apr 11 £3,374→£3,900; VDI comparison updated
+- **Les Arcs**: Apr 18 £2,874→£3,322; Jan 24 anomaly normalised; season low updated
+- **La Rosière**: all Jan Sunday prices corrected to £4,618; portfolio comparison updated
+- **Tignes**: Dec 27 single price £6,798; Jan floor £5,392; season peak now Feb 7 £7,266; VDIC comparison updated
+- **Grand Massif**: Dec 27 £4,892→£5,490
+- **Peisey (both articles)**: Apr 11 corrected; VDIC Jan comparison updated from £7,086 to £7,926–£12,026
+- **Eurostar**: Peisey Jan price corrected from £5,134 to £4,462–£5,394
+- **Comparison articles**: VDIC Jan 3/10 updated to £12,026; VT late April corrected; narratives updated
 
-Articles fixed (commit ee1ea4e):
-1. `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md` — complete rewrite of La Plagne sections; removed false "no Christmas spikes / flat pricing" claims; added accurate price comparison table; updated VDIC New Year week price (£13,608→£8,816 following recent market movement); included correct PLAC price range.
-2. `_posts/2026-05-23-best-time-to-book-club-med-la-plagne.md` — replaced all LP2C stub prices with real PLAC data; corrected resort code LP2C_WINTER→PLAC; corrected duration 6-night→7-night; added full season price table with 18 departure dates; added update notice.
-3. `_posts/2026-03-11-best-time-to-book-club-med-les-arcs.md` — updated stale Dec 27 New Year price (£7,304→£6,642, price moved Jun 8); updated VDIC comparison price (£13,608→£8,816).
-4. `_posts/2026-05-19-club-med-ski-holiday-2027-prices.md` — noted VDIC New Year price movement since publication (£13,608→£8,816); corrected Les Arcs Apr 18 price at time of writing (£3,322→£2,874).
+All articles marked with `last_modified_at: 2026-06-22` and inline price update notes.
+
+**Previous session (2026-06-23 earlier):**
+La Plagne stub price fix (LP2C_WINTER→PLAC) and initial article accuracy work.
 
 **Data verification findings:**
 - LP2C had 1,563 rows in CSV, 280 with actual prices (all stubs). These rows remain in CSV (append-only) but are filtered from analysis by `resort_code` filter.
@@ -62,12 +69,12 @@ Mark Warner summer beach checker launched (see commit history).
 - `markwarner_summer_checker.py` — live, seeded, running daily at 06:30 UTC
 - `_data/prices_markwarner_summer.csv` — growing daily (seeded 1,198 rows 2026-06-22)
 - `_data/prices_markwarner.csv` — ski data, checker dormant until Aug/Sep
-- Blog: 13+ articles live (including corrected La Plagne and comparison articles)
+- Blog: 14+ articles live, all prices verified against live API and updated as of June 2026
 - `_data/prices_clubmed.csv` — ~120,000+ rows (119K+ as of Jun 23), automated daily collection ongoing
 - `_data/prices_clubmed.csv` contains 1,563 LP2C_WINTER rows (stubs) and 3,696 PLAC rows (real) — the LP2C rows are inert (filtered by resort_code param in checker)
 
 ### Open items for next session:
-- **Articles 12–13 pending**: Grand Massif, Serre-Chevalier per-resort guides
+- **Article freshness**: All 14 articles now have verified prices as of 22 June 2026. Next price audit should happen ~Sep/Oct 2026 as booking window shifts
 - **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision. MW summer data is now accumulating — should eventually power a /markwarner tracker page.
 - Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - `post.html` footer still links to `/privacy.html` — should be `/privacy/`

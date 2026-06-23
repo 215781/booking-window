@@ -16,7 +16,7 @@ That single movement is the clearest illustration of why timing matters at the r
 
 Our tracker has collected daily Club Med ski holiday 2027 prices across all eleven French Alps resorts since late April 2026, covering 20 departure dates per resort and three party-size combinations. Three patterns stand out from the first three weeks of observations.
 
-**Most weeks are still flat.** A clear majority of resort-week combinations have not moved at all over the tracking period. Val d'Isère's New Year week has held at **£13,608** for two adults across every observation. Alpe d'Huez Christmas week has held at **£6,994**. These prices were set as part of Club Med's early booking cycle and have not yet shifted.
+**Most weeks are still flat.** A clear majority of resort-week combinations have not moved at all over the tracking period. Val d'Isère's New Year week held at **£13,608** for two adults across all observations when this article was written in May — it has since moved to £8,816 as of June 2026, one of the larger individual price movements we have logged. Alpe d'Huez Christmas week has held at **£6,994**. These prices were set as part of Club Med's early booking cycle and many have not yet shifted.
 
 **Some peak weeks have already stepped up sharply.** Beyond the Valmorel example above, Grand Massif's 21 February 2027 half-term week moved from **£4,652 to £9,430** — a doubling within the same tracking window. Several of Grand Massif's mid-January and late-February weeks show similar step-up patterns. Valmorel's 7 February week moved from **£5,042 to £9,260**; its 28 February week from **£4,578 to £7,982**.
 
@@ -40,7 +40,7 @@ Three considerations follow from the data.
 
 **If your target is a peak week — Christmas, New Year, or February half-term — check whether your specific resort/week combination has already stepped up.** Several resorts have. The early booking window for those departures is over, and waiting for further movement is more likely to result in a higher price than a lower one. Resorts where peak weeks are still showing early-cycle prices — including all four Christmas weeks at Val d'Isère, Alpe d'Huez and La Rosière — remain inside the window.
 
-**If your dates are flexible, the late-season weeks offer a different calculation.** The 18 April 2027 departure at Val Thorens Sensations sits at **£3,256** for two adults; the same week at Les Arcs Panorama sits at **£3,322**; at Tignes, **£3,906**. These prices have moved modestly upward during tracking, suggesting the optimal booking window for spring departures is now rather than later.
+**If your dates are flexible, the late-season weeks offer a different calculation.** The 18 April 2027 departure at Val Thorens Sensations sits at **£3,256** for two adults; the same week at Les Arcs Panorama was **£2,874** at time of writing; at Tignes, **£3,906**. These prices have moved modestly during tracking, suggesting the optimal booking window for spring departures is now rather than later.
 
 **For weeks still at early-cycle prices, the signal-to-act is when prices begin moving — not before.** The data shows clearly that Club Med's pricing engine waits for inventory to absorb before stepping up the displayed price. Setting a price alert on your target week is the practical way to know when the booking window starts to close.
 

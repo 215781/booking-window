@@ -9,65 +9,69 @@ Then read `PLAN.md` for the full task list.
 
 Run:
 ```bash
-git merge-base --is-ancestor 7050d61 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+git merge-base --is-ancestor 577bcf9 HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
 ```
 
-Last recorded push: **`7050d61`** (data: phokaia-beach-resort summer prices 2026-06-22)
+Last recorded push: **`577bcf9`** (Auto-merge claude/inspiring-borg-f6fda0 to main — stub price fix)
 
 If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
 
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `7050d61` is in the ancestry — meaning all prior work was safely pushed.
+Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `577bcf9` is in the ancestry — meaning all prior work was safely pushed.
 
 ---
 
-## Last session (2026-06-22)
+## Last session (2026-06-23)
 
-**HEAD: 7050d61** — data: phokaia-beach-resort summer prices 2026-06-22
+**HEAD: 577bcf9** — Auto-merge claude/inspiring-borg-f6fda0 to main (stub price fix)
 
 ### Commits made this session (newest first):
 ```
-7050d61  data: phokaia-beach-resort summer prices 2026-06-22
-a3a8778  data: paleros-beach-resort summer prices 2026-06-22
-0ead85e  data: lemnos-beach-resort summer prices 2026-06-22
-82fefa8  data: aeolian-village summer prices 2026-06-22
-f545b5d  feat: Mark Warner summer beach price checker (4 resorts)
-880cc5d  ci: add daily cron to build_site.yml to fix stale HTML (merge commit)
-2e78f29  ci: add daily cron to build_site.yml to fix stale HTML
-75480c5  docs: scribe wrap-up 2026-06-22 — EBO + Val d'Isère/La Plagne articles published, HEAD 51a0cea recorded
-51a0cea  docs: add business and mobile UX audit reports
-3017caa  content: publish EBO guide and Val d'Isère vs La Plagne comparison
+577bcf9  Auto-merge claude/inspiring-borg-f6fda0 to main [skip ci]
+ee1ea4e  fix: replace stub prices with real API data in articles
 ```
 
-### What was done this session (2026-06-22):
+### What was done this session (2026-06-23):
 
-**Mark Warner summer beach checker launched:**
-- Built `markwarner_summer_checker.py` — tracks 4 MW summer beach resorts: Aeolian Village (Lesvos, ID 26928), Lemnos Beach Resort (ID 8), Paleros Beach Resort (ID 19300), Phokaia Beach Resort/Turkey (ID 16797).
-- Resort IDs discovered from `:resort-id="N"` attribute in resort page HTML (not the nav hash IDs 961/991/992/993 which are navigation anchors, not API IDs).
-- API: same POST endpoint as ski checker — `getresortsearchcriteria`. Confirms `success: true` for all 4 resorts.
-- Tracks: 7-night and 14-night durations × 3 party sizes × all available airports per resort (LGW-only for Aeolian/Lemnos; LGW+MAN+EDI+BRS for Paleros; BHX+LGW+MAN+STN+LTN for Phokaia).
-- Writes to `_data/prices_markwarner_summer.csv` (separate from ski data). ~1,200 rows/day.
-- GitHub Actions: `.github/workflows/markwarner_summer_checker.yml` — cron 06:30 UTC daily.
-- **Live seeded 2026-06-22**: 1,198 rows across 4 resorts, 4 separate commits + pushes.
-- Note: ski MW checker (`markwarner_checker.py`) is unchanged — still targets Chalet Hotel L'Écrin (ID 957). That checker produces 0 dates in summer (seasonal), will resume Aug/Sep 2026 when ski bookings reopen.
+**Critical data accuracy fix — stub prices replaced in 4 articles:**
 
-**Previous session work (build_site.yml cron fix):**
-- build_site.yml now has daily 08:00 UTC cron added — fixes stale HTML from GITHUB_TOKEN push suppression.
+Root cause: LP2C_WINTER was the wrong resort code for La Plagne 2100. All prices under that code were test stubs (£2,874 for 2A, £3,322 for other party sizes) showing identical values across every departure date — no seasonal variation. Real resort code is PLAC, tracking since 1 June 2026.
+
+Real PLAC prices (2A, 7-night, as of 22 June 2026):
+- Range: £3,054 (Apr 11, late season) to £5,466 (Dec 27, New Year)
+- Christmas Dec 20: £4,620 — genuine seasonal premium
+- Feb half-term: £4,930–£4,976
+- New Year Dec 27: £5,466 — season peak
+
+Articles fixed (commit ee1ea4e):
+1. `_posts/2026-06-22-club-med-val-disere-vs-la-plagne.md` — complete rewrite of La Plagne sections; removed false "no Christmas spikes / flat pricing" claims; added accurate price comparison table; updated VDIC New Year week price (£13,608→£8,816 following recent market movement); included correct PLAC price range.
+2. `_posts/2026-05-23-best-time-to-book-club-med-la-plagne.md` — replaced all LP2C stub prices with real PLAC data; corrected resort code LP2C_WINTER→PLAC; corrected duration 6-night→7-night; added full season price table with 18 departure dates; added update notice.
+3. `_posts/2026-03-11-best-time-to-book-club-med-les-arcs.md` — updated stale Dec 27 New Year price (£7,304→£6,642, price moved Jun 8); updated VDIC comparison price (£13,608→£8,816).
+4. `_posts/2026-05-19-club-med-ski-holiday-2027-prices.md` — noted VDIC New Year price movement since publication (£13,608→£8,816); corrected Les Arcs Apr 18 price at time of writing (£3,322→£2,874).
+
+**Data verification findings:**
+- LP2C had 1,563 rows in CSV, 280 with actual prices (all stubs). These rows remain in CSV (append-only) but are filtered from analysis by `resort_code` filter.
+- PLAC has 3,696 rows, all with real prices showing seasonal variation. Data collection confirmed since Jun 1.
+- Les Arcs £2,874 (Apr 18 departure) IS real ARPC data — price was £2,874 May 7–Jun 7, then moved to £3,322 by Jun 22. Not a stub.
+- VDIC Dec 27 (New Year): moved from £13,608 to £8,816 between Jun 19 and Jun 22 — large downward correction captured.
+
+**Previous session (2026-06-22):**
+Mark Warner summer beach checker launched (see commit history).
 
 ### What exists on main now (verified):
 - `clubmed/index.html` — invariants confirmed: `RESORT_IMAGES` ×2, `renderHeroBestCard` ×4
 - `markwarner_summer_checker.py` — live, seeded, running daily at 06:30 UTC
-- `_data/prices_markwarner_summer.csv` — 1,198 rows (day 1 seed)
+- `_data/prices_markwarner_summer.csv` — growing daily (seeded 1,198 rows 2026-06-22)
 - `_data/prices_markwarner.csv` — ski data, checker dormant until Aug/Sep
-- Blog: 12+ articles live (through Val d'Isère vs La Plagne comparison)
-- `_data/prices_clubmed.csv` — ~27,000+ rows, automated daily collection ongoing
+- Blog: 13+ articles live (including corrected La Plagne and comparison articles)
+- `_data/prices_clubmed.csv` — ~120,000+ rows (119K+ as of Jun 23), automated daily collection ongoing
+- `_data/prices_clubmed.csv` contains 1,563 LP2C_WINTER rows (stubs) and 3,696 PLAC rows (real) — the LP2C rows are inert (filtered by resort_code param in checker)
 
 ### Open items for next session:
-- **FIRST: trigger build_site.yml manually** if not already done — https://github.com/215781/booking-window/actions/workflows/build_site.yml
 - **Articles 12–13 pending**: Grand Massif, Serre-Chevalier per-resort guides
 - **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision. MW summer data is now accumulating — should eventually power a /markwarner tracker page.
 - Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
 - `post.html` footer still links to `/privacy.html` — should be `/privacy/`
-- **La Plagne 2100 (PLAC)** — check whether data has accumulated since June 1 and run inject-only if so
+- **Note on LP2C stubs in CSV**: The 1,563 LP2C_WINTER rows are append-only and remain in CSV. They are correctly filtered during inject-only runs. Do not delete them. Future content writers: always filter to `resort_code == "PLAC"` when analysing La Plagne data, exclude rows where price is blank or 2874/3322 (known stubs).
 
 ---
 
@@ -148,6 +152,7 @@ Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings f
 - 2026-05-31 — **Winter checker async rewrite** — Root cause of 12-day data gap found and fixed: `CSV_FILE` was `price_history.csv` instead of `prices_clubmed.csv`. Full async aiohttp rewrite (~20 min vs 5+ hours). Per-resort commit+push. Two dead summer resorts disabled (AGAC, BALC). inject-only LP2C_WINTER filter added. (commit 704473f)
 - 2026-06-22 — **build_site.yml daily cron added** — GITHUB_TOKEN pushes don't trigger on:push; added 08:00 UTC cron so site rebuilds daily regardless. (commit 880cc5d)
 - 2026-06-22 — **Mark Warner summer beach checker launched** — `markwarner_summer_checker.py` tracks 4 beach resorts: Aeolian Village (Lesvos, ID 26928), Lemnos (ID 8), Paleros (ID 19300), Phokaia/Turkey (ID 16797). 7+14 night durations, 3 party sizes, all available airports per resort. ~1,200 rows/day. Separate CSV `_data/prices_markwarner_summer.csv`. Cron 06:30 UTC. Seeded 2026-06-22. Resort IDs found via `:resort-id` HTML attr (not nav hash IDs). (commit f545b5d)
+- 2026-06-23 — **Stub price fix in 4 articles** — LP2C_WINTER stubs (£2,874/£3,322 flat across all dates) replaced with real PLAC data (£3,054–£5,466 with genuine seasonal curve). Val d'Isère vs La Plagne article rewritten; La Plagne best-time article rewritten with correct resort code PLAC, 7-night durations, full season price table; Les Arcs article updated with current New Year price (£6,642); ski holiday prices article updated with VDIC New Year movement. (commit ee1ea4e)
 
 ---
 

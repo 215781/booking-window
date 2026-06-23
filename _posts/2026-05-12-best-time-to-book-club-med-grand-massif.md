@@ -2,6 +2,7 @@
 layout: post
 title: "Best Time to Book Club Med Grand Massif Samoëns Morillon: What the Price Data Shows"
 date: 2026-05-12
+last_modified_at: 2026-06-22
 description: "Best time to book Club Med Grand Massif? Live price tracking shows a £2,000+ spread across the season. Here's when the data favours booking."
 permalink: /blog/best-time-to-book-club-med-grand-massif/
 category: booking-intelligence
@@ -10,7 +11,7 @@ tags: [club-med, grand-massif, samoens, morillon, ski, booking-window]
 
 Club Med Grand Massif Samoëns Morillon occupies a distinctive position in the Club Med French Alps portfolio: it is one of the more accessibly priced resorts, it sits within one of France's largest ski areas — the Grand Massif, connecting Samoëns, Morillon, Flaine, Les Carroz, and Sixt-Fer-à-Cheval — and it offers a notably full season, with departures tracked through to late April 2027.
 
-For a family of two adults, price data tracked from April 2026 shows a spread from **£3,594 to £5,860** across the season — a gap of over £2,200 for the same package at the same resort.
+For a family of two adults, price data tracked from April 2026 shows a spread from **£3,594 to £5,860** across the season — a gap of over £2,200 for the same package at the same resort. *Prices updated 22 June 2026.*
 
 ## Grand Massif pricing at a glance
 
@@ -19,7 +20,7 @@ Based on live price data collected daily from the Club Med UK booking system, he
 | Departure week | Price (2 adults) | Notes |
 |---|---|---|
 | 20 Dec 2026 | £4,432 | Pre-Christmas |
-| 27 Dec 2026 | £4,892 | New Year week |
+| 27 Dec 2026 | £5,490 | New Year week |
 | 3 Jan 2027 | £3,842 | Post-New Year — season low |
 | 10 Jan 2027 | £4,222 | Mid-January |
 | 17 Jan 2027 | £4,222 | Late January |
@@ -54,7 +55,7 @@ Three windows are clear in the current data:
 
 ## The unusual pricing shape at Grand Massif
 
-One feature of the Grand Massif data worth noting: the half-term price spike is proportionally larger here than the Christmas/New Year spike, which is the opposite pattern from what you see at Val d'Isère or Tignes. The 31 January 2027 departure (£5,860) — the early half-term week — is the season's highest price, comfortably above New Year (£4,892).
+One feature of the Grand Massif data worth noting: the half-term price spike is proportionally larger here than the Christmas/New Year spike, which is the opposite pattern from what you see at Val d'Isère or Tignes. The 31 January 2027 departure (£5,860) — the early half-term week — is the season's highest price, comfortably above New Year (£5,490).
 
 This suggests that demand for Grand Massif is particularly concentrated among families who ski during the French school holiday period, while the resort attracts fewer of the high-spending New Year market that drives peak pricing at prestige Espace Killy resorts. For families who can ski outside the French holiday windows, this pattern works strongly in their favour.
 

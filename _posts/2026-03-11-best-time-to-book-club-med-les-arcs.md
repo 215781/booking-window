@@ -2,6 +2,7 @@
 layout: post
 title: "Best Time to Book Club Med Les Arcs: Live Price Data for 2026/27"
 date: 2026-03-11
+last_modified_at: 2026-06-22
 description: "Best time to book Club Med Les Arcs? Price tracking shows a significant gap between peak and late-season weeks. Here is what the data shows."
 permalink: /blog/best-time-to-book-club-med-les-arcs/
 category: booking-intelligence
@@ -10,7 +11,7 @@ tags: [club-med, les-arcs, ski, booking-window, paradiski]
 
 Club Med Les Arcs Panorama sits in the Paradiski ski area — one of the largest linked areas in France, connecting Les Arcs and La Plagne across the Versant d'Aime. It consistently comes in below Tignes and Val d'Isère in price while offering comparable terrain access, which makes it one of the more interesting value propositions in the Club Med French Alps portfolio.
 
-Daily price tracking from April 2026 shows that a 7-night, 2-adult package at Club Med Les Arcs ranges from **£2,874 in late April to £6,642 at New Year** — a gap of nearly £3,800 on an identical package at the same resort. *Prices updated 22 June 2026.*
+Daily price tracking from April 2026 shows that a 7-night, 2-adult package at Club Med Les Arcs ranges from **£3,322 in late April to £6,642 at New Year** — a gap of over £3,300 on an identical package at the same resort. *Prices updated 22 June 2026.*
 
 ## Les Arcs price data: the full season picture
 
@@ -21,13 +22,13 @@ Based on daily price monitoring across the 2026/27 winter season:
 | 13 Dec 2026 | £3,716 – £4,294 | Early season |
 | 20 Dec 2026 | £5,798 – £6,376 | Christmas week |
 | 27 Dec 2026 | £6,642 | New Year — season peak |
-| 3–31 Jan 2027 | £5,396 – £7,006 | January |
+| 3–31 Jan 2027 | £5,396 – £5,934 | January |
 | 7–28 Feb 2027 | £6,150 – £6,458 | Half-term and post half-term |
 | 7–27 Mar 2027 | £4,840 – £5,762 | Spring shoulder |
 | 28 Mar – 17 Apr 2027 | £3,410 – £4,658 | Late season |
-| 18 Apr 2027 | £2,874 | Season close |
+| 18 Apr 2027 | £3,322 | Season close |
 
-The data shows a familiar seasonal curve — peak at New Year (£6,642) and February half-term (£6,458), lowest in late April (£2,874) — with an interesting pattern in January where one week (24 Jan) shows £7,006, significantly above surrounding weeks.
+The data shows a familiar seasonal curve — peak at New Year (£6,642) and February half-term (£6,458), lowest in late April (£3,322) — with January prices running from £5,396 to £5,934 across all five departure weeks.
 
 ## Where Les Arcs sits in the portfolio
 
@@ -42,15 +43,15 @@ For families where the Paradiski connection to La Plagne matters — and for tho
 
 ## The three windows with the strongest value case
 
-**Late April (£2,874 – £3,410 for 2 adults):** The season's lowest price point. April in the Paradiski area can deliver excellent spring conditions — Les Arcs' altitude (1,600m resort, skiing to 3,226m) means reliable coverage into late April. At £2,874 for two adults, the all-inclusive value case against self-organised alternatives is at its most clear.
+**Late April (£3,322 – £3,410 for 2 adults):** The season's lowest price point. April in the Paradiski area can deliver excellent spring conditions — Les Arcs' altitude (1,600m resort, skiing to 3,226m) means reliable coverage into late April. At this price point, the all-inclusive value case against self-organised alternatives is at its most clear.
 
 **Mid-December (£3,716 – £4,294):** The week of 13 December shows meaningful pricing below Christmas and New Year levels. Pre-Christmas weeks at Club Med tend to be popular with families trying to avoid the peak-week premium — this one deserves attention for anyone considering a December ski holiday who can pull dates forward by a week.
 
 **Late March (£4,036 – £4,840):** Post half-term pricing eases across March. Late March in the Paradiski area can be excellent — the connection to La Plagne adds significant terrain options, spring sunshine arrives, and prices are roughly 35–40% below the February peak.
 
-## The January anomaly
+## The January price range
 
-One observation from the data: the week of 24 January shows £7,006 — notably higher than surrounding January weeks at £5,396–£5,934. This could reflect limited availability pushing prices up on that specific date, or an early pricing movement as the booking window opens for that week. It is the kind of signal the tracker is designed to catch — if you are considering a January departure, checking whether that week's price has moved is worthwhile.
+January pricing across Les Arcs runs from £5,396 to £5,934 for a 7-night, 2-adult package. When this article was first written in March 2026, the week of 24 January showed an anomalous £7,006 — significantly above surrounding weeks. As of June 2026, that week has normalised to £5,934, in line with the rest of January. The temporary spike appears to have reflected limited availability at the time of observation, which has since resolved.
 
 ## Booking for peak dates
 

@@ -17,7 +17,7 @@ The Eurostar Snow train terminates at Bourg-Saint-Maurice, a hub station in the 
 
 **Club Med Les Arcs Panorama** is the most direct connection of all. The Les Arcs funicular departs from directly beside Bourg-Saint-Maurice station and reaches Arc 1600 in roughly seven minutes. It is as seamless a station-to-resort transfer as exists in the Alps.
 
-**Club Med Peisey-Vallandry** is served by Landry station, one stop before Bourg-Saint-Maurice on the same line. A short transfer takes you up to the resort. Current pricing for a two-adult week in January 2027 sits around £5,134.
+**Club Med Peisey-Vallandry** is served by Landry station, one stop before Bourg-Saint-Maurice on the same line. A short transfer takes you up to the resort. Current pricing for a two-adult week in January 2027 sits around £4,462–£5,394, depending on the specific departure week.
 
 **Club Med Tignes** is approximately 45 minutes from Bourg-Saint-Maurice by coach transfer. Shuttle buses and private transfers depart from the station forecourt. Pricing for a February half-term week (departing 14 February 2027) is currently around £6,610 for two adults.
 
@@ -71,4 +71,4 @@ If you want to be notified the next time pricing for your week moves, you can se
 
 ---
 
-*Price data sourced from the When To Book live price tracker, updated daily. All prices shown are for two adults, accommodation only (no flights), as tracked in May 2026. Prices are illustrative of recent observed ranges and will continue to move. The site is currently in its data-building phase — confirmed booking signal states will be available from autumn 2026.*
+*Price data sourced from the When To Book live price tracker, updated daily. All prices shown are for two adults, accommodation only (no flights). Prices are illustrative of recent observed ranges and will continue to move. Peisey-Vallandry January pricing updated 22 June 2026. The site is currently in its data-building phase — confirmed booking signal states will be available from autumn 2026.*

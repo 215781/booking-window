@@ -18,7 +18,7 @@ For two adults on a seven-night stay, current prices across the 2026/27 season l
 
 **Club Med Alpe d'Huez** runs from early December through to mid-April. The tracked price range across the season is **£3,374 to £6,748** for two adults, with Christmas and New Year weeks commanding the highest prices and early December and late March representing the most accessible entry points.
 
-**Club Med Val Thorens Sensations** tracks similarly in the winter core but extends meaningfully further into spring — with departures available through **25 April 2027** and prices falling as low as **£2,492** for two adults in late April. The tracked range across the season is £2,492 to £7,216.
+**Club Med Val Thorens Sensations** tracks similarly in the winter core but extends meaningfully further into spring — with departures available through **25 April 2027** and prices falling as low as **£2,880** for two adults in late April. The tracked range across the season is £2,880 to £7,216.
 
 Both resorts are significantly more affordable than Club Med's premium French Alps options such as Val d'Isère or Tignes, which makes the week-by-week dynamics of their pricing more consequential for most families. The gap between a well-timed and a poorly-timed booking here might be a few hundred to a couple of thousand pounds — still worth watching.
 
@@ -48,11 +48,11 @@ Val Thorens is Europe's highest ski resort by ski-in/ski-out criteria, and its a
 
 Those late-April weeks at Val Thorens are priced significantly lower than the winter core:
 
-- **11 April:** £3,298
-- **18 April:** £2,818
-- **25 April:** £2,492
+- **11 April:** £3,812
+- **18 April:** £3,256
+- **25 April:** £2,880
 
-For families who ski regularly and are happy to wait for the end of season — or who specifically want spring skiing conditions (longer daylight, warmer temperatures, often lighter crowds) — this is a distinctive feature of Val Thorens. Late April at Club Med Val Thorens Sensations at £2,492 for two adults represents a materially different proposition than any comparable week at Alpe d'Huez.
+For families who ski regularly and are happy to wait for the end of season — or who specifically want spring skiing conditions (longer daylight, warmer temperatures, often lighter crowds) — this is a distinctive feature of Val Thorens. Late April at Club Med Val Thorens Sensations at £2,880 for two adults represents a materially different proposition than any comparable week at Alpe d'Huez.
 
 ## How prices have moved since tracking began
 

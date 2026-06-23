@@ -29,7 +29,7 @@ For context on what each resort costs across the key booking periods this winter
 | 13 Dec 2026 | £3,442 | £6,018 |
 | 20 Dec 2026 (Christmas) | £4,620 | £12,040 |
 | 27 Dec 2026 (New Year) | £5,466 | £8,816 |
-| 3–10 Jan 2027 | £4,094 | £7,792 |
+| 3–10 Jan 2027 | £4,094 | £12,026 |
 | 7 Feb 2027 (half-term) | £4,930 | £13,244 |
 | 14 Feb 2027 (half-term) | £4,930 | £8,580 |
 | 28 Mar 2027 | £3,672 | £6,362 |
@@ -37,7 +37,7 @@ For context on what each resort costs across the key booking periods this winter
 
 *All prices: 7-night, 2 adults, as of 22 June 2026.*
 
-The gap between the two resorts is at its widest during peak weeks. For a Christmas departure, the difference is £7,420 for two adults on an identical holiday duration and format — not a rounding error in any household's holiday budget. In late April, the gap narrows to around £1,700, reflecting more comparable demand at shoulder-season dates.
+The gap between the two resorts is at its widest during peak weeks. For a Christmas departure, the difference is £7,420 for two adults on an identical holiday duration and format — not a rounding error in any household's holiday budget. At early January (3–10 Jan), the gap widens to £7,932 as Val d'Isère's pricing tier has stepped up. In late April, the gap narrows to around £1,700, reflecting more comparable demand at shoulder-season dates.
 
 ## How prices have moved
 
@@ -51,7 +51,7 @@ Three weeks is not enough to characterise La Plagne's pricing dynamics with conf
 
 ## What this means for your booking decision
 
-For **Val d'Isère**, the data points clearly toward booking peak weeks earlier rather than later. Christmas, New Year, and February half-term weeks at Val d'Isère carry very high absolute prices, and several of those weeks have shown upward movement during our tracking period. Anyone watching the January 10 week, for instance, has seen a higher price tier appear alongside the original. Later booking on peak weeks at Val d'Isère has generally meant paying more.
+For **Val d'Isère**, the data points clearly toward booking peak weeks earlier rather than later. Christmas, New Year, and February half-term weeks at Val d'Isère carry very high absolute prices, and several of those weeks have shown upward movement during our tracking period. The January 10 departure is a clear example: what showed at £7,792 in early June now tracks at £12,026 — reflecting a higher price tier as earlier inventory sold through. Later booking on peak weeks at Val d'Isère has generally meant paying more.
 
 For shoulder and late-season weeks at Val d'Isère — late March and April — the picture is different. These weeks sit at more accessible price points and have shown less directional pressure. Late-season Val d'Isère is a different calculation to peak-week Val d'Isère.
 

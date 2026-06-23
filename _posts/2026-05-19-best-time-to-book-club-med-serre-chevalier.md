@@ -2,7 +2,8 @@
 layout: post
 title: "Best Time to Book Club Med Serre-Chevalier: What the Price Data Shows"
 date: 2026-05-19
-description: "Best time to book Club Med Serre-Chevalier? Live price tracking shows prices from £3,460 to £5,946 across the season. Here's when the data favours booking."
+last_modified_at: 2026-06-22
+description: "Best time to book Club Med Serre-Chevalier? Live price tracking shows prices from £4,066 to £6,374 across the season. Here's when the data favours booking."
 permalink: /blog/best-time-to-book-club-med-serre-chevalier/
 category: booking-intelligence
 tags: [club-med, serre-chevalier, ski, booking-window, hautes-alpes]
@@ -10,7 +11,7 @@ tags: [club-med, serre-chevalier, ski, booking-window, hautes-alpes]
 
 Club Med Serre-Chevalier is one of the less-discussed entries in the French Alps portfolio, but it has a strong case for informed buyers. It sits in the Hautes-Alpes département — further south than the Savoie resorts — and provides access to one of France's most extensive ski areas, covering four linked valleys and over 300km of marked runs between Briançon and La Grave.
 
-For a family of two adults, price data tracked from April 2026 shows a spread from **£3,460 to £5,946** across the 2026/27 winter season. The overall price range is similar to Grand Massif, with a moderate peak-to-trough spread compared to the prestige resorts.
+For a family of two adults, price data tracked from April 2026 shows a spread from **£4,066 to £6,374** across the 2026/27 winter season. *Prices updated 22 June 2026.* The overall price range is similar to Grand Massif, with a moderate peak-to-trough spread compared to the prestige resorts.
 
 ## Serre-Chevalier pricing at a glance
 
@@ -18,24 +19,24 @@ Based on live price data collected daily from the Club Med UK booking system, he
 
 | Departure week | Price (2 adults) | Notes |
 |---|---|---|
-| 20 Dec 2026 | £4,676 | Pre-Christmas |
-| 27 Dec 2026 | £5,494 | New Year week |
-| 3 Jan 2027 | £4,300 | Post-New Year |
-| 10 Jan 2027 | £4,300 | Mid-January |
-| 17 Jan 2027 | £4,552 | Late January |
-| 24 Jan 2027 | £4,300 | Pre half-term |
-| 31 Jan 2027 | £4,552 | Early February |
+| 20 Dec 2026 | £5,496 | Pre-Christmas |
+| 27 Dec 2026 | £6,374 | New Year week |
+| 3 Jan 2027 | £5,054 | Post-New Year |
+| 10 Jan 2027 | £5,054 | Mid-January |
+| 17 Jan 2027 | £5,054 | Late January |
+| 24 Jan 2027 | £5,054 | Pre half-term |
+| 31 Jan 2027 | £5,054 | Early February |
 | 7 Feb 2027 | £5,946 | Half-term peak — season high |
-| 14 Feb 2027 | £5,828 | Post half-term |
-| 21 Feb 2027 | £5,310 | Late February |
-| 28 Feb 2027 | £4,960 | Early March |
-| 7 Mar 2027 | £4,234 | Mid-March |
-| 14 Mar 2027 | £3,776 | Late March |
-| 21 Mar 2027 | £3,776 | Spring shoulder |
-| 28 Mar 2027 | £3,594 | Early April |
-| 4 Apr 2027 | £3,460 | Season low |
+| 14 Feb 2027 | £6,088 | Post half-term |
+| 21 Feb 2027 | £5,830 | Late February |
+| 28 Feb 2027 | £5,830 | Early March |
+| 7 Mar 2027 | £4,702 | Mid-March |
+| 14 Mar 2027 | £4,436 | Late March |
+| 21 Mar 2027 | £4,436 | Spring shoulder |
+| 28 Mar 2027 | £4,222 | Early April |
+| 4 Apr 2027 | £4,066 | Season low |
 
-The data shows a clear structure: January is notably stable, with three weeks priced at exactly £4,300. The February half-term is the season peak at £5,946, while late March through April delivers the best value, with the 4 April departure at £3,460 being the lowest tracked price.
+The data shows a clear structure: January pricing is notably stable, with all five weeks priced identically at £5,054. The February half-term is the season peak at £5,946 (7 Feb), while late March through April delivers the best value, with the 4 April departure at £4,066 being the lowest tracked price.
 
 ## What makes Serre-Chevalier stand out
 
@@ -47,17 +48,17 @@ The ski area itself — the Grand Serre-Che — covers 330km of marked runs, mak
 
 Three windows are clear in the current data:
 
-**4 April 2027 (£3,460 for 2 adults):** The season's lowest tracked price. Early April in the southern Alps can deliver excellent skiing — the combination of altitude, sun, and spring conditions makes late-season skiing at Serre-Chevalier a genuine highlight for those who have experienced it. The resort is quieter, but operational — ski schools and lift passes remain available through the season close.
+**4 April 2027 (£4,066 for 2 adults):** The season's lowest tracked price. Early April in the southern Alps can deliver excellent skiing — the combination of altitude, sun, and spring conditions makes late-season skiing at Serre-Chevalier a genuine highlight for those who have experienced it. The resort is quieter, but operational — ski schools and lift passes remain available through the season close.
 
-**Late March (£3,594 – £3,776 for 2 adults):** The 28 March and 14–21 March departures represent very strong value. Serre-Chevalier's southerly aspect and reliable sunshine make late March conditions particularly pleasant — soft afternoon snow and warm temperatures are the norm by this point in the season.
+**Late March (£4,222 – £4,436 for 2 adults):** The 28 March and 14–21 March departures represent strong value relative to the February peak. Serre-Chevalier's southerly aspect and reliable sunshine make late March conditions particularly pleasant — soft afternoon snow and warm temperatures are the norm by this point in the season.
 
-**January (£4,300 for 2 adults, most weeks):** The stability of January pricing at Serre-Chevalier is notable — three separate departure dates are priced identically at £4,300. This represents a consistent shoulder period with established conditions, smaller crowds than February, and prices sitting approximately 30% below the half-term peak. The 24 January departure is the last of these before the pre-half-term build begins.
+**January (£5,054 for 2 adults, all five weeks):** The stability of January pricing at Serre-Chevalier is notable — every Sunday departure across the entire month is priced identically at £5,054. This represents a consistent shoulder period with established conditions, smaller crowds than February, and prices sitting approximately 15% below the half-term peak. Any January week is a like-for-like choice on price.
 
 ## The half-term spike
 
-The February half-term spike at Serre-Chevalier is pronounced. The 7 February departure at £5,946 represents a 38% premium over the £4,300 January baseline. This is a substantial uplift for a resort that does not carry the same brand premium as Val d'Isère or Tignes.
+The February half-term spike at Serre-Chevalier is visible but measured. The 7 February departure at £5,946 represents an 18% premium over the £5,054 January baseline — meaningful, but modest compared to the half-term spikes seen at more family-oriented resorts in the portfolio.
 
-The spike likely reflects concentrated demand from families constrained by school calendars. For families with flexibility, the 38% price difference between the half-term week and the adjacent January weeks is the clearest timing advantage in the Serre-Chevalier data.
+The premium reflects concentrated demand from families constrained by school calendars. For families with flexibility, the price difference between the half-term week and the adjacent January weeks remains the clearest timing advantage in the Serre-Chevalier data.
 
 ## When to book
 
@@ -68,7 +69,7 @@ The price data collected so far shows that January pricing has been consistent f
 ## Practical takeaway
 
 - **Flexible on dates?** Early April and late March are the clearest value windows. The spring sunshine and quiet resort more than compensate for the late-season timing.
-- **January skiing?** The £4,300 price point across multiple weeks makes January a consistent option, with conditions typically reliable at altitude by early January.
+- **January skiing?** The £5,054 price point across all five January weeks makes January a consistent option, with conditions typically reliable at altitude by early January.
 - **Comparing with other resorts?** Serre-Chevalier's price range overlaps with Grand Massif, while accessing a larger and arguably more varied ski area. For confident intermediates and strong skiers, the terrain case for Serre-Chevalier is strong relative to its price positioning.
 
 <div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">

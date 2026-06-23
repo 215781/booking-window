@@ -63,7 +63,7 @@ The data collected so far shows prices varying across the booking window even wi
 
 ## Comparing Peisey-Vallandry against alternatives
 
-For a January week, Peisey-Vallandry sits at around £4,462–£5,394 for two adults, depending on the specific date. That compares to approximately £7,086 at Val d'Isère and £4,222–£5,568 at Grand Massif for the same period.
+For a January week, Peisey-Vallandry sits at around £4,462–£5,394 for two adults, depending on the specific date. That compares to approximately £7,926–£12,026 at Val d'Isère (depending on the specific week) and £4,222–£5,568 at Grand Massif for the same period.
 
 The terrain access at Peisey-Vallandry — the full Paradiski system — is arguably stronger than Grand Massif's offering for experienced or ambitious skiers, while sitting at a significantly lower price than the Espace Killy resorts. For families where skiing ability and terrain variety matter more than resort prestige, the value case is clear.
 

@@ -34,7 +34,7 @@ Topics for the Content Writer agent to work through in order. Check off each ite
 - [x] Club Med Tignes vs Les Arcs — `2026-02-25-club-med-tignes-vs-les-arcs.md`
 - [x] Club Med Val d'Isère vs La Plagne 2100 — two premium resorts compared — `2026-06-22-club-med-val-disere-vs-la-plagne.md`
 - [x] Club Med Alpe d'Huez vs Val Thorens Sensations — `2026-06-23-club-med-alpe-dhuez-vs-val-thorens.md`
-- [ ] Club Med La Rosière vs Valmorel — beginner-friendly resorts compared
+- [x] Club Med La Rosière vs Valmorel — beginner-friendly resorts compared — `2026-06-29-club-med-la-rosiere-vs-valmorel.md`
 
 ---
 

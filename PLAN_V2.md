@@ -11,6 +11,48 @@ This document is split into two halves:
 
 ---
 
+## STATUS UPDATE — 2026-09-30 (audit of origin/main + Actions history)
+
+Full write-up: vault `When To Book/Session Notes/2026-09-30-site-and-data-audit.md`. Site is live and healthy; data pipeline is not. **The C-tasks below take priority over remaining B-tasks.** Local clone is far behind origin — `git fetch`/pull before any work.
+
+### C-GROUP: PIPELINE & DATA (new, urgent)
+
+- [ ] **C1 — Fix `build_site.yml` timeouts.** Cancelled at 30 min almost daily since ~23 Jul; live HTML data last regenerated 2 Sep. Likely cause: `--inject-only` over 54 MB + 58 MB CSVs. Profile and optimise (or restrict injected history window); verify a daily successful run.
+- [ ] **C2 — Fix `clubmed_summer_checker.yml` timeouts.** Cancelled at 60 min daily since ~11 Aug; only ~6/24 resorts get rows per day (was ~21). Consider splitting into resort batches / multiple workflows, or trimming combos.
+- [ ] **C3 — Fix `markwarner_checker.yml` (ski) failure.** Failing daily since 12 Aug (<1 min, step "Run Mark Warner price checker"); no rows since 10 Jun. Get the log / run `--verify`; check whether ski dates have opened and whether `resortId` 957 still valid.
+- [ ] **C4 — CSV size before GitHub 100 MB limit (~Jan 2027).** `prices_clubmed.csv` 54 MB, `prices_clubmed_summer.csv` 58 MB. Options: drop/stop collecting 6-night rows (47% of winter rows, 30% priced), archive old history by month, split per season. HTML is also 10.7 MB — trim embedded history.
+- [ ] **C5 — Grand Massif / Serre-Chevalier departure day.** Both still track Sat + Sun (42 dates); earlier plan item marked "fixed to Sunday". Decide and align checker, display and articles. SECC only 37% priced.
+- [ ] **C6 — Review >30% price swings** (~127 after dedupe; Val d'Isère 71, Val Thorens 34): genuine peak weeks vs API flicker. Decide on smoothing before signals go live.
+- [ ] **C7 — Purge 280 junk `LP2C_WINTER` rows** from `prices_clubmed.csv` (filtered in code today; tidy-up only).
+- [ ] **C8 — Local repo hygiene.** Pull/reset local clone to origin; add a start-of-session `git fetch` + Actions status check to NEXT_SESSION_PROMPT.md (its `7050d61` check is obsolete).
+- [ ] **C9 — Autumn milestones now due:** decide on `DATA_SUFFICIENT = true`; publish "Club Med price history [resort]" article; build booking-window analysis script (MT-6).
+- [ ] **C11 — Re-audit article prices.** The 2026-06-22/23 audit (`verify_article_prices.py` — NOT in the repo, rebuild or recover it; 14 articles) is 3 months old and winter prices have moved; articles carry "as of June 2026" notes. Re-run against live API / current CSV, update articles + `last_modified_at`. Also fix Val d'Isère "42 departure dates" → 21 (B10).
+- [ ] **C10 — Sandals checker:** still not started (CSV header-only). Low priority.
+
+### Reality check of B-tasks (as of 2026-09-30)
+
+| Task | Status |
+|---|---|
+| B1 Unify header | NOT DONE (tracker and blog still differ) |
+| B2 Reorder sections | DRIFTED — How-it-works removed (moved to about); order is now hero → grid → signal guide |
+| B3 About page | DONE (`about.md`; stale duplicate `about.html` should be removed) |
+| B4 Affiliate disclosure | DONE (page built; footer link not yet active — correct) |
+| B5 Footer | DONE (dark teal footer). `_layouts/post.html` still links `/privacy.html` → change to `/privacy/` |
+| B6 Hero pull quote | NOT DONE |
+| B7 Hero/signal copy | NOT DONE — new strings absent |
+| B8 Modal copy | NOT DONE — "seen a price drop" still present |
+| B9 CTA boxes / closing lines | Unverified |
+| B10 Val d'Isère date count | WRONG — article says 42; tracker follows 21 Sunday weeks (42 double-counts 6n+7n). Fix to 21 (article body + CTA box) |
+| B11 Articles | DONE — all 12 resort guides + 4 comparisons + EBO + Eurostar (21 posts) |
+| B12 Mobile hero audit | UNRESOLVED |
+| B13 Summer nav | DONE (no `/summer` link) |
+| B14 Affiliate links | Blocked on Awin |
+| B15 Kit form fix | DONE |
+
+Also open: "cheapest" appears in 4 posts (eurostar, la-plagne, la-rosiere, val-thorens) against the banned-word rule; duplicate `privacy.html`/`privacy.md`; Awin application status unknown (A7) — owner to confirm.
+
+---
+
 ## SECTION A — OWNER ACTIONS
 
 *These cannot be delegated to an agent. They are ordered by when they need to happen — not all are urgent right now. Read the timeline at the bottom of this document before starting.*

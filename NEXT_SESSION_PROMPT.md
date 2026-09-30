@@ -1,84 +1,46 @@
 # Next Session Prompt — When To Book
 
 **Read this file first at the start of every session, before doing anything else.**
-Then read `PLAN.md` for the full task list.
+Then read `PLAN_V2.md` (active plan; start with the "STATUS UPDATE — 2026-09-30" section). `PLAN.md` is superseded history.
 
 ---
 
-## ⚠️ START-OF-SESSION VERIFICATION — DO THIS BEFORE ANYTHING ELSE
+## ⚠️ START-OF-SESSION CHECKS — DO THESE BEFORE ANYTHING ELSE
 
-Run:
+Bots push price data to `main` every day, so any local clone is stale within hours.
+
 ```bash
-git merge-base --is-ancestor b98725a HEAD && echo "OK — HEAD is ahead of last recorded state" || echo "MISMATCH — investigate before starting work"
+cd ~/booking-window && git fetch && git status -sb        # expect to be behind origin; pull before working
+curl -s "https://api.github.com/repos/215781/booking-window/actions/runs?per_page=30" | python3 -c "import sys,json;[print(r['created_at'][:16],r['name'],r['conclusion']) for r in json.load(sys.stdin)['workflow_runs']]"
 ```
 
-Last recorded push: **`b98725a`** (Auto-merge claude/inspiring-borg-f6fda0 to main — full article price audit)
-
-If the check prints MISMATCH: stop, do not begin work, diagnose what diverged and why.
-
-Note: the verification uses ancestry (`--is-ancestor`) rather than exact match because the Scribe's own documentation commits always advance HEAD past the recorded hash. What matters is that `b98725a` is in the ancestry — meaning all prior work was safely pushed.
+Check that every workflow is `success`. As of 2026-09-30 three are NOT (see below). Do not assume the live HTML is current — check the newest `build:` commit date.
 
 ---
 
-## Last session (2026-06-23)
+## State as of 2026-09-30 (full audit: vault `When To Book/Session Notes/2026-09-30-site-and-data-audit.md`)
 
-**HEAD: b98725a** — Auto-merge claude/inspiring-borg-f6fda0 to main (full article price audit)
+**Site is live and healthy** (HTTPS OK, `/_data/*` returns 404). **Data pipeline is partly broken:**
 
-### Commits made this session (newest first):
-```
-b98725a  Auto-merge claude/inspiring-borg-f6fda0 to main [skip ci]
-7f70d56  fix: update article prices to match live API data (June 2026)
-```
+| Job | Status |
+|---|---|
+| `build_site.yml` | Cancelled at 30-min limit almost daily since ~23 Jul → live `/clubmed` HTML data last regenerated **2 Sep** |
+| `clubmed_summer_checker.yml` | Cancelled at 60-min limit daily since ~11 Aug → only ~6 of 24 resorts get rows per day |
+| `markwarner_checker.yml` (ski) | Failing daily since 12 Aug; no rows since 10 Jun |
+| winter price_checker, intl ski, MW summer, backup | Healthy |
 
-### What was done this session (2026-06-23):
+Other facts:
+- Club Med winter 2026/27 is **now on sale** (Dec–Apr all priced). The old "prices empty / not on sale yet" note is obsolete.
+- `_data/prices_clubmed.csv` ≈ 54 MB / 535k rows; `prices_clubmed_summer.csv` ≈ 58 MB. Both hit GitHub's 100 MB file limit ~Jan 2027. 47% of winter rows are 6-night rows (30% priced). HTML is 10.7 MB.
+- Grand Massif and Serre-Chevalier track Sat + Sun; all other resorts Sunday only (21 weeks, 6 Dec → 25 Apr).
+- **Article prices are stale.** A full audit on 2026-06-22/23 (`verify_article_prices.py` — NOT in the repo, rebuild or recover it; 14 articles) set prices "as of June 2026". Winter prices have moved since. Re-audit due now (PLAN_V2 C11). Val d'Isère article wrongly says "42 departure dates" (should be 21).
+- 280 junk `LP2C_WINTER` rows remain in the CSV (append-only; filtered by `resort_code`). For La Plagne always use `PLAC`.
+- `DATA_SUFFICIENT = false` still — autumn decision now due (PLAN_V2 C9).
+- Open plan work: PLAN_V2 **C1–C11 (pipeline/data, urgent)** then remaining B-tasks (B1, B6, B7, B8, B10, B12; `post.html` links `/privacy.html` → `/privacy/`). Awin application status unknown — owner to confirm.
+- Owner is running a strategy rethink (Cowork) — expect the plan to change; treat PLAN_V2 C-group as the safe, direction-independent work.
 
-**Comprehensive article price audit — all 14 published articles verified against live Club Med API:**
-
-Built `verify_article_prices.py` (115 API checks, 27 mismatches found >10% threshold). Then fixed all 14 articles:
-
-Key corrections by article:
-- **Valmorel**: half-term range reverted from £5,042–£10,288 to £5,082–£5,682; Jan corrected £3,330–£3,996→£4,272–£4,696; removed claims about prices exceeding £10,000
-- **Serre-Chevalier**: uniform ~17.5% batch increase across all dates; season range £3,460–£5,946→£4,066–£6,374; half-term premium recalculated (38%→18%)
-- **Val d'Isère**: Dec 27 £13,608→£8,816; Jan split into two tiers (Jan 3/10/31 at £12,026, Jan 17/24 at £7,926); season range updated to £3,640–£13,244
-- **Val Thorens**: Dec 6 range→£4,158 single price; Dec 27 £6,416→£6,736; Apr 18/25 corrected (+15.6%); season low updated to £2,880
-- **Alpe d'Huez**: Mar 21 anomaly confirmed sold out (validates original analysis); Apr 11 £3,374→£3,900; VDI comparison updated
-- **Les Arcs**: Apr 18 £2,874→£3,322; Jan 24 anomaly normalised; season low updated
-- **La Rosière**: all Jan Sunday prices corrected to £4,618; portfolio comparison updated
-- **Tignes**: Dec 27 single price £6,798; Jan floor £5,392; season peak now Feb 7 £7,266; VDIC comparison updated
-- **Grand Massif**: Dec 27 £4,892→£5,490
-- **Peisey (both articles)**: Apr 11 corrected; VDIC Jan comparison updated from £7,086 to £7,926–£12,026
-- **Eurostar**: Peisey Jan price corrected from £5,134 to £4,462–£5,394
-- **Comparison articles**: VDIC Jan 3/10 updated to £12,026; VT late April corrected; narratives updated
-
-All articles marked with `last_modified_at: 2026-06-22` and inline price update notes.
-
-**Previous session (2026-06-23 earlier):**
-La Plagne stub price fix (LP2C_WINTER→PLAC) and initial article accuracy work.
-
-**Data verification findings:**
-- LP2C had 1,563 rows in CSV, 280 with actual prices (all stubs). These rows remain in CSV (append-only) but are filtered from analysis by `resort_code` filter.
-- PLAC has 3,696 rows, all with real prices showing seasonal variation. Data collection confirmed since Jun 1.
-- Les Arcs £2,874 (Apr 18 departure) IS real ARPC data — price was £2,874 May 7–Jun 7, then moved to £3,322 by Jun 22. Not a stub.
-- VDIC Dec 27 (New Year): moved from £13,608 to £8,816 between Jun 19 and Jun 22 — large downward correction captured.
-
-**Previous session (2026-06-22):**
-Mark Warner summer beach checker launched (see commit history).
-
-### What exists on main now (verified):
-- `clubmed/index.html` — invariants confirmed: `RESORT_IMAGES` ×2, `renderHeroBestCard` ×4
-- `markwarner_summer_checker.py` — live, seeded, running daily at 06:30 UTC
-- `_data/prices_markwarner_summer.csv` — growing daily (seeded 1,198 rows 2026-06-22)
-- `_data/prices_markwarner.csv` — ski data, checker dormant until Aug/Sep
-- Blog: 14+ articles live, all prices verified against live API and updated as of June 2026
-- `_data/prices_clubmed.csv` — ~120,000+ rows (119K+ as of Jun 23), automated daily collection ongoing
-- `_data/prices_clubmed.csv` contains 1,563 LP2C_WINTER rows (stubs) and 3,696 PLAC rows (real) — the LP2C rows are inert (filtered by resort_code param in checker)
-
-### Open items for next session:
-- **Article freshness**: All 14 articles now have verified prices as of 22 June 2026. Next price audit should happen ~Sep/Oct 2026 as booking window shifts
-- **Site UI restructure** — 11 ski + 9 summer resorts displayed; 14 new summer + 8 international ski tracked in CSV only. Needs design decision. MW summer data is now accumulating — should eventually power a /markwarner tracker page.
-- Review PLAN_V2.md tasks B1–B15 — especially B6 (hero pull quote), B7 (copy rewrite), B2 (section reorder)
-- `post.html` footer still links to `/privacy.html` — should be `/privacy/`
-- **Note on LP2C stubs in CSV**: The 1,563 LP2C_WINTER rows are append-only and remain in CSV. They are correctly filtered during inject-only runs. Do not delete them. Future content writers: always filter to `resort_code == "PLAC"` when analysing La Plagne data, exclude rows where price is blank or 2874/3322 (known stubs).
+## Last recorded repo state
+Newest non-bot commit: `20d778bd` (2026-06-29, La Rosière vs Valmorel article). Everything since is bot data/build commits plus the 2026-09-30 audit docs.
 
 ---
 
@@ -87,10 +49,10 @@ Mark Warner summer beach checker launched (see commit history).
 **whentobook.co.uk** — Club Med price intelligence site (ski resorts). Built by Drop Media Ltd. Root URL is a brand landing page; Club Med tracker lives at `/clubmed`. Future operators: `/markwarner`, `/sandals` etc.
 
 - **Repo:** `~/booking-window/` / `git@github.com:215781/booking-window.git`
-- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTP working; HTTPS cert may now be provisioned — check and tick "Enforce HTTPS" in Pages Settings if available.
+- **Live site:** GitHub Pages — DNS live as of 2026-05-04. HTTPS working (verified 2026-09-30).
 - **HTML files:** `clubmed/index.html` (Club Med tracker — checker writes here), `index.html` (root brand landing page), `WhentoBook.html` (redirect → /clubmed)
 - **Price checker:** `clubmed_checker.py` — runs daily at 06:00 UTC via GitHub Actions, writes to `clubmed/index.html`
-- **Mark Warner ski checker:** `markwarner_checker.py` — runs daily at 07:00 UTC, appends to `_data/prices_markwarner.csv`. Dormant in summer (0 ski dates May–Aug) — resumes ~Aug/Sep 2026.
+- **Mark Warner ski checker:** `markwarner_checker.py` — runs daily at 07:00 UTC, appends to `_data/prices_markwarner.csv`. Dormant in summer; currently FAILING daily since 12 Aug (see state table).
 - **Mark Warner summer checker:** `markwarner_summer_checker.py` — runs daily at 06:30 UTC, appends to `_data/prices_markwarner_summer.csv`. 4 beach resorts: Aeolian Village (26928), Lemnos (8), Paleros (19300), Phokaia (16797). Seeded 2026-06-22 (1,198 rows).
 - **Price history:** `_data/prices_clubmed.csv` — append-only. In `_data/` so GitHub Pages won't serve it publicly. (Note: was incorrectly writing to `price_history.csv` until async rewrite fixed this on 2026-05-31.)
 - **Mark Warner ski prices:** `_data/prices_markwarner.csv` — 400+ rows seeded 2026-05-07. Append-only. (Legacy file `markwarner_prices.csv` also exists — old schema, ignore.)
@@ -103,7 +65,7 @@ Mark Warner summer beach checker launched (see commit history).
 - **SSH key:** `~/.ssh/booking_window_deploy`
 - **Checker flags:** `--test` (no writes), `--verify` (one API call), `--inject-only` (rebuild RESORT_DATA from CSV, no API calls)
 
-Why prices are mostly empty: Club Med UK hasn't opened winter 2026/27 bookings fully yet. Booking window typically opens June/July 2026. Not a bug.
+(Resolved: winter 2026/27 bookings opened; prices now present for Dec–Apr.)
 
 ---
 

@@ -49,6 +49,7 @@ Other facts:
   - Legal: honest `WhenToBookBot/1.0` UA in all checkers (rotation removed)
   - Legal: "Drop Media Ltd" → "Connor Martin, trading as When To Book" (owner is a sole trader)
   - Scribe: CLAUDE.md non-negotiables, PLAN_V2 C1/C2 ticked + D-group, this file
+- **Rebuild:** branch `rebuild`, folder `site/` (Astro). `cd site && npm ci && npm run build && npm test`. Never merge to main or change DNS without owner sign-off.
 - **Open:** verify first live runs of build_site (10:30 UTC) and 3-batch summer checker; C3 Mark Warner ski still failing; D3–D8 in PLAN_V2.
 - **Strategy:** affiliate + agent referral first (no paid membership). Owner has applied to Awin. Plan doc: https://claude.ai/code/artifact/d085e5de-6b1e-406d-ba4f-edd4d3c1f596
 
@@ -141,6 +142,8 @@ Newest non-bot commit: `20d778bd` (2026-06-29, La Rosière vs Valmorel article).
 - 2026-09-30 — **C1 build_site timeout fixed** (one-pass history index; inject-only ~5 s; build at 10:30 UTC)
 - 2026-09-30 — **C2 summer checker split into 3 sequential batches**, concurrency 4, one-pass history cache
 - 2026-09-30 — **Polite collection:** honest WhenToBookBot UA in all checkers
+- 2026-09-30 — **Pre-rebuild backup** in owner's ~/Documents/whentobook-backups/2026-09-30-pre-rebuild (full-history git bundle + tar of live main); tag `pre-rebuild-2026-09-30` on the Mac repo
+- 2026-09-30 — **New Astro site started** on branch `rebuild` (site/). NOT live. Preview: https://claude.ai/artifact/TKPUwYjAm1PYAh5sgqgUaT
 - 2026-09-30 — **Sole trader wording** across site, privacy and terms; CLAUDE.md non-negotiables added
 
 ---

@@ -38,7 +38,7 @@ Full write-up: vault `When To Book/Session Notes/2026-09-30-site-and-data-audit.
 - [ ] **D4 — Move price history to Neon Postgres** (owner to create account + secret); keep CSV export as backup.
 - [ ] **D5 — Off-site backups (Cloudflare R2) + Healthchecks.io alarms** for every job and backup.
 - [ ] **D6 — Ikos price collection** (feasibility, then checker).
-- [ ] **D7 — Astro rebuild:** resort pages, school-holiday verdicts, AEO/schema, cookie consent, cookieless analytics, affiliate link injection, 301s.
+- [~] **D7 — Astro rebuild:** IN PROGRESS 2026-09-30 on branch `rebuild` (site/): home, hub, 11 resort pages, school-holidays page, guides migrated at same /blog/ URLs, about/privacy/terms/affiliate, consent-gated GA4, Kit signup, JSON-LD, sitemap, llms.txt, `npm test` checks, CI build (no deploy). Private preview: https://claude.ai/artifact/TKPUwYjAm1PYAh5sgqgUaT. Still to do: resort pages, school-holiday verdicts, AEO/schema, cookie consent, cookieless analytics, affiliate link injection, 301s.
 - [ ] **D8 — Daily signup self-test** against Kit API (needs Kit API key).
 
 ### Reality check of B-tasks (as of 2026-09-30)

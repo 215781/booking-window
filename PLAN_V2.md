@@ -17,8 +17,8 @@ Full write-up: vault `When To Book/Session Notes/2026-09-30-site-and-data-audit.
 
 ### C-GROUP: PIPELINE & DATA (new, urgent)
 
-- [ ] **C1 — Fix `build_site.yml` timeouts.** Cancelled at 30 min almost daily since ~23 Jul; live HTML data last regenerated 2 Sep. Likely cause: `--inject-only` over 54 MB + 58 MB CSVs. Profile and optimise (or restrict injected history window); verify a daily successful run.
-- [ ] **C2 — Fix `clubmed_summer_checker.yml` timeouts.** Cancelled at 60 min daily since ~11 Aug; only ~6/24 resorts get rows per day (was ~21). Consider splitting into resort batches / multiple workflows, or trimming combos.
+- [x] **C1 — Fix `build_site.yml` timeouts.** ✅ 2026-09-30: one-pass history index (inject-only >10 min → ~5 s); synthetic 'today' price point removed; cron moved to 10:30 UTC. *Pending push.* Cancelled at 30 min almost daily since ~23 Jul; live HTML data last regenerated 2 Sep. Likely cause: `--inject-only` over 54 MB + 58 MB CSVs. Profile and optimise (or restrict injected history window); verify a daily successful run.
+- [x] **C2 — Fix `clubmed_summer_checker.yml` timeouts.** ✅ 2026-09-30: one-pass history cache; 3 sequential batches via matrix (max-parallel 1); concurrency 4. Verify first live run. *Pending push.* Cancelled at 60 min daily since ~11 Aug; only ~6/24 resorts get rows per day (was ~21). Consider splitting into resort batches / multiple workflows, or trimming combos.
 - [ ] **C3 — Fix `markwarner_checker.yml` (ski) failure.** Failing daily since 12 Aug (<1 min, step "Run Mark Warner price checker"); no rows since 10 Jun. Get the log / run `--verify`; check whether ski dates have opened and whether `resortId` 957 still valid.
 - [ ] **C4 — CSV size before GitHub 100 MB limit (~Jan 2027).** `prices_clubmed.csv` 54 MB, `prices_clubmed_summer.csv` 58 MB. Options: drop/stop collecting 6-night rows (47% of winter rows, 30% priced), archive old history by month, split per season. HTML is also 10.7 MB — trim embedded history.
 - [ ] **C5 — Grand Massif / Serre-Chevalier departure day.** Both still track Sat + Sun (42 dates); earlier plan item marked "fixed to Sunday". Decide and align checker, display and articles. SECC only 37% priced.
@@ -28,6 +28,18 @@ Full write-up: vault `When To Book/Session Notes/2026-09-30-site-and-data-audit.
 - [ ] **C9 — Autumn milestones now due:** decide on `DATA_SUFFICIENT = true`; publish "Club Med price history [resort]" article; build booking-window analysis script (MT-6).
 - [ ] **C11 — Re-audit article prices.** The 2026-06-22/23 audit (`verify_article_prices.py` — NOT in the repo, rebuild or recover it; 14 articles) is 3 months old and winter prices have moved; articles carry "as of June 2026" notes. Re-run against live API / current CSV, update articles + `last_modified_at`. Also fix Val d'Isère "42 departure dates" → 21 (B10).
 - [ ] **C10 — Sandals checker:** still not started (CSV header-only). Low priority.
+
+
+### D-GROUP: STRATEGY REBUILD (added 2026-09-30 — see plan doc linked in CLAUDE.md)
+
+- [x] **D1 — Polite collection:** single honest `WhenToBookBot/1.0` UA in all checkers (UA rotation removed). 2026-09-30
+- [x] **D2 — Sole trader wording:** "Drop Media Ltd" replaced with "Connor Martin, trading as When To Book" (site, privacy, terms). 2026-09-30
+- [ ] **D3 — Origin/Referer headers:** checkers still send `Origin: https://www.clubmed.co.uk`; review with owner whether to keep (API may require it).
+- [ ] **D4 — Move price history to Neon Postgres** (owner to create account + secret); keep CSV export as backup.
+- [ ] **D5 — Off-site backups (Cloudflare R2) + Healthchecks.io alarms** for every job and backup.
+- [ ] **D6 — Ikos price collection** (feasibility, then checker).
+- [ ] **D7 — Astro rebuild:** resort pages, school-holiday verdicts, AEO/schema, cookie consent, cookieless analytics, affiliate link injection, 301s.
+- [ ] **D8 — Daily signup self-test** against Kit API (needs Kit API key).
 
 ### Reality check of B-tasks (as of 2026-09-30)
 

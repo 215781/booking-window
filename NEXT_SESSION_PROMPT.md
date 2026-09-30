@@ -144,6 +144,9 @@ Newest non-bot commit: `20d778bd` (2026-06-29, La Rosière vs Valmorel article).
 - 2026-09-30 — **Polite collection:** honest WhenToBookBot UA in all checkers
 - 2026-09-30 — **Pre-rebuild backup** in owner's ~/Documents/whentobook-backups/2026-09-30-pre-rebuild (full-history git bundle + tar of live main); tag `pre-rebuild-2026-09-30` on the Mac repo
 - 2026-09-30 — **New Astro site started** on branch `rebuild` (site/). NOT live. Preview: https://claude.ai/artifact/TKPUwYjAm1PYAh5sgqgUaT
+- 2026-09-30 — **Club Med summer checker window fixed** (was stuck on summer 2026)
+- 2026-09-30 — **New site: Club Med sun + Mark Warner pages, Ikos/Sandals coming-soon, analytics events + GA4 custom dimensions**
+- 2026-09-30 — **Ikos collection blocked by robots.txt** on its booking engine - see PLAN_V2 D6
 - 2026-09-30 — **Sole trader wording** across site, privacy and terms; CLAUDE.md non-negotiables added
 
 ---

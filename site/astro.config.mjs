@@ -8,7 +8,7 @@ export default defineConfig({
   // Old URLs from the current site -> new pages (static meta-refresh + canonical)
   redirects: {
     '/clubmed': '/club-med/',
-    '/summer': '/club-med/',
-    '/markwarner': '/',
+    '/summer': '/club-med/#sun',
+    '/markwarner': '/mark-warner/',
   },
 });

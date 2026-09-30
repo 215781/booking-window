@@ -8,7 +8,7 @@ permalink: /terms/
 
 ## About this site
 
-WhenToBook (whentobook.co.uk) is operated by Drop Media Ltd. By using this site, you agree to these terms. If you don't agree, please don't use the site.
+WhenToBook (whentobook.co.uk) is operated by Connor Martin, trading as When To Book. By using this site, you agree to these terms. If you don't agree, please don't use the site.
 
 ## Information, not advice
 
@@ -35,11 +35,11 @@ You may use this site for personal, non-commercial purposes. You must not:
 
 ## Intellectual property
 
-The site design, copy, code, and original content are owned by Drop Media Ltd. Price data sourced from third-party APIs remains the property of those operators.
+The site design, copy, code, and original content are owned by Connor Martin (When To Book). Price data sourced from third-party APIs remains the property of those operators.
 
 ## Disclaimer of liability
 
-To the fullest extent permitted by law, Drop Media Ltd accepts no liability for:
+To the fullest extent permitted by law, When To Book accepts no liability for:
 
 - Any booking decision made based on information displayed on this site
 - Losses arising from inaccurate, delayed, or unavailable price data
@@ -57,5 +57,5 @@ We may update these terms from time to time. The current version is always at [w
 
 ## Contact
 
-Drop Media Ltd  
+Connor Martin, trading as When To Book  
 [admin@whentobook.co.uk](mailto:admin@whentobook.co.uk)

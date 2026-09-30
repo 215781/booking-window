@@ -17,6 +17,18 @@ See `ORCHESTRATOR.md` and `SCRIBE.md` for the full protocol.
 
 ---
 
+## NON-NEGOTIABLES (owner-set 2026-09-30) - above every feature
+
+1. **Legal** - collect politely: one honest bot user agent (`WhenToBookBot/1.0`), modest concurrency, respect robots.txt, stop if blocked, never evade blocks (no UA/IP rotation). Never publish or sell the raw dataset - show analysis and a few example prices. "Checked [time], guidance only" on prices. Affiliate disclosure by every affiliate link. Cookie consent before analytics cookies. Owner is a **sole trader** (Connor Martin, trading as When To Book) - never write "Ltd" or "Drop Media Ltd" on the site.
+2. **Secure** - store no customer data ourselves (emails + preferences live in Kit); secrets only in GitHub/host secret stores; bot protection on forms; security headers + CSP.
+3. **Works and true** - every signup/preference verified stored; no synthetic or stale data shown as current; sanity checks before publishing; "updated" time on every page.
+4. **Analytics solid** - funnel tracked end to end (visit, signup, email click, affiliate click, commission); numbers reconciled weekly.
+5. **Backed up** - 3-2-1 backups for price data, subscribers and code; monthly restore test; alarm on missed backup.
+
+Business model (confirmed 2026-09-30): affiliate + specialist-agent referral first, newsletter sponsorship second, no paid membership. Full plan: https://claude.ai/code/artifact/d085e5de-6b1e-406d-ba4f-edd4d3c1f596
+
+---
+
 ## What the site does
 
 Tracks live pricing across 11 Club Med French Alps ski resorts daily, builds a historical record, and shows visitors whether now is a good time to book. Signal states: **Favourable / Watch / Hold**. Email alerts via Kit (ConvertKit) when signals shift.

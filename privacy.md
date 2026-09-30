@@ -8,7 +8,7 @@ permalink: /privacy/
 
 ## What this policy covers
 
-This policy explains how WhenToBook (whentobook.co.uk), operated by Drop Media Ltd, collects and uses personal data. We've written it in plain English — if anything is unclear, email us at [admin@whentobook.co.uk](mailto:admin@whentobook.co.uk).
+This policy explains how WhenToBook (whentobook.co.uk), operated by Connor Martin, trading as When To Book, collects and uses personal data. We've written it in plain English — if anything is unclear, email us at [admin@whentobook.co.uk](mailto:admin@whentobook.co.uk).
 
 ## What data we collect and why
 
@@ -68,5 +68,5 @@ If we make material changes, we'll update the "Last updated" date above. The cur
 
 ## Contact
 
-Drop Media Ltd  
+Connor Martin, trading as When To Book  
 [admin@whentobook.co.uk](mailto:admin@whentobook.co.uk)

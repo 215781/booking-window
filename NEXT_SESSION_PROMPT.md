@@ -39,6 +39,21 @@ Other facts:
 - Open plan work: PLAN_V2 **C1–C11 (pipeline/data, urgent)** then remaining B-tasks (B1, B6, B7, B8, B10, B12; `post.html` links `/privacy.html` → `/privacy/`). Awin application status unknown — owner to confirm.
 - Owner is running a strategy rethink (Cowork) — expect the plan to change; treat PLAN_V2 C-group as the safe, direction-independent work.
 
+## Last session
+
+- **Date:** 2026-09-30 (Cowork strategy rethink + pipeline fixes)
+- **HEAD:** PUSH PENDING — commits made in a cloud clone; push blocked until the repo is added to the Cowork session's GitHub sources. Update this line with the pushed hash.
+- **Commits:**
+  - C1: build_site timeout fix — one-pass price-history index in `clubmed_checker.py`; synthetic "today" price point removed; build cron 08:00 → 10:30 UTC; `clubmed/index.html` regenerated (data to 29 Sep)
+  - C2: summer checker — one-pass history cache, `--batch/--batches` args, workflow matrix of 3 sequential batches, concurrency 4
+  - Legal: honest `WhenToBookBot/1.0` UA in all checkers (rotation removed)
+  - Legal: "Drop Media Ltd" → "Connor Martin, trading as When To Book" (owner is a sole trader)
+  - Scribe: CLAUDE.md non-negotiables, PLAN_V2 C1/C2 ticked + D-group, this file
+- **Open:** verify first live runs of build_site (10:30 UTC) and 3-batch summer checker; C3 Mark Warner ski still failing; D3–D8 in PLAN_V2.
+- **Strategy:** affiliate + agent referral first (no paid membership). Owner has applied to Awin. Plan doc: https://claude.ai/code/artifact/d085e5de-6b1e-406d-ba4f-edd4d3c1f596
+
+---
+
 ## Last recorded repo state
 Newest non-bot commit: `20d778bd` (2026-06-29, La Rosière vs Valmorel article). Everything since is bot data/build commits plus the 2026-09-30 audit docs.
 
@@ -122,6 +137,11 @@ Newest non-bot commit: `20d778bd` (2026-06-29, La Rosière vs Valmorel article).
 - 2026-06-22 — **build_site.yml daily cron added** — GITHUB_TOKEN pushes don't trigger on:push; added 08:00 UTC cron so site rebuilds daily regardless. (commit 880cc5d)
 - 2026-06-22 — **Mark Warner summer beach checker launched** — `markwarner_summer_checker.py` tracks 4 beach resorts: Aeolian Village (Lesvos, ID 26928), Lemnos (ID 8), Paleros (ID 19300), Phokaia/Turkey (ID 16797). 7+14 night durations, 3 party sizes, all available airports per resort. ~1,200 rows/day. Separate CSV `_data/prices_markwarner_summer.csv`. Cron 06:30 UTC. Seeded 2026-06-22. Resort IDs found via `:resort-id` HTML attr (not nav hash IDs). (commit f545b5d)
 - 2026-06-23 — **Stub price fix in 4 articles** — LP2C_WINTER stubs (£2,874/£3,322 flat across all dates) replaced with real PLAC data (£3,054–£5,466 with genuine seasonal curve). Val d'Isère vs La Plagne article rewritten; La Plagne best-time article rewritten with correct resort code PLAC, 7-night durations, full season price table; Les Arcs article updated with current New Year price (£6,642); ski holiday prices article updated with VDIC New Year movement. (commit ee1ea4e)
+
+- 2026-09-30 — **C1 build_site timeout fixed** (one-pass history index; inject-only ~5 s; build at 10:30 UTC)
+- 2026-09-30 — **C2 summer checker split into 3 sequential batches**, concurrency 4, one-pass history cache
+- 2026-09-30 — **Polite collection:** honest WhenToBookBot UA in all checkers
+- 2026-09-30 — **Sole trader wording** across site, privacy and terms; CLAUDE.md non-negotiables added
 
 ---
 

@@ -191,15 +191,8 @@ for _r in RESORTS:
 
 GRAPHQL_URL = "https://graphql.dcx.clubmed/"
 
-_USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1",
-]
+# Polite collection: one honest, identifiable user agent (no rotation).
+BOT_USER_AGENT = "WhenToBookBot/1.0 (+https://whentobook.co.uk/about/; admin@whentobook.co.uk)"
 
 def _get_headers():
     return {
@@ -208,7 +201,7 @@ def _get_headers():
         "Accept-Language":"en-GB",
         "Origin":         "https://www.clubmed.co.uk",
         "Referer":        "https://www.clubmed.co.uk/",
-        "User-Agent":     random.choice(_USER_AGENTS),
+        "User-Agent":     BOT_USER_AGENT,
     }
 
 HEADERS = _get_headers()
@@ -404,34 +397,57 @@ def log_to_csv(rows, test_mode=False):
         if not file_exists:
             writer.writeheader()
         writer.writerows(rows)
+    invalidate_history_index()
+
+# In-memory history index: one CSV pass instead of one full scan per departure.
+# (Per-departure rescans of the 50 MB+ CSV caused build_site.yml to time out.)
+_HISTORY_INDEX = None
+
+
+def _build_history_index():
+    """Single pass over CSV_FILE -> {(resort_id, resort_code, party_size, start_date, dur): {date: price}}.
+    Later rows for the same date overwrite earlier ones (same behaviour as the old per-call scan)."""
+    idx = {}
+    if not Path(CSV_FILE).exists():
+        return idx
+    with open(CSV_FILE, newline="") as f:
+        for row in csv.DictReader(f):
+            raw = row.get("price")
+            if not raw:
+                continue
+            try:
+                price = int(raw)
+            except (ValueError, TypeError):
+                continue
+            dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
+            key = (row["resort_id"], row.get("resort_code") or "", row["party_size"], row["start_date"], dur)
+            idx.setdefault(key, {})[row["timestamp"][:10]] = price
+    return idx
+
+
+def invalidate_history_index():
+    global _HISTORY_INDEX
+    _HISTORY_INDEX = None
+
 
 def load_price_history_from_csv(resort_id, party_size, start_date, duration_nights=7, resort_code=None):
-    """Load all historical price points for a given resort/party/date/duration combo from CSV.
+    """Load all historical price points for a given resort/party/date/duration combo.
 
     resort_code: if supplied, only rows with that exact resort_code are included. This prevents
     stale rows from a wrong resort code (e.g. LP2C_WINTER data) from contaminating histories
     after a code correction.
     """
-    if not Path(CSV_FILE).exists():
-        return []
-    history = []
-    with open(CSV_FILE, newline="") as f:
-        for row in csv.DictReader(f):
-            row_dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
-            if (row["resort_id"] == resort_id and
-                (resort_code is None or row.get("resort_code") == resort_code) and
-                row["party_size"] == party_size and
-                row["start_date"] == start_date and
-                row_dur == duration_nights and
-                row["price"]):
-                history.append({
-                    "date":  row["timestamp"][:10],
-                    "price": int(row["price"])
-                })
-    seen = {}
-    for entry in history:
-        seen[entry["date"]] = entry["price"]
-    return [{"date": d, "price": p} for d, p in sorted(seen.items())]
+    global _HISTORY_INDEX
+    if _HISTORY_INDEX is None:
+        _HISTORY_INDEX = _build_history_index()
+    if resort_code is not None:
+        daily = _HISTORY_INDEX.get((resort_id, resort_code, party_size, start_date, duration_nights), {})
+    else:
+        daily = {}
+        for (rid, _code, ps, sd, dur), d in _HISTORY_INDEX.items():
+            if rid == resort_id and ps == party_size and sd == start_date and dur == duration_nights:
+                daily.update(d)
+    return [{"date": d, "price": p} for d, p in sorted(daily.items())]
 
 def load_all_price_stats():
     """
@@ -462,32 +478,36 @@ def load_all_price_stats():
                 s["count"] += 1
     return stats
 
+_RESORT_HISTORY_CACHE = None
+
+
 def load_price_history_for_resort(resort_id, resort_code):
-    """Load all price history for a resort in one CSV pass (keyed by party/date/dur)."""
-    if not Path(CSV_FILE).exists():
-        return {}
-    raw = {}
-    with open(CSV_FILE, newline="") as f:
-        for row in csv.DictReader(f):
-            if row.get("resort_id") != resort_id:
-                continue
-            if row.get("resort_code") and row["resort_code"] != resort_code:
-                continue
-            if not row.get("price"):
-                continue
-            try:
-                price = int(row["price"])
-            except (ValueError, TypeError):
-                continue
-            dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
-            key = (row["party_size"], row["start_date"], dur)
-            if key not in raw:
-                raw[key] = {}
-            raw[key][row["timestamp"][:10]] = price
-    return {
-        k: [{"date": d, "price": p} for d, p in sorted(v.items())]
-        for k, v in raw.items()
-    }
+    """Price history for one resort keyed by (party, date, dur).
+    Built for all resorts in ONE CSV pass on first call (was one full scan per resort).
+    Rows with a different non-empty resort_code are excluded (LP2C_WINTER guard)."""
+    global _RESORT_HISTORY_CACHE
+    if _RESORT_HISTORY_CACHE is None:
+        cache = {}
+        if Path(CSV_FILE).exists():
+            with open(CSV_FILE, newline="") as f:
+                for row in csv.DictReader(f):
+                    raw = row.get("price")
+                    if not raw:
+                        continue
+                    try:
+                        price = int(raw)
+                    except (ValueError, TypeError):
+                        continue
+                    dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
+                    rkey = (row.get("resort_id"), row.get("resort_code") or "")
+                    k = (row["party_size"], row["start_date"], dur)
+                    cache.setdefault(rkey, {}).setdefault(k, {})[row["timestamp"][:10]] = price
+        _RESORT_HISTORY_CACHE = cache
+    merged = {}
+    for code in ("", resort_code):
+        for k, daily in _RESORT_HISTORY_CACHE.get((resort_id, code), {}).items():
+            merged.setdefault(k, {}).update(daily)
+    return {k: [{"date": d, "price": p} for d, p in sorted(v.items())] for k, v in merged.items()}
 
 # ─────────────────────────────────────────────────────────────
 # HTML INJECTION
@@ -541,9 +561,8 @@ def build_resort_data_js(all_results):
                 if not history:
                     history = [{"date": sd, "price": price}]
 
-                today_str = date.today().isoformat()
-                if not any(h["date"] == today_str for h in history):
-                    history.append({"date": today_str, "price": price})
+                # No synthetic "today" point: history shows only dates we actually collected
+                # (the live run writes today's rows to the CSV before this build, so they are included).
                 history.sort(key=lambda x: x["date"])
 
                 history_30 = history[-30:]

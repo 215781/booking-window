@@ -1,0 +1,56 @@
+---
+import Base from '../layouts/Base.astro';
+import ResortCard from '../components/ResortCard.astro';
+import Signup from '../components/Signup.astro';
+import { RESORTS } from '../lib/resorts';
+import { schoolWeeks, dep, FAMILY, money, latestUpdate, niceDate } from '../lib/data';
+const updated = latestUpdate();
+const week = schoolWeeks.find((w) => w.key === 'february-half-term')!;
+// Biggest 30-day moves across all school-holiday weeks (family of four)
+const moves = RESORTS.flatMap((r) => schoolWeeks.map((w) => ({ r, w, d: dep(r, FAMILY, w.date) })))
+  .filter((x) => x.d?.available && x.d.change30)
+  .sort((a, b) => Math.abs(b.d!.change30!) - Math.abs(a.d!.change30!)).slice(0, 3);
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: 'When To Book', url: 'https://whentobook.co.uk/' },
+  { '@context': 'https://schema.org', '@type': 'Organization', name: 'When To Book', url: 'https://whentobook.co.uk/', email: 'admin@whentobook.co.uk', founder: { '@type': 'Person', name: 'Connor Martin' } },
+];
+---
+<Base title="When To Book - know when to book your Club Med ski holiday" description="I check Club Med prices every morning so you know when to book your school-holiday week. Free weekly email." jsonLd={jsonLd}>
+  <div class="hero">
+    <img src="/images/Val-Thorens.jpg" alt="Val Thorens under fresh snow" width="1600" height="900" />
+    <div class="inner"><div>
+      <p class="kicker">Club Med ski · 11 French Alps resorts</p>
+      <h1>Know when to book your school-holiday ski week</h1>
+      <p>I check Club Med prices every morning, so you don't have to. Plain answers, no spreadsheets.</p>
+      <p><a class="btn" href="/club-med/">See this week's prices</a></p>
+    </div></div>
+  </div>
+  <div class="wrap">
+    {moves.length > 0 && (<section class="block">
+      <h2>Biggest moves this month</h2>
+      <p class="muted">Family of four, 7 nights, school-holiday weeks. Checked {niceDate(updated)}.</p>
+      <div class="movers">{moves.map(({ r, w, d }) => (
+        <a class="mover card-link" href={`/club-med/${r.slug}/`}>
+          <strong>{r.name}, {w.label}</strong><br />
+          <span class:list={['delta', d!.change30! > 0 ? 'up' : 'down']}>{d!.change30! > 0 ? 'Up' : 'Down'} {money(Math.abs(d!.change30!))}</span> <span class="muted">to {money(d!.price)}</span>
+        </a>))}</div>
+    </section>)}
+    <Signup />
+    <section class="block">
+      <h2>February half-term 2027, resort by resort</h2>
+      <div class="grid">{RESORTS.map((r) => <ResortCard resort={r} week={week} />)}</div>
+    </section>
+    <section class="block">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div><h3>We check every morning</h3><p>Every Club Med French Alps resort, every Sunday departure, for couples and families.</p></div>
+        <div><h3>We spot the moves</h3><p>Is your week getting pricier, easing off or holding steady? We tell you in one line.</p></div>
+        <div><h3>You book when it suits</h3><p>Join the free weekly email and we'll tell you when your week moves. The decision is always yours.</p></div>
+      </div>
+    </section>
+    <section class="block narrow">
+      <h2>Why I built this</h2>
+      <p>On our first Club Med trip, another family told us they'd paid £1,600 less for the same resort and the same week. Not a discount - they'd just booked at a different time. When To Book exists so you can be the other family. <a href="/about/">Read the story</a>.</p>
+    </section>
+  </div>
+</Base>

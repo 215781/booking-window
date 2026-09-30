@@ -1,0 +1,42 @@
+---
+// Analytics cookies only after an explicit yes (UK PECR). Reject is as easy as accept.
+const GA_ID = 'G-G2RES5DX0K';
+---
+<div class="cookie" id="cookie" hidden role="dialog" aria-live="polite" aria-label="Cookie choice">
+  <p>Can we use analytics cookies to see which pages are useful? No advertising cookies, ever.</p>
+  <div class="cookie-actions">
+    <button type="button" class="btn btn-quiet" data-choice="no">No thanks</button>
+    <button type="button" class="btn" data-choice="yes">That's fine</button>
+  </div>
+</div>
+<script is:inline define:vars={{ GA_ID }}>
+  (function () {
+    var KEY = 'wtb-consent';
+    function read() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
+    function save(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
+    function loadGA() {
+      if (window.__gaLoaded) return; window.__gaLoaded = true;
+      window.dataLayer = window.dataLayer || [];
+      window.gtag = function () { dataLayer.push(arguments); };
+      gtag('js', new Date());
+      gtag('config', GA_ID, { anonymize_ip: true });
+      var s = document.createElement('script'); s.async = true;
+      s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID; document.head.appendChild(s);
+    }
+    var box = document.getElementById('cookie');
+    var choice = read();
+    if (choice === 'yes') loadGA(); else if (!choice) box.hidden = false;
+    box.addEventListener('click', function (e) {
+      var v = e.target && e.target.getAttribute('data-choice'); if (!v) return;
+      save(v); box.hidden = true; if (v === 'yes') loadGA();
+    });
+    document.querySelectorAll('[data-cookie-settings]').forEach(function (b) {
+      b.addEventListener('click', function () { box.hidden = false; });
+    });
+    // Outbound click tracking (only sent if analytics were accepted)
+    document.addEventListener('click', function (e) {
+      var a = e.target.closest && e.target.closest('a[data-outbound]');
+      if (a && window.gtag) gtag('event', 'outbound_click', { resort: a.getAttribute('data-outbound'), link_url: a.href });
+    });
+  })();
+</script>

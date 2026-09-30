@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import ResortCard from '../../components/ResortCard.astro';
+import Signup from '../../components/Signup.astro';
+import { RESORTS } from '../../lib/resorts';
+import { schoolWeeks, latestUpdate, niceDate } from '../../lib/data';
+const week = schoolWeeks.find((w) => w.key === 'february-half-term')!;
+const updated = latestUpdate();
+---
+<Base title="Club Med ski prices: when to book each French Alps resort" description={`Daily Club Med ski prices for all 11 French Alps resorts, with school-holiday trends for families. Last checked ${niceDate(updated)}.`}>
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Club Med ski</p>
+    <h1>Club Med ski: when to book</h1>
+    <p class="muted narrow">We check every Club Med French Alps resort every morning. Pick a resort to see how school-holiday prices are moving. Prices shown: February half-term 2027, family of four, 7 nights, without flights. Last checked {niceDate(updated)}.</p>
+    <div class="grid">{RESORTS.map((r) => <ResortCard resort={r} week={week} />)}</div>
+    <Signup />
+  </div>
+</Base>

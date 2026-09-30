@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import Trend from '../../components/Trend.astro';
+import Signup from '../../components/Signup.astro';
+import { RESORTS } from '../../lib/resorts';
+import { schoolWeeks, dep, FAMILY, money, weekRange, changeText, changeShort, latestUpdate, niceDate } from '../../lib/data';
+const updated = latestUpdate();
+---
+<Base title="Club Med ski school holidays 2026/27: prices by week" description="Christmas, February half-term and Easter 2026/27 Club Med ski prices for a family of four, every French Alps resort, updated daily.">
+  <div class="wrap narrow">
+    <p class="crumbs"><a href="/">Home</a> / School holidays</p>
+    <h1>School-holiday ski prices, 2026/27</h1>
+    <p class="muted">Every Club Med French Alps resort for each school-holiday week, family of four (2 children aged 4-11), 7 nights, without flights. Sorted by price. Checked {niceDate(updated)}. Dates follow most schools in England - check your own school's calendar.</p>
+    {schoolWeeks.map((w) => {
+      const rows = RESORTS.map((r) => ({ r, d: dep(r, FAMILY, w.date) })).sort((a, b) => (a.d?.available ? a.d.price! : 1e9) - (b.d?.available ? b.d.price! : 1e9));
+      return (<section id={w.key}>
+        <h2>{w.label} <span class="small">{weekRange(w.date)}</span></h2>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Resort</th><th>Family of 4</th><th>30 days</th><th>Trend</th></tr></thead>
+          <tbody>{rows.map(({ r, d }) => (<tr><td><a href={`/club-med/${r.slug}/`}>{r.name}</a></td><td class="num">{d?.available ? money(d.price) : '-'}</td><td>{changeShort(d)}</td><td><Trend trend={d?.trend} available={d?.available} /></td></tr>))}</tbody>
+        </table></div>
+      </section>);
+    })}
+    <Signup heading="Get school-holiday price alerts" interest="school-holidays" />
+  </div>
+</Base>

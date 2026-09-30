@@ -1,0 +1,20 @@
+{
+  "name": "whentobook-site",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "data": "python3 scripts/build_summary.py",
+    "build": "python3 scripts/build_summary.py && astro build",
+    "build:site": "astro build",
+    "dev": "astro dev",
+    "preview": "astro preview",
+    "test": "node scripts/test_site.mjs"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.5"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

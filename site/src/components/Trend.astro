@@ -1,0 +1,7 @@
+---
+import { TREND } from '../lib/data';
+interface Props { trend?: keyof typeof TREND; available?: boolean }
+const { trend, available = true } = Astro.props;
+const t = available && trend ? TREND[trend] : null;
+---
+{t ? <span class={`trend trend-${t.tone}`}>{t.word}</span> : <span class="trend trend-na">Unavailable</span>}

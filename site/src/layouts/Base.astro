@@ -1,0 +1,57 @@
+---
+import '../styles/global.css';
+import CookieConsent from '../components/CookieConsent.astro';
+interface Props { title: string; description: string; jsonLd?: object[]; image?: string; noindex?: boolean }
+const { title, description, jsonLd = [], image = '/og-image.png', noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const fullTitle = title.includes('When To Book') ? title : `${title} | When To Book`;
+---
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex" />}
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="When To Book" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(image, Astro.site).href} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet" />
+  {jsonLd.map((j) => <script type="application/ld+json" set:html={JSON.stringify(j)} />)}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap bar">
+      <a class="logo" href="/">When<span>To</span>Book</a>
+      <nav aria-label="Main">
+        <a href="/club-med/">Club Med ski</a>
+        <a href="/school-holidays/">School holidays</a>
+        <a href="/blog/">Guides</a>
+        <a href="/about/">About</a>
+      </nav>
+    </div>
+  </header>
+  <main id="main"><slot /></main>
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="foot-brand">When To Book</p>
+      <p>We check Club Med prices every morning and tell you when it's a good time to book. Prices are for guidance only - always confirm the final price with the operator before booking. Our trends describe what prices have done, not a forecast.</p>
+      <p>We are independent and not affiliated with Club Med. Some links may earn us a commission at no extra cost to you. <a href="/affiliate-disclosure/">How we make money</a>.</p>
+      <p class="foot-links"><a href="/about/">About</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/affiliate-disclosure/">Affiliate disclosure</a> · <a href="mailto:admin@whentobook.co.uk">admin@whentobook.co.uk</a> · <button type="button" class="linklike" data-cookie-settings>Cookie settings</button></p>
+      <p class="small">© {new Date().getFullYear()} Connor Martin, trading as When To Book.</p>
+    </div>
+  </footer>
+  <CookieConsent />
+</body>
+</html>

@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import Signup from '../../components/Signup.astro';
+import { render } from 'astro:content';
+import { posts, slugOf } from '../../lib/blog';
+import { niceDate } from '../../lib/data';
+export async function getStaticPaths() {
+  return (await posts()).map((p) => ({ params: { slug: slugOf(p) }, props: { post: p } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const modified = (post.data.last_modified_at ?? post.data.date).toISOString().slice(0, 10);
+const jsonLd = [{ '@context': 'https://schema.org', '@type': 'Article', headline: post.data.title, datePublished: post.data.date.toISOString().slice(0, 10), dateModified: modified, author: { '@type': 'Person', name: 'Connor Martin', url: 'https://whentobook.co.uk/about/' }, publisher: { '@type': 'Organization', name: 'When To Book' } }];
+---
+<Base title={post.data.title} description={post.data.description ?? post.data.title} jsonLd={jsonLd}>
+  <div class="wrap">
+    <article class="prose">
+      <p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Guides</a></p>
+      <h1>{post.data.title}</h1>
+      <p class="small">By Connor Martin · Updated {niceDate(modified)} · For live prices see our <a href="/club-med/">Club Med ski tracker</a>.</p>
+      <Content />
+      <Signup />
+    </article>
+  </div>
+</Base>

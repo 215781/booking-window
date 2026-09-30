@@ -1,0 +1,19 @@
+---
+import type { Resort } from '../lib/resorts';
+import { dep, FAMILY, money, TREND } from '../lib/data';
+import Trend from './Trend.astro';
+interface Props { resort: Resort; week: { key: string; label: string; date: string } }
+const { resort, week } = Astro.props;
+const d = dep(resort, FAMILY, week.date);
+---
+<a class="card" href={`/club-med/${resort.slug}/`}>
+  <img src={`/images/${resort.image}.jpg`} alt={resort.imageAlt} loading="lazy" width="800" height="500" />
+  <div class="card-body">
+    <h3>{resort.name}</h3>
+    <p class="muted">{resort.area}{resort.altitude && ` · ${resort.altitude}`}</p>
+    <p class="card-price">
+      {d?.available ? <><strong>{money(d.price)}</strong> <span class="muted">family of 4, {week.label}</span></> : <span class="muted">{week.label}: not available online</span>}
+    </p>
+    <Trend trend={d?.trend} available={d?.available} />
+  </div>
+</a>

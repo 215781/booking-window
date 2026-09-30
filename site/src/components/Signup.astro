@@ -1,0 +1,52 @@
+---
+// Free email signup -> Kit form 7f784a323c (public form endpoint, no API key in the site).
+interface Props { heading?: string; text?: string; interest?: string; compact?: boolean }
+const {
+  heading = 'Get the weekly price watch',
+  text = "One short email a week: what moved, what's worth booking, what can wait. Free, and you can unsubscribe in one click.",
+  interest = 'general', compact = false,
+} = Astro.props;
+const FORM_ID = '7f784a323c';
+---
+<section class:list={['signup', { compact }]}>
+  <h2>{heading}</h2>
+  <p>{text}</p>
+  <form class="signup-form" data-form={FORM_ID} novalidate>
+    <label class="sr" for={`email-${interest}`}>Email address</label>
+    <input id={`email-${interest}`} type="email" name="email_address" autocomplete="email" placeholder="you@example.com" required />
+    <input type="hidden" name="fields[resort_interest]" value={interest} />
+    <div class="hp" aria-hidden="true"><label>Leave blank<input type="text" name="website" tabindex="-1" autocomplete="off" /></label></div>
+    <button type="submit" class="btn">Watch prices for me</button>
+    <p class="form-msg" role="status" aria-live="polite"></p>
+  </form>
+  <p class="small">We use Kit to send emails. See our <a href="/privacy/">privacy notice</a>.</p>
+</section>
+<script>
+  document.querySelectorAll<HTMLFormElement>('form.signup-form').forEach((form) => {
+    if (form.dataset.bound) return; form.dataset.bound = '1';
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = form.querySelector('.form-msg') as HTMLElement;
+      const btn = form.querySelector('button') as HTMLButtonElement;
+      const data = new FormData(form);
+      if ((data.get('website') as string)?.length) return; // bot
+      const email = String(data.get('email_address') || '').trim();
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { msg.textContent = 'Please enter a valid email address.'; return; }
+      btn.disabled = true; msg.textContent = 'Signing you up...';
+      const body = new URLSearchParams();
+      body.set('email_address', email);
+      body.set('fields[resort_interest]', String(data.get('fields[resort_interest]') || ''));
+      try {
+        const res = await fetch(`https://app.kit.com/forms/${form.dataset.form}/subscriptions`, {
+          method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' }, body,
+        });
+        if (!res.ok) throw new Error(String(res.status));
+        form.reset();
+        msg.textContent = "Nearly there - check your inbox and confirm your email.";
+        (window as any).gtag?.('event', 'sign_up', { method: 'kit', interest: String(data.get('fields[resort_interest]')) });
+      } catch (err) {
+        msg.innerHTML = 'Sorry, that did not work. Please try again or email <a href="mailto:admin@whentobook.co.uk">admin@whentobook.co.uk</a>.';
+      } finally { btn.disabled = false; }
+    });
+  });
+</script>

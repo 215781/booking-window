@@ -1,0 +1,7 @@
+# Cloudflare Pages redirects for old .html URLs from the previous site
+/WhentoBook.html          /club-med/               301
+/privacy.html             /privacy/                301
+/about.html               /about/                  301
+/affiliate-disclosure.html /affiliate-disclosure/  301
+/clubmed                  /club-med/               301
+/clubmed/                 /club-med/               301

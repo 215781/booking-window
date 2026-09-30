@@ -1,0 +1,13 @@
+---
+import Base from '../../layouts/Base.astro';
+import { posts, slugOf } from '../../lib/blog';
+import { niceDate } from '../../lib/data';
+const list = await posts();
+---
+<Base title="Guides: booking Club Med ski at the right time" description="Resort guides, comparisons and booking-window explainers for Club Med ski holidays.">
+  <div class="wrap narrow">
+    <p class="crumbs"><a href="/">Home</a> / Guides</p>
+    <h1>Guides</h1>
+    {list.map((p) => (<article><h2 style="font-size:1.3rem"><a href={`/blog/${slugOf(p)}/`}>{p.data.title}</a></h2><p class="small">{niceDate((p.data.last_modified_at ?? p.data.date).toISOString().slice(0, 10))}</p>{p.data.description && <p>{p.data.description}</p>}</article>))}
+  </div>
+</Base>

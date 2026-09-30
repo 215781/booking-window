@@ -41,6 +41,8 @@ Other facts:
 
 ## HANDOVER — end of Cowork session 2026-09-30 (read this first)
 
+- **Master plan now lives in the Knowledge Vault:** `Knowledge Vault/When To Book/PLAN_V3.md` (Google Drive). Read it first; update it (and add a Session Note) before finishing every session. `PLAN_V2.md` is history.
+
 - **Push status:** owner to run: `export GIT_SSH_COMMAND="ssh -i ~/.ssh/booking_window_deploy"; git pull --no-rebase --no-edit; git push origin main; git push origin rebuild`. Check `git log origin/main -1` and that `origin/rebuild` exists before any work.
 - **New site:** branch `rebuild`, folder `site/` (Astro). Preview: https://claude.ai/artifact/TKPUwYjAm1PYAh5sgqgUaT. Do NOT merge to main or change DNS without owner sign-off.
 - **Ikos decision (owner, 30 Sep):** route 2 — use Kenwood Travel's Awin product feed once Awin approves. Do NOT scrape ikosresorts.swapsystems.com (robots.txt disallows all).

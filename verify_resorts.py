@@ -15,7 +15,7 @@ HEADERS = {
     "Accept-Language": "en-GB",
     "Origin":          "https://www.clubmed.co.uk",
     "Referer":         "https://www.clubmed.co.uk/",
-    "User-Agent":      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/147.0.0.0 Safari/537.36",
+    "User-Agent":      "WhenToBookBot/1.0 (+https://whentobook.co.uk/about/; admin@whentobook.co.uk)",
 }
 
 QUERY = """mutation SearchPrice($id: ID!, $options: SearchPriceOptions) {

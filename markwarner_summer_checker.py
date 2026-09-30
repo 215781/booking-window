@@ -82,15 +82,8 @@ CSV_HEADERS = [
     "price_first_seen", "price_min_seen", "price_max_seen", "is_cheapest_ever",
 ]
 
-_USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1",
-]
+# Polite collection: one honest, identifiable user agent (no rotation).
+BOT_USER_AGENT = "WhenToBookBot/1.0 (+https://whentobook.co.uk/about/; admin@whentobook.co.uk)"
 
 # ─────────────────────────────────────────────────────────────
 # API
@@ -98,7 +91,7 @@ _USER_AGENTS = [
 
 def _get_headers(resort):
     return {
-        "User-Agent":       random.choice(_USER_AGENTS),
+        "User-Agent":       BOT_USER_AGENT,
         "Accept":           "application/json, text/plain, */*",
         "Accept-Language":  "en-GB,en;q=0.9",
         "Content-Type":     "application/json",

@@ -55,7 +55,21 @@ def weekday_dates_in_month(year, month, weekday):
     return dates
 
 # Summer 2026 season: June–September
-SUMMER_MONTHS = [(2026, m) for m in range(6, 10)]
+def _rolling_sun_months(months_ahead=13):
+    """Sun-season months (Apr-Oct) from next month up to ~a year ahead.
+    Was hard-coded to Jun-Sep 2026, so the checker stopped collecting anything useful after summer 2026."""
+    today = date.today()
+    y, m = today.year, today.month
+    out = []
+    for _ in range(months_ahead):
+        m += 1
+        if m > 12:
+            y, m = y + 1, 1
+        if 4 <= m <= 10:
+            out.append((y, m))
+    return out
+
+SUMMER_MONTHS = _rolling_sun_months()
 
 def make_windows(departure_day, durations=(7,)):
     """
@@ -68,6 +82,8 @@ def make_windows(departure_day, durations=(7,)):
         for yr, mo in SUMMER_MONTHS:
             for wd in weekdays:
                 for s in weekday_dates_in_month(yr, mo, wd):
+                    if s <= date.today().isoformat():
+                        continue
                     windows.append({
                         "startDate": s,
                         "endDate":   (datetime.strptime(s, "%Y-%m-%d") + timedelta(days=duration_nights)).strftime("%Y-%m-%d"),
@@ -75,15 +91,11 @@ def make_windows(departure_day, durations=(7,)):
                     })
     return windows
 
+# Trimmed Sep 2026 to the party sizes the site uses (was 8), keeping the rolling year of dates within the time limit.
 _COMBOS = [
     {"partySize": "2A",     "adults": 2, "children": 0, "birthdates": []},
-    {"partySize": "2A1I",   "adults": 2, "children": 1, "birthdates": ["2024-03-15"]},                      # infant 0-3
     {"partySize": "2A1C",   "adults": 2, "children": 1, "birthdates": ["2018-09-01"]},                      # child 4-11
-    {"partySize": "2A1J",   "adults": 2, "children": 1, "birthdates": ["2013-06-01"]},                      # junior 12+
-    {"partySize": "2A1C1J", "adults": 2, "children": 2, "birthdates": ["2018-09-01", "2013-06-01"]},        # child + junior
     {"partySize": "2A2C",   "adults": 2, "children": 2, "birthdates": ["2018-09-01", "2016-06-01"]},        # 2 children 4-11 band
-    {"partySize": "3A",     "adults": 3, "children": 0, "birthdates": []},
-    {"partySize": "3A1C",   "adults": 3, "children": 1, "birthdates": ["2018-09-01"]},                      # 3 adults + child 4-11
 ]
 
 # departure_day: None = query both Saturday(5) and Sunday(6) — summer resorts use both.

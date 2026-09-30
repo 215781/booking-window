@@ -2,7 +2,7 @@ name: Build Site
 
 on:
   schedule:
-    - cron: '0 8 * * *'
+    - cron: '30 10 * * *'   # after all checkers (summer now runs as 3 sequential batches from 07:30)
   workflow_dispatch:
 
 concurrency:

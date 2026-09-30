@@ -1,127 +1,135 @@
 #!/usr/bin/env python3
-"""Build site/src/data/summary.json from the Club Med winter price CSV.
+"""Build site/src/data/summary.json from the price CSVs (one pass per CSV).
 
-One pass over the CSV. For every resort x party size x 7-night Sunday departure we keep the
-price on each collection day, then work out: latest price, price ~30 days earlier, lowest and
-highest seen, and a short weekly history for the chart.
+For every collection x resort x party size x future 7-night departure: latest price,
+price ~30 days earlier, lowest/highest seen and a short weekly history.
 
-Rules (non-negotiable "works and true"):
-- Only real collected prices are used. Nothing is interpolated or invented.
-- A week with no price on the latest collection day is marked unavailable, not given an old price.
-- Data older than STALE_DAYS is flagged so the site can show a warning instead of pretending it is fresh.
+Rules ("works and true"):
+- Only real collected prices. Nothing interpolated or invented.
+- A departure with no price on the resort's latest collection day is marked unavailable.
+- Past departures are dropped. Stale collections are flagged so the site can say so.
 """
 import csv, json, sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-CSV_FILE = ROOT / "_data" / "prices_clubmed.csv"
 OUT = ROOT / "site" / "src" / "data" / "summary.json"
 PARTIES = {"2A": "2 adults", "2A2C": "2 adults, 2 children"}
-DURATION = "7"
 STALE_DAYS = 3
 TREND_PCT = 3.0
+HISTORY_POINTS = 16
 
-# Resort code currently in use per resort (guards against the old LP2C_WINTER rows)
-CODES = {
-    "tignes-val-claret": "TIGC_WINTER", "les-arcs": "ARPC_WINTER", "peisey-vallandry": "PVAC_WINTER",
-    "valmorel": "VMOC_WINTER", "alpe-dhuez": "ALHC_WINTER", "la-rosiere": "LROC_WINTER",
-    "la-plagne-2100": "PLAC", "val-disere": "VDIC_WINTER", "grand-massif": "GMAC_WINTER",
-    "val-thorens": "VTHC", "serre-chevalier": "SECC_WINTER",
+COLLECTIONS = {
+    "clubmed-ski": {
+        "csv": "prices_clubmed.csv", "time": "timestamp", "dep": "start_date", "price": "price",
+        "where": lambda r: r["duration_nights"] == "7",
+        # current resort code per resort (guards against the old LP2C_WINTER rows)
+        "codes": {"tignes-val-claret": "TIGC_WINTER", "les-arcs": "ARPC_WINTER", "peisey-vallandry": "PVAC_WINTER",
+                  "valmorel": "VMOC_WINTER", "alpe-dhuez": "ALHC_WINTER", "la-rosiere": "LROC_WINTER",
+                  "la-plagne-2100": "PLAC", "val-disere": "VDIC_WINTER", "grand-massif": "GMAC_WINTER",
+                  "val-thorens": "VTHC", "serre-chevalier": "SECC_WINTER"},
+    },
+    "clubmed-sun": {
+        "csv": "prices_clubmed_summer.csv", "time": "collected_at", "dep": "departure_date", "price": "price_pp",
+        "where": lambda r: r["duration_nights"] == "7",
+    },
+    "markwarner-sun": {
+        "csv": "prices_markwarner_summer.csv", "time": "timestamp", "dep": "start_date", "price": "price",
+        "where": lambda r: r["duration_nights"] == "7" and r["airport"] == "LGW",
+    },
 }
 
-# School holiday departures (Sunday, 7 nights) - dates used by most schools in England, 2026/27.
-SCHOOL_WEEKS = [
-    {"key": "christmas", "label": "Christmas", "date": "2026-12-20"},
-    {"key": "new-year", "label": "New Year", "date": "2026-12-27"},
-    {"key": "february-half-term", "label": "February half-term", "date": "2027-02-14"},
-    {"key": "easter-1", "label": "Easter (week 1)", "date": "2027-03-28"},
-    {"key": "easter-2", "label": "Easter (week 2)", "date": "2027-04-04"},
-]
 
-
-def main():
-    series = {}  # (rid, party, start) -> {day: price}
-    latest_day = {}  # rid -> latest collection day seen (any row, priced or not)
-    with open(CSV_FILE, newline="") as f:
+def summarise(cfg, today):
+    series, latest_day = {}, {}
+    path = ROOT / "_data" / cfg["csv"]
+    if not path.exists():
+        return {}, [f"{cfg['csv']} missing"]
+    codes = cfg.get("codes")
+    with open(path, newline="") as f:
         for row in csv.DictReader(f):
             rid = row["resort_id"]
-            if rid not in CODES or row.get("resort_code") != CODES[rid]:
+            if codes and (rid not in codes or row.get("resort_code") != codes[rid]):
                 continue
-            if row["duration_nights"] != DURATION or row["party_size"] not in PARTIES:
+            if row["party_size"] not in PARTIES or not cfg["where"](row):
                 continue
-            start = row["start_date"]
-            if datetime.strptime(start, "%Y-%m-%d").weekday() != 6:  # Sunday departures only
-                continue
-            day = row["timestamp"][:10]
+            day = row[cfg["time"]][:10]
             latest_day[rid] = max(latest_day.get(rid, ""), day)
-            d = series.setdefault((rid, row["party_size"], start), {})
-            if row["price"]:
+            d = series.setdefault((rid, row["party_size"], row[cfg["dep"]]), {})
+            raw = row[cfg["price"]]
+            if raw:
                 try:
-                    d[day] = int(row["price"])
+                    d[day] = int(float(raw))
                 except ValueError:
                     pass
             else:
                 d.setdefault(day, None)
 
-    today = date.today()
-    resorts = {}
+    resorts, problems = {}, []
+    todays = today.isoformat()
     for (rid, party, start), daily in series.items():
+        if start <= todays:
+            continue
         last = latest_day[rid]
         priced = sorted((k, v) for k, v in daily.items() if v)
         current = daily.get(last)
-        entry = {"date": start, "available": bool(current)}
+        e = {"date": start, "available": bool(current)}
         if priced:
             prices = [v for _, v in priced]
-            entry.update({"lowest": min(prices), "highest": max(prices), "firstSeen": priced[0][0]})
+            e.update({"lowest": min(prices), "highest": max(prices), "firstSeen": priced[0][0]})
         if current:
             target = (datetime.strptime(last, "%Y-%m-%d") - timedelta(days=30)).strftime("%Y-%m-%d")
             before = [(k, v) for k, v in priced if k <= target]
-            prev = before[-1] if before else None
-            entry["price"] = current
-            if prev:
+            e["price"] = current
+            if before:
+                prev = before[-1]
                 change = current - prev[1]
                 pct = round(change / prev[1] * 100, 1)
-                entry.update({"change30": change, "change30Pct": pct, "comparedWith": prev[0]})
-                entry["trend"] = "rising" if pct >= TREND_PCT else "falling" if pct <= -TREND_PCT else "steady"
+                e.update({"change30": change, "change30Pct": pct, "comparedWith": prev[0],
+                          "trend": "rising" if pct >= TREND_PCT else "falling" if pct <= -TREND_PCT else "steady"})
             else:
-                entry["trend"] = "new"
-            entry["atLowest"] = current <= entry["lowest"]
-            # weekly history for the chart: one point per 7 days, always ending on the latest day
+                e["trend"] = "new"
+            e["atLowest"] = current <= e["lowest"]
             hist, cursor = [], None
             for k, v in reversed(priced):
                 if cursor is None or k <= cursor:
                     hist.append({"d": k, "p": v})
                     cursor = (datetime.strptime(k, "%Y-%m-%d") - timedelta(days=7)).strftime("%Y-%m-%d")
-            entry["history"] = list(reversed(hist))
+                if len(hist) >= HISTORY_POINTS:
+                    break
+            e["history"] = list(reversed(hist))
         r = resorts.setdefault(rid, {"updated": last, "parties": {}})
-        r["parties"].setdefault(party, []).append(entry)
+        r["parties"].setdefault(party, []).append(e)
 
-    problems = []
     for rid, r in resorts.items():
         for party in r["parties"]:
-            r["parties"][party].sort(key=lambda e: e["date"])
+            r["parties"][party].sort(key=lambda x: x["date"])
         age = (today - datetime.strptime(r["updated"], "%Y-%m-%d").date()).days
         r["stale"] = age > STALE_DAYS
         if r["stale"]:
-            problems.append(f"{rid}: data is {age} days old")
-    missing = sorted(set(CODES) - set(resorts))
-    if missing:
-        problems.append(f"no data for: {', '.join(missing)}")
+            problems.append(f"{rid}: latest check is {age} days old")
+    if codes:
+        missing = sorted(set(codes) - set(resorts))
+        if missing:
+            problems.append(f"no data for: {', '.join(missing)}")
+    return resorts, problems
 
-    out = {
-        "generated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"),
-        "parties": PARTIES,
-        "schoolWeeks": SCHOOL_WEEKS,
-        "trendThresholdPct": TREND_PCT,
-        "resorts": resorts,
-        "problems": problems,
-    }
+
+def main():
+    today = date.today()
+    out = {"generated": datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ"), "parties": PARTIES,
+           "trendThresholdPct": TREND_PCT, "collections": {}, "problems": {}}
+    for key, cfg in COLLECTIONS.items():
+        resorts, problems = summarise(cfg, today)
+        out["collections"][key] = resorts
+        out["problems"][key] = problems
+        n = sum(len(v) for r in resorts.values() for v in r["parties"].values())
+        print(f"{key}: {len(resorts)} resorts, {n} future departures")
+        for p in problems:
+            print(f"  WARNING {key}: {p}")
     OUT.write_text(json.dumps(out, separators=(",", ":")))
-    print(f"Wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size // 1024} KB) for {len(resorts)} resorts")
-    for p in problems:
-        print("WARNING:", p)
-    return 0
+    print(f"Wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

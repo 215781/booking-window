@@ -1,0 +1,7 @@
+---
+import ResortPage from '../../components/ResortPage.astro';
+import { MARKWARNER } from '../../lib/resorts';
+export function getStaticPaths() { return MARKWARNER.map((r) => ({ params: { slug: r.slug }, props: { resort: r } })); }
+const { resort } = Astro.props;
+---
+<ResortPage resort={resort} />

@@ -1,0 +1,124 @@
+---
+import Base from '../layouts/Base.astro';
+import Signup from './Signup.astro';
+import Sparkline from './Sparkline.astro';
+import Trend from './Trend.astro';
+import { COLLECTIONS, type Resort } from '../lib/resorts';
+import { resortData, deps, weekDep, weeksFor, featureWeek, hasData, FAMILY, COUPLE, money, niceDate, weekRange, TREND, changeText, changeShort } from '../lib/data';
+interface Props { resort: Resort }
+const { resort } = Astro.props;
+const col = COLLECTIONS[resort.collection];
+const rd = resortData(resort);
+const updated = rd?.updated ?? '';
+const weeks = weeksFor(resort);
+const fw = featureWeek(resort);
+const f = weekDep(resort, FAMILY, fw);
+const tracked = hasData(resort);
+const allFamily = deps(resort, FAMILY);
+const avail = allFamily.filter((d) => d.available);
+const lowestNow = [...avail].sort((a, b) => a.price! - b.price!)[0];
+const seasonYear = col.season === 'ski' ? '2026/27' : '2027';
+const title = `When to book ${resort.fullName}: school-holiday prices, checked daily`;
+const answer = !tracked
+  ? `We're starting to track ${seasonYear} prices for ${resort.fullName}. Join the free email and we'll tell you when prices move.`
+  : f?.available
+    ? `For ${fw.label} ${seasonYear}, a family of four at ${resort.fullName} costs ${money(f.price)} (${col.priceNote}), checked ${niceDate(updated)}. ${changeText(f)}. ${TREND[f.trend ?? 'steady'].line}.`
+    : `${fw.label} ${seasonYear} at ${resort.fullName} is not currently bookable online (checked ${niceDate(updated)}).`;
+const faqs = tracked ? [
+  { q: `When is the best time to book ${resort.fullName}?`, a: `${answer}${lowestNow ? ` The lowest price we're seeing right now for a family of four is ${money(lowestNow.price)}, for the week of ${niceDate(lowestNow.date)}.` : ''}` },
+  { q: `How much does ${resort.fullName} cost for a family of four?`, a: `Across the season we're currently seeing ${money(Math.min(...avail.map((d) => d.price!)))} to ${money(Math.max(...avail.map((d) => d.price!)))} for ${col.priceNote}, for 2 adults and 2 children aged 4-11.` },
+  { q: 'What do the prices include?', a: col.brand === 'Club Med' ? 'We track the Club Med all-inclusive package without flights, so comparisons stay like-for-like.' : 'We track the Mark Warner package including return flights from London Gatwick, as shown on the Mark Warner website.' },
+  { q: 'Is this a forecast?', a: 'No. We show what prices have actually done, based on a check every morning. Past movement is a useful guide, but prices can change at any time.' },
+] : [];
+const jsonLd = [
+  { '@context': 'https://schema.org', '@type': 'Resort', name: resort.fullName, url: new URL(`${col.base}${resort.slug}/`, Astro.site).href, ...(resort.image ? { image: new URL(`/images/${resort.image}.jpg`, Astro.site).href } : {}), address: { '@type': 'PostalAddress', addressRegion: resort.area } },
+  ...(faqs.length ? [{ '@context': 'https://schema.org', '@type': 'FAQPage', dateModified: updated, mainEntity: faqs.map((x) => ({ '@type': 'Question', name: x.q, acceptedAnswer: { '@type': 'Answer', text: x.a } })) }] : []),
+  { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: new URL('/', Astro.site).href },
+    { '@type': 'ListItem', position: 2, name: col.brand, item: new URL(col.base, Astro.site).href },
+    { '@type': 'ListItem', position: 3, name: resort.name } ] },
+];
+---
+<Base title={title} description={answer.slice(0, 155)} jsonLd={jsonLd} image={resort.image ? `/images/${resort.image}.jpg` : undefined}>
+  <div data-page-resort={resort.slug} data-page-brand={col.brand} data-page-collection={resort.collection}></div>
+  {resort.image ? (
+    <div class="hero">
+      <img src={`/images/${resort.image}.jpg`} alt={resort.imageAlt ?? resort.name} width="1600" height="900" />
+      <div class="inner"><div>
+        <p class="kicker">{col.label} · {resort.area}{resort.altitude && ` · ${resort.altitude}`}</p>
+        <h1>When to book {resort.fullName}</h1>
+        <p>School-holiday prices for a family of four, checked every morning.</p>
+      </div></div>
+    </div>
+  ) : (
+    <div class="hero-plain"><div class="wrap">
+      <p class="kicker">{col.label} · {resort.area}</p>
+      <h1>When to book {resort.fullName}</h1>
+      <p>School-holiday prices for a family of four, checked every morning.</p>
+    </div></div>
+  )}
+  <div class="wrap narrow">
+    <p class="crumbs"><a href="/">Home</a> / <a href={col.base}>{col.brand}</a> / {resort.name}</p>
+    {rd?.stale && <p class="notice">Heads up: our latest check for this resort is from {niceDate(updated)}. We're looking into it.</p>}
+    {!tracked ? (
+      <div class="verdict">
+        <p class="kicker">{seasonYear} season</p>
+        <p class="big">Prices for next season are coming soon</p>
+        <p>We've just started checking {seasonYear} prices for {resort.name}. Join the free email and we'll tell you as soon as there's something worth knowing.</p>
+        <p><a class="btn" href={resort.bookingUrl} rel="nofollow noopener" target="_blank" data-track="outbound_click" data-resort={resort.slug} data-brand={col.brand} data-location="verdict">{col.bookLabel}</a></p>
+      </div>
+    ) : (
+      <div class="verdict">
+        <p class="kicker">{fw.label} {seasonYear} · family of 4 · {col.priceNote}</p>
+        {f?.available ? (
+          <>
+            <p class="big">{TREND[f.trend ?? 'steady'].line}</p>
+            <p><span class="price">{money(f.price)}</span> <span class="muted">· {changeText(f)}</span></p>
+            {f.history && <Sparkline points={f.history} label={`Price history for ${fw.label} at ${resort.name}`} />}
+            <p class="small">Departing {weekRange(f.date)}. Checked {niceDate(updated)}. Lowest we've seen {money(f.lowest)}, highest {money(f.highest)}. Guidance only - confirm with {col.brand} before booking.</p>
+          </>
+        ) : <><p class="big">Not currently bookable online</p><p class="small">Checked {niceDate(updated)}. This week may be sold out or not yet on sale - check {col.brand} directly.</p></>}
+        <p><a class="btn" href={resort.bookingUrl} rel="nofollow noopener" target="_blank" data-track="outbound_click" data-resort={resort.slug} data-brand={col.brand} data-location="verdict">{col.bookLabel}</a></p>
+      </div>
+    )}
+
+    {tracked && (<>
+      <h2>School holidays at a glance</h2>
+      <p class="muted">{col.priceNote}; 2 adults and 2 children aged 4-11. Dates follow most schools in England.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Week</th><th>Family of 4</th><th>30 days</th><th>Trend</th><th class="hide-sm">Couple</th></tr></thead>
+        <tbody>
+          {weeks.map((w) => { const fd = weekDep(resort, FAMILY, w); const cd = weekDep(resort, COUPLE, w); return (
+            <tr><td><strong>{w.label}</strong><br /><span class="small">{fd ? weekRange(fd.date) : 'No departures tracked'}</span></td>
+            <td class="num">{fd?.available ? money(fd.price) : '-'}</td>
+            <td>{changeShort(fd)}</td>
+            <td><Trend trend={fd?.trend} available={fd?.available} /></td>
+            <td class="num hide-sm">{cd?.available ? money(cd.price) : '-'}</td></tr>
+          ); })}
+        </tbody>
+      </table></div>
+    </>)}
+
+    <Signup heading={`Watch ${resort.name} for me`} text={`We'll email you when ${resort.name} prices move for the school holidays. Free, one click to unsubscribe.`} interest={resort.slug} />
+
+    {tracked && (
+      <details data-track-toggle="all_departures" data-resort={resort.slug}>
+        <summary>Every departure this season (family of 4)</summary>
+        <div class="table-wrap"><table>
+          <thead><tr><th>Week</th><th>Price</th><th>30 days</th><th class="hide-sm">Lowest seen</th></tr></thead>
+          <tbody>{allFamily.map((d) => (
+            <tr><td>{weekRange(d.date)}</td><td class="num">{d.available ? money(d.price) : '-'}</td><td>{changeShort(d)}</td><td class="hide-sm">{money(d.lowest)}</td></tr>
+          ))}</tbody>
+        </table></div>
+      </details>
+    )}
+
+    {faqs.length > 0 && (
+      <section class="faq">
+        <h2>Questions</h2>
+        {faqs.map((x) => (<><h3>{x.q}</h3><p>{x.a}</p></>))}
+      </section>
+    )}
+    {resort.blog && <p>Read more: <a href={`/blog/${resort.blog}/`}>our full guide to booking {resort.name}</a>.</p>}
+  </div>
+</Base>

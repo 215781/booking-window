@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import Signup from './Signup.astro';
+interface Props { brand: string; slug: string; title: string; description: string; resorts: string[] }
+const { brand, slug, title, description, resorts } = Astro.props;
+---
+<Base title={title} description={description}>
+  <div class="hero-plain"><div class="wrap">
+    <p class="kicker">Coming soon</p>
+    <h1>{brand}: when to book</h1>
+    <p>{description}</p>
+  </div></div>
+  <div class="wrap narrow">
+    <p class="crumbs"><a href="/">Home</a> / {brand}</p>
+    <h2>What we'll cover</h2>
+    <p>Daily prices for every school-holiday week at {resorts.length} {brand} resorts, with the same plain-English "book now or wait" view you get for Club Med.</p>
+    <ul>{resorts.map((r) => <li>{r}</li>)}</ul>
+    <Signup heading={`Tell me when ${brand} tracking starts`} text={`We'll email you once we're tracking ${brand} prices - then only when your week moves.`} interest={slug} />
+  </div>
+</Base>

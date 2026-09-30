@@ -28,19 +28,23 @@ for (const f of files.filter((f) => /\.(html|js|txt|json|xml)$/.test(f))) {
   const s = readFileSync(f, 'utf8');
   if (/kit_[A-Za-z0-9]{10,}|VvMXklLU|QalMFHrJ|api[_-]?secret/i.test(s)) fails.push(`possible secret in ${f.replace(DIST, '')}`);
 }
-// 4. Resort pages: real price, checked date, valid JSON-LD, signup form, outbound link
-const resortPages = html.filter((f) => /\/club-med\/[^/]+\/index\.html$/.test(f));
-if (resortPages.length !== 11) fails.push(`expected 11 resort pages, found ${resortPages.length}`);
+// 4. Resort pages: tracked ones need real prices and a checked date; untracked ones must say so. All need JSON-LD, signup and outbound link.
+const resortPages = html.filter((f) => /\/(club-med|mark-warner)\/[^/]+\/index\.html$/.test(f));
+if (resortPages.length < 37) fails.push(`expected at least 37 resort pages, found ${resortPages.length}`);
+let tracked = 0;
 for (const f of resortPages) {
-  const s = readFileSync(f, 'utf8');
-  if (!/£\d/.test(s)) fails.push(`no prices on ${f.replace(DIST, '')}`);
-  if (!/Checked \d/.test(s)) fails.push(`no checked date on ${f.replace(DIST, '')}`);
-  if (!s.includes('data-form="7f784a323c"')) fails.push(`no signup form on ${f.replace(DIST, '')}`);
-  for (const [, j] of s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { JSON.parse(j); } catch { fails.push(`bad JSON-LD on ${f.replace(DIST, '')}`); } }
+  const s = readFileSync(f, 'utf8'); const n = f.replace(DIST, '');
+  const soon = s.includes('Prices for next season are coming soon');
+  if (!soon) { tracked++; if (!/£\d/.test(s)) fails.push(`no prices on ${n}`); if (!/Checked \d/.test(s)) fails.push(`no checked date on ${n}`); }
+  if (!s.includes('data-form="7f784a323c"')) fails.push(`no signup form on ${n}`);
+  if (!s.includes('data-track="outbound_click"')) fails.push(`no tracked outbound link on ${n}`);
+  if (!s.includes('data-page-resort=')) fails.push(`no page context for analytics on ${n}`);
+  for (const [, j] of s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { JSON.parse(j); } catch { fails.push(`bad JSON-LD on ${n}`); } }
 }
+if (tracked < 15) fails.push(`only ${tracked} resort pages have live prices (expected 11 ski + 4 Mark Warner at least)`);
 // 5. Data freshness
 const summary = JSON.parse(readFileSync(new URL('../src/data/summary.json', import.meta.url), 'utf8'));
-for (const p of summary.problems) fails.push(`data: ${p}`);
+for (const [k, ps] of Object.entries(summary.problems)) for (const p of ps) fails.push(`data (${k}): ${p}`);
 // 6. Analytics only behind consent: gtag script must not be in the static HTML
 for (const f of html) if (/<script[^>]+googletagmanager/.test(readFileSync(f, 'utf8'))) fails.push(`GA loads without consent in ${f.replace(DIST, '')}`);
 

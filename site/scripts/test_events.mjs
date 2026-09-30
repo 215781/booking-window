@@ -1,0 +1,41 @@
+// Headless check that analytics events fire (after consent) for resort clicks and outbound clicks.
+// Run against a local server: npx astro preview --port 4321 &  then  node scripts/test_events.mjs
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
+let pw; try { pw = require('playwright'); } catch { pw = require(process.env.PLAYWRIGHT_PATH || 'playwright'); }
+const BASE = process.env.BASE || 'http://localhost:4321';
+const b = await pw.chromium.launch();
+const fails = [];
+const events = (page) => page.evaluate(() => (window.dataLayer || []).filter((x) => x[0] === 'event').map((x) => ({ name: x[1], ...x[2] })));
+const ctx = await b.newContext();
+await ctx.route(/googletagmanager|google-analytics|app\\.kit\\.com|clubmed\\.co\\.uk|markwarner\\.co\\.uk/, (r) => r.fulfill({ status: 200, body: '' }));
+const page = await ctx.newPage();
+await page.goto(BASE + '/club-med/');
+if (await page.evaluate(() => !!window.gtag)) fails.push('GA loaded before consent');
+await page.click('[data-choice="no"]');
+await page.click('a.card >> nth=0', { noWaitAfter: true }).catch(() => {});
+await page.goto(BASE + '/club-med/');
+if (await page.evaluate(() => (window.dataLayer || []).length)) fails.push('events recorded after "No thanks"');
+await page.evaluate(() => localStorage.clear()); await page.reload();
+await page.click('[data-choice="yes"]');
+await page.evaluate(() => document.querySelectorAll('a').forEach((a) => a.addEventListener('click', (e) => e.preventDefault())));
+await page.click('a.card[data-resort="val-thorens"]');
+let ev = await events(page);
+if (!ev.some((e) => e.name === 'select_resort' && e.resort === 'val-thorens' && e.brand === 'Club Med')) fails.push('select_resort not recorded');
+await page.goto(BASE + '/club-med/val-thorens/');
+await page.waitForTimeout(100);
+ev = await events(page);
+if (!ev.some((e) => e.name === 'view_resort' && e.resort === 'val-thorens')) fails.push('view_resort not recorded');
+await page.evaluate(() => document.querySelectorAll('a').forEach((a) => a.addEventListener('click', (e) => e.preventDefault())));
+await page.click('a[data-track="outbound_click"]');
+ev = await events(page);
+if (!ev.some((e) => e.name === 'outbound_click' && e.resort === 'val-thorens' && e.brand === 'Club Med' && e.outbound)) fails.push('outbound_click not recorded');
+await page.goto(BASE + '/mark-warner/paleros/');
+await page.evaluate(() => document.querySelectorAll('a').forEach((a) => a.addEventListener('click', (e) => e.preventDefault())));
+await page.click('a[data-track="outbound_click"]');
+ev = await events(page);
+if (!ev.some((e) => e.name === 'outbound_click' && e.brand === 'Mark Warner')) fails.push('Mark Warner outbound_click not recorded');
+await b.close();
+fails.forEach((f) => console.log('FAIL', f));
+console.log(fails.length ? `${fails.length} failure(s)` : 'EVENT CHECKS PASSED');
+process.exit(fails.length ? 1 : 0);

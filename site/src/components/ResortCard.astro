@@ -1,19 +1,24 @@
 ---
-import type { Resort } from '../lib/resorts';
-import { dep, FAMILY, money, TREND } from '../lib/data';
+import { COLLECTIONS, type Resort } from '../lib/resorts';
+import { weekDep, featureWeek, hasData, FAMILY, money, type Week } from '../lib/data';
 import Trend from './Trend.astro';
-interface Props { resort: Resort; week: { key: string; label: string; date: string } }
-const { resort, week } = Astro.props;
-const d = dep(resort, FAMILY, week.date);
+interface Props { resort: Resort; week?: Week; location?: string }
+const { resort, location = 'card' } = Astro.props;
+const col = COLLECTIONS[resort.collection];
+const week = Astro.props.week ?? featureWeek(resort);
+const d = weekDep(resort, FAMILY, week);
+const tracked = hasData(resort);
 ---
-<a class="card" href={`/club-med/${resort.slug}/`}>
-  <img src={`/images/${resort.image}.jpg`} alt={resort.imageAlt} loading="lazy" width="800" height="500" />
+<a class="card" href={`${col.base}${resort.slug}/`} data-track="select_resort" data-resort={resort.slug} data-brand={col.brand} data-collection={resort.collection} data-location={location}>
+  {resort.image
+    ? <img src={`/images/${resort.image}.jpg`} alt={resort.imageAlt ?? resort.name} loading="lazy" width="800" height="500" />
+    : <div class="card-band"><span>{resort.area}</span></div>}
   <div class="card-body">
     <h3>{resort.name}</h3>
     <p class="muted">{resort.area}{resort.altitude && ` · ${resort.altitude}`}</p>
-    <p class="card-price">
-      {d?.available ? <><strong>{money(d.price)}</strong> <span class="muted">family of 4, {week.label}</span></> : <span class="muted">{week.label}: not available online</span>}
-    </p>
-    <Trend trend={d?.trend} available={d?.available} />
+    {!tracked ? <p class="muted">Prices for next season coming soon</p>
+      : d?.available ? <p class="card-price"><strong>{money(d.price)}</strong> <span class="muted">family of 4, {week.label}</span></p>
+      : <p class="muted">{week.label}: not available online</p>}
+    {tracked && <Trend trend={d?.trend} available={d?.available} />}
   </div>
 </a>

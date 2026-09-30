@@ -2,17 +2,22 @@
 import Base from '../../layouts/Base.astro';
 import ResortCard from '../../components/ResortCard.astro';
 import Signup from '../../components/Signup.astro';
-import { RESORTS } from '../../lib/resorts';
-import { schoolWeeks, latestUpdate, niceDate } from '../../lib/data';
-const week = schoolWeeks.find((w) => w.key === 'february-half-term')!;
-const updated = latestUpdate();
+import { SKI, SUN } from '../../lib/resorts';
+import { latestUpdate, niceDate, hasData } from '../../lib/data';
+const updated = latestUpdate('clubmed-ski');
+const sunTracked = SUN.some(hasData);
 ---
-<Base title="Club Med ski prices: when to book each French Alps resort" description={`Daily Club Med ski prices for all 11 French Alps resorts, with school-holiday trends for families. Last checked ${niceDate(updated)}.`}>
+<Base title="Club Med prices: when to book ski and sun resorts" description={`Club Med prices checked every morning: 11 French Alps ski resorts and ${SUN.length} sun resorts, with school-holiday trends for families.`}>
   <div class="wrap">
-    <p class="crumbs"><a href="/">Home</a> / Club Med ski</p>
-    <h1>Club Med ski: when to book</h1>
-    <p class="muted narrow">We check every Club Med French Alps resort every morning. Pick a resort to see how school-holiday prices are moving. Prices shown: February half-term 2027, family of four, 7 nights, without flights. Last checked {niceDate(updated)}.</p>
-    <div class="grid">{RESORTS.map((r) => <ResortCard resort={r} week={week} />)}</div>
-    <Signup />
+    <p class="crumbs"><a href="/">Home</a> / Club Med</p>
+    <h1>Club Med: when to book</h1>
+    <p class="muted narrow">We check Club Med prices every morning. Pick a resort to see how its school-holiday weeks are moving. Last checked {niceDate(updated)}.</p>
+    <h2 id="ski">Ski: French Alps</h2>
+    <p class="muted">February half-term 2027, family of four, 7 nights, without flights.</p>
+    <div class="grid">{SKI.map((r) => <ResortCard resort={r} location="hub-ski" />)}</div>
+    <h2 id="sun">Sun: summer 2027</h2>
+    <p class="muted">{sunTracked ? 'Mid-August 2027, family of four, 7 nights, without flights.' : "We've just started checking summer 2027 prices. Resort pages fill in as the data builds - join the email to hear first."}</p>
+    <div class="grid">{SUN.map((r) => <ResortCard resort={r} location="hub-sun" />)}</div>
+    <Signup interest="club-med" />
   </div>
 </Base>

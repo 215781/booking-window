@@ -2,12 +2,11 @@
 import Base from '../layouts/Base.astro';
 import ResortCard from '../components/ResortCard.astro';
 import Signup from '../components/Signup.astro';
-import { RESORTS } from '../lib/resorts';
-import { schoolWeeks, dep, FAMILY, money, latestUpdate, niceDate } from '../lib/data';
+import { SKI, SUN, MARKWARNER, COLLECTIONS } from '../lib/resorts';
+import { WEEKS, weekDep, FAMILY, money, latestUpdate, niceDate } from '../lib/data';
 const updated = latestUpdate();
-const week = schoolWeeks.find((w) => w.key === 'february-half-term')!;
 // Biggest 30-day moves across all school-holiday weeks (family of four)
-const moves = RESORTS.flatMap((r) => schoolWeeks.map((w) => ({ r, w, d: dep(r, FAMILY, w.date) })))
+const moves = [...SKI.flatMap((r) => WEEKS.ski.map((w) => ({ r, w, d: weekDep(r, FAMILY, w) }))), ...[...SUN, ...MARKWARNER].flatMap((r) => WEEKS.sun.map((w) => ({ r, w, d: weekDep(r, FAMILY, w) })))]
   .filter((x) => x.d?.available && x.d.change30)
   .sort((a, b) => Math.abs(b.d!.change30!) - Math.abs(a.d!.change30!)).slice(0, 3);
 const jsonLd = [
@@ -15,35 +14,45 @@ const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'Organization', name: 'When To Book', url: 'https://whentobook.co.uk/', email: 'admin@whentobook.co.uk', founder: { '@type': 'Person', name: 'Connor Martin' } },
 ];
 ---
-<Base title="When To Book - know when to book your Club Med ski holiday" description="I check Club Med prices every morning so you know when to book your school-holiday week. Free weekly email." jsonLd={jsonLd}>
+<Base title="When To Book - know when to book your family holiday" description="I check Club Med and Mark Warner prices every morning so you know when to book your school-holiday week. Free weekly email." jsonLd={jsonLd}>
   <div class="hero">
     <img src="/images/Val-Thorens.jpg" alt="Val Thorens under fresh snow" width="1600" height="900" />
     <div class="inner"><div>
-      <p class="kicker">Club Med ski · 11 French Alps resorts</p>
-      <h1>Know when to book your school-holiday ski week</h1>
-      <p>I check Club Med prices every morning, so you don't have to. Plain answers, no spreadsheets.</p>
+      <p class="kicker">Club Med · Mark Warner · more coming</p>
+      <h1>Know when to book your school-holiday week</h1>
+      <p>I check family holiday prices every morning, so you don't have to. Plain answers, no spreadsheets.</p>
       <p><a class="btn" href="/club-med/">See this week's prices</a></p>
     </div></div>
   </div>
   <div class="wrap">
     {moves.length > 0 && (<section class="block">
       <h2>Biggest moves this month</h2>
-      <p class="muted">Family of four, 7 nights, school-holiday weeks. Checked {niceDate(updated)}.</p>
+      <p class="muted">Family of four, 7 nights, school-holiday weeks, last 30 days. Checked {niceDate(updated)}.</p>
       <div class="movers">{moves.map(({ r, w, d }) => (
-        <a class="mover card-link" href={`/club-med/${r.slug}/`}>
+        <a class="mover" href={`${COLLECTIONS[r.collection].base}${r.slug}/`} data-track="select_resort" data-resort={r.slug} data-brand={COLLECTIONS[r.collection].brand} data-location="home-movers">
           <strong>{r.name}, {w.label}</strong><br />
           <span class:list={['delta', d!.change30! > 0 ? 'up' : 'down']}>{d!.change30! > 0 ? 'Up' : 'Down'} {money(Math.abs(d!.change30!))}</span> <span class="muted">to {money(d!.price)}</span>
         </a>))}</div>
     </section>)}
     <Signup />
     <section class="block">
-      <h2>February half-term 2027, resort by resort</h2>
-      <div class="grid">{RESORTS.map((r) => <ResortCard resort={r} week={week} />)}</div>
+      <h2>Pick your holiday company</h2>
+      <div class="brands">
+        <a class="brand" href="/club-med/#ski" data-track="select_brand" data-brand="Club Med" data-location="home-brands"><h3>Club Med ski</h3><p>11 French Alps resorts, 2026/27</p></a>
+        <a class="brand" href="/club-med/#sun" data-track="select_brand" data-brand="Club Med" data-location="home-brands"><h3>Club Med sun</h3><p>{SUN.length} beach resorts, summer 2027</p></a>
+        <a class="brand" href="/mark-warner/" data-track="select_brand" data-brand="Mark Warner" data-location="home-brands"><h3>Mark Warner</h3><p>{MARKWARNER.length} beach resorts, flights included</p></a>
+        <a class="brand" href="/ikos/" data-track="select_brand" data-brand="Ikos" data-location="home-brands"><h3>Ikos Resorts</h3><p>Coming soon</p></a>
+        <a class="brand" href="/sandals/" data-track="select_brand" data-brand="Sandals" data-location="home-brands"><h3>Sandals and Beaches</h3><p>Coming soon</p></a>
+      </div>
+    </section>
+    <section class="block">
+      <h2>February half-term 2027: Club Med ski</h2>
+      <div class="grid">{SKI.map((r) => <ResortCard resort={r} location="home-grid" />)}</div>
     </section>
     <section class="block">
       <h2>How it works</h2>
       <div class="steps">
-        <div><h3>We check every morning</h3><p>Every Club Med French Alps resort, every Sunday departure, for couples and families.</p></div>
+        <div><h3>We check every morning</h3><p>Every resort we cover, every departure, for couples and families.</p></div>
         <div><h3>We spot the moves</h3><p>Is your week getting pricier, easing off or holding steady? We tell you in one line.</p></div>
         <div><h3>You book when it suits</h3><p>Join the free weekly email and we'll tell you when your week moves. The decision is always yours.</p></div>
       </div>

@@ -1,0 +1,17 @@
+---
+import Base from '../../layouts/Base.astro';
+import ResortCard from '../../components/ResortCard.astro';
+import Signup from '../../components/Signup.astro';
+import { MARKWARNER } from '../../lib/resorts';
+import { latestUpdate, niceDate } from '../../lib/data';
+const updated = latestUpdate('markwarner-sun');
+---
+<Base title="Mark Warner prices: when to book beach resorts" description="Mark Warner beach resort prices checked every morning, with school-holiday trends for families. Prices include flights from London Gatwick.">
+  <div class="wrap">
+    <p class="crumbs"><a href="/">Home</a> / Mark Warner</p>
+    <h1>Mark Warner: when to book</h1>
+    <p class="muted narrow">We check four Mark Warner beach resorts every morning. Prices are for 7 nights including return flights from London Gatwick, shown for mid-August 2027 for a family of four. Last checked {niceDate(updated)}.</p>
+    <div class="grid">{MARKWARNER.map((r) => <ResortCard resort={r} location="hub-markwarner" />)}</div>
+    <Signup interest="mark-warner" />
+  </div>
+</Base>

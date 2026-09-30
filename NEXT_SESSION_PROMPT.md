@@ -39,6 +39,17 @@ Other facts:
 - Open plan work: PLAN_V2 **C1–C11 (pipeline/data, urgent)** then remaining B-tasks (B1, B6, B7, B8, B10, B12; `post.html` links `/privacy.html` → `/privacy/`). Awin application status unknown — owner to confirm.
 - Owner is running a strategy rethink (Cowork) — expect the plan to change; treat PLAN_V2 C-group as the safe, direction-independent work.
 
+## HANDOVER — end of Cowork session 2026-09-30 (read this first)
+
+- **Push status:** owner to run: `export GIT_SSH_COMMAND="ssh -i ~/.ssh/booking_window_deploy"; git pull --no-rebase --no-edit; git push origin main; git push origin rebuild`. Check `git log origin/main -1` and that `origin/rebuild` exists before any work.
+- **New site:** branch `rebuild`, folder `site/` (Astro). Preview: https://claude.ai/artifact/TKPUwYjAm1PYAh5sgqgUaT. Do NOT merge to main or change DNS without owner sign-off.
+- **Ikos decision (owner, 30 Sep):** route 2 — use Kenwood Travel's Awin product feed once Awin approves. Do NOT scrape ikosresorts.swapsystems.com (robots.txt disallows all).
+- **Owner set up:** Neon, Cloudflare, Healthchecks accounts; Kit API key in GitHub secrets; Chrome extension connected; network allowlist updated (check it works in the new session: neon.tech, kit.com, cloudflare.com, healthchecks.io).
+- **Next:** verify 10:30 UTC build + 3-batch summer run; end-to-end Kit signup test; move data to Neon; Cloudflare Pages preview of `rebuild`; Turnstile + cookieless analytics; Sandals checker (respect robots.txt); review Val d'Isère +55% jump (C6); mark outbound_click + sign_up as GA4 key events once they arrive.
+- **Plan doc:** https://claude.ai/code/artifact/d085e5de-6b1e-406d-ba4f-edd4d3c1f596
+
+---
+
 ## Last session
 
 - **Date:** 2026-09-30 (Cowork strategy rethink + pipeline fixes)

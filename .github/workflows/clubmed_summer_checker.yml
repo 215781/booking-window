@@ -11,7 +11,12 @@ permissions:
 jobs:
   check-summer-prices:
     runs-on: ubuntu-latest
-    timeout-minutes: 60     # summer: 24 resorts × ~34 dates × 8 combos ≈ ~6,528 queries; ~25 min expected
+    timeout-minutes: 60     # each batch ~2,000 queries at concurrency 4; ~25 min expected
+    strategy:
+      fail-fast: false
+      max-parallel: 1       # run batches one after another so CSV commits never collide
+      matrix:
+        batch: [0, 1, 2]
 
     steps:
       - name: Checkout repo
@@ -30,7 +35,7 @@ jobs:
           GMAIL_ADDRESS:  ${{ secrets.GMAIL_ADDRESS }}
           GMAIL_APP_PASS: ${{ secrets.GMAIL_APP_PASS }}
           ALERT_TO:       ${{ secrets.ALERT_TO }}
-        run: python clubmed_summer_checker.py
+        run: python clubmed_summer_checker.py --batch ${{ matrix.batch }} --batches 3
 
       - name: Commit updated CSV (safety net)
         # Per-resort commits happen inside the checker; this catches anything that slipped through.
@@ -40,5 +45,5 @@ jobs:
           git config user.email "bot@bookingwindow.co.uk"
           git pull --rebase origin main || true
           git add _data/prices_clubmed_summer.csv
-          git diff --staged --quiet || git commit -m "data: club med summer prices $(date +%Y-%m-%d) [safety net]"
+          git diff --staged --quiet || git commit -m "data: club med summer prices $(date +%Y-%m-%d) batch ${{ matrix.batch }} [safety net]"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git main || true

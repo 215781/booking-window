@@ -274,16 +274,10 @@ for _r in RESORTS:
 # ─────────────────────────────────────────────────────────────
 
 GRAPHQL_URL = "https://graphql.dcx.clubmed/"
+POLITE_CONCURRENCY = 4   # max simultaneous requests (was 8)
 
-_USER_AGENTS = [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_4_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Safari/605.1.15",
-    "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36 Edg/123.0.0.0",
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 17_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.4.1 Mobile/15E148 Safari/604.1",
-]
+# Polite collection: one honest, identifiable user agent (no rotation).
+BOT_USER_AGENT = "WhenToBookBot/1.0 (+https://whentobook.co.uk/about/; admin@whentobook.co.uk)"
 
 def _get_headers():
     return {
@@ -292,7 +286,7 @@ def _get_headers():
         "Accept-Language": "en-GB",
         "Origin":          "https://www.clubmed.co.uk",
         "Referer":         "https://www.clubmed.co.uk/",
-        "User-Agent":      random.choice(_USER_AGENTS),
+        "User-Agent":      BOT_USER_AGENT,
     }
 
 QUERY = """mutation SearchPrice($id: ID!, $options: SearchPriceOptions) {
@@ -442,27 +436,32 @@ def load_price_history_from_csv(resort_id, party_size, departure_date, duration_
         seen[entry["date"]] = entry["price"]
     return [{"date": d, "price": p} for d, p in sorted(seen.items())]
 
+_RESORT_HISTORY_CACHE = None
+
+
 def load_price_history_for_resort(resort_id):
-    """Load all price history for a resort in one CSV pass."""
-    if not Path(CSV_FILE).exists():
-        return {}
-    raw = {}
-    with open(CSV_FILE, newline="") as f:
-        for row in csv.DictReader(f):
-            if row.get("resort_id") != resort_id or not row.get("price_pp"):
-                continue
-            try:
-                price = int(row["price_pp"])
-            except (ValueError, TypeError):
-                continue
-            dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
-            key = (row["party_size"], row["departure_date"], dur)
-            if key not in raw:
-                raw[key] = {}
-            raw[key][row["collected_at"][:10]] = price
+    """Price history for one resort keyed by (party, departure, dur).
+    Built for all resorts in ONE CSV pass on first call (was one 58 MB scan per resort,
+    which pushed the summer run past its 60-minute limit)."""
+    global _RESORT_HISTORY_CACHE
+    if _RESORT_HISTORY_CACHE is None:
+        cache = {}
+        if Path(CSV_FILE).exists():
+            with open(CSV_FILE, newline="") as f:
+                for row in csv.DictReader(f):
+                    if not row.get("price_pp"):
+                        continue
+                    try:
+                        price = int(row["price_pp"])
+                    except (ValueError, TypeError):
+                        continue
+                    dur = int(row["duration_nights"]) if row.get("duration_nights") else 7
+                    k = (row["party_size"], row["departure_date"], dur)
+                    cache.setdefault(row.get("resort_id"), {}).setdefault(k, {})[row["collected_at"][:10]] = price
+        _RESORT_HISTORY_CACHE = cache
     return {
         k: [{"date": d, "price": p} for d, p in sorted(v.items())]
-        for k, v in raw.items()
+        for k, v in _RESORT_HISTORY_CACHE.get(resort_id, {}).items()
     }
 
 def load_all_price_stats():
@@ -601,7 +600,7 @@ async def process_resort(session, semaphore, resort, historical_stats, timestamp
     rname = resort["name"]
     total_queries = len(_COMBOS) * len(resort["windows"])
 
-    print(f"\n[{rname} / {rcode}] Starting {total_queries} queries (semaphore=8)...")
+    print(f"\n[{rname} / {rcode}] Starting {total_queries} queries (concurrency={POLITE_CONCURRENCY})...")
 
     task_meta = []
     tasks = []
@@ -700,14 +699,18 @@ async def main_async(args):
     git_setup()
     historical_stats = load_all_price_stats()
 
-    resorts_this_run = list(RESORTS)
+    # Batching: each batch job checks a fixed slice of resorts so no single run hits the time limit.
+    ordered = sorted(RESORTS, key=lambda r: r["id"])
+    resorts_this_run = ordered[args.batch::args.batches]
+    print(f"Batch {args.batch + 1}/{args.batches}: {len(resorts_this_run)} resorts "
+          f"({', '.join(r['resortCode'] for r in resorts_this_run)})")
     random.shuffle(resorts_this_run)
 
     total_errors   = 0
     total_no_price = 0
     total_rows     = 0
 
-    semaphore = asyncio.Semaphore(8)
+    semaphore = asyncio.Semaphore(POLITE_CONCURRENCY)
     connector = aiohttp.TCPConnector(limit=20, ttl_dns_cache=300)
 
     async with aiohttp.ClientSession(connector=connector) as session:
@@ -899,6 +902,8 @@ def main():
     parser.add_argument("--test",        action="store_true", help="Fetch prices but don't write any files")
     parser.add_argument("--verify",      action="store_true", help="Test one API call and exit")
     parser.add_argument("--inject-only", action="store_true", help="Rebuild RESORT_DATA in summer/index.html from CSV, no API calls")
+    parser.add_argument("--batch",   type=int, default=0, help="Which batch to run (0-based)")
+    parser.add_argument("--batches", type=int, default=1, help="Total number of batches")
     args = parser.parse_args()
 
     now_str = datetime.utcnow().strftime("%Y-%m-%d %H:%M UTC")

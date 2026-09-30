@@ -5,3 +5,8 @@
 /affiliate-disclosure.html /affiliate-disclosure/  301
 /clubmed                  /club-med/               301
 /clubmed/                 /club-med/               301
+# Ikos and Sandals hidden until Awin product feeds are approved (temporary)
+/ikos                     /                        302
+/ikos/                    /                        302
+/sandals                  /                        302
+/sandals/                 /                        302

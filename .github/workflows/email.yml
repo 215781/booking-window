@@ -1,0 +1,95 @@
+name: Email automation (Kit)
+
+# Lives on main (scheduled workflows only run from the default branch). Uses the live price data on
+# main and the email code from the rebuild branch (site/email). Kit key: secret KIT_API_KEY (v4 key).
+# Alerts are Kit DRAFTS until the repo variable ALERT_MODE is set to "send".
+
+on:
+  schedule:
+    - cron: '20 11 * * *'   # daily, after the 10:30 site build: tag sync + price-move alerts
+    - cron: '0 8 * * 6'     # Saturday 08:00 UTC: full tag sync + weekly digest draft
+  workflow_dispatch:
+    inputs:
+      task:
+        description: What to run
+        type: choice
+        options: [check, sync, alerts, digest]
+        default: check
+      dry_run:
+        description: Dry run (build previews only, nothing sent to Kit)
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: email-automation
+  cancel-in-progress: false
+
+jobs:
+  email:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+      ALERT_MODE: ${{ vars.ALERT_MODE || 'draft' }}
+      SUMMARY_PATH: ${{ github.workspace }}/summary.json
+      EMAIL_STATE_PATH: ${{ github.workspace }}/_data/email_state.json
+      EMAIL_OUT_DIR: ${{ github.workspace }}/email-out
+      TASK: ${{ inputs.task }}
+      DRY_RUN: ${{ inputs.dry_run }}
+      SCHEDULE: ${{ github.event.schedule }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/checkout@v4
+        with:
+          ref: rebuild
+          path: rb
+          sparse-checkout: site
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build price summary from today's data
+        run: WTB_DATA_DIR="$GITHUB_WORKSPACE/_data" WTB_SUMMARY_OUT="$SUMMARY_PATH" python3 rb/site/scripts/build_summary.py
+      - name: Offline email tests
+        run: node --experimental-strip-types rb/site/email/test_email.mjs
+      - name: Run email jobs
+        run: |
+          set -e
+          E="node --experimental-strip-types rb/site/email/run.mjs"
+          if [ -n "$TASK" ]; then
+            if [ "$DRY_RUN" = "true" ]; then $E "$TASK" --dry-run; else $E "$TASK"; fi
+          elif [ "$SCHEDULE" = "0 8 * * 6" ]; then
+            $E sync --full
+            $E digest
+          else
+            $E sync
+            $E alerts
+          fi
+      - name: Save alert baselines
+        if: always()
+        run: |
+          [ -f _data/email_state.json ] || exit 0
+          git add _data/email_state.json
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -q -m "data: email alert baselines $(date -u +%F)"
+          for i in 1 2 3 4 5; do
+            git pull -q --rebase origin main && git push -q origin HEAD:main && exit 0
+            sleep $((i * 10))
+          done
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: email-previews
+          path: email-out
+          if-no-files-found: ignore
+          retention-days: 14

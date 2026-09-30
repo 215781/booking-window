@@ -9,12 +9,14 @@ Rules ("works and true"):
 - A departure with no price on the resort's latest collection day is marked unavailable.
 - Past departures are dropped. Stale collections are flagged so the site can say so.
 """
-import csv, json, sys
+import csv, json, os, sys
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-OUT = ROOT / "site" / "src" / "data" / "summary.json"
+# The email job runs this against the live data on main: WTB_DATA_DIR points at that _data folder.
+DATA_DIR = Path(os.environ.get("WTB_DATA_DIR") or ROOT / "_data")
+OUT = Path(os.environ.get("WTB_SUMMARY_OUT") or ROOT / "site" / "src" / "data" / "summary.json")
 PARTIES = {"2A": "2 adults", "2A2C": "2 adults, 2 children"}
 STALE_DAYS = 3
 TREND_PCT = 3.0
@@ -43,7 +45,7 @@ COLLECTIONS = {
 
 def summarise(cfg, today):
     series, latest_day = {}, {}
-    path = ROOT / "_data" / cfg["csv"]
+    path = DATA_DIR / cfg["csv"]
     if not path.exists():
         return {}, [f"{cfg['csv']} missing"]
     codes = cfg.get("codes")
@@ -128,8 +130,9 @@ def main():
         print(f"{key}: {len(resorts)} resorts, {n} future departures")
         for p in problems:
             print(f"  WARNING {key}: {p}")
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(out, separators=(",", ":")))
-    print(f"Wrote {OUT.relative_to(ROOT)} ({OUT.stat().st_size // 1024} KB)")
+    print(f"Wrote {OUT} ({OUT.stat().st_size // 1024} KB)")
 
 
 if __name__ == "__main__":

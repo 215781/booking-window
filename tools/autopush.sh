@@ -6,10 +6,11 @@ set -u
 REPO="$HOME/booking-window"
 LOG="$HOME/Library/Logs/whentobook-autopush.log"
 export GIT_SSH_COMMAND="ssh -i $HOME/.ssh/booking_window_deploy -o BatchMode=yes -o ConnectTimeout=15"
-log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" >> "$LOG"; }
+log() { echo "$(date '+%Y-%m-%d %H:%M:%S') $*" | tee -a "$REPO/.autopush.log" >> "$LOG"; }
+log "run start"
 cd "$REPO" || exit 1
 [ -e .git/MERGE_HEAD ] || [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ] && { log "skip: merge/rebase in progress"; exit 0; }
-git fetch -q origin main rebuild 2>>"$LOG" || { log "fetch failed (offline?)"; exit 0; }
+git fetch -q origin main rebuild 2>>"$REPO/.autopush.log" || { log "fetch failed (offline?)"; exit 0; }
 current=$(git symbolic-ref --short -q HEAD || echo "")
 for b in main rebuild; do
   git rev-parse -q --verify "refs/heads/$b" >/dev/null || continue
@@ -29,5 +30,5 @@ for b in main rebuild; do
       git worktree remove --force "$tmp"
     fi
   fi
-  if git push -q origin "$b" 2>>"$LOG"; then log "$b: pushed $ahead commit(s)"; else log "$b: push failed"; fi
+  if git push -q origin "$b" 2>>"$REPO/.autopush.log"; then log "$b: pushed $ahead commit(s)"; else log "$b: push failed"; fi
 done

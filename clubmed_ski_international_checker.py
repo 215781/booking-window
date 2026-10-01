@@ -423,10 +423,14 @@ def git_push_with_retry(label, max_attempts=3):
             push_env['GIT_SSH_COMMAND'] = f'ssh -i {_SSH_KEY} -o StrictHostKeyChecking=no'
 
     for attempt in range(1, max_attempts + 1):
-        subprocess.run(
+        pulled = subprocess.run(
             ['git', 'pull', '--rebase', push_target, 'main'],
-            capture_output=True, env=push_env
+            capture_output=True, text=True, env=push_env
         )
+        if pulled.returncode != 0:
+            # Never leave the repo mid-rebase: later commits would all fail.
+            subprocess.run(['git', 'rebase', '--abort'], capture_output=True)
+            print(f"  [{label}] Pull failed: {pulled.stderr.strip()[:120]}")
         result = subprocess.run(
             ['git', 'push', push_target, 'main'],
             capture_output=True, text=True, env=push_env

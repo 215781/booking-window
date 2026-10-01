@@ -1,0 +1,2 @@
+# Price CSVs are append-only: when two jobs append at once, keep both sides instead of failing the rebase.
+_data/*.csv merge=union

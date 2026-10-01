@@ -21,6 +21,8 @@ jobs:
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          ref: main   # latest main, so batch 2 and 3 start after batch 1's commits (not the run's start commit)
 
       - name: Set up Python
         uses: actions/setup-python@v5

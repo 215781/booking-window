@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // When To Book email automation. Usage:
 //   node --experimental-strip-types site/email/run.mjs <check|sync|alerts|digest> [--dry-run] [--full]
-// Env: KIT_API_KEY (GitHub secret), SUMMARY_PATH (summary.json), EMAIL_STATE_PATH (alert baselines JSON),
+// Env: KIT_API_KEY (from GitHub secret KIT_API), SUMMARY_PATH (summary.json), EMAIL_STATE_PATH (alert baselines JSON),
 //      EMAIL_OUT_DIR (HTML previews), ALERT_MODE=draft|send, ALERT_PCT, ALERT_MIN_GBP.
 import { appendFileSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';

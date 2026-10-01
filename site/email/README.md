@@ -34,7 +34,7 @@ Tests: `node --experimental-strip-types email/test_email.mjs`.
 
 ## One-off setup in Kit (owner)
 
-1. **Kit v4 API key**: Kit > Settings > Developer > API keys (v4) > create "whentobook-automation". Save it in GitHub > repo Settings > Secrets > Actions as `KIT_API_KEY`. Then run the workflow with task `check`.
+1. **Kit v4 API key**: Kit > Settings > Developer > API keys (v4) > create "whentobook-automation". Save it in GitHub > repo Settings > Secrets > Actions as `KIT_API` (already exists - replace its value if it is not a v4 key starting `kit_`). Then run the workflow with task `check`.
 2. **Double opt-in** on form 7f784a323c (Booking Alert): form Settings > Incentive > "Send incentive email" on. Subject: "Confirm your price watch".
 3. **Welcome sequence**: Kit > Send > Sequences > New "Founding Watchers welcome". Paste the three emails below. Then Automate > Visual automations: trigger "Joins form: Booking Alert" -> "Add to sequence: Founding Watchers welcome".
 4. **Sender**: From "Connor at When To Book", address admin@whentobook.co.uk (after SPF/DKIM/DMARC are set).

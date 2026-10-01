@@ -1,7 +1,7 @@
 name: Email automation (Kit)
 
 # Lives on main (scheduled workflows only run from the default branch). Uses the live price data on
-# main and the email code from the rebuild branch (site/email). Kit key: secret KIT_API_KEY (v4 key).
+# main and the email code from the rebuild branch (site/email). Kit key: secret KIT_API (must be a v4 key, starts "kit_").
 # Alerts are Kit DRAFTS until the repo variable ALERT_MODE is set to "send".
 
 on:
@@ -32,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     env:
-      KIT_API_KEY: ${{ secrets.KIT_API_KEY }}
+      KIT_API_KEY: ${{ secrets.KIT_API }}
       ALERT_MODE: ${{ vars.ALERT_MODE || 'draft' }}
       SUMMARY_PATH: ${{ github.workspace }}/summary.json
       EMAIL_STATE_PATH: ${{ github.workspace }}/_data/email_state.json

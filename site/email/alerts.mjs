@@ -8,7 +8,7 @@ import { ensureTags, watchTag } from './sync.mjs';
 
 const ALERT_PCT = Number(process.env.ALERT_PCT || 5);
 const ALERT_MIN_GBP = Number(process.env.ALERT_MIN_GBP || 150);
-const REVIEW_PCT = 40;     // bigger jumps are held for a human check, never sent automatically
+const REVIEW_PCT = 25;     // bigger jumps are held for a human check, never sent automatically
 const COOLDOWN_DAYS = 7;   // at most one alert per resort per week
 
 export function findMoves(rows, state, today) {

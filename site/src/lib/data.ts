@@ -62,11 +62,18 @@ export const TREND = {
   new: { word: 'New', line: 'We have just started tracking this week', tone: 'flat' },
 } as const;
 
+// Moves bigger than this are nearly always availability (the cheapest room type selling out or
+// coming back), not the same holiday getting dearer or cheaper. We show them, but say so, and keep
+// them out of headlines and automatic emails.
+export const SWING_PCT = 25;
+export const isSwing = (d?: Dep) => d?.change30Pct != null && Math.abs(d.change30Pct) > SWING_PCT;
+
 export function changeText(d?: Dep) {
   if (!d || !d.available) return 'Not available online';
   if (d.change30 == null) return 'No 30-day comparison yet';
   if (d.change30 === 0) return 'No change in 30 days';
-  return `${d.change30 > 0 ? 'Up' : 'Down'} ${money(Math.abs(d.change30))} (${Math.abs(d.change30Pct!)}%) in 30 days`;
+  const base = `${d.change30 > 0 ? 'Up' : 'Down'} ${money(Math.abs(d.change30))} (${Math.abs(d.change30Pct!)}%) in 30 days`;
+  return isSwing(d) ? `${base} - a jump this big usually means a room type sold out or came back` : base;
 }
 export function changeShort(d?: Dep) {
   if (!d || !d.available) return '-';

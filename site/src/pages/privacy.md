@@ -11,7 +11,7 @@ When To Book (whentobook.co.uk) is run by Connor Martin, a sole trader trading a
 
 ## What we collect and why
 
-**Your email address and the resort you're interested in** - only if you sign up for price emails. We use them to send the weekly price watch and alerts you asked for. Legal basis: your consent. You can unsubscribe in one click from any email.
+**Your email address and the resort you're interested in** - only if you sign up for price emails. We use them to send the weekly price watch and alerts you asked for. Kit tells us whether an email was opened and which links were clicked, so we can tell what's useful. Legal basis: your consent. You can unsubscribe in one click from any email.
 
 **Analytics** - only if you say yes on the cookie banner. Google Analytics 4 tells us which pages are visited, roughly where from (country or city), device type and how people arrived. We use it to improve the site. Legal basis: your consent. If you say no, no analytics cookies are set.
 
@@ -31,6 +31,7 @@ Change your mind at any time with "Cookie settings" at the bottom of every page.
 ## Who processes data for us
 
 - **Kit** (kit.com) stores subscriber emails and sends our emails. [Kit privacy policy](https://kit.com/privacy).
+- **Cloudflare** (cloudflare.com) hosts this website. Like any web host it briefly processes your IP address and browser details to deliver pages and block attacks. [Cloudflare privacy policy](https://www.cloudflare.com/privacypolicy/).
 - **Google Analytics** processes usage data if you accept analytics cookies, with advertising features switched off. [Google privacy policy](https://policies.google.com/privacy).
 
 These providers may process data outside the UK under their own legal safeguards.

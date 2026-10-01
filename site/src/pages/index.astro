@@ -3,11 +3,12 @@ import Base from '../layouts/Base.astro';
 import ResortCard from '../components/ResortCard.astro';
 import Signup from '../components/Signup.astro';
 import { SKI, SUN, MARKWARNER, COLLECTIONS } from '../lib/resorts';
-import { WEEKS, weekDep, FAMILY, money, latestUpdate, niceDate } from '../lib/data';
+import { WEEKS, weekDep, FAMILY, money, latestUpdate, niceDate, isSwing } from '../lib/data';
 const updated = latestUpdate();
-// Biggest 30-day moves across all school-holiday weeks (family of four)
+// Biggest 30-day moves across all school-holiday weeks (family of four).
+// Swings over SWING_PCT are left out: they are nearly always room availability, not a real price move.
 const moves = [...SKI.flatMap((r) => WEEKS.ski.map((w) => ({ r, w, d: weekDep(r, FAMILY, w) }))), ...[...SUN, ...MARKWARNER].flatMap((r) => WEEKS.sun.map((w) => ({ r, w, d: weekDep(r, FAMILY, w) })))]
-  .filter((x) => x.d?.available && x.d.change30)
+  .filter((x) => x.d?.available && x.d.change30 && !isSwing(x.d))
   .sort((a, b) => Math.abs(b.d!.change30!) - Math.abs(a.d!.change30!)).slice(0, 3);
 const jsonLd = [
   { '@context': 'https://schema.org', '@type': 'WebSite', name: 'When To Book', url: 'https://whentobook.co.uk/' },

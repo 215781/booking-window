@@ -47,6 +47,11 @@ const summary = JSON.parse(readFileSync(new URL('../src/data/summary.json', impo
 for (const [k, ps] of Object.entries(summary.problems)) for (const p of ps) fails.push(`data (${k}): ${p}`);
 // 6. Analytics only behind consent: gtag script must not be in the static HTML
 for (const f of html) if (/<script[^>]+googletagmanager/.test(readFileSync(f, 'utf8'))) fails.push(`GA loads without consent in ${f.replace(DIST, '')}`);
+// 7. Security headers for the host, and the Kit confirmation page kept out of search
+const headers = existsSync(join(DIST, '_headers')) ? readFileSync(join(DIST, '_headers'), 'utf8') : '';
+for (const h of ['Content-Security-Policy', 'Strict-Transport-Security', 'X-Content-Type-Options', 'Referrer-Policy']) if (!headers.includes(h)) fails.push(`_headers missing ${h}`);
+if (!readFileSync(join(DIST, 'confirmed/index.html'), 'utf8').includes('noindex')) fails.push('/confirmed/ should be noindex');
+if (readFileSync(join(DIST, 'sitemap-0.xml'), 'utf8').includes('/confirmed/')) fails.push('/confirmed/ is in the sitemap');
 
 console.log(`Checked ${html.length} pages.`);
 warns.forEach((w) => console.log('WARN', w));

@@ -53,7 +53,7 @@ details{margin:18px 0}summary{cursor:pointer;font-weight:600;color:var(--teal);p
 .mover{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:16px 18px}
 .mover .delta{font-weight:600}.up{color:var(--up)}.down{color:var(--down)}
 .faq h3{font-family:var(--sans);font-size:1.05rem;color:var(--ink);margin-top:1.2em}
-.prose{max-width:720px}.prose h1{margin-top:.6em}.prose table{margin:1em 0;background:var(--paper)}.prose td,.prose th{white-space:normal}
+.prose{max-width:720px}.prose h1{margin-top:.6em}.prose table{margin:1em 0;background:var(--paper);display:block;overflow-x:auto;max-width:100%}.prose td,.prose th{white-space:normal}
 .crumbs{font-size:.85rem;margin:18px 0 0}.crumbs a{color:var(--muted)}
 .notice{background:#fff4dc;border:1px solid #ecd8a8;border-radius:var(--r);padding:12px 16px}
 .site-footer{background:var(--teal);color:#dfe9e6;margin-top:56px;padding:36px 0;font-size:.92rem}

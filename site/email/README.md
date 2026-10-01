@@ -6,7 +6,7 @@ holds prices only.
 
 | What | When | How it goes out |
 |---|---|---|
-| **Welcome sequence** (3 emails) | On signup (after double opt-in) | Kit sequence, set up once in Kit (copy below) |
+| **Welcome** | On signup | The double opt-in confirmation email doubles as the welcome (Kit free plan has no sequences). After confirming, people land on `/confirmed/` |
 | **Price-move alerts** | Daily 11:20 UTC | Kit broadcast to tag `watch-<resort>`. **Draft** until repo variable `ALERT_MODE=send` |
 | **Weekly digest** | Saturday 08:00 UTC | Kit **draft** broadcast to everyone. Owner reviews and sends |
 
@@ -17,7 +17,7 @@ Workflow: `.github/workflows/email.yml` (on main). Code: `site/email/` (rebuild 
 - Family of four, 7 nights, every future school-holiday week (`site/src/lib/weeks.ts`) at every resort with fresh data.
 - Compared with the price when we last emailed that resort's watchers (first run just records baselines).
 - Alert when a week moves at least **5% and £150** (`ALERT_PCT`, `ALERT_MIN_GBP`). One email per resort, listing every week that moved.
-- Moves over **40%** are never sent: they appear as "HELD FOR REVIEW" in the run summary.
+- Moves over **25%** (nearly always a room type selling out or coming back) are never sent: they appear as "HELD FOR REVIEW" in the run summary.
 - Stale data (older than 3 days) is skipped. At most one alert per resort per 7 days.
 - Nobody watching a resort yet: no email, baseline reset.
 
@@ -34,15 +34,18 @@ Tests: `node --experimental-strip-types email/test_email.mjs`.
 
 ## One-off setup in Kit (owner)
 
-1. **Kit v4 API key**: Kit > Settings > Developer > API keys (v4) > create "whentobook-automation". Save it in GitHub > repo Settings > Secrets > Actions as `KIT_API` (already exists - replace its value if it is not a v4 key starting `kit_`). Then run the workflow with task `check`.
-2. **Double opt-in** on form 7f784a323c (Booking Alert): form Settings > Incentive > "Send incentive email" on. Subject: "Confirm your price watch".
-3. **Welcome sequence**: Kit > Send > Sequences > New "Founding Watchers welcome". Paste the three emails below. Then Automate > Visual automations: trigger "Joins form: Booking Alert" -> "Add to sequence: Founding Watchers welcome".
-4. **Sender**: From "Connor at When To Book", address admin@whentobook.co.uk (after SPF/DKIM/DMARC are set).
-5. After checking a few alert drafts, set GitHub > Settings > Variables > Actions: `ALERT_MODE` = `send`.
+Done (1 Oct 2026): v4 key in GitHub secret `KIT_API` (check run passed); double opt-in on the Booking Alert form
+(Forms > When To Book - Booking Alert > Settings > Confirmation email) with the welcome text below as the confirmation
+email and redirect to https://whentobook.co.uk/confirmed/; sender Connor <admin@whentobook.co.uk>; time zone London.
 
-## Welcome sequence copy
+Still to do:
+1. Kit > Settings > Email > Mailing address: add a UK postal address (a virtual office or PO box is fine). Until then Kit shows its own US address in the footer.
+2. After checking a few alert drafts, set GitHub > Settings > Variables > Actions: `ALERT_MODE` = `send`.
+3. If you move to Kit Creator: make a sequence from emails 2 and 3 below, triggered by the Booking Alert form.
 
-### Email 1 (send immediately)
+## Welcome copy
+
+### Email 1 (live as the confirmation email)
 
 **Subject:** You're a Founding Watcher
 **Preview:** Here's what happens next.
@@ -64,7 +67,7 @@ One favour: hit reply and tell me which resort and which week you're thinking ab
 Connor
 When To Book
 
-### Email 2 (2 days later)
+### Email 2 (needs Kit Creator: 2 days later)
 
 **Subject:** Rising, Easing, Steady: how to read our emails
 **Preview:** Three words, one decision.
@@ -83,7 +86,7 @@ Want alerts for a particular resort? Open its page on whentobook.co.uk and use t
 
 Connor
 
-### Email 3 (5 days later)
+### Email 3 (needs Kit Creator: 5 days later)
 
 **Subject:** Is your week on our list?
 **Preview:** Tell me what to track next.

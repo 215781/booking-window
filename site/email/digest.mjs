@@ -3,7 +3,7 @@
 import { COLLECTIONS, VERDICT, assertClean, button, esc, layout, link, money, niceDate, resortPath, schoolWeekRows, table } from './content.mjs';
 
 const MOVE_PCT = 3;      // same threshold the site uses for Rising/Easing
-const REVIEW_PCT = 40;   // bigger weekly swings are held back for a human check (see PLAN_V3 C6)
+const REVIEW_PCT = 25;   // bigger weekly swings are held back for a human check (see PLAN_V3 C6)
 
 export function buildDigest(summary, today) {
   const { rows, problems } = schoolWeekRows(summary, today);

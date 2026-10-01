@@ -10,3 +10,5 @@
 /ikos/                    /                        302
 /sandals                  /                        302
 /sandals/                 /                        302
+# Old sitemap URL (the new site publishes sitemap-index.xml)
+/sitemap.xml              /sitemap-index.xml       301

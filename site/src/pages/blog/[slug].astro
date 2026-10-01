@@ -9,16 +9,43 @@ export async function getStaticPaths() {
 }
 const { post } = Astro.props;
 const { Content } = await render(post);
+const published = post.data.date.toISOString().slice(0, 10);
 const modified = (post.data.last_modified_at ?? post.data.date).toISOString().slice(0, 10);
-const jsonLd = [{ '@context': 'https://schema.org', '@type': 'Article', headline: post.data.title, datePublished: post.data.date.toISOString().slice(0, 10), dateModified: modified, author: { '@type': 'Person', name: 'Connor Martin', url: 'https://whentobook.co.uk/about/' }, publisher: { '@type': 'Organization', name: 'When To Book' } }];
+const url = new URL(`/blog/${slugOf(post)}/`, Astro.site).href;
+const faq = (post.data.faq ?? []) as { q: string; a: string }[];
+const jsonLd: object[] = [
+  {
+    '@context': 'https://schema.org', '@type': 'Article', headline: post.data.title, description: post.data.description ?? post.data.title,
+    datePublished: published, dateModified: modified, mainEntityOfPage: url, image: new URL('/og-image.png', Astro.site).href, inLanguage: 'en-GB',
+    author: { '@type': 'Person', name: 'Connor Martin', url: 'https://whentobook.co.uk/about/' },
+    publisher: { '@type': 'Organization', name: 'When To Book', url: 'https://whentobook.co.uk/' },
+  },
+  {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://whentobook.co.uk/' },
+      { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://whentobook.co.uk/blog/' },
+      { '@type': 'ListItem', position: 3, name: post.data.title, item: url },
+    ],
+  },
+];
+if (faq.length) jsonLd.push({
+  '@context': 'https://schema.org', '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
 ---
 <Base title={post.data.title} description={post.data.description ?? post.data.title} jsonLd={jsonLd}>
   <div class="wrap">
     <article class="prose">
       <p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Guides</a></p>
       <h1>{post.data.title}</h1>
-      <p class="small">By Connor Martin · Updated {niceDate(modified)} · For live prices see our <a href="/club-med/">Club Med ski tracker</a>.</p>
+      <p class="small">By Connor Martin · {modified !== published ? <>Published {niceDate(published)} · Updated {niceDate(modified)}</> : <>Published {niceDate(published)}</>} · For today's prices see our <a href="/club-med/">Club Med</a> and <a href="/mark-warner/">Mark Warner</a> pages.</p>
       <Content />
+      {faq.length > 0 && (
+        <section class="faq">
+          <h2>Questions families ask</h2>
+          {faq.map((f) => (<><h3>{f.q}</h3><p>{f.a}</p></>))}
+        </section>
+      )}
       <Signup />
     </article>
   </div>

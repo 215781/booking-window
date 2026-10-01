@@ -1,8 +1,10 @@
 import { ALL, COLLECTIONS } from '../lib/resorts';
+import { posts, slugOf } from '../lib/blog';
 import { weekDep, featureWeek, hasData, FAMILY, money, changeText, latestUpdate, niceDate } from '../lib/data';
 
 // Plain-text summary for AI answer engines (llms.txt convention).
-export function GET() {
+export async function GET() {
+  const guides = await posts();
   const lines = [
     '# When To Book',
     '',
@@ -22,6 +24,9 @@ export function GET() {
     '- [Mark Warner](https://whentobook.co.uk/mark-warner/)',
     '- [Guides](https://whentobook.co.uk/blog/)',
     '- [About](https://whentobook.co.uk/about/)',
+    '',
+    '## Guides',
+    ...guides.map((p) => `- [${p.data.title}](https://whentobook.co.uk/blog/${slugOf(p)}/)${p.data.description ? `: ${p.data.description}` : ''}`),
   ];
   return new Response(lines.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 }

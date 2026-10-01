@@ -10,6 +10,9 @@ const blog = defineCollection({
     last_modified_at: z.coerce.date().optional(),
     description: z.string().optional(),
     permalink: z.string().optional(),
+    draft: z.boolean().optional(),
+    // Optional FAQ: rendered at the end of the post and as FAQPage structured data (AEO)
+    faq: z.array(z.object({ q: z.string(), a: z.string() })).optional(),
   }).passthrough(),
 });
 export const collections = { blog };

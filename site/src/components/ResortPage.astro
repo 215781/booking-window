@@ -13,9 +13,11 @@ const updated = rd?.updated ?? '';
 const weeks = weeksFor(resort);
 const fw = featureWeek(resort);
 const f = weekDep(resort, FAMILY, fw);
-const tracked = hasData(resort);
 const allFamily = deps(resort, FAMILY);
 const avail = allFamily.filter((d) => d.available);
+// The page is family-first: treat a resort as tracked only once a family-of-four price exists
+// (1 Oct 2026: Palmiye had couple prices but no family prices yet, which left an empty page and an "£" with no number in the FAQ).
+const tracked = hasData(resort) && avail.length > 0;
 const lowestNow = [...avail].sort((a, b) => a.price! - b.price!)[0];
 const seasonYear = col.season === 'ski' ? '2026/27' : '2027';
 const title = `When to book ${resort.fullName}: school-holiday prices, checked daily`;

@@ -35,6 +35,17 @@ await page.evaluate(() => document.querySelectorAll('a').forEach((a) => a.addEve
 await page.click('a[data-track="outbound_click"]');
 ev = await events(page);
 if (!ev.some((e) => e.name === 'outbound_click' && e.brand === 'Mark Warner')) fails.push('Mark Warner outbound_click not recorded');
+// Untagged calls to action are still tracked
+await page.goto(BASE + '/');
+await page.evaluate(() => document.querySelectorAll('a').forEach((a) => a.addEventListener('click', (e) => e.preventDefault())));
+await page.click('a.btn[data-location="home-hero"]');
+ev = await events(page);
+if (!ev.some((e) => e.name === 'cta_click' && e.click_location === 'home-hero')) fails.push('hero cta_click not recorded');
+await page.goto(BASE + '/school-holidays/');
+await page.evaluate(() => document.querySelectorAll('a').forEach((a) => a.addEventListener('click', (e) => e.preventDefault())));
+await page.click('a[href="/club-med/tignes/"] >> nth=0');
+ev = await events(page);
+if (!ev.some((e) => e.name === 'select_resort' && e.resort === 'tignes')) fails.push('untagged resort link not tracked as select_resort');
 await b.close();
 fails.forEach((f) => console.log('FAIL', f));
 console.log(fails.length ? `${fails.length} failure(s)` : 'EVENT CHECKS PASSED');

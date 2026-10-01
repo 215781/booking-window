@@ -49,6 +49,12 @@ const GA_ID = 'G-G2RES5DX0K';
       var host = el.hostname || '';
       var operator = Object.keys(OPERATORS).find(function (h) { return host === h || host.endsWith('.' + h); });
       if (operator && name !== 'outbound_click') name = 'outbound_click';
+      // Every call to action is tracked, even without a data-track attribute:
+      var path = el.pathname || '';
+      var m = el.host === location.host && path.match(/^\/(club-med|mark-warner)\/([a-z0-9-]+)\/$/);
+      if (!name && m) { name = 'select_resort'; el.setAttribute('data-resort', el.getAttribute('data-resort') || m[2]); }
+      if (!name && (el.protocol === 'mailto:')) name = 'contact_click';
+      if (!name && el.classList && el.classList.contains('btn')) name = 'cta_click';
       if (!name) return;
       send(name, {
         resort: el.getAttribute('data-resort') || ctx.page_resort || '',
@@ -57,6 +63,7 @@ const GA_ID = 'G-G2RES5DX0K';
         click_location: el.getAttribute('data-location') || '',
         link_url: el.href || '',
         outbound: !!operator,
+        link_text: (el.textContent || '').trim().slice(0, 80),
       });
     });
     document.addEventListener('toggle', function (e) {

@@ -8,7 +8,7 @@ category: school-holidays
 tags: [summer-2027, club-med, mark-warner, early-booking, school-holidays, family]
 faq:
   - q: "When does the Club Med summer 2027 sale start?"
-    a: "Club Med's sale for May to November 2027 opens on 13 October 2026, with pre-registration open beforehand. Club Med says early bookers can get up to 20% off, including on summer weeks, school half-terms and family rooms, and that children under four stay free."
+    a: "Club Med's sale for May to November 2027 opens to everyone on 13 October 2026 (members get earlier access). Club Med advertises up to 20% off for the first four days, made up of up to 15% on Standard rooms and an extra 5% on Premium rooms, varying by resort and date. Children under four stay free."
   - q: "When does Mark Warner's early-bird pricing for summer 2027 end?"
     a: "Mark Warner says its Super Early Bird prices for summer 2027 end on 2 November 2026, after which prices increase. It also offers £50 per person off for paying in full with the code PAYNOW50, which it says can be combined with early-bird pricing. Check the current terms on Mark Warner's website."
   - q: "Should I book Club Med summer 2027 early?"
@@ -28,13 +28,13 @@ Both companies want you to book now. We have a full summer of daily price data f
 
 ## What each company is offering
 
-**Club Med (sale from 13 October 2026):** Club Med says early bookers can get up to 20% off summer 2027, and that the offer covers summer weeks, school half-terms and family rooms. Children under four stay free. Pre-registration is open before the sale.
+**Club Med (sale from 13 October 2026):** Club Med's sale for May to November 2027 opens to everyone on 13 October (its Platinum and Gold members get access on 9 and 12 October). It advertises up to 20% off for the first four days: up to 15% on Standard rooms plus an extra 5% on Premium rooms, varying by resort and date. Children under four stay free, and the deposit is from £150 per person. Registering in advance gets you a reminder and priority access, but does not hold a room or a price.
 
 **Mark Warner (early bird until 2 November 2026):** Mark Warner says its Super Early Bird prices end on 2 November, after which prices increase. It also offers £50 per person off for paying in full (code PAYNOW50), which it says can be combined with the early-bird price.
 
 Two cautions, from watching these offers for a year:
 
-- **"Up to" means the best case.** The biggest percentages usually apply to quieter weeks and pricier rooms, not the school-holiday family room you actually need.
+- **"Up to" means the best case.** Club Med itself says the reduction varies by resort and peak date, and the extra 5% applies only to Premium rooms. School-holiday family rooms may get less.
 - **A percentage off is measured against the company's own reference price.** What matters is the price you pay compared with what the same week costs later. That is what we track. Our [guide to Club Med's early booking offer](/blog/club-med-early-booking-offer-how-it-works/) goes into this in more detail.
 
 ## What happened last summer

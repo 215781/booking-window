@@ -1,61 +1,60 @@
 ---
 layout: post
-title: "Club Med Ski Holiday 2027 Prices: What Three Weeks of Daily Tracking Shows"
+title: "Club Med Ski Holiday 2027 Prices: What Every French Alps Resort Costs"
 date: 2026-05-19
-description: "Club Med ski holiday 2027 prices have already moved on a meaningful share of departure dates. Three weeks of daily tracking shows where the booking window is still open — and where it has already closed."
+last_modified_at: 2026-10-01
+description: "Club Med ski holiday 2027 prices for all 11 French Alps resorts: lowest and highest weeks for a family of four and a couple, plus Christmas, half-term and Easter, checked daily."
 permalink: /blog/club-med-ski-holiday-2027-prices/
 category: booking-intelligence
 tags: [club-med, ski, booking-window, 2027-season, price-history]
+faq:
+  - q: "How much is a Club Med ski holiday in 2027?"
+    a: "For the 2026/27 season, seven nights at a Club Med French Alps resort for two adults and two children aged 4-11, without flights, ranged from £5,348 (Les Arcs, 18 April 2027) to £24,500 (Val d'Isère, New Year) in our checks on 1 October 2026. For two adults the range was £2,828 to £13,608."
+  - q: "What is the cheapest Club Med ski resort in the French Alps?"
+    a: "It depends on the week. For February half-term 2027, La Plagne 2100 was the lowest for a family (£9,784). For Christmas, Grand Massif (£8,846). Across the whole season, the lowest single week was Les Arcs in mid-April (£5,348)."
+  - q: "Do Club Med ski prices include flights?"
+    a: "The prices we track do not: they are Club Med's all-inclusive resort package (accommodation, meals, lift pass, lessons and kids' clubs from age 4) without flights. Club Med also sells packages with flights and transfers."
 ---
 
-A Club Med Valmorel week for two adults departing 14 February 2027 was priced at **£5,682** when we began tracking on 26 April. Three weeks later, on 19 May, the same week showed **£9,588** — a step up of just under £4,000, or 68.7%, on an identical package at an identical resort. The booking window on that particular departure has effectively closed for early-cycle pricing.
+This is our reference page for Club Med ski holiday prices for the 2026/27 season (winter 2027). We check every week at all 11 Club Med French Alps resorts every morning, for a couple and for a family of four, and we update this page with what we find.
 
-That single movement is the clearest illustration of why timing matters at the resort level. But it is only one of dozens of price shifts we have now logged across the 2026/27 Club Med French Alps season — and the picture is more varied than a single example suggests.
+> **The short answer:** on 1 October 2026, a week at a Club Med French Alps resort cost a family of four between **£5,348** (Les Arcs, mid-April) and **£24,500** (Val d'Isère, New Year), without flights. For **February half-term** most resorts were **£11,000 to £12,400**, with La Plagne 2100 the lowest at £9,784. For two adults, prices ran from **£2,828** to **£13,608**.
 
-## What the data actually shows
+## 2027 prices at every Club Med French Alps resort
 
-Our tracker has collected daily Club Med ski holiday 2027 prices across all eleven French Alps resorts since late April 2026, covering 20 departure dates per resort and three party-size combinations. Three patterns stand out from the first three weeks of observations.
+Seven nights, all-inclusive, without flights. Family of four = two adults and two children aged 4-11. Sorted by each resort's lowest family week. Checked 1 October 2026.
 
-**Most weeks are still flat.** A clear majority of resort-week combinations have not moved at all over the tracking period. Val d'Isère's New Year week held at **£13,608** for two adults across all observations when this article was written in May — it has since moved to £8,816 as of June 2026, one of the larger individual price movements we have logged. Alpe d'Huez Christmas week has held at **£6,994**. These prices were set as part of Club Med's early booking cycle and many have not yet shifted.
+| Resort | Family of 4: lowest week | Family of 4: highest week | 2 adults: lowest | 2 adults: highest | Christmas (family) | Feb half-term (family) | Easter wk 1 (family) |
+|---|---|---|---|---|---|---|---|
+| [Les Arcs](/club-med/les-arcs/) | £5,348 | £17,912 | £2,828 | £11,602 | £11,012 | £12,384 | £8,674 |
+| [Val Thorens](/club-med/val-thorens/) | £5,716 | £13,448 | £3,022 | £10,296 | £10,560 | £11,192 | £8,696 |
+| [La Plagne 2100](/club-med/la-plagne/) | £6,060 | £11,460 | £3,204 | £5,466 | £9,172 | £9,784 | £7,101 |
+| [La Rosière](/club-med/la-rosiere/) | £6,116 | £11,900 | £3,232 | £6,608 | £9,860 | £11,900 | £7,260 |
+| [Tignes](/club-med/tignes/) | £6,314 | £13,462 | £4,136 | £7,224 | £11,788 | £13,088 | £8,874 |
+| [Val d'Isère](/club-med/val-disere/) | £6,558 | £24,500 | £3,640 | £13,608 | not available | £23,846 | £11,456 |
+| [Peisey-Vallandry](/club-med/peisey-vallandry/) | £6,778 | £12,184 | £3,762 | £6,694 | £10,580 | £12,184 | £7,604 |
+| [Alpe d'Huez](/club-med/alpe-dhuez/) | £7,026 | £14,876 | £3,900 | £8,262 | £10,658 | £11,054 | £7,868 |
+| [Grand Massif](/club-med/grand-massif/) | £7,432 | £15,418 | £3,594 | £10,284 | £8,846 | not available | £7,432 |
+| [Serre-Chevalier](/club-med/serre-chevalier/) | £7,688 | £12,358 | £4,066 | £6,374 | £10,392 | £11,508 | £7,980 |
+| [Valmorel](/club-med/valmorel/) | £7,880 | £11,810 | £3,792 | £6,248 | £9,564 | £11,810 | £7,880 |
 
-**Some peak weeks have already stepped up sharply.** Beyond the Valmorel example above, Grand Massif's 21 February 2027 half-term week moved from **£4,652 to £9,430** — a doubling within the same tracking window. Several of Grand Massif's mid-January and late-February weeks show similar step-up patterns. Valmorel's 7 February week moved from **£5,042 to £9,260**; its 28 February week from **£4,578 to £7,982**.
+*Prices checked 1 October 2026, guidance only. Each resort page has today's price for every week.*
 
-**A handful of weeks have moved downward.** Tignes' 27 December (New Year) week dropped from **£7,476 to £6,798** — a 9% reduction on an already-premium week. Val d'Isère's 14 March week dropped from **£10,590 to £6,862**, a 35% downward move on a shoulder-season departure. Peisey-Vallandry's 14 February week eased from **£5,886 to £5,366**.
+## What the 2027 prices tell you
 
-## Why prices are moving in opposite directions
+- **The lowest weeks are at the end of the season.** At most resorts the lowest family price is the last week, in late March or April. Tignes, Val d'Isère and Val Thorens run to late April; Les Arcs to mid-April.
+- **The highest weeks are New Year and the February holidays.** At some resorts the peak is not the English half-term but the week before it (Welsh half-term and the start of the Paris holidays) or a March week.
+- **Some weeks are already gone for families.** Val d'Isère's Christmas week and Grand Massif's half-term had no family availability on 1 October.
+- **"Highest week" can be one odd departure.** Where a single week is far above its neighbours (for example Grand Massif's Saturday 20 February start), it usually means the lower-priced rooms for that date have sold.
 
-The first instinct is that prices should drift one way as the season approaches. The data shows the opposite — and the asymmetry is informative.
+## How 2027 prices have moved since April
 
-Resorts and weeks that show **upward movement** are typically peak-demand dates where early-booking pricing was set well below eventual peak rates. As initial inventory at the lower price tier sold through, Club Med's pricing engine moved the displayed package to the next tier. The booking window for the most historically favourable pricing on those weeks has closed — what remains is mid-cycle pricing, which on peak weeks can be materially higher.
+We started tracking the 2026/27 season in late April 2026. By 1 October, for a family of four, 41% of resort-weeks had risen, 21% had fallen and the rest were unchanged or no longer available. School-holiday weeks were the most likely to have risen. The full analysis is in [when to book a Club Med ski holiday](/blog/when-to-book-club-med-ski-holiday/).
 
-Resorts and weeks that show **downward movement** are typically shoulder-season departures or peak weeks at resorts with comparatively softer demand. Where bookings have not absorbed the early inventory, Club Med has released availability at a different price point, or the displayed lead price reflects a lower-tier room category becoming available.
+*A note on this page: an earlier version, written after our first three weeks of tracking in May 2026, reported several very large moves on individual weeks. When we re-checked the full data set we could not reproduce them for the like-for-like (Sunday, seven-night) departures, so we have replaced them with the figures above.*
 
-Neither pattern is random. Both reflect the same underlying mechanism: pricing tied to inventory absorption, with different demand curves at different resorts producing different outcomes.
+## Resort-by-resort guides
 
-## What this means for the booking decision
+Every resort has its own week-by-week guide: [Tignes](/blog/best-time-to-book-club-med-tignes/) · [Les Arcs](/blog/best-time-to-book-club-med-les-arcs/) · [Val d'Isère](/blog/best-time-to-book-club-med-val-disere/) · [Val Thorens](/blog/best-time-to-book-club-med-val-thorens/) · [Alpe d'Huez](/blog/best-time-to-book-club-med-alpe-dhuez/) · [La Rosière](/blog/best-time-to-book-club-med-la-rosiere/) · [Valmorel](/blog/best-time-to-book-club-med-valmorel/) · [Peisey-Vallandry](/blog/best-time-to-book-club-med-peisey-vallandry/) · [Grand Massif](/blog/best-time-to-book-club-med-grand-massif/) · [Serre-Chevalier](/blog/best-time-to-book-club-med-serre-chevalier/) · [La Plagne 2100](/blog/best-time-to-book-club-med-la-plagne/)
 
-For anyone considering a Club Med ski holiday for 2026/27, the practical implication is that the question is not whether to book early — it is whether the specific week you want is showing early-cycle pricing or has already moved.
-
-Three considerations follow from the data.
-
-**If your target is a peak week — Christmas, New Year, or February half-term — check whether your specific resort/week combination has already stepped up.** Several resorts have. The early booking window for those departures is over, and waiting for further movement is more likely to result in a higher price than a lower one. Resorts where peak weeks are still showing early-cycle prices — including all four Christmas weeks at Val d'Isère, Alpe d'Huez and La Rosière — remain inside the window.
-
-**If your dates are flexible, the late-season weeks offer a different calculation.** The 18 April 2027 departure at Val Thorens Sensations sits at **£3,256** for two adults; the same week at Les Arcs Panorama was **£2,874** at time of writing; at Tignes, **£3,906**. These prices have moved modestly during tracking, suggesting the optimal booking window for spring departures is now rather than later.
-
-**For weeks still at early-cycle prices, the signal-to-act is when prices begin moving — not before.** The data shows clearly that Club Med's pricing engine waits for inventory to absorb before stepping up the displayed price. Setting a price alert on your target week is the practical way to know when the booking window starts to close.
-
-## A note on what three weeks of data can and cannot tell us
-
-This is the first published analysis from the tracker, and three weeks is not enough to draw conclusions about the full booking cycle. What we can say with confidence: prices on the 2026/27 Club Med French Alps season are not static, and the movement has already been material on some weeks.
-
-What we cannot yet say: where each week's final pricing will land, how much further peak weeks will step up, or whether late-season weeks will hold their current values. The historical record we are building is the answer to those questions, and the more daily observations we accumulate, the more precisely we will be able to map the booking window for each resort.
-
-The [When To Book Club Med tracker](/clubmed) shows live prices and recent movement signals across all eleven French Alps resorts, updated daily. If you have a specific resort and week in mind, the most informative thing you can do is set a price alert — and we will notify you the moment your booking window shifts.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track prices before you book.</strong> The When To Book tracker monitors Club Med ski resort prices daily across all eleven French Alps resorts. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View the tracker →</a>
-</div>
-
----
-
-*Related reading: [When to Book a Club Med Ski Holiday: The Price Window Explained](/blog/when-to-book-club-med-ski-holiday/) · [Is Club Med Ski Worth the Money?](/blog/is-club-med-ski-worth-it/) · [Best Time to Book Club Med Val d'Isère](/blog/best-time-to-book-club-med-val-disere/)*
+*Related: [School holidays 2026/27](/blog/school-holiday-dates-2026-27-holiday-prices/) · [Christmas and New Year ski prices](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/) · [Easter 2027 ski holidays](/blog/easter-2027-ski-holidays-prices/)*

@@ -1,70 +1,77 @@
 ---
 layout: post
-title: "Best Time to Book Club Med Alpe d'Huez: An Unusual Pricing Pattern"
+title: "Best Time to Book Club Med Alpe d'Huez: 2026/27 Prices Week by Week"
 date: 2026-04-07
-last_modified_at: 2026-06-22
-description: "Best time to book Club Med Alpe d'Huez? Live price data from the 2026/27 season — what the pricing cycle shows and when the value windows open."
+last_modified_at: 2026-10-01
+description: "Best time to book Club Med Alpe d'Huez for 2026/27: every week's price, why half-term costs less than the week before it, and the sold-out week in March."
 permalink: /blog/best-time-to-book-club-med-alpe-dhuez/
 category: booking-intelligence
 tags: [club-med, alpe-dhuez, ski, booking-window]
+faq:
+  - q: "How much is Club Med Alpe d'Huez at February half-term 2027?"
+    a: "£11,054 for two adults and two children aged 4-11 (departing 14 February 2027), seven nights without flights, checked 1 October 2026. The week before (7 February) was £14,352, because it is the Welsh half-term and the start of the Paris school holidays."
+  - q: "When is the cheapest time to go to Club Med Alpe d'Huez?"
+    a: "Early December and the end of the season. On 1 October 2026 the week from 6 December was £7,372 for a family of four, and the final week from 11 April 2027 was £7,026."
+  - q: "Is the week of 21 March sold out at Club Med Alpe d'Huez?"
+    a: "It showed no availability for families or couples in our checks, as it did in June 2026. In April 2026 it was priced far above the weeks around it, which is what we often see just before a week sells out."
 ---
 
-Club Med Alpe d'Huez stands out in the portfolio for one reason most people do not expect: in the 2026/27 price data, the week of 21 March shows a higher price than February half-term.
+Club Med Alpe d'Huez sits at 1,860m on the sunny side of the Alpe d'Huez ski area, around 250km of pistes above Grenoble. It is a lively resort with long, sunny runs that suit intermediates, and it is usually priced in the middle of Club Med's Alps range.
 
-Most ski resorts follow a predictable curve — Christmas, New Year, and half-term are the most expensive weeks, with prices easing through March and April. At Club Med Alpe d'Huez, that pattern has an unusual distortion. Understanding why is worth your time if you are considering this resort.
+We have checked its prices every morning since April 2026. Two weeks behave unusually: the week before half-term, and late March.
 
-## Alpe d'Huez price data: the full 2026/27 season
+> **The short answer:** at Alpe d'Huez, **February half-term (£11,054 for a family) costs less than the week before it (£14,352)**, so do not be tempted to go early. **Easter 2027** (£7,868) and **early December** (£7,372) are the best-value weeks. **New Year** (£14,876) is the most expensive. The week of 21 March is not available.
 
-Based on daily price monitoring:
+## Club Med Alpe d'Huez prices for every week of 2026/27
 
-| Departure week | Price (2 adults) | Notes |
-|---|---|---|
-| 6 Dec 2026 | £3,374 – £3,898 | Early season |
-| 12–13 Dec 2026 | £3,536 – £4,086 | Pre-Christmas |
-| 20 Dec 2026 | £5,638 | Christmas week |
-| 27 Dec 2026 | £6,362 | New Year week |
-| 3–31 Jan 2027 | £5,182 – £5,698 | January |
-| 7 Feb 2027 | £6,138 – £7,970 | Half-term |
-| 14–28 Feb 2027 | £5,846 – £6,138 | Post half-term |
-| 7–14 Mar 2027 | £4,780 – £5,542 | Early spring |
-| 21 Mar 2027 | No availability | Sold out — see below |
-| 28 Mar – 10 Apr 2027 | £3,708 – £4,368 | Late season |
-| 11 Apr 2027 | £3,900 | Season close |
+Seven nights, all-inclusive, without flights. Family of four = two adults and two children aged 4-11. Checked 1 October 2026.
 
-When this article was written in April 2026, the 21 March week showed £8,480 — higher than New Year, higher than half-term, and roughly twice the price of the week before it. That was a striking outlier in an otherwise conventional seasonal curve. *As of June 2026, that week now shows no availability — which validates the original analysis.* The anomalous price reflected near-zero remaining inventory, and the week has since sold out entirely.
+| Departure | Family of 4 | 2 adults | Notes |
+|---|---|---|---|
+| 6 Dec 2026 | £7,372 | £4,286 |  |
+| 13 Dec 2026 | £8,494 | £4,086 |  |
+| 20 Dec 2026 | £10,658 | £5,638 | Christmas |
+| 27 Dec 2026 | £14,876 | £8,262 | New Year |
+| 3 Jan 2027 | £12,116 | £6,728 | Schools back 4 Jan |
+| 10 Jan 2027 | £10,262 | £5,698 |  |
+| 17 Jan 2027 | £10,262 | £5,698 |  |
+| 24 Jan 2027 | £10,262 | £5,698 |  |
+| 31 Jan 2027 | £12,116 | £6,728 |  |
+| 7 Feb 2027 | £14,352 | £7,970 | Welsh half-term, Paris holidays start |
+| 14 Feb 2027 | £11,054 | £6,138 | February half-term (England) |
+| 21 Feb 2027 | £11,050 | £5,846 |  |
+| 28 Feb 2027 | £10,528 | £5,846 |  |
+| 7 Mar 2027 | £9,982 | £5,542 |  |
+| 14 Mar 2027 | £8,610 | £5,256 |  |
+| 21 Mar 2027 | - | - | not available for a family |
+| 28 Mar 2027 | £7,868 | £4,368 | Easter week 1 |
+| 4 Apr 2027 | £7,722 | £4,286 | Easter week 2 |
+| 11 Apr 2027 | £7,026 | £3,900 |  |
 
-## What the March price spike at Alpe d'Huez means
+*Prices checked 1 October 2026, guidance only. See our [Club Med Alpe d'Huez page](/club-med/alpe-dhuez/) for today's prices.*
 
-The June 2026 data confirms the explanation: the week is fully sold out. When Club Med has near-zero availability for a given week, the system pushes prices significantly above the standard seasonal rate as the final high-category rooms remain. What we observed in April was the last stages of availability closing — not a pricing anomaly, but a sell-out signal in progress.
+## What the numbers show
 
-If you were considering late March at Alpe d'Huez, the 28 March departure remains open and sits in the £3,708–£4,368 range.
+- **The week before half-term is the expensive one.** 7 February (£14,352) is the Welsh half-term and the first week of the Paris school holidays. The English half-term week (£11,054) is £3,300 less.
+- **The half-term premium is small.** Half-term was only 8% above a typical January week (£10,262).
+- **New Year is the peak.** £14,876 for a family, £4,200 more than Christmas week (£10,658).
+- **21 March is unavailable.** It showed no prices for families or couples. Back in April it was priced far above the surrounding weeks, which is often the last stage before a week sells out.
+- **Easter and early December are the value weeks.** The two Easter weeks were £7,868 and £7,722; early December £7,372 and £8,494.
 
-## The best-value weeks at Alpe d'Huez
+## What prices have done since April
 
-Setting aside the 21 March week (now sold out), the value picture at Alpe d'Huez follows a conventional seasonal pattern:
+We first priced these weeks on 26 April 2026. By 1 October, for a family of four, 9 weeks had risen, 6 were unchanged and 3 had fallen:
 
-**Early December (£3,374 – £3,898 for 2 adults):** The lowest prices in the season outside of the closing week in April. Early December at Alpe d'Huez (1,860m) typically has solid early-season conditions — the resort opens in late November. For experienced skiers with flexible dates, this week offers a strong entry point.
+- **Rises:** 7 February from £11,603 to £14,352, New Year from £12,596 to £14,876, and 3 January from £10,262 to £12,116.
+- **Falls:** half-term from £12,156 to £11,054, and 14 March from £9,466 to £8,610.
 
-**Late April (£3,900 for 2 adults, 11 Apr):** The season's lowest tracked price point. Spring conditions at altitude — Alpe d'Huez regularly skis into mid-April — with the quiet, unhurried atmosphere of end-of-season.
+The pattern is that the weeks with French and Welsh demand have climbed, while the English half-term week has eased.
 
-**28 March – 10 April (£3,708 – £4,368):** After the sold-out 21 March week, the final weeks of the season remain open. Good conditions and competitive pricing — spring sunshine at 1,860m with the quieter atmosphere of end-of-season.
+## When to book Club Med Alpe d'Huez
 
-## Alpe d'Huez in context
+- **Half-term:** Alpe d'Huez is one of the better-value half-term choices in the range. Prices have eased since spring; book when you have chosen.
+- **New Year:** it has risen by more than £2,000 since April. If you want it, book; Christmas week is much better value.
+- **Easter 2027:** good value and the season runs to mid-April. See our [Easter 2027 guide](/blog/easter-2027-ski-holidays-prices/).
+- **Flexible dates:** early December and the final week (11 April) have the lowest prices of the season. Early December depends on early snowfall.
 
-Alpe d'Huez sits in the mid-range of Club Med's French Alps pricing. It is consistently less expensive than Tignes and Val d'Isère, and broadly comparable to Les Arcs across most weeks. The ski area — 250km of pistes across the Grandes Rousses massif — is one of the larger standalone areas in the French Alps, without the connection of the Espace Killy or Paradiski but with significant variety across the mountain.
-
-For the same New Year week (27 Dec 2026, 2 adults): Club Med Alpe d'Huez shows £6,362; Club Med Tignes shows £6,798–£8,830; Club Med Val d'Isère shows £8,816. Alpe d'Huez sits at the lower end of the upper-tier resorts on New Year pricing.
-
-## Booking timing
-
-Christmas and New Year weeks at Alpe d'Huez follow the standard Club Med booking pattern: popular weeks open in May or June and available room categories narrow quickly through the summer. If February half-term is your target, the data showing £7,970 suggests this is a high-demand period at this resort.
-
-The [When To Book tracker](/clubmed) monitors Club Med Alpe d'Huez prices daily across all departure dates.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track Alpe d'Huez prices daily.</strong> Including the unusual March pricing patterns. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View the tracker →</a>
-</div>
-
----
-
-*Related reading: [Best Time to Book Club Med Val d'Isère](/blog/best-time-to-book-club-med-val-disere/) · [Best Time to Book Club Med Tignes](/blog/best-time-to-book-club-med-tignes/) · [Is Club Med Ski Worth the Money?](/blog/is-club-med-ski-worth-it/)*
+*Related: [Club Med Alpe d'Huez vs Val Thorens](/blog/club-med-alpe-dhuez-vs-val-thorens/) · [Christmas and New Year ski prices](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/) · [School holidays 2026/27](/blog/school-holiday-dates-2026-27-holiday-prices/)*

@@ -1,100 +1,77 @@
 ---
 layout: post
-title: "When to Book a Club Med Ski Holiday: The Price Window Explained"
+title: "When to Book a Club Med Ski Holiday: What Six Months of Daily Prices Show"
 date: 2026-02-09
-description: "Club Med ski holiday prices don't follow a simple early-bird rule. Understanding the booking window — and when the February flash sale distorts it — can save your family hundreds of pounds."
+last_modified_at: 2026-10-01
+description: "When to book a Club Med ski holiday: we checked 11 French Alps resorts every day for six months. School-holiday weeks rarely got cheaper; some quiet weeks did. Here is the evidence."
 permalink: /blog/when-to-book-club-med-ski-holiday/
 category: booking-intelligence
+tags: [club-med, ski, booking-window, school-holidays]
+faq:
+  - q: "When is the best time to book a Club Med ski holiday?"
+    a: "For school-holiday weeks, as early as you can once you have chosen a resort: in our 2026/27 tracking, those weeks rarely fell in price and some sold out for families by October. For term-time weeks there is more room to wait, as some resorts' quieter weeks have eased since spring."
+  - q: "Do Club Med ski prices go down closer to the time?"
+    a: "Sometimes, but rarely for school holidays. Across 216 resort-weeks we tracked at 11 French Alps resorts between April and October 2026, 41% rose for a family of four, 21% fell and the rest were unchanged or no longer available. Falls were concentrated at two resorts, Les Arcs and La Rosière."
+  - q: "Which week of the ski season is the cheapest at Club Med?"
+    a: "The last weeks of the season, in April, followed by early December. Of the school holidays, Easter 2027 is by far the best value: in our checks the first Easter week cost a median 32% less than February half-term at the same resort."
+  - q: "How much more does February half-term cost at Club Med?"
+    a: "A median 30% more than the lowest January week at the same resort, about £2,600 for a family of four, in our checks on 1 October 2026. It ranged from 8% at Alpe d'Huez to 84% at Val d'Isère."
 ---
 
-Booking a Club Med ski holiday is not like booking a budget flight where the price only travels in one direction. Prices move. They rise, soften, spike during demand windows and settle in others. Knowing *when* to book — not just where — is where informed families gain a genuine edge.
+Most advice on when to book a ski holiday is a rule of thumb: book early, wait for the January sale, go last minute. We wanted evidence instead, so since April 2026 we have checked the price of every week at 11 Club Med French Alps resorts every morning, for couples and for families.
 
-This article maps the booking window for Club Med French Alps resorts: when prices open, how they typically behave across the cycle, and what to watch for.
+Six months in, the answer is clearer than we expected, and it depends mainly on one thing: whether you need a school-holiday week.
 
-## When does the booking window open?
+> **The short answer:** if you need **school holidays** (Christmas, New Year, February half-term), **book as soon as you have chosen your resort**. Those weeks have rarely got cheaper, several have risen by thousands, and some have sold out for families. If you can travel in **term time**, there is more room to watch the price, because some resorts' quieter weeks have eased. And if you can choose, **Easter 2027** is the school holiday with no premium.
 
-Club Med typically opens its winter ski season for bookings in **late spring of the preceding year** — usually April to June. For ski weeks in January through March, you can often start comparing prices as early as May or June, roughly nine to ten months before travel.
+## What happened to prices between April and October 2026
 
-At this point in the cycle, prices are frequently at or near their lowest for popular departure dates. Club Med is trying to fill capacity early, and the full price pressure of later demand windows has not yet arrived.
+We compared each week's first price (late April or early May; June for La Plagne 2100) with its price on 1 October 2026, for a family of four (two adults, two children aged 4-11, seven nights, no flights).
 
-The practical implication: if you know which resort and which week you want, the early booking window deserves serious attention. Not always the right call — but often enough to make it worth checking rather than assuming you have time to wait.
+Across 216 resort-weeks:
 
-## Early-bird pricing: the case for booking 9–12 months out
+- **41% rose**, **21% fell** and the rest were unchanged or no longer available.
+- The falls were concentrated at two resorts: **Les Arcs** (14 of 19 weeks lower) and **La Rosière** (14 of 18 lower).
+- At **Valmorel every week rose** (median +16%), and at **Serre-Chevalier** none fell.
 
-Club Med's early booking advantages are not always promoted loudly, but they exist in how prices actually behave. In the nine-to-twelve-month window before travel, several things tend to be true:
+School-holiday weeks were where waiting cost most:
 
-- **Availability is widest.** Peak weeks — Christmas, February half-term — fill early. Better room categories disappear first.
-- **Prices are often lower than in the six-to-three-month window.** Once availability tightens, prices tend to rise alongside demand.
-- **You have time to plan everything else.** Flights, ski hire, insurance, and transfers all carry their own pricing logic. Leaving these to the final weeks compounds cost.
+- **February half-term** rose at six resorts and fell at one; at Val d'Isère it went from £15,450 to £23,846, and at Grand Massif it sold out for families.
+- **Christmas** rose at five resorts and fell at two. Val d'Isère's Christmas week had no family availability by October.
+- **New Year** rose sharply at Les Arcs (£13,152 to £17,912) and Alpe d'Huez (£12,596 to £14,876).
 
-Booking early does not guarantee the lowest price you will ever see. A flash sale may temporarily undercut your early booking price on some dates. But early booking gives you the widest choice of dates and accommodation at a time before prices have been pushed upward by constrained supply.
+Big jumps usually mean the lower-priced rooms for that week have sold and the next room type up is now the lowest available. For a family that needs a particular room size, it amounts to the same thing: the price went up.
 
-## Why late booking is riskier than it looks
+## How prices vary across the season
 
-The intuition behind late booking is straightforward: wait for gaps, Club Med drops prices to shift remaining inventory, you benefit. This does occasionally happen. But for a Club Med ski holiday, it is the exception rather than the rule — particularly for family-appropriate peak weeks.
+Comparing each resort with itself on 1 October 2026 (family of four):
 
-Club Med resorts operate at consistently high occupancy in peak ski season. Christmas week, February half-term, and the final week of March run close to capacity year after year. There is no structural pressure on Club Med to significantly cut prices when supply is tight and demand is predictable.
-
-What you are more likely to find, booking two to three months out, is a narrower choice of rooms at higher prices than were available a year earlier.
-
-Late availability does occasionally surface — cancellations, amended group bookings — but timing your family ski holiday around that possibility is not an approach. It is a gamble with your calendar and your budget simultaneously.
-
-## The February flash sale: what it is and what it isn't
-
-Club Med runs promotional periods, the most notable of which typically falls in **January and February**. These are marketed as time-limited offers on selected dates and resorts.
-
-A few things worth understanding about these promotions:
-
-**They apply to specific weeks, not all dates.** Late March and early April ski dates frequently appear in flash sale windows, because they are lower-demand periods. Peak half-term dates rarely do.
-
-**The headline figure is measured against full rack rate.** Whether the promotional price is lower than what was available six or nine months earlier depends on the specific resort and date. It is not guaranteed, and the comparison is rarely made explicit.
-
-**They create a sense of urgency that can obscure value.** That urgency is real in one narrow sense — the promotional price is time-limited. But it can make it difficult to assess whether you are looking at historically favourable pricing, or simply pricing that has been framed as such.
-
-This is precisely the question [the Club Med price tracker](/clubmed) is built to answer. Rather than relying on a promotional framing, you can see where a current price sits relative to the range tracked for that resort and departure week. If a flash sale price is genuinely lower than what has been observed historically, that signal should be visible in the data.
-
-## How prices vary across the ski season
-
-Not all ski weeks carry the same price. Club Med's pricing reflects demand, and demand reflects the school calendar. A rough guide:
-
-| Week | Demand level | Price expectation |
+| Week | Typical premium | Example (La Plagne 2100) |
 |---|---|---|
-| Christmas and New Year | Very high | Highest prices of the season |
-| February school half-term | High | Close to Christmas levels |
-| Late January | Moderate | Often more reasonable |
-| Early March | Moderate | Often more reasonable |
-| Late March / early April | Lower | Historically the lower end |
+| Christmas vs mid-December | Median +36% | £9,172 vs £6,508 |
+| New Year vs lowest January week | Median +29% | £9,844 vs £7,742 |
+| February half-term vs lowest January week | Median +30% | £9,784 vs £7,742 |
+| Easter week 1 vs lowest mid-March week | Median -5% | £7,101 vs £7,206 |
+| Mid-April vs February half-term | About -35% to -65% | £6,060 vs £9,784 |
 
-If your travel dates are flexible, the weeks either side of peak school holiday demand can offer meaningfully different pricing for largely equivalent ski conditions. February is peak ski season in the French Alps — but so is late March. The material difference is in the school calendar, not the mountain.
+Two things stand out. The **half-term premium varies hugely by resort**, from 8% at Alpe d'Huez to 84% at Val d'Isère. And **Easter 2027 carries no premium at all**, because it is early (Easter Sunday is 28 March) and comes before most French families' spring holidays.
 
-The variation is not trivial. Our price tracking data across 11 Club Med French Alps resorts consistently shows price gaps of several hundred pounds per person between peak and shoulder weeks at the same resort.
+## The French factor
 
-## Booking-intent keywords versus actual booking intelligence
+The Alps fill up with French families as well as British ones. France staggers its February holidays across three zones from 6 February to 8 March 2027. That is why the week *before* English half-term can cost more than half-term itself: at Alpe d'Huez, Les Arcs and Serre-Chevalier it did. Our [school holidays guide](/blog/school-holiday-dates-2026-27-holiday-prices/) has the full dates.
 
-A note on how people search for this kind of information: most people type "when to book Club Med ski holiday" expecting a simple rule. Book six months out. Book in the flash sale. Book early.
+## What about Club Med's sales?
 
-The honest answer is more specific than any rule: it depends on the resort, the week, and where the price currently sits relative to what has been observed before. A rule of thumb is a shortcut. Pricing data is the actual answer.
+Club Med runs early-booking offers and promotions with headline percentages off. They can be worth having, but the percentage is measured against Club Med's own reference price, and the biggest reductions tend to sit on quieter weeks and pricier rooms. What matters is the price you pay for your week compared with what it costs later, and that is what we track. Our [guide to Club Med's early booking offer](/blog/club-med-early-booking-offer-how-it-works/) goes into more detail.
 
-The variables that should inform your timing:
+## A simple booking plan
 
-1. **How fixed are your dates?** School half-term with no flexibility narrows your options considerably. Early booking becomes a stronger default.
-2. **Is the week you want peak demand?** If so, the early booking window is the safer play. Supply is finite and will not loosen.
-3. **What are prices doing right now?** This is the variable most people do not check — and the one that carries the most weight in the actual decision.
+1. **Pick the week first.** If you are not tied to half-term, look at Easter 2027 or the weeks either side of the school holidays.
+2. **Shortlist two or three resorts.** For the same half-term week, a family paid anywhere from £9,784 (La Plagne 2100) to £23,846 (Val d'Isère).
+3. **Check the trend on each resort page.** Each of our resort pages says whether that week's price is rising, easing or steady, based on the last 30 days.
+4. **School holidays: book.** Term time: watch, and book when the price looks right for you.
+5. **Set an alert.** We email you if your week moves.
 
-## How to use the price tracker
+Every resort and every school-holiday week is on our [school holidays page](/school-holidays/), updated every morning.
 
-[When To Book's Club Med tracker](/clubmed) monitors prices daily across all 11 French Alps resorts — from Tignes and Val d'Isère to La Plagne 2100 and Serre-Chevalier. It logs every price movement and builds a historical record over time.
-
-Once sufficient historical data has accumulated, the tracker will show a signal — Favourable, Watch, or Hold — indicating where current prices sit relative to the range observed for that resort and week. Until then, the raw price data is visible and useful on its own: you can see how prices are moving week to week, and whether a promotional claim reflects reality.
-
-You can also sign up for a price alert. When a meaningful price shift occurs for the resort and dates you are watching, you will be notified — without needing to check manually every few days.
-
----
-
-The families who consistently book at the right point in the cycle are not lucky. They understand the booking window, they know when promotional framing obscures rather than clarifies value, and they are watching the right data when it matters.
-
-Timing your booking well is not a complicated skill. It requires knowing where prices have been, where they are now, and what movements tend to precede a genuine shift. That is what this site is built to help with.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track prices before you book.</strong> The When To Book tracker monitors Club Med ski resort prices daily across all eleven French Alps resorts. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View the tracker →</a>
-</div>
+*Related: [Is Club Med ski worth it?](/blog/is-club-med-ski-worth-it/) · [Christmas and New Year ski prices](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/) · [Easter 2027 ski holidays](/blog/easter-2027-ski-holidays-prices/)*

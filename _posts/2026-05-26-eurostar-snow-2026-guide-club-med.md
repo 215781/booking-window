@@ -1,74 +1,74 @@
 ---
 layout: post
-title: "Eurostar Snow 2026 Guide: Taking the Ski Train to Your Club Med Resort"
+title: "Eurostar Snow 2026/27: Taking the Ski Train to a Club Med Resort"
 date: 2026-05-26
-description: "Eurostar Snow 2026 guide for Club Med skiers — which resorts you can reach by train, what the journey costs, and how to time your booking."
+last_modified_at: 2026-10-01
+description: "Eurostar Snow 2026/27 for Club Med skiers: dates (19 Dec to 20 Feb), the change at Lille, which stations serve which Club Med resorts, and the Saturday-Sunday catch."
+permalink: /blog/eurostar-snow-2026-guide-club-med/
 category: travel
-tags: [club-med, ski, eurostar, booking-window, travel]
+tags: [club-med, ski, eurostar, train, travel]
+faq:
+  - q: "When does Eurostar Snow run in 2026/27?"
+    a: "Outbound trains run on Saturdays from 19 December 2026 to 20 February 2027, with returns from 27 December to 28 February. There is no service at Easter. You change trains at Lille Europe."
+  - q: "Which Club Med ski resorts can you reach by Eurostar Snow?"
+    a: "The train serves the Tarentaise valley, so in practice Les Arcs Panorama (funicular from Bourg-Saint-Maurice), Peisey-Vallandry (from Landry), La Plagne 2100 (from Aime-la-Plagne), Tignes, Val d'Isère and La Rosière (from Bourg-Saint-Maurice) and Val Thorens and Valmorel (from Moûtiers). All but Les Arcs need a road transfer."
+  - q: "Does Eurostar Snow work with Club Med's Sunday start?"
+    a: "Not neatly. The outbound train arrives on a Saturday evening, while most Club Med Alps weeks start on a Sunday. You will usually need a night in the valley or a resort that sells a Saturday start. The Sunday return train fits Club Med's Sunday departure day well."
 ---
 
-Every year, thousands of Club Med ski guests fly to Geneva or Chambéry, collect their hire car, and spend the first two hours of their holiday sitting in a mountain traffic queue. There is another way.
+Taking the train to the Alps turns the journey into part of the holiday: no airport queues, no ski carriage fees, and you step off in the valley below your resort. For several Club Med resorts it is a real alternative to flying, with one catch to plan around.
 
-Eurostar Snow is the direct Saturday service from London St Pancras into the heart of the French Alps. For the four Club Med resorts it can serve — Les Arcs Panorama, Peisey-Vallandry, Tignes, and Val d'Isère — it turns the journey itself from an ordeal into the start of the holiday. Tickets for the 2026/27 season are expected on sale imminently, making now the right moment to think about whether the train changes how you approach booking.
+> **The short answer:** Eurostar's ski service runs on **Saturdays from 19 December 2026 to 20 February 2027**, changing at **Lille**, to Moûtiers, Aime-la-Plagne, Landry and Bourg-Saint-Maurice. It serves most of Club Med's Tarentaise resorts, and **Les Arcs Panorama** is the easiest (a funicular from the station). The catch: the train **arrives on Saturday**, while most Club Med weeks **start on Sunday**. It covers **Christmas, New Year and February half-term**, but **not Easter**.
 
-## Which Club Med Resorts Can You Reach by Eurostar?
+## The 2026/27 service
 
-The Eurostar Snow train terminates at Bourg-Saint-Maurice, a hub station in the Tarentaise valley. Four Club Med resorts sit within striking distance:
+- **Outbound:** Saturdays, 19 December 2026 to 20 February 2027, from London St Pancras.
+- **Return:** from 27 December 2026 to 28 February 2027, mainly on Sundays.
+- **Change:** at Lille Europe, onto the onward high-speed train to the Alps.
+- **Stations:** Chambéry, Albertville, Moûtiers, Aime-la-Plagne, Landry and Bourg-Saint-Maurice.
+- **Journey:** just under eight hours from London to Bourg-Saint-Maurice.
+- **Luggage:** typically two cases and a piece of hand luggage, plus skis or a snowboard at no extra cost. Check Eurostar's current allowance.
+- **Tickets:** on sale since July 2026, with prices that rise as trains fill, like flights.
 
-**Club Med Les Arcs Panorama** is the most direct connection of all. The Les Arcs funicular departs from directly beside Bourg-Saint-Maurice station and reaches Arc 1600 in roughly seven minutes. It is as seamless a station-to-resort transfer as exists in the Alps.
+## Which Club Med resorts it serves
 
-**Club Med Peisey-Vallandry** is served by Landry station, one stop before Bourg-Saint-Maurice on the same line. A short transfer takes you up to the resort. Current pricing for a two-adult week in January 2027 sits around £4,462–£5,394, depending on the specific departure week.
+| Club Med resort | Station | Onward journey |
+|---|---|---|
+| [Les Arcs Panorama](/club-med/les-arcs/) | Bourg-Saint-Maurice | Funicular to Arc 1600, about 7 minutes |
+| [Peisey-Vallandry](/club-med/peisey-vallandry/) | Landry | Short road transfer |
+| [La Plagne 2100](/club-med/la-plagne/) | Aime-la-Plagne | Road transfer up the mountain |
+| [Tignes](/club-med/tignes/) | Bourg-Saint-Maurice | Road transfer, around 45 minutes to an hour |
+| [Val d'Isère](/club-med/val-disere/) | Bourg-Saint-Maurice | Road transfer, around 45 minutes to an hour |
+| [La Rosière](/club-med/la-rosiere/) | Bourg-Saint-Maurice | Road transfer |
+| [Val Thorens](/club-med/val-thorens/) | Moûtiers | Road transfer, around an hour |
+| [Valmorel](/club-med/valmorel/) | Moûtiers | Road transfer |
 
-**Club Med Tignes** is approximately 45 minutes from Bourg-Saint-Maurice by coach transfer. Shuttle buses and private transfers depart from the station forecourt. Pricing for a February half-term week (departing 14 February 2027) is currently around £6,610 for two adults.
+Alpe d'Huez, Serre-Chevalier and Grand Massif are not on this line; for those, flying (or a different rail route) makes more sense.
 
-**Club Med Val d'Isère** is also around 45 minutes from Bourg-Saint-Maurice. Val d'Isère is Club Med's most premium Tarentaise option, and pricing reflects that: the same February half-term week is currently around £8,580 for two adults.
+## The Saturday-Sunday catch
 
-It is worth noting that the other Club Med French Alps resorts — Alpe d'Huez, Valmorel, La Rosière, Grand Massif, Serre-Chevalier, Val Thorens, and La Plagne 2100 — are not practically served by Eurostar. If you are committed to travelling by train, the Tarentaise four are your options.
+Most of the Club Med Alps resorts we track run **Sunday to Sunday**. The Eurostar outbound runs on **Saturday** and arrives in the evening. So you will usually need to:
 
-## What Does the Journey Actually Cost?
+- book **a night in the valley** (Bourg-Saint-Maurice or Moûtiers) and transfer up on Sunday morning; or
+- ask Club Med whether an **eight-night stay** from Saturday is possible for your dates.
 
-Eurostar Snow fares start from around £99 each way, with typical return fares running from roughly £323 in quiet mid-January weeks to £733 at February half-term. Ski carriage is included in the fare, which eliminates a cost and a logistical headache that flying brings.
+The return works better: a Sunday train lines up with Club Med's Sunday departure day.
 
-The journey from London St Pancras takes just under eight hours to Bourg-Saint-Maurice. Set against a flight to Geneva (transfer, security, boarding, a 90-minute flight, a one-hour-plus transfer), the door-to-door gap is smaller than it sounds. More importantly, the train portion of the journey requires no lifting of heavy bags through queues, no liquid restrictions, and no anxiety about whether your skis arrived.
+## Which school holidays it covers
 
-## The Timing Question: Train and Club Med Together
+| Holiday | Eurostar outbound | Club Med week starts |
+|---|---|---|
+| Christmas | Sat 19 Dec 2026 | Sun 20 Dec |
+| New Year | Sat 26 Dec 2026 | Sun 27 Dec |
+| February half-term | Sat 13 Feb 2027 | Sun 14 Feb |
+| Easter 2027 | No service | - |
 
-This is where booking intelligence matters most. Club Med and Eurostar are two separate booking decisions, but they are not independent of each other — if you have committed to a Club Med departure date, you want your train booked for the same Saturday.
+For prices for each of these weeks, see our [school holidays page](/school-holidays/), our [Christmas and New Year guide](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/), or each resort page above.
 
-A few practical principles are worth keeping in mind.
+## Train or plane?
 
-**Book Eurostar early.** Train tickets on the Eurostar Snow service follow the same yield-management logic as flights: popular weeks sell out, and the cheapest fares go first. February half-term, in particular, has historically sold out well before Christmas. If you are considering that window, securing your train tickets as soon as they go on sale is the right move.
+For a family, the train's advantages are real: no ski carriage fees, no liquids rules, and a journey that is part of the trip. The disadvantages are the Saturday arrival, the change at Lille, and the onward transfer for most resorts. If you are going to Les Arcs, it is hard to beat. For Val Thorens or Tignes, compare the total door-to-door time and cost, including the extra night, with a flight to Geneva or Chambéry.
 
-**Club Med pricing moves independently.** Our data shows that Club Med prices for the same departure week can shift meaningfully between when you first look and when you finally commit. The [When To Book Club Med tracker](/clubmed) monitors these movements daily — it is the right tool for deciding when the pricing for your specific week looks optimal.
+Whichever you choose, book the travel at the same time as the resort. Christmas and half-term trains and flights fill early, just like the rooms.
 
-**The safest sequencing.** Decide on your week, book your Club Med package (or at minimum hold the date firmly in mind), then secure Eurostar the same day. The marginal cost of having a train booked before your hotel is confirmed is low; the cost of finding no train availability after you have committed to the resort is high.
-
-## Why Train vs Flying Matters for This Audience
-
-For the financially considered traveller, the choice between train and plane is not simply a lifestyle preference — it has real cost implications that interact with your Club Med booking.
-
-Flying to Chambéry or Geneva adds airport transfers at both ends, potential car hire or resort transfer costs, and ski carriage fees that vary by airline and route. For a family of four, these costs can add £300 to £600 to the trip before a single run has been made. The Eurostar fare, by contrast, is inclusive: bags, skis, the journey.
-
-There is also the question of what goes wrong. A flight delay on Saturday morning, during the narrow window between Club Med check-in and last transfers, is a meaningful disruption to a premium holiday. Eurostar disruptions, while not unheard of, tend to have more recovery options because the Lille connection adds flexibility.
-
-For the eco-conscious angle: Eurostar emits roughly 90% less CO₂ per passenger than a comparable flight to the same destination. For those who track the full cost of their choices, that is a significant difference.
-
-## Practical Notes for the Journey
-
-The outbound train departs London St Pancras every Saturday morning (the 2025/26 departure was 09:01; expect a similar time for 2026/27). You change at Lille Europe — a straightforward connection on the main floor of the station. The connecting service then calls at Chambéry, Albertville, Moûtiers, Aime-la-Plagne, Landry, and Bourg-Saint-Maurice.
-
-Border control is handled in London on the outbound leg, which means stepping off at Bourg-Saint-Maurice is as simple as stepping off a domestic train. On the return, you clear customs at Lille — allow extra time at that connection.
-
-Adults can carry two pieces of luggage (up to 85cm), one piece of hand luggage, and skis or a snowboard. There is no volume limit on liquids, which removes the ritual of travel-size toiletries that flying enforces.
-
-## Making the Booking Decision
-
-The four Club Med resorts served by Eurostar — Les Arcs, Peisey-Vallandry, Tignes, Val d'Isère — represent some of the strongest options in the Club Med French Alps portfolio. If you were already considering one of those resorts, the train is not a compromise: it is a genuinely better journey for most travellers, with comparable door-to-door times and fewer variables that can go wrong.
-
-The timing question is where most people lose money, not the transport question. Knowing when to buy is more valuable than knowing how to get there. The [When To Book Club Med tracker](/clubmed) is built to answer that question — monitoring live prices across all eleven Club Med French Alps resorts and signalling when the data suggests a pricing window has opened for a specific departure week.
-
-If you want to be notified the next time pricing for your week moves, you can set up an alert directly on the tracker. It costs nothing, and it is the kind of intelligence that makes the difference between paying what you should have paid and paying what the person next to you on the train paid instead.
-
----
-
-*Price data sourced from the When To Book live price tracker, updated daily. All prices shown are for two adults, accommodation only (no flights). Prices are illustrative of recent observed ranges and will continue to move. Peisey-Vallandry January pricing updated 22 June 2026. The site is currently in its data-building phase — confirmed booking signal states will be available from autumn 2026.*
+*Related: [Best time to book Club Med Les Arcs](/blog/best-time-to-book-club-med-les-arcs/) · [School holidays 2026/27](/blog/school-holiday-dates-2026-27-holiday-prices/) · [When to book a Club Med ski holiday](/blog/when-to-book-club-med-ski-holiday/)*

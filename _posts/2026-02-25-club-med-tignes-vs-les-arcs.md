@@ -1,88 +1,71 @@
 ---
 layout: post
-title: "Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?"
+title: "Club Med Tignes vs Les Arcs Panorama: Which Is Better Value in 2026/27?"
 date: 2026-02-25
-description: "Club Med Tignes typically runs 8–12% higher than Les Arcs Panorama. Is it worth it? A side-by-side comparison of terrain, village feel, and pricing across both resorts."
+last_modified_at: 2026-10-01
+description: "Club Med Tignes vs Les Arcs Panorama: terrain, family fit and 2026/27 prices side by side. Tignes is pricier most weeks, but Les Arcs costs £4,450 more at New Year."
 permalink: /blog/club-med-tignes-vs-les-arcs/
 category: booking-intelligence
+tags: [club-med, tignes, les-arcs, ski, comparison]
+faq:
+  - q: "Is Club Med Tignes or Les Arcs cheaper?"
+    a: "It depends on the week. On 1 October 2026, Les Arcs was cheaper for a family of four at Christmas, half-term, Easter and in January, by about £200 to £2,200. At New Year it was the other way round: £17,912 at Les Arcs against £13,462 at Tignes."
+  - q: "Which is better for beginners and young children, Tignes or Les Arcs?"
+    a: "Les Arcs Panorama, for most families. The slopes around Arc 1600 are gentler and more sheltered, while Tignes is high, open and better suited to confident skiers. Both include Club Med ski school for adults and children aged 4 and over."
+  - q: "Which has better snow, Tignes or Les Arcs?"
+    a: "Tignes. Club Med Tignes is at 2,100m with the Grande Motte glacier above it, so its snow is more reliable early and late in the season, and it stays open to the end of April. Les Arcs Panorama's last departure is mid-April."
 ---
 
-Two of Club Med's most popular French Alps destinations — Tignes and Les Arcs Panorama — attract very similar buyers: UK families who want an all-inclusive ski holiday with serious terrain. But they are not interchangeable resorts, and the prices are not the same. Tignes typically runs **8–12% higher** than Les Arcs Panorama for equivalent weeks. Understanding why, and when that premium is justified, is the kind of intelligence that separates a well-timed booking from an expensive one.
+Club Med Tignes and Les Arcs Panorama are both in the Tarentaise, both easy to reach from Bourg-Saint-Maurice, and both attract the same families. But they are different mountains, and this season their prices behave differently too.
 
-## The terrain picture
+> **The short answer:** choose **Les Arcs** for beginners, young children and the best Christmas, half-term and Easter prices this season. Choose **Tignes** for confident skiers, the most reliable snow and **New Year**, which is £4,450 cheaper at Tignes for a family of four. In most weeks, Tignes costs more.
 
-**Tignes** sits at 2,100 metres and is part of the Espace Killy — one of the largest ski areas in the Alps, shared with Val d'Isère. At the top end, the Grande Motte glacier offers skiing above 3,400 metres, and the ski area as a whole runs to over 300km of marked pistes. This is high-altitude, high-confidence terrain. Snow reliability here is among the best in France. For strong intermediate and advanced skiers, Tignes has very few equals in the Club Med portfolio.
+## The two resorts
 
-**Les Arcs Panorama** (the Club Med village sits at 1,800 metres, at Arc 1800) is part of the Paradiski area, shared with La Plagne — another enormous ski area, stretching to 425km of linked pistes. The terrain is more varied and more genuinely beginner-friendly in its lower sections than Tignes, while still offering serious runs for stronger skiers. The Vanoise Express cable car link to La Plagne is one of the more dramatic bits of inter-resort infrastructure in the Alps and opens up terrain that would otherwise require significant travel.
+**Club Med Tignes** is at 2,100m in Val Claret, in the Espace Killy it shares with Val d'Isère, with the Grande Motte glacier above. It is high, open terrain that rewards strong intermediates and advanced skiers, and the snow is among the most reliable in the Alps. Its season runs to the end of April.
 
-On raw terrain scale, the two resorts are roughly matched — both are world-class ski areas by any practical measure. The meaningful difference is character: Tignes is steep, exposed, and built for performance. Les Arcs is more varied, more sheltered in places, and has a broader range of on-piste experiences across ability levels.
+**Club Med Les Arcs Panorama** sits above Arc 1600 in the Paradiski area, which links Les Arcs and La Plagne. The terrain around the resort is gentler and more sheltered among the trees, which suits learners and mixed-ability families, while Paradiski as a whole has plenty for strong skiers. The funicular from Bourg-Saint-Maurice makes it one of the easiest Club Med resorts to reach by train.
 
-## Village feel and the all-inclusive experience
+Both include Club Med's all-inclusive format: meals, ski passes, group lessons for adults and children aged 4 and over, and kids' clubs from age 4.
 
-Club Med Tignes has undergone significant renovation and sits in a resort village that is, frankly, functional rather than charming. Tignes-le-Lac (the main resort) is a high-altitude, utilitarian station. The Club Med property itself is well-appointed, but you are not going for the cobblestoned village atmosphere. You are going for the skiing and the altitude guarantee.
+## Prices side by side
 
-Arc 1800 — where Club Med Les Arcs Panorama is located — has a more considered architecture and feels a little more resort-like in the traditional sense. There is more to explore immediately outside the Club Med property. That said, neither resort is St-Anton or Méribel in terms of mountain character, and within the Club Med model, the difference in village feel matters less than it might in a traditional chalet holiday, since meals, childcare, and ski instruction all happen on-property.
+Seven nights, all-inclusive, without flights, checked 1 October 2026.
 
-Both resorts include Club Med's signature all-inclusive format: meals, ski lessons in the Ski Club Découverte, childcare, and evening entertainment. The quality of instruction and childcare is broadly consistent across Club Med properties. The physical product — room quality, pools, wellness facilities — is slightly higher at Tignes following more recent investment.
+| Week | Tignes: family of 4 | Les Arcs: family of 4 | Tignes: 2 adults | Les Arcs: 2 adults |
+|---|---|---|---|---|
+| Mid-December (13 Dec) | £8,728 | £7,598 | £4,846 | £4,018 |
+| Christmas (20 Dec) | £11,788 | £11,012 | £6,546 | £5,856 |
+| New Year (27 Dec) | £13,462 | **£17,912** | £6,798 | **£11,602** |
+| January (10 Jan) | £11,708 | £10,200 | £5,912 | £5,414 |
+| February half-term (14 Feb) | £13,088 | £12,384 | £6,610 | £6,580 |
+| Easter week 1 (28 Mar) | £8,874 | £8,674 | £4,926 | £4,168 |
+| Easter week 2 (4 Apr) | £9,370 | £7,170 | £5,202 | £3,792 |
+| Mid-April (11 Apr) | £7,958 | £6,336 | £4,210 | £3,352 |
 
-## The family versus advanced skier split
+*Prices checked 1 October 2026, guidance only. Live prices: [Tignes](/club-med/tignes/) · [Les Arcs](/club-med/les-arcs/).*
 
-This is arguably the sharpest dividing line between the two resorts.
+What the table shows:
 
-**Les Arcs is the stronger choice if you have young children or beginners in your party.** The resort's terrain around Arc 1800 has gentle, confidence-building slopes close to the village. The progression from ski school to independent skiing is well-supported. The lower altitude also means that the brutal weather Tignes can produce in bad weeks is less likely to disrupt the experience for younger or less confident skiers.
+- **Les Arcs is lower in most weeks**, by £200 to £2,200 for a family.
+- **New Year is the exception.** Les Arcs' New Year week has risen sharply since April and now costs £4,450 more than Tignes for a family.
+- **At half-term the gap is small**: £704 for a family, £30 for a couple.
+- **Late season favours Les Arcs on price, Tignes on snow.** Tignes stays open to 25 April; Les Arcs' last week starts 18 April.
 
-**Tignes is the stronger choice if everyone in your party skis at least confidently at an intermediate level** — and you are prioritising snow quality and sheer vertical above all else. The glacier access means you can ski through early and late season with greater certainty than anywhere else in the Club Med network. If you are planning a Christmas or early January trip and want a guarantee of skiable terrain, Tignes' altitude is a meaningful advantage.
+## How prices have moved
 
-For genuinely mixed-ability groups — strong adult skiers with young children — this is where the choice is hardest. Les Arcs may deliver more ski satisfaction per family member across the board, even if it gives up the edge on elite terrain.
+The two resorts have gone in different directions since we started tracking in April 2026. At **Les Arcs**, 14 of 19 weeks have fallen for a family (median -6%), apart from New Year, which rose from £13,152 to £17,912. At **Tignes**, most weeks have held and 8 have risen. If you like Les Arcs and are flexible on dates, watching the price has paid; at Tignes it mostly has not.
 
-## How the pricing compares
+## Which should you book?
 
-This is where it gets interesting. Tignes commands a premium across the booking window — typically **8–12% above Les Arcs Panorama** for the same departure date. On a family booking of, say, £8,000, that differential is £640–960. Not trivial.
+**Book Les Arcs if:**
+- your group includes beginners, nervous skiers or children under about 10;
+- you want Christmas, half-term or Easter at the lower price;
+- you would like to travel by train.
 
-The premium is consistent rather than variable — it reflects Club Med's own assessment of relative demand, not short-term supply pressure. Both resorts see their prices peak around Christmas and February half-term and soften either side of those demand spikes. But Tignes' baseline is higher, and the gap does not close dramatically during shoulder weeks.
+**Book Tignes if:**
+- everyone skis confidently and wants big, high terrain;
+- snow reliability matters most, especially in December or late April;
+- you want New Year, which is much better value at Tignes this season.
 
-The question this creates for buyers: are you getting 8–12% more resort for 8–12% more money? The honest answer is — for advanced skiers, possibly. For families with mixed ability levels, probably not.
-
-To track how this gap is actually moving in real time — including the specific weeks you are considering — the [Club Med price tracker at /clubmed](/clubmed) shows current pricing across both Tignes and Les Arcs alongside nine other French Alps resorts. It updates daily and shows you whether now is a historically favourable moment to book, or whether pricing suggests waiting.
-
-## When each resort is worth it
-
-**Book Tignes when:**
-- You have strong intermediate to advanced skiers across your group
-- Snow reliability is your primary concern (especially Christmas, early January, or late March)
-- You are travelling without young children or with older children who ski well
-- The Espace Killy terrain is specifically on your bucket list
-
-**Book Les Arcs when:**
-- Your party includes beginners, nervous intermediates, or young children
-- You want the Paradiski area (Les Arcs and La Plagne combined) for variety
-- You are comparing equivalent weeks and Les Arcs is priced meaningfully lower
-- Village atmosphere and ease of access from the resort matter to you
-
-**Either can be right when:**
-- You find a materially better price at one or the other for your target week — pricing asymmetry is worth acting on
-- Your children are reaching the age where the transition from ski school to independent skiing is happening — Les Arcs serves that transition particularly well
-
-## Timing your booking for either resort
-
-The 8–12% pricing gap between Tignes and Les Arcs is fairly stable, but the absolute price level moves across the booking window. For both resorts, the early booking window — typically nine to twelve months before travel — is where prices are often lower and availability is widest, particularly for preferred room categories and peak weeks.
-
-Price movements are not always intuitive. A week that looks expensive in June can be the same or lower by August, or it can rise further as capacity fills. There is no universal rule, which is why tracking both resorts in parallel across the booking window gives you a genuine information advantage.
-
-## Staying alert when prices move
-
-If you are comparing both resorts across several potential weeks, manually checking prices is time-consuming. The [whentobook.co.uk email alert service](/clubmed) will notify you when pricing moves at either resort — useful if you have a shortlist of weeks but are not ready to commit, and want to catch a shift without monitoring daily.
-
----
-
-Both Tignes and Les Arcs Panorama are strong entries in the Club Med network. The resort choice matters less than many buyers assume at the research stage — the all-inclusive model and ski instruction quality are broadly consistent. What matters is matching the terrain to your group's ability level, and making sure you are paying appropriately for the premium Tignes carries.
-
-At 8–12% above Les Arcs, Tignes asks you to justify that gap. For the right group, on the right week, it earns it. For others, Les Arcs offers comparable skiing, a broader range of terrain across ability levels, and room to redirect the price difference toward flights, insurance, or simply a slightly longer trip.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track Tignes and Les Arcs prices daily.</strong> The When To Book tracker monitors all departure dates across both resorts. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View live prices →</a>
-</div>
-
----
-
-*Related reading: [When to Book a Club Med Ski Holiday: The Price Window Explained](/blog/when-to-book-club-med-ski-holiday/) · [Is Club Med Ski Worth the Money?](/blog/is-club-med-ski-worth-it/)*
+*Related: [Best time to book Club Med Tignes](/blog/best-time-to-book-club-med-tignes/) · [Best time to book Club Med Les Arcs](/blog/best-time-to-book-club-med-les-arcs/) · [Christmas and New Year ski prices](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/)*

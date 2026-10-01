@@ -1,84 +1,83 @@
 ---
 layout: post
-title: "Best Time to Book Club Med Val d'Isère: What the Price Data Shows"
+title: "Best Time to Book Club Med Val d'Isère: 2026/27 Prices Week by Week"
 date: 2026-03-19
-last_modified_at: 2026-06-22
-description: "Best time to book Club Med Val d'Isère? Live price tracking data shows a £9,000+ gap between peak and shoulder weeks. Here's what the numbers show."
+last_modified_at: 2026-10-01
+description: "Best time to book Club Med Val d'Isère for 2026/27: every week's price for a family and a couple, which school holidays are already unavailable, and the weeks that cost a third as much."
 permalink: /blog/best-time-to-book-club-med-val-disere/
 category: booking-intelligence
 tags: [club-med, val-disere, ski, booking-window, espace-killy]
+faq:
+  - q: "How much is Club Med Val d'Isère for a family of four?"
+    a: "On 1 October 2026, seven nights for two adults and two children aged 4-11 ranged from £6,558 (25 April 2027) to £24,500 (New Year), without flights. February half-term was £23,846. Christmas week and the first two January weeks had no family availability."
+  - q: "When is the cheapest time to go to Club Med Val d'Isère?"
+    a: "Late April. The weeks from 11 to 25 April 2027 were £6,558 to £8,580 for a family of four and £3,640 to £5,236 for two adults, checked 1 October 2026."
+  - q: "Is Club Med Val d'Isère worth the extra over Tignes?"
+    a: "The two resorts share the Espace Killy ski area, so the skiing is essentially the same. At February half-term 2027 a family paid £23,846 at Val d'Isère against £13,088 at Tignes. You are paying for Val d'Isère's village and Club Med's most premium Alps resort, not for more skiing."
 ---
 
-Club Med Val d'Isère occupies a particular position in the portfolio: it is the brand's flagship French Alps resort, sitting at 1,850m in the Espace Killy ski area, and it is consistently the most expensive option in the range. For a family of two adults, price data tracked from April 2026 shows a spread from **£3,640 to £13,244** depending on which week you choose — a gap of nearly £10,000 for an identical package at the same resort. *Prices updated 22 June 2026.*
+Club Med Val d'Isère is the brand's most expensive resort in the French Alps. It sits at 1,850m in the Espace Killy, the ski area it shares with Tignes, and for the school holidays it sells out early.
 
-That is not a theoretical range. It is the live price spread across the 2026/27 winter season, updated daily. Understanding what drives it — and how to use that knowledge — is the point of this article.
+We have checked its prices every morning since April 2026. The range is the widest of any resort we track.
 
-## Val d'Isère pricing at a glance
+> **The short answer:** for families, Val d'Isère's **school-holiday weeks are the most expensive in Club Med's Alps range** (£23,846 for February half-term, £24,500 for New Year) and **Christmas week had no family availability** by 1 October. The best-value weeks are **Easter 2027** (£11,456 and £9,718) and **late April** (from £6,558). If you want a peak week here, book as soon as you can.
 
-Based on live price data collected daily from the Club Med UK booking system, here is what a 7-night, 2-adult package at Val d'Isère currently shows across the season:
+## Club Med Val d'Isère prices for every week of 2026/27
 
-| Departure week | Price (2 adults) | Notes |
-|---|---|---|
-| 6 Dec 2026 | £4,734 – £5,472 | Early season, quieter |
-| 13 Dec 2026 | £5,472 – £6,018 | Pre-Christmas |
-| 20 Dec 2026 | £12,040 | Christmas week |
-| 27 Dec 2026 | £8,816 | New Year week |
-| 3–10 Jan 2027 | £12,026 | Early January |
-| 17–24 Jan 2027 | £7,926 | Mid-January |
-| 31 Jan 2027 | £12,026 | Late January |
-| 7 Feb 2027 | £13,244 | Half-term peak |
-| 14–28 Feb 2027 | £8,332 – £8,580 | Post half-term |
-| 28 Mar – 4 Apr 2027 | £5,786 – £6,674 | Spring shoulder |
-| 11 Apr – 25 Apr 2027 | £3,150 – £4,764 | Late season |
+Seven nights, all-inclusive, without flights. Family of four = two adults and two children aged 4-11. Checked 1 October 2026.
 
-The pattern is unambiguous. Christmas, New Year, and February half-term command roughly **3–4x the price** of late-April departures at the same resort. January pricing is notably split: some weeks sit around £7,926, others at £12,026 — a divergence that reflects different availability tiers within the same booking window.
+| Departure | Family of 4 | 2 adults | Notes |
+|---|---|---|---|
+| 6 Dec 2026 | £12,930 | £8,442 |  |
+| 13 Dec 2026 | £10,838 | £6,018 |  |
+| 20 Dec 2026 | - | £12,040 | Christmas; not available for a family |
+| 27 Dec 2026 | £24,500 | £13,608 | New Year |
+| 3 Jan 2027 | - | £12,026 | Schools back 4 Jan; not available for a family |
+| 10 Jan 2027 | - | £12,026 | not available for a family |
+| 17 Jan 2027 | £12,980 | £7,208 |  |
+| 24 Jan 2027 | £12,980 | £12,232 |  |
+| 31 Jan 2027 | £16,256 | £12,026 |  |
+| 7 Feb 2027 | £23,844 | £13,244 | Welsh half-term, Paris holidays start |
+| 14 Feb 2027 | £23,846 | £13,244 | February half-term (England) |
+| 21 Feb 2027 | £14,256 | £12,860 |  |
+| 28 Feb 2027 | £13,644 | £7,576 |  |
+| 14 Mar 2027 | £11,242 | £10,590 |  |
+| 21 Mar 2027 | £18,542 | £10,298 |  |
+| 28 Mar 2027 | £11,456 | £6,362 | Easter week 1 |
+| 4 Apr 2027 | £9,718 | £5,396 | Easter week 2 |
+| 11 Apr 2027 | £8,580 | £5,236 |  |
+| 18 Apr 2027 | £7,294 | £4,450 |  |
+| 25 Apr 2027 | £6,558 | £3,640 |  |
 
-## Why the gap is so large at Val d'Isère specifically
+*Prices checked 1 October 2026, guidance only. See our [Club Med Val d'Isère page](/club-med/val-disere/) for today's prices.*
 
-Val d'Isère is a premium resort in a premium ski area. The Espace Killy — shared with Tignes — is one of the largest linked ski areas in the world, with reliable high-altitude snow and a long season. It attracts experienced skiers willing to pay for the terrain.
+## What the numbers show
 
-The consequence: demand at peak dates is concentrated among a narrower group of high-intent buyers who are less price-sensitive. Club Med prices accordingly. At Christmas and half-term, the resort sells out early and at full price. There is no need for pricing flexibility.
+- **Peak family weeks are over £23,000.** New Year (£24,500) and both February weeks (£23,844 and £23,846) are the most expensive family weeks at any Club Med resort we track.
+- **Some school-holiday weeks have gone.** Christmas week, and the 3 and 10 January departures, had no family availability on 1 October. Couples could still book them.
+- **The couple and family prices do not always move together.** On 24 January, two adults paid £12,232 while a family paid £12,980. Odd gaps like this are a sign that only certain room types are left.
+- **Easter is the value school holiday.** The first Easter week (28 March) was £11,456 for a family, less than half the half-term price. The second (4 April) was £9,718.
+- **Late April is lowest.** The final three weeks run from £8,580 down to £6,558 for a family.
 
-At shoulder dates — early December and late April — the picture changes. These weeks are not low-quality ski weeks; early December at 1,850m typically has excellent conditions once the season properly opens, and April often delivers spring skiing at its best. But they attract fewer families constrained by school calendars, so demand is lower and prices reflect that.
+## What prices have done since April
 
-## The best weeks for value at Val d'Isère
+We first priced these weeks on 26 April 2026. By 1 October, for a family of four, 8 weeks were unchanged, 6 had risen and 3 had fallen. The moves that matter:
 
-If your travel dates are flexible, three windows stand out in the current data:
+- **February half-term rose from £15,450 to £23,846.**
+- **21 March rose from £10,932 to £18,542.**
+- 6 December rose from £8,966 to £12,930.
+- The falls were smaller: 17 January from £14,272 to £12,980, and 28 February from £14,256 to £13,644.
 
-**Late April (£3,640 – £4,764 for 2 adults):** The season's lowest price point. The Espace Killy's altitude means snow cover is typically reliable into late April. Spring conditions — soft afternoon snow, strong sunshine — are a genuinely different but excellent ski experience. The resort is quieter, lift queues are shorter, and the value case against a self-organised alternative is at its most compelling.
+Large jumps like these usually mean the lower-priced rooms for that week have sold and the next room type up is now the lowest available. Either way, the price a family pays has gone up, and for peak weeks it has rarely come back down.
 
-**Early December (£4,734 – £5,472 for 2 adults):** The pre-Christmas window offers good value relative to what the same week will cost when demand peaks. The booking note here: early December at altitude typically requires good snowfall in November. Val d'Isère's high base means it opens reliably early, but this week rewards a degree of flexibility on conditions.
+## When to book Club Med Val d'Isère
 
-**March shoulder (£5,786 – £6,674 for 2 adults, late March):** After half-term demand clears, prices drop materially. Late March tends to have reliable conditions at this altitude and benefits from longer daylight and spring sunshine. If your priority is skiing quality, late March at Val d'Isère represents strong value relative to the February peaks.
+- **Christmas, New Year and half-term:** book as early as you can. These weeks sell out for families, and the ones that remain have risen sharply.
+- **Easter 2027:** the most realistic school-holiday week at this resort. See our [Easter 2027 guide](/blog/easter-2027-ski-holidays-prices/).
+- **Flexible dates:** mid-December (£10,838) and late April (from £6,558) are a fraction of the peak price for the same resort.
 
-## When to book, not just which week
+## Val d'Isère or Tignes?
 
-The *when* of booking is as important as the *which week* for Val d'Isère, for a specific reason: the peak weeks sell out early.
+Both resorts ski the Espace Killy, so the mountain is the same. At February half-term a family paid £23,846 at Val d'Isère and £13,088 at [Club Med Tignes](/blog/best-time-to-book-club-med-tignes/). Val d'Isère has the more traditional village; Tignes has the higher altitude and the glacier. For most families, the £10,000 difference is hard to justify on the skiing alone.
 
-Christmas and February half-term at Club Med Val d'Isère are among the most in-demand weeks across the entire French Alps portfolio. If you want a Christmas or half-term booking and you are reading this after September, availability may already be constrained. The early-booking window for peak dates at this resort closes faster than at lower-demand resorts.
-
-Our [When To Book Club Med tracker](/clubmed) monitors Val d'Isère prices daily across all 42 departure dates in the 2026/27 season. When prices shift, we record it. Over time, this data will show exactly when the booking window tightens and at what point prices stop moving.
-
-## Comparing Val d'Isère against the rest of the portfolio
-
-It is worth contextualising Val d'Isère against other Club Med French Alps resorts. For the same January week (3 Jan 2027, 2 adults), the current price spread across resorts runs from approximately £4,272 at Valmorel to £12,026 at Val d'Isère — a near-3x difference within the same Club Med system, same week, same inclusions.
-
-This matters if Val d'Isère is on your shortlist primarily for prestige rather than terrain requirements. For intermediate skiers and families, several resorts in the portfolio offer the same all-inclusive format at meaningfully lower prices, with ski areas that are more than adequate for most skill levels. Even within the January period, the variation at Val d'Isère itself (£7,926 to £12,026 depending on the specific week) is worth monitoring before selecting a departure date.
-
-The [Club Med Tignes vs Les Arcs](/blog/club-med-tignes-vs-les-arcs/) comparison is a useful reference point if you are considering alternatives within the Espace Killy.
-
-## Practical takeaway
-
-- **Flexible on dates?** April and early December offer the best-value weeks at Val d'Isère by a significant margin.
-- **Committed to Christmas or half-term?** Book early — ideally before September — and set a price alert to track whether prices move before your booking becomes non-refundable.
-- **Comparing resorts?** Val d'Isère commands a consistent premium over every other Club Med French Alps resort. Ensure the terrain justifies the difference for your group.
-
-The [When To Book tracker](/clubmed) shows live prices for Val d'Isère and all ten other Club Med French Alps resorts, updated daily. Set a price alert and we will notify you if the price on your target week shifts.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track Val d'Isère prices daily.</strong> The When To Book tracker monitors all 42 departure dates across the 2026/27 season. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View live prices →</a>
-</div>
-
----
-
-*Related reading: [When to Book a Club Med Ski Holiday: The Price Window Explained](/blog/when-to-book-club-med-ski-holiday/) · [Is Club Med Ski Worth the Money?](/blog/is-club-med-ski-worth-it/) · [Club Med Tignes vs Les Arcs](/blog/club-med-tignes-vs-les-arcs/)*
+*Related: [Club Med Val d'Isère vs La Plagne 2100](/blog/club-med-val-disere-vs-la-plagne/) · [Christmas and New Year ski prices](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/) · [Is Club Med ski worth it?](/blog/is-club-med-ski-worth-it/)*

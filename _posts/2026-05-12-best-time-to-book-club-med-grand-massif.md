@@ -1,78 +1,81 @@
 ---
 layout: post
-title: "Best Time to Book Club Med Grand Massif Samoëns Morillon: What the Price Data Shows"
+title: "Best Time to Book Club Med Grand Massif Samoëns Morillon: 2026/27 Prices Week by Week"
 date: 2026-05-12
-last_modified_at: 2026-06-22
-description: "Best time to book Club Med Grand Massif? Live price tracking shows a £2,000+ spread across the season. Here's when the data favours booking."
+last_modified_at: 2026-10-01
+description: "Best time to book Club Med Grand Massif for 2026/27: the lowest Christmas price in the range, half-term already unavailable for families, and why a Sunday start can cost thousands less."
 permalink: /blog/best-time-to-book-club-med-grand-massif/
 category: booking-intelligence
 tags: [club-med, grand-massif, samoens, morillon, ski, booking-window]
+faq:
+  - q: "Is February half-term 2027 available at Club Med Grand Massif?"
+    a: "Not for a family of four in our check on 1 October 2026: neither the Saturday 13 nor the Sunday 14 February start showed availability for two adults and two children. Couples could not book it either."
+  - q: "Should I start my Club Med Grand Massif week on a Saturday or a Sunday?"
+    a: "Check both. Grand Massif sells both, and in the French school holidays the Saturday start can cost far more. On 1 October 2026 a family paid £15,418 from Saturday 20 February 2027 but £8,754 from Sunday 21 February."
+  - q: "How much is Christmas at Club Med Grand Massif?"
+    a: "£8,846 for two adults and two children aged 4-11 (departing 20 December 2026), the lowest Christmas week price for a family at any of the 11 Club Med Alps resorts we track, checked 1 October 2026."
 ---
 
-Club Med Grand Massif Samoëns Morillon occupies a distinctive position in the Club Med French Alps portfolio: it is one of the more accessibly priced resorts, it sits within one of France's largest ski areas — the Grand Massif, connecting Samoëns, Morillon, Flaine, Les Carroz, and Sixt-Fer-à-Cheval — and it offers a notably full season, with departures tracked through to late April 2027.
+Club Med Grand Massif Samoëns Morillon is the closest Club Med Alps resort to Geneva, in the Grand Massif ski area that links Samoëns, Morillon, Les Carroz and Flaine. The villages around it are traditional Haute-Savoie rather than purpose-built, and the long, wide runs suit learners and improvers. Its season runs from 20 December to the end of March.
 
-For a family of two adults, price data tracked from April 2026 shows a spread from **£3,594 to £5,860** across the season — a gap of over £2,200 for the same package at the same resort. *Prices updated 22 June 2026.*
+We have checked its prices every morning since May 2026. Grand Massif is one of two resorts we track that sells both Saturday and Sunday starts, and that turns out to matter.
 
-## Grand Massif pricing at a glance
+> **The short answer:** Grand Massif has the **lowest Christmas price in Club Med's Alps range** (£8,846 for a family of four), but **February half-term was not available** for families by 1 October. In the French school holidays, a **Sunday start can cost thousands less** than a Saturday one. **Easter 2027** (£7,432 on 28 March) is the lowest family price of the season.
 
-Based on live price data collected daily from the Club Med UK booking system, here is what a 7-night, 2-adult package currently shows across the season:
+## Club Med Grand Massif prices for every week of 2026/27
 
-| Departure week | Price (2 adults) | Notes |
-|---|---|---|
-| 20 Dec 2026 | £4,432 | Pre-Christmas |
-| 27 Dec 2026 | £5,490 | New Year week |
-| 3 Jan 2027 | £3,842 | Post-New Year — season low |
-| 10 Jan 2027 | £4,222 | Mid-January |
-| 17 Jan 2027 | £4,222 | Late January |
-| 24 Jan 2027 | £5,568 | Pre half-term build |
-| 31 Jan 2027 | £5,860 | Half-term peak |
-| 7 Feb 2027 | £5,208 | Post half-term |
-| 14 Feb 2027 | £5,480 | Late February |
-| 21 Feb 2027 | £4,652 | Early March |
-| 28 Feb 2027 | £4,580 | Mid-March |
-| 7 Mar 2027 | £4,276 | Late March |
-| 14 Mar 2027 | £3,776 | Spring shoulder |
-| 21 Mar 2027 | £3,776 | Spring shoulder |
-| 28 Mar 2027 | £3,594 | Season low — best value |
+Seven nights, all-inclusive, without flights. Family of four = two adults and two children aged 4-11. "(Sat)" marks a Saturday start; other dates are Sundays. Checked 1 October 2026.
 
-The pricing pattern at Grand Massif has a notable feature: the February half-term peak is the clear high point, while Christmas and New Year are priced more moderately than at prestige resorts such as Val d'Isère. The 3 January 2027 departure at £3,842 is the lowest-priced tracked week across the whole season.
+| Departure | Family of 4 | 2 adults | Notes |
+|---|---|---|---|
+| 20 Dec 2026 | £8,846 | £4,690 | Christmas |
+| 27 Dec 2026 | £10,856 | £5,804 | New Year |
+| 3 Jan 2027 | £8,410 | £4,468 | Schools back 4 Jan |
+| 9 Jan 2027 (Sat) | £8,474 | £4,716 |  |
+| 10 Jan 2027 | £8,474 | £4,716 |  |
+| 16 Jan 2027 (Sat) | £9,676 | £4,290 |  |
+| 17 Jan 2027 | £9,170 | £4,066 |  |
+| 23 Jan 2027 (Sat) | £10,182 | £4,962 |  |
+| 24 Jan 2027 | £10,182 | £4,962 |  |
+| 30 Jan 2027 (Sat) | £13,438 | £4,962 |  |
+| 31 Jan 2027 | £13,438 | £4,962 |  |
+| 7 Feb 2027 | £10,326 | £5,752 | Welsh half-term, Paris holidays start |
+| 14 Feb 2027 | - | - | February half-term (England); not available for a family |
+| 20 Feb 2027 (Sat) | £15,418 | £10,284 |  |
+| 21 Feb 2027 | £8,754 | £4,652 |  |
+| 27 Feb 2027 (Sat) | £13,440 | £9,032 |  |
+| 28 Feb 2027 | £9,082 | £4,758 |  |
+| 6 Mar 2027 (Sat) | £14,182 | £9,260 |  |
+| 7 Mar 2027 | £8,988 | £4,776 |  |
+| 13 Mar 2027 (Sat) | £7,968 | £4,234 |  |
+| 14 Mar 2027 | £8,160 | £4,898 |  |
+| 20 Mar 2027 (Sat) | £7,808 | £4,150 |  |
+| 21 Mar 2027 | £7,808 | £4,150 |  |
+| 27 Mar 2027 (Sat) | £7,484 | £3,618 | Easter week 1 |
+| 28 Mar 2027 | £7,432 | £3,594 | Easter week 1 |
 
-## What makes Grand Massif different
+*Prices checked 1 October 2026, guidance only. See our [Club Med Grand Massif page](/club-med/grand-massif/) for today's prices.*
 
-Grand Massif is one of the less-promoted resorts in the Club Med portfolio, but the ski area it accesses is genuinely impressive. The Grand Massif area covers 265km of marked runs across five villages, with skiing from 700m to 2,500m. The variety across ability levels is broad, with some of France's longest green and blue runs at altitude making it particularly suitable for families with learner or improver skiers.
+## What the numbers show
 
-Samoëns and Morillon, the villages in which the Club Med resort operates, are traditional Savoyard settlements rather than purpose-built ski stations. This gives the base area a different character to high-altitude purpose-built resorts like Val Thorens or Tignes — quieter, with more local atmosphere, and less dependent on altitude snow for the village feel.
+- **Christmas is the lowest in the range.** £8,846 for a family on 20 December, the least expensive Christmas week at any Club Med Alps resort we track.
+- **Half-term is gone for families.** Neither 13 nor 14 February showed availability on 1 October.
+- **Saturday starts cost much more in French holiday weeks.** From 20 February to 6 March, Saturday starts were £13,440-£15,418 for a family while the next-day Sunday starts were £8,754-£9,082. The Saturday changeover matches French families' holidays, which run Saturday to Saturday.
+- **Late January is expensive.** Both 30 and 31 January were £13,438, well above the rest of January (£8,410-£10,182).
+- **Easter is the lowest.** The last departures of the season, 27 and 28 March, were £7,484 and £7,432.
 
-## The best weeks for value at Grand Massif
+## What prices have done since May
 
-Three windows are clear in the current data:
+We first priced these weeks on 7 May 2026. By 1 October, for a family of four, 13 departures had risen, 6 had fallen and 5 were unchanged:
 
-**3 January 2027 (£3,842 for 2 adults):** The week immediately after New Year is the single best-value week in the entire season at this resort. The New Year crowd has dispersed, conditions at altitude are typically well-established by early January, and the price is substantially below the surrounding weeks. For families with school-age children in England and Wales whose Christmas holiday extends to the first week of January, this is worth checking carefully — the return-to-school date in 2027 may make this an accessible week.
+- **Rises:** 31 January from £8,916 to £13,438, and 17 January from £7,946 to £9,170.
+- **Falls:** Saturday 27 February from £15,702 to £13,440, and Saturday 27 March from £8,794 to £7,484.
 
-**Late March to late April (£3,594 – £3,776 for 2 adults):** The spring shoulder is strong at Grand Massif. The 28 March and 14–21 March departures are all at or near season-low pricing. The Grand Massif's altitude range means late-season snow cover is reasonable, and the quieter resort atmosphere in spring suits families who prefer a less crowded ski week.
+## When to book Club Med Grand Massif
 
-**Mid-January (£4,222 for 2 adults):** The 10 and 17 January departures are priced identically and sit well below the half-term build that begins from late January. January skiing in the French Alps is typically reliable for conditions and significantly less crowded than the peak periods.
+- **Christmas:** the best-value Christmas week in the range. It has risen since spring, so if you want it, book.
+- **Half-term:** not available for families at the time of our check. Look at [other resorts' half-term prices](/school-holidays/) or consider Easter.
+- **Any week in February or early March:** compare the Saturday and Sunday starts. The Sunday one has been far lower.
+- **Easter 2027:** only the first Easter week is available here (the season ends on 28 March), and it is the lowest family price of the season. See our [Easter 2027 guide](/blog/easter-2027-ski-holidays-prices/).
 
-## The unusual pricing shape at Grand Massif
-
-One feature of the Grand Massif data worth noting: the half-term price spike is proportionally larger here than the Christmas/New Year spike, which is the opposite pattern from what you see at Val d'Isère or Tignes. The 31 January 2027 departure (£5,860) — the early half-term week — is the season's highest price, comfortably above New Year (£5,490).
-
-This suggests that demand for Grand Massif is particularly concentrated among families who ski during the French school holiday period, while the resort attracts fewer of the high-spending New Year market that drives peak pricing at prestige Espace Killy resorts. For families who can ski outside the French holiday windows, this pattern works strongly in their favour.
-
-## When to book
-
-Grand Massif's more moderate absolute price levels mean that early-booking urgency is lower than at the prestige resorts. Availability through the booking window is likely to remain reasonable on most weeks outside half-term. That said, the specific dates with the best prices — particularly the post-New Year week and the late March spring window — are worth monitoring as the booking window opens, since these represent genuinely good value and are likely to attract buyers once visibility increases.
-
-## Practical takeaway
-
-- **Flexible on dates?** The 3 January departure and the late March/April spring window are the clearest value opportunities. Both are priced well below the season average.
-- **Family with school-age children?** Check your specific school holiday dates. The post-New Year week and early January may be accessible depending on your local authority's term dates.
-- **Comparing with higher-price resorts?** Grand Massif's price range of £3,594–£5,860 covers only the lower half of what Val d'Isère or Tignes costs in peak periods, while accessing 265km of varied terrain. For improving or intermediate skiers, the value case is strong.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track Grand Massif prices daily.</strong> The When To Book tracker monitors all departure dates across the 2026/27 season. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View live prices →</a>
-</div>
-
----
-
-*Related reading: [When to Book a Club Med Ski Holiday: The Price Window Explained](/blog/when-to-book-club-med-ski-holiday/) · [Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?](/blog/club-med-tignes-vs-les-arcs/) · [Is Club Med Ski Worth the Money?](/blog/is-club-med-ski-worth-it/)*
+*Related: [Best time to book Club Med Serre-Chevalier](/blog/best-time-to-book-club-med-serre-chevalier/) · [Christmas and New Year ski prices](/blog/christmas-new-year-ski-holidays-2026-club-med-prices/) · [School holidays 2026/27](/blog/school-holiday-dates-2026-27-holiday-prices/)*

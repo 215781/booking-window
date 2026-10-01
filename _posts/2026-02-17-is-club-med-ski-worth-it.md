@@ -2,73 +2,70 @@
 layout: post
 title: "Is Club Med Ski Worth the Money? An Honest Assessment"
 date: 2026-02-17
-description: "Is Club Med ski worth it? We break down exactly what you get, what you pay, and when the timing makes the value calculation significantly stronger."
+last_modified_at: 2026-10-01
+description: "Is Club Med ski worth it? What is included, who it suits, what a family of four actually pays in 2026/27, and how the week you choose changes the answer."
 permalink: /blog/is-club-med-ski-worth-it/
 category: booking-intelligence
-tags: [club-med, ski, value, booking-intelligence]
+tags: [club-med, ski, value, family]
+faq:
+  - q: "What is included in a Club Med ski holiday?"
+    a: "Accommodation, all meals and drinks, lift passes, group ski or snowboard lessons (five days, with ESF instructors, for adults and children aged 4 and over) and kids' clubs for ages 4 to 17. Clubs for under-4s cost extra. Flights and transfers are usually extra unless you book a package."
+  - q: "How much does Club Med ski cost for a family of four?"
+    a: "For 2026/27, seven nights for two adults and two children aged 4-11, without flights, ranged from about £5,300 (late April at Les Arcs) to £24,500 (New Year at Val d'Isère) in our checks on 1 October 2026. For February half-term most resorts were £11,000 to £12,400."
+  - q: "Who is Club Med ski best for?"
+    a: "Families with children aged 4 to 12, beginners and improvers, and anyone who wants to avoid organising lift passes, lessons, childcare and meals separately. It is less good value for experienced adult skiers who own kit, eat simply and do not want lessons."
 ---
 
-Two families. Same resort. Same week. One paid £1,600 more than the other — not because they booked something different, but because they booked at a different moment in the pricing cycle. That gap is real, it is repeatable, and it is the entire reason this site exists.
+Two families. Same resort. Same week. One paid £1,600 more than the other, not because they booked anything different, but because they booked at a different moment. That story, from Club Med La Plagne, is why this site exists.
 
-So: is Club Med ski worth it? The honest answer is that the question depends as much on *when* you book as *whether* you book.
+So is Club Med ski worth it? The honest answer depends on who you are, and on which week you book.
 
-## What you actually get with a Club Med ski holiday
+> **The short answer:** for families with children aged 4 to 12, and for beginners and improvers, Club Med usually stands up well once you add up lift passes, lessons, childcare and meals. It is weaker value for strong adult skiers who would not use the lessons or clubs. Whoever you are, **the week you choose changes the price more than anything else**: the same family can pay £9,784 or £23,846 for half-term depending on the resort, and Easter costs about a third less than half-term.
 
-Club Med positions itself as all-inclusive — but it is worth being precise about what that means in practice, because the calculation against self-organised alternatives is not as simple as it first appears.
+## What you get with a Club Med ski holiday
 
-A standard Club Med French Alps package includes:
+A Club Med French Alps week includes:
 
-- **Seven nights accommodation** in resort (Sunday to Sunday)
-- **Ski passes** for the connected ski area
-- **Group ski lessons** from ESF or Club Med instructors (typically six days)
-- **All meals** — breakfast, lunch on the slopes, and a four-course dinner with wine and soft drinks
-- **Childcare and Mini Club** for children from four months to seventeen years
-- **Evening entertainment and activities** within the resort
+- **Seven nights' accommodation**, usually Sunday to Sunday.
+- **All meals and drinks**, including lunch.
+- **Lift passes** for the ski area.
+- **Group ski or snowboard lessons**: five days, with ESF instructors, for adults and children aged 4 and over.
+- **Kids' clubs** for ages 4 to 17 (Mini Club and teen clubs). Baby and toddler clubs for under-4s cost extra; under-4s themselves stay free.
+- **Evening entertainment** and activities.
 
-For a family of two adults and two children, the lift passes alone typically run to £900–£1,200 depending on resort and week. Group ski school for both children adds another £600–£900 across the week. Meals — assuming a modest daily budget for a family in a French ski resort — easily reach £150–£200 per day. Before accommodation, you are at £2,500–£3,400 in ancillary costs.
+Flights and transfers are extra unless you book them as a package. The prices we track are for the resort without flights.
 
-This does not make Club Med automatically worth it. It does mean the price comparison is more nuanced than "Club Med costs £X, a self-catered chalet costs £Y."
+## Doing the sums
 
-## Where Club Med genuinely earns its price
+To judge value, compare Club Med with what you would pay for the same things separately. As a rough guide for a family of four in a big French resort:
 
-The value case is strongest in three specific scenarios.
+- **Lift passes:** often around £1,000 to £1,300 for the week.
+- **Ski school for two children:** typically £500 to £900.
+- **Meals for a family:** easily £150 to £200 a day in resort.
 
-**First, families with young children.** The Mini Club structure is exceptional for families where childcare would otherwise be the most expensive and logistically difficult element of a ski week. The cost of comparable childcare outside Club Med — combined with the coordination overhead — makes the all-inclusive model demonstrably rational for this group.
+That is roughly £2,500 to £3,500 before accommodation and childcare. So a Club Med price that looks high next to a chalet is often closer than it seems, especially if the children need lessons and the adults want a few hours on their own.
 
-**Second, beginner or improving skiers.** The included group lessons remove a cost that independent bookers often underestimate. Six days of ski school for two adults or two children, from a reputable instructor, is expensive when purchased separately. Club Med's instruction quality is consistent across resorts.
+## Where Club Med earns its price
 
-**Third, parties who value simplicity.** A Club Med week eliminates around fifteen separate purchasing decisions — transfers, ski hire (sometimes available as an add-on), meals, lessons, lift passes, childcare. For time-poor families, the removal of that logistics overhead has real value even before the price comparison is run.
+**Families with young children.** The kids' clubs are the biggest single reason families choose Club Med. Childcare in resort is expensive and hard to organise; here it is built in.
 
-## Where the value case is weaker
+**Beginners and improvers.** Five days of lessons for everyone aged 4 and over removes one of the costs that independent bookers most often underestimate.
 
-The calculation shifts for experienced skiers who already own equipment, want maximum off-piste freedom, and eat modestly on the mountain. A self-organised chalet for a group of adults who ski all day and eat simply can undercut Club Med materially — though rarely by as much as it initially appears once all costs are tallied.
+**People who want it simple.** Passes, lessons, meals and childcare are all in one booking, and ski hire can be added.
 
-Similarly, the value depends heavily on which resort you choose and which week you travel. Club Med's premium resorts — [Val d'Isère](https://whentobook.co.uk/clubmed) and Tignes — command prices that require a cleaner value equation to justify than their more moderately priced counterparts like La Rosière or Valmorel.
+## Where the value is weaker
 
-## The timing factor: when the price makes the decision easier
+Experienced adult skiers who own their equipment, ski all day without lessons and eat simply will often find a self-catered chalet or apartment better value, especially at the most expensive resorts.
 
-Here is where booking intelligence changes the calculation. Across Club Med's French Alps portfolio, prices for identical packages vary significantly by departure date — and that variation follows patterns that repeat year on year.
+## The week you book changes everything
 
-**Christmas week and February half-term** are peak pricing periods. Demand is concentrated, availability tightens early, and prices reflect that constraint. The value case at these points is harder to make: you are paying a premium for peak dates, and the comparison against alternatives narrows.
+From our daily price checks, on 1 October 2026, for a family of four:
 
-**Early December, January, and late March to April** tell a different story. These weeks carry meaningfully lower prices — often 15–25% below the February half-term equivalent at the same resort. The skiing is frequently excellent (January snowpack, late-season spring conditions) and resorts are less crowded. For flexible families, these windows tend to deliver the strongest value.
+- **February half-term** cost a median **30% more** than the lowest January week at the same resort.
+- **Christmas** cost a median **36% more** than mid-December.
+- **Easter 2027** cost about **a third less than half-term**, and less than mid-March.
+- The **same half-term week** ranged from **£9,784** at La Plagne 2100 to **£23,846** at Val d'Isère.
 
-The booking timing matters too. Our [Club Med price tracker](/clubmed) shows that prices for the same week can shift by several hundred pounds across the booking cycle. Prices collected since April 2026 show clear movement at several resorts — including drops of £400–£600 on the same departure date within a single fortnight.
+So the question is rarely "is Club Med worth it?" in the abstract. It is "is this resort, in this week, at this price, worth it?" Pick the right resort and week and the answer is far more often yes. Our [guide to when to book](/blog/when-to-book-club-med-ski-holiday/) shows what prices have done since April, and our [school holidays page](/school-holidays/) shows every resort's price for every school-holiday week.
 
-## The honest verdict
-
-Is Club Med ski worth it? For families with young children, for beginner and intermediate skiers, and for anyone who values a genuinely stress-free week over marginal cost optimisation — yes, the all-inclusive model holds up well against the alternative when you run the full comparison honestly.
-
-The caveat is timing. The families who book with confidence are the ones who understand where current pricing sits in the cycle — not those who booked the same week without that context. Booking the same resort in January or early March, at the right point in the pricing cycle, changes the equation significantly.
-
-The intelligence to make that call is exactly what this site tracks. If you want to know when prices move at the resort you are considering, the [When To Book Club Med tracker](/clubmed) shows daily price data across all eleven French Alps resorts.
-
-Set a price alert and we will notify you when a pricing shift occurs.
-
-<div style="background:#f0ebe0;border-left:4px solid #1a4a42;padding:16px 20px;margin:32px 0;border-radius:0 6px 6px 0;">
-<strong>Track prices before you book.</strong> The When To Book tracker monitors Club Med ski resort prices daily across all eleven French Alps resorts. <a href="/clubmed" style="color:#1a4a42;font-weight:600;">View the tracker →</a>
-</div>
-
----
-
-*Related reading: [When to Book a Club Med Ski Holiday: The Price Window Explained](/blog/when-to-book-club-med-ski-holiday/) · [Club Med Tignes vs Les Arcs: Which Resort is Worth the Price?](/blog/club-med-tignes-vs-les-arcs/)*
+*Related: [When to book a Club Med ski holiday](/blog/when-to-book-club-med-ski-holiday/) · [Easter 2027 ski holidays](/blog/easter-2027-ski-holidays-prices/) · [Club Med Tignes vs Les Arcs](/blog/club-med-tignes-vs-les-arcs/)*

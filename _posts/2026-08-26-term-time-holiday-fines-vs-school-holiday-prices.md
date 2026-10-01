@@ -53,7 +53,7 @@ So yes: on a single trip, the premium is usually several times the first-time fi
 
 **The week you would travel instead is not always the week you think.** In February 2027 the week before half-term is the Welsh half-term and the start of the Paris school holidays. At several Club Med resorts it cost as much as, or more than, half-term itself (Alpe d'Huez: £14,352 for the week of 7 February against £11,054 for half-term). Leaving early would have cost more, not less.
 
-**Missing school has a cost that isn't on any invoice.** A week before exams or at the start of a school year is a bigger deal than a week in a quiet part of the year, and only you and the school can judge that.
+**Missing school has a cost that isn't on any invoice.** A week before exams or at the start of a school year matters more than a week in a quiet part of the year, and only you and the school can judge that.
 
 ## Lawful ways to cut the school-holiday premium
 

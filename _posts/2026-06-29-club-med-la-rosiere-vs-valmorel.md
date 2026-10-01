@@ -1,109 +1,65 @@
 ---
 layout: post
-title: "Club Med La Rosière vs Valmorel: Price Data and Booking Windows Compared"
+title: "Club Med La Rosière vs Valmorel: Prices and Booking Windows Compared"
 date: 2026-06-29
-description: "Club Med La Rosière vs Valmorel: a data-backed comparison of 2026/27 prices, booking windows, and when each beginner-friendly resort offers the best value."
+last_modified_at: 2026-10-01
+description: "Club Med La Rosière vs Valmorel for 2026/27: similar prices at Christmas and half-term, but La Rosière's prices have fallen since April while Valmorel's have all risen."
 permalink: /blog/club-med-la-rosiere-vs-valmorel/
 category: club-med
 tags: [club-med, ski, booking-window, la-rosiere, valmorel, comparison]
+faq:
+  - q: "Is Club Med La Rosière or Valmorel cheaper?"
+    a: "They are close. On 1 October 2026 a family of four paid £9,860 at La Rosière and £9,564 at Valmorel for Christmas, and £11,900 against £11,810 for February half-term. La Rosière was cheaper at Easter (£7,260 against £7,880) and has more weeks to choose from."
+  - q: "Which has the longer season, La Rosière or Valmorel?"
+    a: "La Rosière. Its 2026/27 departures run from 13 December to 11 April. Valmorel's run from 20 December to 28 March, so it has no early-December week and only the first Easter week."
+  - q: "Are Club Med Valmorel prices going up?"
+    a: "Yes. Every one of the 15 Valmorel weeks we track was higher on 1 October 2026 than in April, by a median of 16% for a family of four. At La Rosière, 14 of 18 weeks had fallen."
 ---
 
-Club Med La Rosière and Valmorel are routinely grouped together for the same reason: both resorts are positioned in the French Alps portfolio as family-friendly, village-character destinations rather than premium high-altitude flagships. They are also priced below Club Med's top tier — Val d'Isère, Tignes — in a bracket that makes the difference between a well-timed and a poorly-timed booking feel genuinely consequential.
+Club Med La Rosière and Valmorel are both family-focused resorts below the big-name flagships in price, and both suit learners and improvers. They are also both in the Tarentaise. This season, though, they are heading in opposite directions on price.
 
-What the price data collected since spring 2026 shows is that these two resorts are not interchangeable. The season structure is different, the family premium behaves differently, and for certain departure weeks the better-value choice flips between them depending on party composition. This comparison sets out those differences using verified prices from daily tracking — not marketing summaries.
+> **The short answer:** for **Christmas and half-term** the two are within about £300 for a family of four. **La Rosière** has the **longer season**, is **cheaper at Easter**, and its prices have **fallen** since April. **Valmorel** has the prettier village and slightly lower January prices, but **every week has risen** since April. If you like both, La Rosière is the better value and the less pressured booking.
 
-## The headline price picture
+## The two resorts
 
-For two adults on a seven-night stay, the 2026/27 season currently looks like this:
+**Club Med La Rosière** sits at 1,850m on the sunny side of the Tarentaise, in the Espace San Bernardo, which links to La Thuile in Italy. It is purpose-built and quiet, with ski-in, ski-out access.
 
-**Club Med La Rosière** runs a long season — departures start 13 December 2026 and run through to early April. The tracked price range across the season is **£3,840 to £6,608** for two adults (Sunday departures). La Rosière also shows Saturday departures in parts of the season at meaningfully different prices; the figures here use Sunday departures, which are the standard comparison benchmark across Club Med's French Alps portfolio.
+**Club Med Valmorel** is in a traditional, car-free Savoyard village at 1,400m, skiing the Grand Domaine with Saint-François-Longchamp. The village is the draw; the lower altitude means early and late-season snow depends more on the weather.
 
-**Club Med Valmorel** opens later — 20 December 2026 — and closes in late March. The tracked price range is **£3,792 to £5,682** for two adults, with January emerging as a notably wide, stable-priced window.
+## Prices side by side
 
-On headline figures for couples, Valmorel runs slightly lower than La Rosière through most of the season. The gap is modest — rarely more than a few hundred pounds — but it is consistent across January and December.
+Seven nights, all-inclusive, without flights, checked 1 October 2026.
 
-## Where the prices diverge most
+| Week | La Rosière: family of 4 | Valmorel: family of 4 | La Rosière: 2 adults | Valmorel: 2 adults |
+|---|---|---|---|---|
+| Mid-December (13 Dec) | £6,728 | not open | £3,558 | not open |
+| Christmas (20 Dec) | £9,860 | £9,564 | £5,224 | £4,602 |
+| New Year (27 Dec) | £11,900 | £11,050 | £6,608 | £5,844 |
+| January (10 Jan) | £9,694 | £8,458 | £4,618 | £4,696 |
+| Week before half-term (7 Feb) | £10,648 | £11,022 | £5,912 | £5,830 |
+| February half-term (14 Feb) | £11,900 | £11,810 | £6,294 | £6,248 |
+| Easter week 1 (28 Mar) | £7,260 | £7,880 | £3,840 | £3,792 |
+| Easter week 2 (4 Apr) | £6,958 | closed | £3,680 | closed |
+| Mid-April (11 Apr) | £6,116 | closed | £3,232 | closed |
 
-### Christmas and New Year
+*Prices checked 1 October 2026, guidance only. Live prices: [La Rosière](/club-med/la-rosiere/) · [Valmorel](/club-med/valmorel/).*
 
-For the **20 December departure**, La Rosière is **£5,224** versus Valmorel at **£4,602** — a difference of £622 for two adults. The **27 December** week shows a similar pattern: La Rosière £6,608 against Valmorel £5,316, a gap of £1,292.
+- **Christmas, New Year and half-term are close**, with Valmorel slightly lower.
+- **Valmorel is lower in mid-January** by about £1,200 for a family.
+- **La Rosière is lower at Easter** and is the only one of the two open for the second Easter week.
+- **La Rosière's season is longer** at both ends.
 
-Christmas-week pricing at La Rosière carries an altitude premium that is partially justified: the resort sits at 1,850m in the Mont Blanc ski area and has a longer natural season than Valmorel's lower-lying Grand Domaine. Early December snow reliability at La Rosière is genuinely stronger. But for families choosing between the two specifically for Christmas week, Valmorel's pricing is the more accessible entry point.
+## How prices have moved
 
-### January
+This is the biggest difference between them. Since April 2026, for a family of four:
 
-The January picture is close to parity for couples. La Rosière currently prices the January window at **£4,618** for all departure weeks (3, 10, 17, 24 and 31 January); Valmorel runs at **£3,636 to £4,696** across the same period, with individual weeks tracking slightly below or slightly above La Rosière depending on date.
+- **La Rosière:** 14 of 18 weeks have fallen, by a median of about 10%. Half-term has held at £11,900.
+- **Valmorel:** all 15 weeks have risen, by a median of 16%. Late January rose by over £2,000 and half-term by £1,068.
 
-For couples, January is a wash — either resort offers comparable pricing at comparable quality for the ski week itself. The decision should be made on resort character and skiing preference rather than price.
+## Which should you book?
 
-### February half-term
+**Book La Rosière if:** you want Easter (either week) or December, you value snow reliability, or you would like time to watch the price before booking.
 
-For **two adults**, the half-term picture again sits close between the two resorts. The 7 February departure: La Rosière **£6,220** versus Valmorel **£5,302**. The 14 February week: La Rosière **£6,034** versus Valmorel **£5,682**.
+**Book Valmorel if:** the traditional village matters to you, you want a mid-January week, and you are ready to book now; its prices have only gone up.
 
-The difference for couples — around £500–£900 across the February core — is real but not dramatic. For families with children, however, the picture changes significantly.
-
-## The family premium: where the two resorts diverge sharply
-
-The most material difference between La Rosière and Valmorel emerges when you add a child to the booking.
-
-For **two adults and one child** on a seven-night stay:
-
-| Departure | La Rosière | Valmorel | Difference |
-|---|---|---|---|
-| 20 Dec 2026 | £8,153 | £7,806 | La Ros +£347 |
-| 27 Dec 2026 | £11,884 | £9,019 | La Ros +£2,865 |
-| 17 Jan 2027 | £6,468 | £7,246 | **Valmorel +£778** |
-| 24 Jan 2027 | £6,468 | £6,894 | Valmorel +£426 |
-| 7 Feb 2027 | £11,312 | £8,996 | La Ros +£2,316 |
-| 14 Feb 2027 | £10,936 | £9,641 | La Ros +£1,295 |
-| 28 Feb 2027 | £7,138 | £8,624 | Valmorel +£1,486 |
-| 7 Mar 2027 | £8,815 | £6,728 | La Ros +£2,087 |
-| 14 Mar 2027 | £5,607 | £6,547 | Valmorel +£940 |
-
-Two patterns stand out.
-
-**January flips to Valmorel being more expensive for families.** For couples, the January pricing at both resorts is near-identical. Add a child, and Valmorel is around £400–£800 more expensive than La Rosière across the January window. If you are a family planning a January ski week, La Rosière offers a more competitive family price.
-
-**La Rosière's February half-term premium for families is significant.** The gap at 7 February is £2,316 for the same party configuration (2 adults, 1 child). At £11,312 versus £8,996, La Rosière is pricing meaningfully above Valmorel during the UK and French half-term peak. Families specifically targeting half-term will find Valmorel the more accessible option between these two resorts.
-
-## Price movement since tracking began
-
-Both resorts have been tracked daily since April 2026. The movement data adds a useful dimension to the comparison.
-
-At **La Rosière**, the February half-term weeks have stayed largely flat since first observation — the 7 February family price was £11,188 when first recorded and sits at £11,312 now, a movement of £124. The stability here suggests La Rosière is holding its half-term pricing without adjustment. Waiting has not been rewarded.
-
-At **Valmorel**, the same February half-term weeks have moved more substantially. The 7 February departure for a family of three was priced at **£7,061** when first observed in April 2026 and now sits at **£8,996** — an increase of **£1,935** over approximately two months. The February 14 departure moved similarly, from £7,958 to £9,641.
-
-This is the most important data point in this comparison for half-term family bookers: Valmorel's family pricing at half-term has been moving upward at pace. Families who deferred a decision in April have already seen prices rise by nearly £2,000. If Valmorel half-term is your target, the data does not support waiting.
-
-## La Rosière's longer season
-
-One structural advantage of La Rosière over Valmorel is its season length. La Rosière opens **13 December** — roughly a week before Valmorel — and runs through to early April, offering departure dates that Valmorel does not.
-
-The early December opening is particularly valuable for families who want to ski before the school Christmas break begins in earnest. The 13 December departure at La Rosière currently sits at approximately **£3,840** for two adults — some of the most accessible pricing in the Club Med French Alps portfolio — in a week where most other resorts have not yet opened.
-
-For families who can travel in early December and want the combined experience of a full-service Club Med village with access to the Mont Blanc ski area, La Rosière's December opening represents a genuine opportunity that Valmorel's later start date cannot match.
-
-## The resort comparison: what you actually get
-
-Pricing is one dimension. The resort character matters too, and both La Rosière and Valmorel are genuinely distinct from Club Med's higher-altitude, higher-pressure flagships.
-
-**Club Med La Rosière** sits at 1,850m with direct ski-in/ski-out access to the Espace San Bernardo, which links into Italy's La Thuile resort via the Mont Blanc ski area. The total interconnected domain covers roughly 150km of piste. La Rosière itself is a purpose-built resort with a quieter, village atmosphere than some of the busier alternatives — and Club Med's village there suits families wanting a contained, all-inclusive experience without the crowd dynamics of a large ski town.
-
-**Club Med Valmorel** is set in a traditional Savoyard village at 1,400m within the Grand Domaine ski area — 165km of piste covering the Valmorel and Saint-François Longchamp sectors. At a lower altitude, conditions in early and late season are more weather-dependent than La Rosière; but through January and February the skiing is strong. The village character at Valmorel — traditional timber-fronted buildings, car-free centre — is distinctly different from purpose-built ski resorts and a draw in itself for families who want atmosphere alongside skiing.
-
-Both are genuine beginner-to-intermediate resorts. Neither is aimed at advanced or racing-focused skiers in the way that Val d'Isère or Tignes is. If your party includes new or improving skiers, both have strong ski school programmes and suitable terrain.
-
-## Which resort, and when to book it
-
-The data points to different conclusions depending on your party composition and target dates.
-
-**For couples**: Valmorel is slightly cheaper than La Rosière through most of the season. The gap is modest and should not be the sole deciding factor — but if price is the primary driver between otherwise comparable weeks, Valmorel has the edge.
-
-**For families in January**: La Rosière offers a lower family price than Valmorel, counterintuitively. If January is your window, La Rosière's family pricing is the stronger option.
-
-**For families at February half-term**: Valmorel is significantly cheaper than La Rosière — currently around £1,300–£2,300 less per family. Given that Valmorel's half-term pricing has already moved up sharply since April, the case for booking sooner rather than later is well-supported by the evidence.
-
-**For early December or late-season skiing**: La Rosière has the longer season. If December 13 or early April departures suit you, Valmorel is simply not an option — La Rosière is.
-
-The [When To Book Club Med tracker](/clubmed) monitors both La Rosière and Valmorel daily across all 2026/27 departure dates. Set a price alert and you will be notified when prices on your target week move — in either direction.
+*Related: [Best time to book Club Med La Rosière](/blog/best-time-to-book-club-med-la-rosiere/) · [Best time to book Club Med Valmorel](/blog/best-time-to-book-club-med-valmorel/) · [Easter 2027 ski holidays](/blog/easter-2027-ski-holidays-prices/)*

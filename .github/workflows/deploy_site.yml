@@ -1,0 +1,75 @@
+name: New site - build, test and deploy (Cloudflare Pages)
+
+# Builds the Astro site (rebuild:site/) with today's price data (main:_data/), runs every check, and
+# deploys to the Cloudflare Pages project "whentobook" ONLY if all checks pass ("works and true").
+# Until the owner points whentobook.co.uk at it, it is a preview at https://whentobook.pages.dev.
+# Needs secrets CLOUDFLARE_API_TOKEN (Pages: Edit) and CLOUDFLARE_ACCOUNT_ID; without them it builds
+# and tests only. Lives on main (for the schedule) and rebuild (for pushes); keep both copies identical.
+
+on:
+  schedule:
+    - cron: '40 11 * * *'   # after the morning checkers and the email job
+    - cron: '40 17 * * *'   # catch checkers that GitHub ran late
+  push:
+    branches: [rebuild]
+    paths: ['site/**', '.github/workflows/deploy_site.yml']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      ASTRO_TELEMETRY_DISABLED: 1
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: data
+          sparse-checkout: _data
+      - uses: actions/checkout@v4
+        with:
+          ref: rebuild
+          path: rb
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Build with today's data
+        working-directory: rb/site
+        run: |
+          npm ci
+          WTB_DATA_DIR="$GITHUB_WORKSPACE/data/_data" python3 scripts/build_summary.py
+          npx astro build
+      - name: Site checks
+        working-directory: rb/site
+        run: |
+          npm test
+          node --experimental-strip-types email/test_email.mjs
+      - name: Deploy to Cloudflare Pages
+        if: env.CLOUDFLARE_API_TOKEN != '' && env.CLOUDFLARE_ACCOUNT_ID != ''
+        working-directory: rb/site
+        run: |
+          npx --yes wrangler@4 pages project list | grep -q ' whentobook ' || npx --yes wrangler@4 pages project create whentobook --production-branch=main
+          npx --yes wrangler@4 pages deploy dist --project-name=whentobook --branch=main --commit-dirty=true
+      - name: No Cloudflare secrets yet
+        if: env.CLOUDFLARE_API_TOKEN == '' || env.CLOUDFLARE_ACCOUNT_ID == ''
+        run: echo "::notice::Built and tested OK. Not deployed - add CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets."
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-dist
+          path: rb/site/dist
+          if-no-files-found: ignore
+          retention-days: 7

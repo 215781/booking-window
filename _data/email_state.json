@@ -1,0 +1,316 @@
+{
+ "version": 1,
+ "updated": "2026-10-01",
+ "baselines": {
+  "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
+   "price": 11788,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
+   "price": 13462,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
+   "price": 13088,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
+   "price": 8874,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/tignes-val-claret/easter-2/2027-04-04": {
+   "price": 9370,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-thorens/christmas/2026-12-20": {
+   "price": 10560,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-thorens/new-year/2026-12-27": {
+   "price": 12732,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-thorens/february-half-term/2027-02-14": {
+   "price": 11192,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-thorens/easter-1/2027-03-28": {
+   "price": 8696,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-thorens/easter-2/2027-04-04": {
+   "price": 8058,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-disere/new-year/2026-12-27": {
+   "price": 24500,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-disere/february-half-term/2027-02-14": {
+   "price": 23846,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-disere/easter-1/2027-03-28": {
+   "price": 11456,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/val-disere/easter-2/2027-04-04": {
+   "price": 9718,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/les-arcs/christmas/2026-12-20": {
+   "price": 11012,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/les-arcs/new-year/2026-12-27": {
+   "price": 17912,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/les-arcs/february-half-term/2027-02-14": {
+   "price": 12384,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/les-arcs/easter-1/2027-03-28": {
+   "price": 8674,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/les-arcs/easter-2/2027-04-04": {
+   "price": 7170,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-plagne-2100/christmas/2026-12-20": {
+   "price": 9172,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-plagne-2100/new-year/2026-12-27": {
+   "price": 9844,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-plagne-2100/february-half-term/2027-02-14": {
+   "price": 9784,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-plagne-2100/easter-1/2027-03-28": {
+   "price": 7101,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-plagne-2100/easter-2/2027-04-04": {
+   "price": 6724,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
+   "price": 10580,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
+   "price": 10490,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/peisey-vallandry/february-half-term/2027-02-14": {
+   "price": 12184,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/peisey-vallandry/easter-1/2027-03-28": {
+   "price": 7604,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/peisey-vallandry/easter-2/2027-04-04": {
+   "price": 7326,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/alpe-dhuez/christmas/2026-12-20": {
+   "price": 10658,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/alpe-dhuez/new-year/2026-12-27": {
+   "price": 14876,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/alpe-dhuez/february-half-term/2027-02-14": {
+   "price": 11054,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
+   "price": 7868,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
+   "price": 7722,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-rosiere/christmas/2026-12-20": {
+   "price": 9860,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-rosiere/new-year/2026-12-27": {
+   "price": 11900,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-rosiere/february-half-term/2027-02-14": {
+   "price": 11900,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-rosiere/easter-1/2027-03-28": {
+   "price": 7260,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/la-rosiere/easter-2/2027-04-04": {
+   "price": 6958,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/valmorel/christmas/2026-12-20": {
+   "price": 9564,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/valmorel/new-year/2026-12-27": {
+   "price": 11050,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/valmorel/february-half-term/2027-02-14": {
+   "price": 11810,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/valmorel/easter-1/2027-03-28": {
+   "price": 7880,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/grand-massif/christmas/2026-12-20": {
+   "price": 8846,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/grand-massif/new-year/2026-12-27": {
+   "price": 10856,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/grand-massif/easter-1/2027-03-27": {
+   "price": 7484,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/serre-chevalier/christmas/2026-12-20": {
+   "price": 10392,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/serre-chevalier/new-year/2026-12-27": {
+   "price": 12052,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/serre-chevalier/february-half-term/2027-02-14": {
+   "price": 11508,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
+   "price": 8038,
+   "since": "2026-10-01"
+  },
+  "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
+   "price": 7732,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-24": {
+   "price": 5326,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
+   "price": 6736,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/summer-1/2027-07-25": {
+   "price": 7114,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/summer-2/2027-08-01": {
+   "price": 7416,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/summer-3/2027-08-08": {
+   "price": 7416,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/summer-4/2027-08-15": {
+   "price": 7416,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/paleros-beach-resort/summer-5/2027-08-22": {
+   "price": 7018,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/aeolian-village/may-half-term/2027-06-02": {
+   "price": 4146,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/aeolian-village/summer-1/2027-07-28": {
+   "price": 6239,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/aeolian-village/summer-2/2027-08-04": {
+   "price": 6239,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/aeolian-village/summer-3/2027-08-11": {
+   "price": 6274,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/aeolian-village/summer-4/2027-08-18": {
+   "price": 6274,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/aeolian-village/summer-5/2027-08-25": {
+   "price": 6301,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/lemnos-beach-resort/may-half-term/2027-05-28": {
+   "price": 6256,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/lemnos-beach-resort/summer-1/2027-07-23": {
+   "price": 6191,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/lemnos-beach-resort/summer-2/2027-07-30": {
+   "price": 6271,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/lemnos-beach-resort/summer-3/2027-08-06": {
+   "price": 6271,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/lemnos-beach-resort/summer-4/2027-08-13": {
+   "price": 6271,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/lemnos-beach-resort/summer-5/2027-08-20": {
+   "price": 6271,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/october-half-term/2026-10-24": {
+   "price": 5899,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
+   "price": 4591,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-1/2027-07-27": {
+   "price": 7011,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-2/2027-08-03": {
+   "price": 7174,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-3/2027-08-10": {
+   "price": 7174,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-4/2027-08-17": {
+   "price": 7174,
+   "since": "2026-10-01"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-5/2027-08-24": {
+   "price": 6776,
+   "since": "2026-10-01"
+  }
+ },
+ "lastAlert": {},
+ "sent": []
+}

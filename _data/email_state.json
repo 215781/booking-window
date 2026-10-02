@@ -1,14 +1,14 @@
 {
  "version": 1,
- "updated": "2026-10-01",
+ "updated": "2026-10-02",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
-   "price": 13462,
-   "since": "2026-10-01"
+   "price": 12242,
+   "since": "2026-10-02"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
    "price": 13088,
@@ -131,8 +131,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
-   "price": 7868,
-   "since": "2026-10-01"
+   "price": 8668,
+   "since": "2026-10-02"
   },
   "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
    "price": 7722,
@@ -283,8 +283,8 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/phokaia-beach-resort/october-half-term/2026-10-24": {
-   "price": 5899,
-   "since": "2026-10-01"
+   "price": 6228,
+   "since": "2026-10-02"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
    "price": 4591,
@@ -309,6 +309,10 @@
   "markwarner-sun/phokaia-beach-resort/summer-5/2027-08-24": {
    "price": 6776,
    "since": "2026-10-01"
+  },
+  "clubmed-ski/val-disere/christmas/2026-12-20": {
+   "price": 21678,
+   "since": "2026-10-02"
   }
  },
  "lastAlert": {},

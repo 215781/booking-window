@@ -1,22 +1,22 @@
 {
  "version": 1,
- "updated": "2026-10-03",
+ "updated": "2026-10-04",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
-   "price": 12242,
-   "since": "2026-10-02"
+   "price": 12852,
+   "since": "2026-10-04"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
    "price": 13088,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
-   "price": 8874,
-   "since": "2026-10-01"
+   "price": 9754,
+   "since": "2026-10-04"
   },
   "clubmed-ski/tignes-val-claret/easter-2/2027-04-04": {
    "price": 9370,
@@ -59,8 +59,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/christmas/2026-12-20": {
-   "price": 11012,
-   "since": "2026-10-01"
+   "price": 10454,
+   "since": "2026-10-04"
   },
   "clubmed-ski/les-arcs/new-year/2026-12-27": {
    "price": 17912,
@@ -175,8 +175,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/grand-massif/christmas/2026-12-20": {
-   "price": 8846,
-   "since": "2026-10-01"
+   "price": 9798,
+   "since": "2026-10-04"
   },
   "clubmed-ski/grand-massif/new-year/2026-12-27": {
    "price": 10856,

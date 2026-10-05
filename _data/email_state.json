@@ -1,14 +1,14 @@
 {
  "version": 1,
- "updated": "2026-10-04",
+ "updated": "2026-10-05",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
-   "price": 12852,
-   "since": "2026-10-04"
+   "price": 13492,
+   "since": "2026-10-05"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
    "price": 13088,
@@ -103,16 +103,16 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
-   "price": 10490,
-   "since": "2026-10-01"
+   "price": 12054,
+   "since": "2026-10-05"
   },
   "clubmed-ski/peisey-vallandry/february-half-term/2027-02-14": {
    "price": 12184,
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/easter-1/2027-03-28": {
-   "price": 7604,
-   "since": "2026-10-01"
+   "price": 8736,
+   "since": "2026-10-05"
   },
   "clubmed-ski/peisey-vallandry/easter-2/2027-04-04": {
    "price": 7326,

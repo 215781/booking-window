@@ -698,6 +698,12 @@ async def process_resort(session, semaphore, resort, historical_stats, timestamp
     print(f"  [{rname}] Complete: {prices_ok}/{total} prices OK "
           f"({no_price_count} no-price, {error_count} errors)")
 
+    # Storage (6 Oct 2026): skip departures that have never had a price (not on sale yet) - they made up
+    # most rows and push the CSV towards GitHub's 100 MB limit. Departures priced before are still logged
+    # when empty (sold out / withdrawn). If nothing at this resort is priced today, keep every row so the
+    # day still shows the resort was checked.
+    if any(r["price_pp"] for r in csv_rows):
+        csv_rows = [r for r in csv_rows if r["price_pp"] or r["price_first_seen"] != ""]
     log_to_csv(csv_rows, test_mode)
     if not test_mode:
         git_commit_resort(rcode, run_date)

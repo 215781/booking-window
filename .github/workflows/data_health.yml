@@ -1,0 +1,51 @@
+name: Health check (alarm)
+
+# Daily check that price collection, deploys, emails and backups are all running.
+# Problems open (or update) one GitHub issue labelled "health-alarm", which emails the repo owner.
+# The issue closes itself when everything is healthy again.
+
+on:
+  schedule:
+    - cron: "30 21 * * *"   # 21:30 UTC daily, after the day's checkers
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  issues: write
+
+jobs:
+  health:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Run checks
+        id: check
+        run: |
+          set +e
+          python3 tools/data_health.py
+          echo "failed=$?" >> "$GITHUB_OUTPUT"
+          cat health_report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Raise or clear the alarm
+        run: |
+          set -euo pipefail
+          gh label create health-alarm --color B60205 --description "Automated health check" 2>/dev/null || true
+          OPEN=$(gh issue list --label health-alarm --state open --json number -q '.[0].number')
+          if [ "${{ steps.check.outputs.failed }}" != "0" ]; then
+            BODY="$(cat health_report.md)
+
+          @215781 - automated alarm from the daily health check. Run: ${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+            if [ -n "$OPEN" ]; then
+              gh issue comment "$OPEN" --body "$BODY"
+            else
+              gh issue create --title "Health alarm: data, deploy or backup problem" --label health-alarm --body "$BODY"
+            fi
+            exit 1
+          elif [ -n "$OPEN" ]; then
+            gh issue close "$OPEN" --comment "All checks healthy again: $(head -1 health_report.md)"
+          fi

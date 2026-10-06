@@ -56,7 +56,8 @@ def weekday_dates_in_month(year, month, weekday):
 
 # Summer 2026 season: June–September
 def _rolling_sun_months(months_ahead=13):
-    """Sun-season months (Apr-Oct) from next month up to ~a year ahead.
+    """Sun-season months (Mar-Oct) from next month up to ~a year ahead.
+    March added 6 Oct 2026 so early-Easter weeks (Easter 2027 starts 27 Mar) are tracked.
     Was hard-coded to Jun-Sep 2026, so the checker stopped collecting anything useful after summer 2026."""
     today = date.today()
     y, m = today.year, today.month
@@ -65,7 +66,7 @@ def _rolling_sun_months(months_ahead=13):
         m += 1
         if m > 12:
             y, m = y + 1, 1
-        if 4 <= m <= 10:
+        if 3 <= m <= 10:
             out.append((y, m))
     return out
 

@@ -360,6 +360,8 @@ async def main_async(args):
             dep_date = entry.get("d")
             if not dep_date:
                 continue
+            # Mark Warner switched to ISO datetimes ("2026-12-13T00:00:00") in June 2026; keep the date only
+            dep_date = str(dep_date)[:10]
             price_raw = entry.get("pr")
             if price_raw is None:
                 continue

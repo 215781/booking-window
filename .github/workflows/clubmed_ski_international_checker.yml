@@ -10,15 +10,15 @@ permissions:
 
 jobs:
   check-ski-international-prices:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60     # international ski: 8 resorts × ~22 dates × 3 party sizes ≈ ~528 queries; ~15 min expected
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 

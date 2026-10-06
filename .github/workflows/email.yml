@@ -29,7 +29,7 @@ concurrency:
 
 jobs:
   email:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     env:
       KIT_API_KEY: ${{ secrets.KIT_API }}
@@ -41,18 +41,18 @@ jobs:
       DRY_RUN: ${{ inputs.dry_run }}
       SCHEDULE: ${{ github.event.schedule }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: main
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
           ref: rebuild
           path: rb
           sparse-checkout: site
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
           node-version: 22
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.11"
       - name: Build price summary from today's data
@@ -86,7 +86,7 @@ jobs:
             sleep $((i * 10))
           done
           exit 1
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v6
         if: always()
         with:
           name: email-previews

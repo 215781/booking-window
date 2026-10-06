@@ -10,7 +10,7 @@ permissions:
 
 jobs:
   check-summer-prices:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 60     # each batch ~1,600 queries at concurrency 4 (rolling Apr-Oct year ahead, 3 party sizes)
     strategy:
       fail-fast: false
@@ -20,10 +20,10 @@ jobs:
 
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.11"
 

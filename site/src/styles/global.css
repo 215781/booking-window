@@ -70,3 +70,5 @@ details{margin:18px 0}summary{cursor:pointer;font-weight:600;color:var(--teal);p
 .brand{background:var(--paper);border:1px solid var(--line);border-radius:var(--r);padding:18px;text-decoration:none;color:inherit}
 .brand h3{margin-bottom:4px}.brand p{margin:0;color:var(--muted);font-size:.92rem}
 .hero-plain{background:var(--teal);color:#f5f0e8;padding:40px 0 32px}.hero-plain h1{color:#fff}.hero-plain .kicker{color:#f3d9a4}
+
+.live-prices{background:var(--paper);border:1px solid var(--line);border-left:5px solid var(--teal);border-radius:var(--r);padding:16px 18px;margin:20px 0}.live-prices .kicker{margin:0 0 4px}.live-prices table{display:table;margin:10px 0;background:none}.live-prices td{vertical-align:top}.live-prices .trend{margin-left:4px}

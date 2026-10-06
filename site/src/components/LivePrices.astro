@@ -1,0 +1,38 @@
+---
+// "Today's prices" box for resort guides. Article tables are dated snapshots; this box is rebuilt from
+// the latest checks on every deploy, so a reader always sees current school-holiday prices too.
+import { SKI } from '../lib/resorts';
+import { COLLECTIONS } from '../lib/resorts';
+import { weekDep, hasData, FAMILY, WEEKS, money, niceDate, latestUpdate, changeShort, isSwing, SWING_PCT } from '../lib/data';
+import Trend from './Trend.astro';
+interface Props { tags?: string[]; snapshot?: string }
+const { tags = [], snapshot } = Astro.props;
+const resorts = tags.includes('club-med') ? SKI.filter((r) => tags.includes(r.slug) && hasData(r)).slice(0, 2) : [];
+const updated = latestUpdate('clubmed-ski');
+const col = COLLECTIONS['clubmed-ski'];
+const weeks = WEEKS.ski.filter((w) => resorts.some((r) => weekDep(r, FAMILY, w)));
+const anySwing = weeks.some((w) => resorts.some((r) => isSwing(weekDep(r, FAMILY, w))));
+---
+{resorts.length > 0 && weeks.length > 0 && (
+  <aside class="live-prices" aria-label="Today's prices">
+    <p class="kicker">Today's prices · checked {niceDate(updated)}</p>
+    <p class="small">Family of four, {col.priceNote}.{snapshot && ` The tables further down are a snapshot from ${niceDate(snapshot)}; these update every day.`}</p>
+    <table>
+      <thead><tr><th>Week</th>{resorts.map((r) => <th>{r.name}</th>)}</tr></thead>
+      <tbody>
+        {weeks.map((w) => (
+          <tr>
+            <td>{w.label}</td>
+            {resorts.map((r) => {
+              const d = weekDep(r, FAMILY, w);
+              return <td>{d?.available ? <><strong>{money(d.price)}</strong> <span class="small">{changeShort(d)}{isSwing(d) && '*'}</span> {!isSwing(d) && <Trend trend={d.trend} available />}</> : <span class="muted">Not available online</span>}</td>;
+            })}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="small">30-day change shown after each price.{anySwing && ` *A move over ${SWING_PCT}% usually means a room type sold out or came back, not the same holiday getting dearer or cheaper.`} Guidance only - confirm with Club Med before booking.
+      {resorts.map((r, i) => <>{i > 0 ? ' · ' : ' '}<a href={`${col.base}${r.slug}/`} data-track="select_resort" data-resort={r.slug} data-brand={col.brand} data-collection={r.collection} data-location="guide_live_prices">Every week at {r.name}</a></>)}
+    </p>
+  </aside>
+)}

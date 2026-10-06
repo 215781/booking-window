@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Signup from '../../components/Signup.astro';
+import LivePrices from '../../components/LivePrices.astro';
 import { render } from 'astro:content';
 import { posts, slugOf } from '../../lib/blog';
 import { niceDate } from '../../lib/data';
@@ -39,6 +40,7 @@ if (faq.length) jsonLd.push({
       <p class="crumbs"><a href="/">Home</a> / <a href="/blog/">Guides</a></p>
       <h1>{post.data.title}</h1>
       <p class="small">By Connor Martin · {modified !== published ? <>Published {niceDate(published)} · Updated {niceDate(modified)}</> : <>Published {niceDate(published)}</>} · For today's prices see our <a href="/club-med/">Club Med</a> and <a href="/mark-warner/">Mark Warner</a> pages.</p>
+      <LivePrices tags={(post.data as any).tags ?? []} snapshot={modified} />
       <Content />
       {faq.length > 0 && (
         <section class="faq">

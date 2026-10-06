@@ -13,6 +13,8 @@ export const WEEKS: Record<'ski' | 'sun', Week[]> = {
   ],
   sun: [
     { key: 'october-half-term', label: 'October half-term', from: '2026-10-23', to: '2026-10-29' },
+    { key: 'easter-1', label: 'Easter (week 1)', from: '2027-03-26', to: '2027-04-01' },
+    { key: 'easter-2', label: 'Easter (week 2)', from: '2027-04-02', to: '2027-04-08' },
     { key: 'may-half-term', label: 'May half-term', from: '2027-05-28', to: '2027-06-03' },
     { key: 'summer-1', label: 'Summer holidays (week 1)', from: '2027-07-23', to: '2027-07-29' },
     { key: 'summer-2', label: 'Summer holidays (week 2)', from: '2027-07-30', to: '2027-08-05' },

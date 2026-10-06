@@ -12,3 +12,6 @@
 /sandals/                 /                        302
 # Old sitemap URL (the new site publishes sitemap-index.xml)
 /sitemap.xml              /sitemap-index.xml       301
+# The nav calls the blog "Guides"; people type /guides/
+/guides                   /blog/                   301
+/guides/                  /blog/                   301

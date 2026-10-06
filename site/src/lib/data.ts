@@ -21,7 +21,14 @@ import { WEEKS } from './weeks';
 export { WEEKS };
 
 export const weeksFor = (r: Resort) => WEEKS[COLLECTIONS[r.collection].season];
-export const featureWeek = (r: Resort) => weeksFor(r).find((w) => w.key === COLLECTIONS[r.collection].featureWeek)!;
+// The collection's headline week (e.g. February half-term), or - when that week has no family price yet
+// (Club Med sun only sells to late May 2027) - the next school-holiday week that does.
+export function featureWeek(r: Resort): Week {
+  const ws = weeksFor(r);
+  const pref = ws.find((w) => w.key === COLLECTIONS[r.collection].featureWeek)!;
+  if (weekDep(r, FAMILY, pref)?.available) return pref;
+  return ws.find((w) => weekDep(r, FAMILY, w)?.available) ?? pref;
+}
 
 export function resortData(r: Resort) {
   return data.collections[r.collection]?.[r.id] as { updated: string; stale: boolean; parties: Record<PartyKey, Dep[]> } | undefined;

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-06",
+ "updated": "2026-10-07",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -143,8 +143,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/la-rosiere/new-year/2026-12-27": {
-   "price": 11900,
-   "since": "2026-10-01"
+   "price": 12490,
+   "since": "2026-10-07"
   },
   "clubmed-ski/la-rosiere/february-half-term/2027-02-14": {
    "price": 11900,
@@ -369,6 +369,58 @@
   "clubmed-sun/miches-playa-esmeralda/easter-2/2027-04-03": {
    "price": 6106,
    "since": "2026-10-06"
+  },
+  "clubmed-sun/magna-marbella/easter-1/2027-03-27": {
+   "price": 4502,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/da-balaia/easter-1/2027-03-27": {
+   "price": 3740,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/la-caravelle/easter-1/2027-03-27": {
+   "price": 4844,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/la-palmyre-atlantique/easter-1/2027-03-27": {
+   "price": 3948,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/kani/easter-1/2027-03-27": {
+   "price": 5946,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/phuket/easter-1/2027-03-27": {
+   "price": 5042,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/the-finolhu-villas/easter-1/2027-03-27": {
+   "price": 11682,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/la-plantation-d-albion/easter-1/2027-03-27": {
+   "price": 4694,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/la-pointe-aux-canonniers/easter-1/2027-03-27": {
+   "price": 5364,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/seychelles/easter-1/2027-03-27": {
+   "price": 7332,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/punta-cana/easter-1/2027-03-27": {
+   "price": 6672,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/cancun/easter-1/2027-03-27": {
+   "price": 5752,
+   "since": "2026-10-07"
+  },
+  "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
+   "price": 6052,
+   "since": "2026-10-07"
   }
  },
  "lastAlert": {},

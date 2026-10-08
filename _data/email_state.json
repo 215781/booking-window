@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-07",
+ "updated": "2026-10-08",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -15,8 +15,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
-   "price": 8874,
-   "since": "2026-10-06"
+   "price": 9754,
+   "since": "2026-10-08"
   },
   "clubmed-ski/tignes-val-claret/easter-2/2027-04-04": {
    "price": 9370,
@@ -71,8 +71,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/easter-1/2027-03-28": {
-   "price": 8674,
-   "since": "2026-10-01"
+   "price": 9146,
+   "since": "2026-10-08"
   },
   "clubmed-ski/les-arcs/easter-2/2027-04-04": {
    "price": 7170,
@@ -103,16 +103,16 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
-   "price": 12054,
-   "since": "2026-10-05"
+   "price": 10490,
+   "since": "2026-10-08"
   },
   "clubmed-ski/peisey-vallandry/february-half-term/2027-02-14": {
    "price": 12184,
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/easter-1/2027-03-28": {
-   "price": 8736,
-   "since": "2026-10-05"
+   "price": 7604,
+   "since": "2026-10-08"
   },
   "clubmed-ski/peisey-vallandry/easter-2/2027-04-04": {
    "price": 7326,
@@ -403,8 +403,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/la-pointe-aux-canonniers/easter-1/2027-03-27": {
-   "price": 5364,
-   "since": "2026-10-07"
+   "price": 4582,
+   "since": "2026-10-08"
   },
   "clubmed-sun/seychelles/easter-1/2027-03-27": {
    "price": 7332,

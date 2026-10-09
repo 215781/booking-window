@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-08",
+ "updated": "2026-10-09",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -71,8 +71,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/easter-1/2027-03-28": {
-   "price": 9146,
-   "since": "2026-10-08"
+   "price": 7508,
+   "since": "2026-10-09"
   },
   "clubmed-ski/les-arcs/easter-2/2027-04-04": {
    "price": 7170,
@@ -103,8 +103,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
-   "price": 10490,
-   "since": "2026-10-08"
+   "price": 12054,
+   "since": "2026-10-09"
   },
   "clubmed-ski/peisey-vallandry/february-half-term/2027-02-14": {
    "price": 12184,
@@ -127,8 +127,8 @@
    "since": "2026-10-06"
   },
   "clubmed-ski/alpe-dhuez/february-half-term/2027-02-14": {
-   "price": 11054,
-   "since": "2026-10-01"
+   "price": 11605,
+   "since": "2026-10-09"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
    "price": 8668,

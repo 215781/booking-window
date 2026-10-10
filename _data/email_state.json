@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-09",
+ "updated": "2026-10-10",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -131,8 +131,8 @@
    "since": "2026-10-09"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
-   "price": 8668,
-   "since": "2026-10-02"
+   "price": 7868,
+   "since": "2026-10-10"
   },
   "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
    "price": 7722,
@@ -421,6 +421,10 @@
   "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
    "price": 6052,
    "since": "2026-10-07"
+  },
+  "clubmed-ski/grand-massif/february-half-term/2027-02-14": {
+   "price": 11356,
+   "since": "2026-10-10"
   }
  },
  "lastAlert": {},

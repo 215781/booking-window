@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-10",
+ "updated": "2026-10-11",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -15,8 +15,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
-   "price": 9754,
-   "since": "2026-10-08"
+   "price": 11518,
+   "since": "2026-10-11"
   },
   "clubmed-ski/tignes-val-claret/easter-2/2027-04-04": {
    "price": 9370,
@@ -59,8 +59,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/christmas/2026-12-20": {
-   "price": 10454,
-   "since": "2026-10-04"
+   "price": 11012,
+   "since": "2026-10-11"
   },
   "clubmed-ski/les-arcs/new-year/2026-12-27": {
    "price": 17912,
@@ -99,8 +99,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
-   "price": 10580,
-   "since": "2026-10-01"
+   "price": 9208,
+   "since": "2026-10-11"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
    "price": 12054,
@@ -131,8 +131,8 @@
    "since": "2026-10-09"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
-   "price": 7868,
-   "since": "2026-10-10"
+   "price": 8258,
+   "since": "2026-10-11"
   },
   "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
    "price": 7722,
@@ -379,8 +379,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/la-caravelle/easter-1/2027-03-27": {
-   "price": 4844,
-   "since": "2026-10-07"
+   "price": 5280,
+   "since": "2026-10-11"
   },
   "clubmed-sun/la-palmyre-atlantique/easter-1/2027-03-27": {
    "price": 3948,

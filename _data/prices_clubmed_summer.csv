@@ -543513,3 +543513,39 @@ collected_at,resort_id,resort_code,resort_name,party_size,departure_date,end_dat
 2026-10-12T17:07:06Z,cefalu,CFAC,Cefalù,2A2C,2027-05-02,2027-05-09,7,6018,GBP,hold,202,0,6018,6018,6018,1
 2026-10-12T17:07:06Z,cefalu,CFAC,Cefalù,2A2C,2027-05-16,2027-05-23,7,6018,GBP,hold,216,0,6018,6018,6018,1
 2026-10-12T17:07:06Z,cefalu,CFAC,Cefalù,2A2C,2027-05-23,2027-05-30,7,6018,GBP,hold,223,0,6018,6018,6018,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-03-20,2027-03-27,7,3012,GBP,hold,159,0,3012,3012,3012,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-03-27,2027-04-03,7,2622,GBP,hold,166,0,2622,2622,2622,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-03-21,2027-03-28,7,2882,GBP,hold,160,0,2882,2882,2882,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-03-28,2027-04-04,7,3012,GBP,hold,167,0,3012,3012,3012,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-01,2027-05-08,7,2142,GBP,hold,201,0,2142,2142,2142,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-08,2027-05-15,7,1998,GBP,hold,208,0,1998,1998,1998,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-15,2027-05-22,7,1998,GBP,hold,215,0,1998,1998,1998,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-22,2027-05-29,7,1912,GBP,watch,222,0,1742,1742,1912,0
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-02,2027-05-09,7,1998,GBP,hold,202,0,1998,1998,1998,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-09,2027-05-16,7,1998,GBP,hold,209,0,1998,1998,1998,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-16,2027-05-23,7,1742,GBP,hold,216,0,1742,1742,1742,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A,2027-05-23,2027-05-30,7,1912,GBP,watch,223,0,1742,1742,1912,0
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-03-20,2027-03-27,7,3610,GBP,hold,159,0,3610,3610,3610,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-03-27,2027-04-03,7,3285,GBP,hold,166,0,3285,3285,3285,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-03-21,2027-03-28,7,3285,GBP,hold,160,0,3285,3285,3285,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-03-28,2027-04-04,7,3285,GBP,hold,167,0,3285,3285,3285,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-01,2027-05-08,7,2342,GBP,hold,201,0,2342,2342,2342,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-08,2027-05-15,7,2185,GBP,hold,208,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-15,2027-05-22,7,2185,GBP,hold,215,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-22,2027-05-29,7,2185,GBP,hold,222,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-02,2027-05-09,7,2185,GBP,hold,202,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-09,2027-05-16,7,2185,GBP,hold,209,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-16,2027-05-23,7,2185,GBP,hold,216,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A1C,2027-05-23,2027-05-30,7,2185,GBP,hold,223,0,2185,2185,2185,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-03-20,2027-03-27,7,4338,GBP,hold,159,0,4338,4338,4338,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-03-27,2027-04-03,7,3948,GBP,hold,166,0,3948,3948,3948,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-03-21,2027-03-28,7,3948,GBP,hold,160,0,3948,3948,3948,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-03-28,2027-04-04,7,3948,GBP,hold,167,0,3948,3948,3948,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-01,2027-05-08,7,2816,GBP,hold,201,0,2816,2816,2816,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-08,2027-05-15,7,2628,GBP,hold,208,0,2628,2628,2628,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-15,2027-05-22,7,2628,GBP,hold,215,0,2628,2628,2628,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-22,2027-05-29,7,2628,GBP,hold,222,0,2628,2628,2628,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-02,2027-05-09,7,2628,GBP,hold,202,0,2628,2628,2628,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-09,2027-05-16,7,2628,GBP,hold,209,0,2628,2628,2628,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-16,2027-05-23,7,2628,GBP,hold,216,0,2628,2628,2628,1
+2026-10-12T17:07:06Z,la-palmyre-atlantique,LAPC,La Palmyre Atlantique,2A2C,2027-05-23,2027-05-30,7,2628,GBP,hold,223,0,2628,2628,2628,1

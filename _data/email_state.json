@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-13",
+ "updated": "2026-10-14",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -207,8 +207,8 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-24": {
-   "price": 5326,
-   "since": "2026-10-01"
+   "price": 5696,
+   "since": "2026-10-14"
   },
   "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
    "price": 6736,
@@ -259,8 +259,8 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/lemnos-beach-resort/may-half-term/2027-05-28": {
-   "price": 6256,
-   "since": "2026-10-01"
+   "price": 6966,
+   "since": "2026-10-14"
   },
   "markwarner-sun/lemnos-beach-resort/summer-1/2027-07-23": {
    "price": 6191,
@@ -403,8 +403,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/la-pointe-aux-canonniers/easter-1/2027-03-27": {
-   "price": 5364,
-   "since": "2026-10-13"
+   "price": 4472,
+   "since": "2026-10-14"
   },
   "clubmed-sun/seychelles/easter-1/2027-03-27": {
    "price": 7332,
@@ -687,8 +687,8 @@
    "since": "2026-10-13"
   },
   "clubmed-sun/djerba-la-douce/summer-5/2027-08-21": {
-   "price": 3390,
-   "since": "2026-10-13"
+   "price": 3574,
+   "since": "2026-10-14"
   },
   "clubmed-sun/phuket/may-half-term/2027-05-29": {
    "price": 3366,

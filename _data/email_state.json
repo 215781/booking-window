@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-14",
+ "updated": "2026-10-15",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -59,8 +59,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/christmas/2026-12-20": {
-   "price": 11012,
-   "since": "2026-10-11"
+   "price": 10454,
+   "since": "2026-10-15"
   },
   "clubmed-ski/les-arcs/new-year/2026-12-27": {
    "price": 17912,
@@ -99,8 +99,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
-   "price": 9208,
-   "since": "2026-10-11"
+   "price": 10580,
+   "since": "2026-10-15"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
    "price": 12054,
@@ -207,8 +207,8 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-24": {
-   "price": 5696,
-   "since": "2026-10-14"
+   "price": 5386,
+   "since": "2026-10-15"
   },
   "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
    "price": 6736,
@@ -551,8 +551,8 @@
    "since": "2026-10-13"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-1/2027-07-24": {
-   "price": 5392,
-   "since": "2026-10-13"
+   "price": 5690,
+   "since": "2026-10-15"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-2/2027-07-31": {
    "price": 6330,
@@ -687,8 +687,8 @@
    "since": "2026-10-13"
   },
   "clubmed-sun/djerba-la-douce/summer-5/2027-08-21": {
-   "price": 3574,
-   "since": "2026-10-14"
+   "price": 3390,
+   "since": "2026-10-15"
   },
   "clubmed-sun/phuket/may-half-term/2027-05-29": {
    "price": 3366,

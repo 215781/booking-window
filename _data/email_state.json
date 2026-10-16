@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-15",
+ "updated": "2026-10-16",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -59,8 +59,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/christmas/2026-12-20": {
-   "price": 10454,
-   "since": "2026-10-15"
+   "price": 11012,
+   "since": "2026-10-16"
   },
   "clubmed-ski/les-arcs/new-year/2026-12-27": {
    "price": 17912,
@@ -351,8 +351,8 @@
    "since": "2026-10-06"
   },
   "clubmed-sun/la-pointe-aux-canonniers/easter-2/2027-04-03": {
-   "price": 5390,
-   "since": "2026-10-06"
+   "price": 5898,
+   "since": "2026-10-16"
   },
   "clubmed-sun/seychelles/easter-2/2027-04-03": {
    "price": 7800,
@@ -403,8 +403,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/la-pointe-aux-canonniers/easter-1/2027-03-27": {
-   "price": 4472,
-   "since": "2026-10-14"
+   "price": 5364,
+   "since": "2026-10-16"
   },
   "clubmed-sun/seychelles/easter-1/2027-03-27": {
    "price": 7332,
@@ -675,8 +675,8 @@
    "since": "2026-10-13"
   },
   "clubmed-sun/djerba-la-douce/summer-2/2027-07-31": {
-   "price": 3892,
-   "since": "2026-10-13"
+   "price": 4314,
+   "since": "2026-10-16"
   },
   "clubmed-sun/djerba-la-douce/summer-3/2027-08-07": {
    "price": 3892,

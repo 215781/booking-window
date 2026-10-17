@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-16",
+ "updated": "2026-10-17",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -427,456 +427,456 @@
    "since": "2026-10-10"
   },
   "clubmed-sun/gregolimano/may-half-term/2027-05-29": {
-   "price": 3676,
-   "since": "2026-10-13"
+   "price": 4314,
+   "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-1/2027-07-24": {
-   "price": 5940,
-   "since": "2026-10-13"
+   "price": 6978,
+   "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-2/2027-07-31": {
-   "price": 6588,
-   "since": "2026-10-13"
+   "price": 7314,
+   "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-3/2027-08-07": {
-   "price": 6588,
-   "since": "2026-10-13"
+   "price": 7314,
+   "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-4/2027-08-14": {
-   "price": 6318,
-   "since": "2026-10-13"
+   "price": 7014,
+   "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-5/2027-08-21": {
-   "price": 5744,
-   "since": "2026-10-13"
+   "price": 6746,
+   "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/may-half-term/2027-05-29": {
-   "price": 4946,
-   "since": "2026-10-13"
+   "price": 5808,
+   "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/summer-1/2027-07-24": {
-   "price": 6018,
-   "since": "2026-10-13"
+   "price": 7068,
+   "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/summer-2/2027-07-31": {
-   "price": 6258,
-   "since": "2026-10-13"
+   "price": 7350,
+   "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/summer-3/2027-08-07": {
-   "price": 6258,
-   "since": "2026-10-13"
+   "price": 7350,
+   "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/summer-4/2027-08-14": {
-   "price": 6044,
-   "since": "2026-10-13"
+   "price": 7100,
+   "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/summer-5/2027-08-21": {
-   "price": 5996,
-   "since": "2026-10-13"
+   "price": 7044,
+   "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/may-half-term/2027-05-29": {
-   "price": 3836,
-   "since": "2026-10-13"
+   "price": 4502,
+   "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/summer-1/2027-07-24": {
-   "price": 5606,
-   "since": "2026-10-13"
+   "price": 6584,
+   "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/summer-2/2027-07-31": {
-   "price": 6440,
-   "since": "2026-10-13"
+   "price": 7148,
+   "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/summer-3/2027-08-07": {
-   "price": 6368,
-   "since": "2026-10-13"
+   "price": 7070,
+   "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/summer-4/2027-08-14": {
-   "price": 6016,
-   "since": "2026-10-13"
+   "price": 6678,
+   "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/summer-5/2027-08-21": {
-   "price": 5864,
-   "since": "2026-10-13"
+   "price": 6828,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/may-half-term/2027-05-29": {
-   "price": 3868,
-   "since": "2026-10-13"
+   "price": 4540,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/summer-1/2027-07-24": {
-   "price": 4830,
-   "since": "2026-10-13"
+   "price": 5670,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/summer-2/2027-07-31": {
-   "price": 5034,
-   "since": "2026-10-13"
+   "price": 5910,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/summer-3/2027-08-07": {
-   "price": 5034,
-   "since": "2026-10-13"
+   "price": 5910,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/summer-4/2027-08-14": {
-   "price": 4416,
-   "since": "2026-10-13"
+   "price": 5184,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/summer-5/2027-08-21": {
-   "price": 4416,
-   "since": "2026-10-13"
+   "price": 5184,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmyre-atlantique/may-half-term/2027-05-29": {
-   "price": 2420,
-   "since": "2026-10-13"
+   "price": 2836,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmyre-atlantique/summer-1/2027-07-24": {
-   "price": 3388,
-   "since": "2026-10-13"
+   "price": 3976,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmyre-atlantique/summer-2/2027-07-31": {
-   "price": 3080,
-   "since": "2026-10-13"
+   "price": 3614,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmyre-atlantique/summer-3/2027-08-07": {
-   "price": 3028,
-   "since": "2026-10-13"
+   "price": 3552,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmyre-atlantique/summer-4/2027-08-14": {
-   "price": 2794,
-   "since": "2026-10-13"
+   "price": 3276,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmyre-atlantique/summer-5/2027-08-21": {
-   "price": 2754,
-   "since": "2026-10-13"
+   "price": 3228,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/may-half-term/2027-05-29": {
-   "price": 3440,
-   "since": "2026-10-13"
+   "price": 4036,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-1/2027-07-24": {
-   "price": 5690,
-   "since": "2026-10-15"
+   "price": 6334,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-2/2027-07-31": {
-   "price": 6330,
-   "since": "2026-10-13"
+   "price": 7026,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-3/2027-08-07": {
-   "price": 6232,
-   "since": "2026-10-13"
+   "price": 6918,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-4/2027-08-14": {
-   "price": 6078,
-   "since": "2026-10-13"
+   "price": 6746,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-5/2027-08-21": {
-   "price": 5610,
-   "since": "2026-10-13"
+   "price": 6246,
+   "since": "2026-10-17"
   },
   "clubmed-sun/kani/may-half-term/2027-05-29": {
-   "price": 3936,
-   "since": "2026-10-13"
+   "price": 4572,
+   "since": "2026-10-17"
   },
   "clubmed-sun/kani/summer-1/2027-07-24": {
-   "price": 4332,
-   "since": "2026-10-13"
+   "price": 5040,
+   "since": "2026-10-17"
   },
   "clubmed-sun/kani/summer-2/2027-07-31": {
-   "price": 4332,
-   "since": "2026-10-13"
+   "price": 5040,
+   "since": "2026-10-17"
   },
   "clubmed-sun/kani/summer-3/2027-08-07": {
-   "price": 4332,
-   "since": "2026-10-13"
+   "price": 5040,
+   "since": "2026-10-17"
   },
   "clubmed-sun/kani/summer-4/2027-08-14": {
-   "price": 4332,
-   "since": "2026-10-13"
+   "price": 5040,
+   "since": "2026-10-17"
   },
   "clubmed-sun/kani/summer-5/2027-08-21": {
-   "price": 4332,
-   "since": "2026-10-13"
+   "price": 5040,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cefalu/may-half-term/2027-05-29": {
-   "price": 5146,
-   "since": "2026-10-13"
+   "price": 6044,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cefalu/summer-1/2027-07-24": {
-   "price": 6510,
-   "since": "2026-10-13"
+   "price": 7648,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cefalu/summer-2/2027-07-31": {
-   "price": 7246,
-   "since": "2026-10-13"
+   "price": 8032,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cefalu/summer-3/2027-08-07": {
-   "price": 7182,
-   "since": "2026-10-13"
+   "price": 7966,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cefalu/summer-4/2027-08-14": {
-   "price": 6956,
-   "since": "2026-10-13"
+   "price": 7722,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cefalu/summer-5/2027-08-21": {
-   "price": 6924,
-   "since": "2026-10-13"
+   "price": 7686,
+   "since": "2026-10-17"
   },
   "clubmed-sun/opio-en-provence/may-half-term/2027-05-29": {
-   "price": 3988,
-   "since": "2026-10-13"
+   "price": 4680,
+   "since": "2026-10-17"
   },
   "clubmed-sun/opio-en-provence/summer-1/2027-07-24": {
-   "price": 5572,
-   "since": "2026-10-13"
+   "price": 6544,
+   "since": "2026-10-17"
   },
   "clubmed-sun/opio-en-provence/summer-2/2027-07-31": {
-   "price": 6080,
-   "since": "2026-10-13"
+   "price": 7142,
+   "since": "2026-10-17"
   },
   "clubmed-sun/opio-en-provence/summer-3/2027-08-07": {
-   "price": 6164,
-   "since": "2026-10-13"
+   "price": 7242,
+   "since": "2026-10-17"
   },
   "clubmed-sun/opio-en-provence/summer-4/2027-08-14": {
-   "price": 5654,
-   "since": "2026-10-13"
+   "price": 6642,
+   "since": "2026-10-17"
   },
   "clubmed-sun/opio-en-provence/summer-5/2027-08-21": {
-   "price": 5486,
-   "since": "2026-10-13"
+   "price": 6444,
+   "since": "2026-10-17"
   },
   "clubmed-sun/bodrum/may-half-term/2027-05-29": {
-   "price": 3146,
-   "since": "2026-10-13"
+   "price": 3690,
+   "since": "2026-10-17"
   },
   "clubmed-sun/bodrum/summer-1/2027-07-24": {
-   "price": 4504,
-   "since": "2026-10-13"
+   "price": 5288,
+   "since": "2026-10-17"
   },
   "clubmed-sun/bodrum/summer-2/2027-07-31": {
-   "price": 4892,
-   "since": "2026-10-13"
+   "price": 5744,
+   "since": "2026-10-17"
   },
   "clubmed-sun/bodrum/summer-3/2027-08-07": {
-   "price": 4790,
-   "since": "2026-10-13"
+   "price": 5624,
+   "since": "2026-10-17"
   },
   "clubmed-sun/bodrum/summer-4/2027-08-14": {
-   "price": 4540,
-   "since": "2026-10-13"
+   "price": 5332,
+   "since": "2026-10-17"
   },
   "clubmed-sun/bodrum/summer-5/2027-08-21": {
-   "price": 4320,
-   "since": "2026-10-13"
+   "price": 5070,
+   "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/may-half-term/2027-05-29": {
-   "price": 3210,
-   "since": "2026-10-13"
+   "price": 3762,
+   "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-1/2027-07-24": {
-   "price": 3360,
-   "since": "2026-10-13"
+   "price": 3936,
+   "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-2/2027-07-31": {
    "price": 4314,
    "since": "2026-10-16"
   },
   "clubmed-sun/djerba-la-douce/summer-3/2027-08-07": {
-   "price": 3892,
-   "since": "2026-10-13"
+   "price": 4314,
+   "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-4/2027-08-14": {
-   "price": 3584,
-   "since": "2026-10-13"
+   "price": 3972,
+   "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-5/2027-08-21": {
-   "price": 3390,
-   "since": "2026-10-15"
+   "price": 4188,
+   "since": "2026-10-17"
   },
   "clubmed-sun/phuket/may-half-term/2027-05-29": {
-   "price": 3366,
-   "since": "2026-10-13"
+   "price": 3950,
+   "since": "2026-10-17"
   },
   "clubmed-sun/phuket/summer-1/2027-07-24": {
-   "price": 4134,
-   "since": "2026-10-13"
+   "price": 4854,
+   "since": "2026-10-17"
   },
   "clubmed-sun/phuket/summer-2/2027-07-31": {
-   "price": 3952,
-   "since": "2026-10-13"
+   "price": 4638,
+   "since": "2026-10-17"
   },
   "clubmed-sun/phuket/summer-3/2027-08-07": {
-   "price": 3952,
-   "since": "2026-10-13"
+   "price": 4638,
+   "since": "2026-10-17"
   },
   "clubmed-sun/phuket/summer-4/2027-08-14": {
-   "price": 3952,
-   "since": "2026-10-13"
+   "price": 4638,
+   "since": "2026-10-17"
   },
   "clubmed-sun/phuket/summer-5/2027-08-21": {
-   "price": 3508,
-   "since": "2026-10-13"
+   "price": 4116,
+   "since": "2026-10-17"
   },
   "clubmed-sun/the-finolhu-villas/may-half-term/2027-05-29": {
-   "price": 7470,
-   "since": "2026-10-13"
+   "price": 9256,
+   "since": "2026-10-17"
   },
   "clubmed-sun/the-finolhu-villas/summer-1/2027-07-24": {
-   "price": 7470,
-   "since": "2026-10-13"
+   "price": 9256,
+   "since": "2026-10-17"
   },
   "clubmed-sun/the-finolhu-villas/summer-2/2027-07-31": {
-   "price": 7564,
-   "since": "2026-10-13"
+   "price": 9372,
+   "since": "2026-10-17"
   },
   "clubmed-sun/the-finolhu-villas/summer-3/2027-08-07": {
-   "price": 7564,
-   "since": "2026-10-13"
+   "price": 9372,
+   "since": "2026-10-17"
   },
   "clubmed-sun/the-finolhu-villas/summer-4/2027-08-14": {
-   "price": 7564,
-   "since": "2026-10-13"
+   "price": 9372,
+   "since": "2026-10-17"
   },
   "clubmed-sun/the-finolhu-villas/summer-5/2027-08-21": {
-   "price": 7564,
-   "since": "2026-10-13"
+   "price": 9372,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-plantation-d-albion/summer-1/2027-07-24": {
-   "price": 4062,
-   "since": "2026-10-13"
+   "price": 4824,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-plantation-d-albion/summer-2/2027-07-31": {
-   "price": 4274,
-   "since": "2026-10-13"
+   "price": 5076,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-plantation-d-albion/summer-3/2027-08-07": {
-   "price": 4274,
-   "since": "2026-10-13"
+   "price": 5076,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-plantation-d-albion/summer-4/2027-08-14": {
-   "price": 4062,
-   "since": "2026-10-13"
+   "price": 4824,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-plantation-d-albion/summer-5/2027-08-21": {
-   "price": 4062,
-   "since": "2026-10-13"
+   "price": 4824,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/may-half-term/2027-05-29": {
-   "price": 3538,
-   "since": "2026-10-13"
+   "price": 4152,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-1/2027-07-24": {
-   "price": 3614,
-   "since": "2026-10-13"
+   "price": 4242,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-2/2027-07-31": {
-   "price": 3804,
-   "since": "2026-10-13"
+   "price": 4464,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-3/2027-08-07": {
-   "price": 3992,
-   "since": "2026-10-13"
+   "price": 4464,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-4/2027-08-14": {
-   "price": 3804,
-   "since": "2026-10-13"
+   "price": 4464,
+   "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-5/2027-08-21": {
-   "price": 3624,
-   "since": "2026-10-13"
+   "price": 4254,
+   "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/may-half-term/2027-05-29": {
-   "price": 6020,
-   "since": "2026-10-13"
+   "price": 7072,
+   "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/summer-1/2027-07-24": {
-   "price": 6366,
-   "since": "2026-10-13"
+   "price": 7480,
+   "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/summer-2/2027-07-31": {
-   "price": 6682,
-   "since": "2026-10-13"
+   "price": 7852,
+   "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/summer-3/2027-08-07": {
-   "price": 6682,
-   "since": "2026-10-13"
+   "price": 7852,
+   "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/summer-4/2027-08-14": {
-   "price": 6682,
-   "since": "2026-10-13"
+   "price": 7852,
+   "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/summer-5/2027-08-21": {
-   "price": 6020,
-   "since": "2026-10-13"
+   "price": 7072,
+   "since": "2026-10-17"
   },
   "clubmed-sun/punta-cana/may-half-term/2027-05-29": {
-   "price": 3024,
-   "since": "2026-10-13"
+   "price": 3546,
+   "since": "2026-10-17"
   },
   "clubmed-sun/punta-cana/summer-1/2027-07-24": {
-   "price": 3692,
-   "since": "2026-10-13"
+   "price": 4334,
+   "since": "2026-10-17"
   },
   "clubmed-sun/punta-cana/summer-2/2027-07-31": {
-   "price": 3840,
-   "since": "2026-10-13"
+   "price": 4506,
+   "since": "2026-10-17"
   },
   "clubmed-sun/punta-cana/summer-3/2027-08-07": {
-   "price": 3840,
-   "since": "2026-10-13"
+   "price": 4506,
+   "since": "2026-10-17"
   },
   "clubmed-sun/punta-cana/summer-4/2027-08-14": {
-   "price": 3840,
-   "since": "2026-10-13"
+   "price": 4506,
+   "since": "2026-10-17"
   },
   "clubmed-sun/punta-cana/summer-5/2027-08-21": {
-   "price": 3030,
-   "since": "2026-10-13"
+   "price": 3554,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cancun/may-half-term/2027-05-29": {
-   "price": 3768,
-   "since": "2026-10-13"
+   "price": 4422,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cancun/summer-1/2027-07-24": {
-   "price": 4880,
-   "since": "2026-10-13"
+   "price": 5730,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cancun/summer-2/2027-07-31": {
-   "price": 4966,
-   "since": "2026-10-13"
+   "price": 5832,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cancun/summer-3/2027-08-07": {
-   "price": 4966,
-   "since": "2026-10-13"
+   "price": 5832,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cancun/summer-4/2027-08-14": {
-   "price": 4966,
-   "since": "2026-10-13"
+   "price": 5832,
+   "since": "2026-10-17"
   },
   "clubmed-sun/cancun/summer-5/2027-08-21": {
-   "price": 3764,
-   "since": "2026-10-13"
+   "price": 4418,
+   "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/may-half-term/2027-05-29": {
-   "price": 3612,
-   "since": "2026-10-13"
+   "price": 4500,
+   "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/summer-1/2027-07-24": {
-   "price": 4410,
-   "since": "2026-10-13"
+   "price": 5496,
+   "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/summer-2/2027-07-31": {
-   "price": 4518,
-   "since": "2026-10-13"
+   "price": 5634,
+   "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/summer-3/2027-08-07": {
-   "price": 4518,
-   "since": "2026-10-13"
+   "price": 5634,
+   "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/summer-4/2027-08-14": {
-   "price": 4518,
-   "since": "2026-10-13"
+   "price": 5634,
+   "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/summer-5/2027-08-21": {
-   "price": 3678,
-   "since": "2026-10-13"
+   "price": 4584,
+   "since": "2026-10-17"
   }
  },
  "lastAlert": {},

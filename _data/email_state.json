@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-18",
+ "updated": "2026-10-19",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -687,8 +687,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-5/2027-08-21": {
-   "price": 3972,
-   "since": "2026-10-18"
+   "price": 4188,
+   "since": "2026-10-19"
   },
   "clubmed-sun/phuket/may-half-term/2027-05-29": {
    "price": 3950,
@@ -767,12 +767,12 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-2/2027-07-31": {
-   "price": 4464,
-   "since": "2026-10-17"
+   "price": 4686,
+   "since": "2026-10-19"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-3/2027-08-07": {
-   "price": 4464,
-   "since": "2026-10-17"
+   "price": 4686,
+   "since": "2026-10-19"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-4/2027-08-14": {
    "price": 4464,

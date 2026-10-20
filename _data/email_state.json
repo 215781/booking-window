@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-19",
+ "updated": "2026-10-20",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -59,8 +59,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/christmas/2026-12-20": {
-   "price": 11012,
-   "since": "2026-10-16"
+   "price": 10454,
+   "since": "2026-10-20"
   },
   "clubmed-ski/les-arcs/new-year/2026-12-27": {
    "price": 17912,
@@ -99,8 +99,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
-   "price": 9208,
-   "since": "2026-10-18"
+   "price": 10580,
+   "since": "2026-10-20"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
    "price": 12054,
@@ -171,8 +171,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
-   "price": 7880,
-   "since": "2026-10-01"
+   "price": 7170,
+   "since": "2026-10-20"
   },
   "clubmed-ski/grand-massif/christmas/2026-12-20": {
    "price": 8846,

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-21",
+ "updated": "2026-10-22",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -99,8 +99,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
-   "price": 10580,
-   "since": "2026-10-20"
+   "price": 9208,
+   "since": "2026-10-22"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
    "price": 12054,
@@ -123,8 +123,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/alpe-dhuez/new-year/2026-12-27": {
-   "price": 14876,
-   "since": "2026-10-12"
+   "price": 11458,
+   "since": "2026-10-22"
   },
   "clubmed-ski/alpe-dhuez/february-half-term/2027-02-14": {
    "price": 11605,
@@ -207,8 +207,8 @@
    "since": "2026-10-21"
   },
   "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-24": {
-   "price": 5386,
-   "since": "2026-10-15"
+   "price": 4986,
+   "since": "2026-10-22"
   },
   "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
    "price": 6736,
@@ -287,8 +287,8 @@
    "since": "2026-10-06"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
-   "price": 4591,
-   "since": "2026-10-01"
+   "price": 4916,
+   "since": "2026-10-22"
   },
   "markwarner-sun/phokaia-beach-resort/summer-1/2027-07-27": {
    "price": 7011,
@@ -687,8 +687,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-5/2027-08-21": {
-   "price": 4188,
-   "since": "2026-10-19"
+   "price": 3972,
+   "since": "2026-10-22"
   },
   "clubmed-sun/phuket/may-half-term/2027-05-29": {
    "price": 3950,

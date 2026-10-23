@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-22",
+ "updated": "2026-10-23",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -877,6 +877,10 @@
   "clubmed-sun/miches-playa-esmeralda/summer-5/2027-08-21": {
    "price": 4584,
    "since": "2026-10-17"
+  },
+  "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-25": {
+   "price": 5166,
+   "since": "2026-10-23"
   }
  },
  "lastAlert": {},

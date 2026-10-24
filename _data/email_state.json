@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-23",
+ "updated": "2026-10-24",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -83,8 +83,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/la-plagne-2100/new-year/2026-12-27": {
-   "price": 9844,
-   "since": "2026-10-01"
+   "price": 10568,
+   "since": "2026-10-24"
   },
   "clubmed-ski/la-plagne-2100/february-half-term/2027-02-14": {
    "price": 9784,
@@ -206,10 +206,6 @@
    "price": 6580,
    "since": "2026-10-21"
   },
-  "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-24": {
-   "price": 4986,
-   "since": "2026-10-22"
-  },
   "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
    "price": 6736,
    "since": "2026-10-01"
@@ -281,10 +277,6 @@
   "markwarner-sun/lemnos-beach-resort/summer-5/2027-08-20": {
    "price": 6271,
    "since": "2026-10-01"
-  },
-  "markwarner-sun/phokaia-beach-resort/october-half-term/2026-10-24": {
-   "price": 5870,
-   "since": "2026-10-06"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
    "price": 4916,

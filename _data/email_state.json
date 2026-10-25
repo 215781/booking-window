@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-24",
+ "updated": "2026-10-25",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -83,8 +83,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/la-plagne-2100/new-year/2026-12-27": {
-   "price": 10568,
-   "since": "2026-10-24"
+   "price": 12742,
+   "since": "2026-10-25"
   },
   "clubmed-ski/la-plagne-2100/february-half-term/2027-02-14": {
    "price": 9784,
@@ -99,8 +99,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
-   "price": 9208,
-   "since": "2026-10-22"
+   "price": 10580,
+   "since": "2026-10-25"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
    "price": 12054,
@@ -869,10 +869,6 @@
   "clubmed-sun/miches-playa-esmeralda/summer-5/2027-08-21": {
    "price": 4584,
    "since": "2026-10-17"
-  },
-  "markwarner-sun/paleros-beach-resort/october-half-term/2026-10-25": {
-   "price": 5166,
-   "since": "2026-10-23"
   }
  },
  "lastAlert": {},

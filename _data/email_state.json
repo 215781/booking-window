@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-26",
+ "updated": "2026-10-27",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -83,8 +83,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/la-plagne-2100/new-year/2026-12-27": {
-   "price": 12742,
-   "since": "2026-10-25"
+   "price": 14968,
+   "since": "2026-10-27"
   },
   "clubmed-ski/la-plagne-2100/february-half-term/2027-02-14": {
    "price": 9784,
@@ -167,8 +167,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/valmorel/february-half-term/2027-02-14": {
-   "price": 10742,
-   "since": "2026-10-21"
+   "price": 11278,
+   "since": "2026-10-27"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
    "price": 6778,
@@ -543,8 +543,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-1/2027-07-24": {
-   "price": 6334,
-   "since": "2026-10-17"
+   "price": 6684,
+   "since": "2026-10-27"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-2/2027-07-31": {
    "price": 7026,

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-27",
+ "updated": "2026-10-28",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -59,8 +59,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/les-arcs/christmas/2026-12-20": {
-   "price": 11482,
-   "since": "2026-10-21"
+   "price": 12052,
+   "since": "2026-10-28"
   },
   "clubmed-ski/les-arcs/new-year/2026-12-27": {
    "price": 17912,

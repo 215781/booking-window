@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-28",
+ "updated": "2026-10-29",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -11,8 +11,8 @@
    "since": "2026-10-05"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
-   "price": 13088,
-   "since": "2026-10-01"
+   "price": 13738,
+   "since": "2026-10-29"
   },
   "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
    "price": 11518,
@@ -395,8 +395,8 @@
    "since": "2026-10-21"
   },
   "clubmed-sun/la-pointe-aux-canonniers/easter-1/2027-03-27": {
-   "price": 5364,
-   "since": "2026-10-16"
+   "price": 4582,
+   "since": "2026-10-29"
   },
   "clubmed-sun/seychelles/easter-1/2027-03-27": {
    "price": 7332,
@@ -407,8 +407,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/cancun/easter-1/2027-03-27": {
-   "price": 5752,
-   "since": "2026-10-07"
+   "price": 4386,
+   "since": "2026-10-29"
   },
   "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
    "price": 5752,
@@ -423,20 +423,20 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-1/2027-07-24": {
-   "price": 6978,
-   "since": "2026-10-17"
+   "price": 8364,
+   "since": "2026-10-29"
   },
   "clubmed-sun/gregolimano/summer-2/2027-07-31": {
    "price": 7314,
    "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-3/2027-08-07": {
-   "price": 7314,
-   "since": "2026-10-17"
+   "price": 8350,
+   "since": "2026-10-29"
   },
   "clubmed-sun/gregolimano/summer-4/2027-08-14": {
-   "price": 7014,
-   "since": "2026-10-17"
+   "price": 8404,
+   "since": "2026-10-29"
   },
   "clubmed-sun/gregolimano/summer-5/2027-08-21": {
    "price": 6746,

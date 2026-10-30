@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-29",
+ "updated": "2026-10-30",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -143,8 +143,8 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/la-rosiere/new-year/2026-12-27": {
-   "price": 12490,
-   "since": "2026-10-07"
+   "price": 15450,
+   "since": "2026-10-30"
   },
   "clubmed-ski/la-rosiere/february-half-term/2027-02-14": {
    "price": 11900,
@@ -171,12 +171,12 @@
    "since": "2026-10-27"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
-   "price": 6778,
-   "since": "2026-10-26"
+   "price": 6104,
+   "since": "2026-10-30"
   },
   "clubmed-ski/grand-massif/christmas/2026-12-20": {
-   "price": 9798,
-   "since": "2026-10-21"
+   "price": 10284,
+   "since": "2026-10-30"
   },
   "clubmed-ski/grand-massif/new-year/2026-12-27": {
    "price": 11896,
@@ -199,8 +199,8 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
-   "price": 6842,
-   "since": "2026-10-21"
+   "price": 8038,
+   "since": "2026-10-30"
   },
   "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
    "price": 6580,
@@ -663,24 +663,24 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-1/2027-07-24": {
-   "price": 3936,
-   "since": "2026-10-17"
+   "price": 4150,
+   "since": "2026-10-30"
   },
   "clubmed-sun/djerba-la-douce/summer-2/2027-07-31": {
-   "price": 4314,
-   "since": "2026-10-16"
+   "price": 4782,
+   "since": "2026-10-30"
   },
   "clubmed-sun/djerba-la-douce/summer-3/2027-08-07": {
-   "price": 4314,
-   "since": "2026-10-17"
+   "price": 4548,
+   "since": "2026-10-30"
   },
   "clubmed-sun/djerba-la-douce/summer-4/2027-08-14": {
    "price": 3972,
    "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-5/2027-08-21": {
-   "price": 3972,
-   "since": "2026-10-22"
+   "price": 4188,
+   "since": "2026-10-30"
   },
   "clubmed-sun/phuket/may-half-term/2027-05-29": {
    "price": 3950,
@@ -869,6 +869,10 @@
   "clubmed-sun/miches-playa-esmeralda/summer-5/2027-08-21": {
    "price": 4584,
    "since": "2026-10-17"
+  },
+  "clubmed-sun/la-palmyre-atlantique/summer-4/2027-08-15": {
+   "price": 3228,
+   "since": "2026-10-30"
   }
  },
  "lastAlert": {},

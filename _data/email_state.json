@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-30",
+ "updated": "2026-10-31",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -171,8 +171,8 @@
    "since": "2026-10-27"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
-   "price": 6104,
-   "since": "2026-10-30"
+   "price": 6778,
+   "since": "2026-10-31"
   },
   "clubmed-ski/grand-massif/christmas/2026-12-20": {
    "price": 10284,
@@ -279,8 +279,8 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
-   "price": 4916,
-   "since": "2026-10-22"
+   "price": 4671,
+   "since": "2026-10-31"
   },
   "markwarner-sun/phokaia-beach-resort/summer-1/2027-07-27": {
    "price": 7011,
@@ -543,8 +543,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-1/2027-07-24": {
-   "price": 6684,
-   "since": "2026-10-27"
+   "price": 6334,
+   "since": "2026-10-31"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-2/2027-07-31": {
    "price": 7026,

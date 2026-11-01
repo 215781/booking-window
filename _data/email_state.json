@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-10-31",
+ "updated": "2026-11-01",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -663,8 +663,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-1/2027-07-24": {
-   "price": 4150,
-   "since": "2026-10-30"
+   "price": 4362,
+   "since": "2026-11-01"
   },
   "clubmed-sun/djerba-la-douce/summer-2/2027-07-31": {
    "price": 4782,

@@ -1,14 +1,14 @@
 {
  "version": 1,
- "updated": "2026-11-02",
+ "updated": "2026-11-03",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
-   "price": 13492,
-   "since": "2026-10-05"
+   "price": 16692,
+   "since": "2026-11-03"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
    "price": 13738,
@@ -171,8 +171,8 @@
    "since": "2026-10-27"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
-   "price": 6778,
-   "since": "2026-10-31"
+   "price": 6104,
+   "since": "2026-11-03"
   },
   "clubmed-ski/grand-massif/christmas/2026-12-20": {
    "price": 10284,
@@ -199,36 +199,36 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
-   "price": 8038,
-   "since": "2026-10-30"
+   "price": 6842,
+   "since": "2026-11-03"
   },
   "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
    "price": 6580,
    "since": "2026-10-21"
   },
   "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
-   "price": 6736,
-   "since": "2026-10-01"
+   "price": 7476,
+   "since": "2026-11-03"
   },
   "markwarner-sun/paleros-beach-resort/summer-1/2027-07-25": {
-   "price": 7114,
-   "since": "2026-10-01"
+   "price": 7664,
+   "since": "2026-11-03"
   },
   "markwarner-sun/paleros-beach-resort/summer-2/2027-08-01": {
-   "price": 7416,
-   "since": "2026-10-01"
+   "price": 7966,
+   "since": "2026-11-03"
   },
   "markwarner-sun/paleros-beach-resort/summer-3/2027-08-08": {
-   "price": 7416,
-   "since": "2026-10-01"
+   "price": 7966,
+   "since": "2026-11-03"
   },
   "markwarner-sun/paleros-beach-resort/summer-4/2027-08-15": {
-   "price": 7416,
-   "since": "2026-10-01"
+   "price": 7966,
+   "since": "2026-11-03"
   },
   "markwarner-sun/paleros-beach-resort/summer-5/2027-08-22": {
-   "price": 7018,
-   "since": "2026-10-01"
+   "price": 7528,
+   "since": "2026-11-03"
   },
   "markwarner-sun/aeolian-village/may-half-term/2027-06-02": {
    "price": 4146,
@@ -255,52 +255,52 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/lemnos-beach-resort/may-half-term/2027-05-28": {
-   "price": 6966,
-   "since": "2026-10-14"
+   "price": 7366,
+   "since": "2026-11-03"
   },
   "markwarner-sun/lemnos-beach-resort/summer-1/2027-07-23": {
-   "price": 6191,
-   "since": "2026-10-01"
+   "price": 6591,
+   "since": "2026-11-03"
   },
   "markwarner-sun/lemnos-beach-resort/summer-2/2027-07-30": {
-   "price": 6271,
-   "since": "2026-10-01"
+   "price": 6591,
+   "since": "2026-11-03"
   },
   "markwarner-sun/lemnos-beach-resort/summer-3/2027-08-06": {
-   "price": 6271,
-   "since": "2026-10-01"
+   "price": 6591,
+   "since": "2026-11-03"
   },
   "markwarner-sun/lemnos-beach-resort/summer-4/2027-08-13": {
-   "price": 6271,
-   "since": "2026-10-01"
+   "price": 6591,
+   "since": "2026-11-03"
   },
   "markwarner-sun/lemnos-beach-resort/summer-5/2027-08-20": {
-   "price": 6271,
-   "since": "2026-10-01"
+   "price": 6591,
+   "since": "2026-11-03"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
    "price": 4671,
    "since": "2026-10-31"
   },
   "markwarner-sun/phokaia-beach-resort/summer-1/2027-07-27": {
-   "price": 7011,
-   "since": "2026-10-01"
+   "price": 7371,
+   "since": "2026-11-03"
   },
   "markwarner-sun/phokaia-beach-resort/summer-2/2027-08-03": {
-   "price": 7174,
-   "since": "2026-10-01"
+   "price": 7614,
+   "since": "2026-11-03"
   },
   "markwarner-sun/phokaia-beach-resort/summer-3/2027-08-10": {
-   "price": 7174,
-   "since": "2026-10-01"
+   "price": 7614,
+   "since": "2026-11-03"
   },
   "markwarner-sun/phokaia-beach-resort/summer-4/2027-08-17": {
-   "price": 7174,
-   "since": "2026-10-01"
+   "price": 7614,
+   "since": "2026-11-03"
   },
   "markwarner-sun/phokaia-beach-resort/summer-5/2027-08-24": {
-   "price": 6776,
-   "since": "2026-10-01"
+   "price": 7216,
+   "since": "2026-11-03"
   },
   "clubmed-ski/val-disere/christmas/2026-12-20": {
    "price": 21678,

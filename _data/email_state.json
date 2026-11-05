@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-04",
+ "updated": "2026-11-05",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -191,16 +191,16 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-27": {
-   "price": 12210,
-   "since": "2026-11-04"
+   "price": 11012,
+   "since": "2026-11-05"
   },
   "clubmed-ski/serre-chevalier/february-half-term/2027-02-14": {
    "price": 10480,
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
-   "price": 7240,
-   "since": "2026-11-04"
+   "price": 8038,
+   "since": "2026-11-05"
   },
   "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
    "price": 6580,
@@ -407,8 +407,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/cancun/easter-1/2027-03-27": {
-   "price": 4386,
-   "since": "2026-10-29"
+   "price": 5468,
+   "since": "2026-11-05"
   },
   "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
    "price": 5752,
@@ -755,8 +755,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-1/2027-07-24": {
-   "price": 4242,
-   "since": "2026-10-17"
+   "price": 4452,
+   "since": "2026-11-05"
   },
   "clubmed-sun/la-pointe-aux-canonniers/summer-2/2027-07-31": {
    "price": 4686,

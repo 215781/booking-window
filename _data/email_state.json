@@ -1,22 +1,22 @@
 {
  "version": 1,
- "updated": "2026-11-05",
+ "updated": "2026-11-06",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
-   "price": 16692,
-   "since": "2026-11-03"
+   "price": 12852,
+   "since": "2026-11-06"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
    "price": 13738,
    "since": "2026-10-29"
   },
   "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
-   "price": 11518,
-   "since": "2026-10-21"
+   "price": 9754,
+   "since": "2026-11-06"
   },
   "clubmed-ski/tignes-val-claret/easter-2/2027-04-04": {
    "price": 9370,
@@ -171,8 +171,8 @@
    "since": "2026-10-27"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
-   "price": 6778,
-   "since": "2026-11-04"
+   "price": 6404,
+   "since": "2026-11-06"
   },
   "clubmed-ski/grand-massif/christmas/2026-12-20": {
    "price": 10284,
@@ -873,6 +873,30 @@
   "clubmed-sun/la-palmyre-atlantique/summer-4/2027-08-15": {
    "price": 3228,
    "since": "2026-10-30"
+  },
+  "markwarner-sun/phokaia-beach-resort/may-half-term/2027-05-29": {
+   "price": 7206,
+   "since": "2026-11-06"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-1/2027-07-24": {
+   "price": 7711,
+   "since": "2026-11-06"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-2/2027-07-31": {
+   "price": 7874,
+   "since": "2026-11-06"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-3/2027-08-07": {
+   "price": 7874,
+   "since": "2026-11-06"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-4/2027-08-14": {
+   "price": 7874,
+   "since": "2026-11-06"
+  },
+  "markwarner-sun/phokaia-beach-resort/summer-5/2027-08-21": {
+   "price": 7476,
+   "since": "2026-11-06"
   }
  },
  "lastAlert": {},

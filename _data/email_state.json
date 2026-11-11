@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-10",
+ "updated": "2026-11-11",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -897,6 +897,10 @@
   "markwarner-sun/phokaia-beach-resort/summer-5/2027-08-21": {
    "price": 7476,
    "since": "2026-11-06"
+  },
+  "clubmed-ski/serre-chevalier/new-year/2026-12-26": {
+   "price": 11948,
+   "since": "2026-11-11"
   }
  },
  "lastAlert": {},

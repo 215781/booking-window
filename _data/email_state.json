@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-11",
+ "updated": "2026-11-12",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -35,8 +35,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/val-thorens/easter-1/2027-03-28": {
-   "price": 8696,
-   "since": "2026-10-01"
+   "price": 10424,
+   "since": "2026-11-12"
   },
   "clubmed-ski/val-thorens/easter-2/2027-04-04": {
    "price": 8058,
@@ -111,8 +111,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/easter-1/2027-03-28": {
-   "price": 7604,
-   "since": "2026-11-07"
+   "price": 8736,
+   "since": "2026-11-12"
   },
   "clubmed-ski/peisey-vallandry/easter-2/2027-04-04": {
    "price": 7326,
@@ -255,8 +255,8 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/lemnos-beach-resort/may-half-term/2027-05-28": {
-   "price": 7366,
-   "since": "2026-11-03"
+   "price": 6666,
+   "since": "2026-11-12"
   },
   "markwarner-sun/lemnos-beach-resort/summer-1/2027-07-23": {
    "price": 6591,
@@ -407,8 +407,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/cancun/easter-1/2027-03-27": {
-   "price": 5468,
-   "since": "2026-11-05"
+   "price": 4386,
+   "since": "2026-11-12"
   },
   "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
    "price": 5752,
@@ -899,8 +899,8 @@
    "since": "2026-11-06"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-26": {
-   "price": 11948,
-   "since": "2026-11-11"
+   "price": 10774,
+   "since": "2026-11-12"
   }
  },
  "lastAlert": {},

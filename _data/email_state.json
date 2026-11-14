@@ -1,14 +1,14 @@
 {
  "version": 1,
- "updated": "2026-11-13",
+ "updated": "2026-11-14",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
    "since": "2026-10-01"
   },
   "clubmed-ski/tignes-val-claret/new-year/2026-12-27": {
-   "price": 15900,
-   "since": "2026-11-10"
+   "price": 16692,
+   "since": "2026-11-14"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
    "price": 13738,
@@ -111,8 +111,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/easter-1/2027-03-28": {
-   "price": 8736,
-   "since": "2026-11-12"
+   "price": 7604,
+   "since": "2026-11-14"
   },
   "clubmed-ski/peisey-vallandry/easter-2/2027-04-04": {
    "price": 7326,
@@ -359,8 +359,8 @@
    "since": "2026-10-21"
   },
   "clubmed-sun/miches-playa-esmeralda/easter-2/2027-04-03": {
-   "price": 6106,
-   "since": "2026-11-13"
+   "price": 5200,
+   "since": "2026-11-14"
   },
   "clubmed-sun/magna-marbella/easter-1/2027-03-27": {
    "price": 4214,
@@ -383,8 +383,8 @@
    "since": "2026-10-21"
   },
   "clubmed-sun/phuket/easter-1/2027-03-27": {
-   "price": 4608,
-   "since": "2026-11-13"
+   "price": 4152,
+   "since": "2026-11-14"
   },
   "clubmed-sun/the-finolhu-villas/easter-1/2027-03-27": {
    "price": 9978,
@@ -407,12 +407,12 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/cancun/easter-1/2027-03-27": {
-   "price": 4386,
-   "since": "2026-11-12"
+   "price": 5468,
+   "since": "2026-11-14"
   },
   "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
-   "price": 6052,
-   "since": "2026-11-13"
+   "price": 5752,
+   "since": "2026-11-14"
   },
   "clubmed-ski/grand-massif/february-half-term/2027-02-14": {
    "price": 11356,

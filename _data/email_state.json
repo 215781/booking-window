@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-15",
+ "updated": "2026-11-16",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -11,8 +11,8 @@
    "since": "2026-11-14"
   },
   "clubmed-ski/tignes-val-claret/february-half-term/2027-02-14": {
-   "price": 13738,
-   "since": "2026-10-29"
+   "price": 12938,
+   "since": "2026-11-16"
   },
   "clubmed-ski/tignes-val-claret/easter-1/2027-03-28": {
    "price": 11166,
@@ -67,8 +67,8 @@
    "since": "2026-11-04"
   },
   "clubmed-ski/les-arcs/february-half-term/2027-02-14": {
-   "price": 13424,
-   "since": "2026-10-21"
+   "price": 12640,
+   "since": "2026-11-16"
   },
   "clubmed-ski/les-arcs/easter-1/2027-03-28": {
    "price": 9164,
@@ -163,12 +163,12 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/valmorel/new-year/2026-12-27": {
-   "price": 11050,
-   "since": "2026-10-01"
+   "price": 10422,
+   "since": "2026-11-16"
   },
   "clubmed-ski/valmorel/february-half-term/2027-02-14": {
-   "price": 11278,
-   "since": "2026-10-27"
+   "price": 10640,
+   "since": "2026-11-16"
   },
   "clubmed-ski/valmorel/easter-1/2027-03-28": {
    "price": 6404,
@@ -199,8 +199,8 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
-   "price": 8038,
-   "since": "2026-11-05"
+   "price": 7552,
+   "since": "2026-11-16"
   },
   "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
    "price": 6580,
@@ -307,8 +307,8 @@
    "since": "2026-10-02"
   },
   "clubmed-sun/magna-marbella/easter-2/2027-04-03": {
-   "price": 4950,
-   "since": "2026-10-21"
+   "price": 5748,
+   "since": "2026-11-16"
   },
   "clubmed-sun/da-balaia/easter-2/2027-04-03": {
    "price": 3602,
@@ -363,8 +363,8 @@
    "since": "2026-11-14"
   },
   "clubmed-sun/magna-marbella/easter-1/2027-03-27": {
-   "price": 4214,
-   "since": "2026-10-21"
+   "price": 5110,
+   "since": "2026-11-16"
   },
   "clubmed-sun/da-balaia/easter-1/2027-03-27": {
    "price": 3188,
@@ -443,8 +443,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/magna-marbella/may-half-term/2027-05-29": {
-   "price": 5808,
-   "since": "2026-10-17"
+   "price": 4890,
+   "since": "2026-11-16"
   },
   "clubmed-sun/magna-marbella/summer-1/2027-07-24": {
    "price": 7068,
@@ -467,8 +467,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/da-balaia/may-half-term/2027-05-29": {
-   "price": 4502,
-   "since": "2026-10-17"
+   "price": 4014,
+   "since": "2026-11-16"
   },
   "clubmed-sun/da-balaia/summer-1/2027-07-24": {
    "price": 6584,
@@ -491,8 +491,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/la-caravelle/may-half-term/2027-05-29": {
-   "price": 4540,
-   "since": "2026-10-17"
+   "price": 3824,
+   "since": "2026-11-16"
   },
   "clubmed-sun/la-caravelle/summer-1/2027-07-24": {
    "price": 5670,
@@ -663,16 +663,16 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/djerba-la-douce/summer-1/2027-07-24": {
-   "price": 4362,
-   "since": "2026-11-01"
+   "price": 4104,
+   "since": "2026-11-16"
   },
   "clubmed-sun/djerba-la-douce/summer-2/2027-07-31": {
    "price": 4782,
    "since": "2026-10-30"
   },
   "clubmed-sun/djerba-la-douce/summer-3/2027-08-07": {
-   "price": 4782,
-   "since": "2026-11-07"
+   "price": 4498,
+   "since": "2026-11-16"
   },
   "clubmed-sun/djerba-la-douce/summer-4/2027-08-14": {
    "price": 3972,
@@ -775,8 +775,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/may-half-term/2027-05-29": {
-   "price": 7072,
-   "since": "2026-10-17"
+   "price": 5952,
+   "since": "2026-11-16"
   },
   "clubmed-sun/seychelles/summer-1/2027-07-24": {
    "price": 7480,
@@ -791,8 +791,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/seychelles/summer-4/2027-08-14": {
-   "price": 9410,
-   "since": "2026-11-07"
+   "price": 8532,
+   "since": "2026-11-16"
   },
   "clubmed-sun/seychelles/summer-5/2027-08-21": {
    "price": 7072,
@@ -847,8 +847,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/miches-playa-esmeralda/may-half-term/2027-05-29": {
-   "price": 4500,
-   "since": "2026-10-17"
+   "price": 3790,
+   "since": "2026-11-16"
   },
   "clubmed-sun/miches-playa-esmeralda/summer-1/2027-07-24": {
    "price": 5496,

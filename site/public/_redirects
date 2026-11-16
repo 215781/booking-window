@@ -15,3 +15,6 @@
 # The nav calls the blog "Guides"; people type /guides/
 /guides                   /blog/                   301
 /guides/                  /blog/                   301
+# Mark Warner withdrew Aeolian Village (Nov 2026)
+/mark-warner/aeolian-village  /mark-warner/  301
+/mark-warner/aeolian-village/ /mark-warner/  301

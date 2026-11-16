@@ -41,7 +41,7 @@ On 25 August 2026, this is what the school-holiday premium looked like for a fam
 
 **Club Med ski, February half-term 2027** (seven nights, no flights): the half-term week cost a median **£2,400 more** than the lowest-priced January week at the same resort, about 27% more. It ranged from £814 extra at [Val Thorens](/club-med/val-thorens/) to £3,222 at [Les Arcs](/club-med/les-arcs/).
 
-**Mark Warner summer 2027** (seven nights, flights from Gatwick): a peak August week cost about **£2,800 to £3,100 more** than late June at [Paleros](/mark-warner/paleros/) and [Phokaia](/mark-warner/phokaia/), and £1,700 to £2,100 more at [Aeolian Village](/mark-warner/aeolian-village/) and [Lemnos](/mark-warner/lemnos/).
+**Mark Warner summer 2027** (seven nights, flights from Gatwick): a peak August week cost about **£2,800 to £3,100 more** than late June at [Paleros](/mark-warner/paleros/) and [Phokaia](/mark-warner/phokaia/), and £1,700 to £2,100 more at Aeolian Village and [Lemnos](/mark-warner/lemnos/).
 
 So yes: on a single trip, the premium is usually several times the first-time fine. That is why the question keeps coming up.
 

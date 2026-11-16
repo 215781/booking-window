@@ -55,8 +55,11 @@ Family of four (two adults, two children), seven nights, flights from Gatwick in
 |---|---|---|---|---|
 | [Paleros](/mark-warner/paleros/) | £4,491 (27 Jun) | £7,416 | £6,736 (30 May) | +£160 |
 | [Phokaia](/mark-warner/phokaia/) | £4,196 (29 Jun) | £7,174 | £4,591 (25 May / 1 Jun) | +£80 |
-| [Aeolian Village](/mark-warner/aeolian-village/) | £4,561 (30 Jun) | £6,239 - £6,301 | £4,301 (26 May) | about -£850 |
+| Aeolian Village | £4,561 (30 Jun) | £6,239 - £6,301 | £4,301 (26 May) | about -£850 |
 | [Lemnos](/mark-warner/lemnos/) | £4,105 (25 Jun) | £6,271 | £6,256 (28 May) | -£720 |
+
+*Update 16 November 2026: Mark Warner has withdrawn Aeolian Village from sale (its page now returns "not found"), so we no longer track it. The figures above are kept as a record.*
+
 
 *Prices checked 1 October 2026, guidance only. Midweek changeover days at Phokaia and Aeolian Village mean their "half-term" weeks only partly overlap the holiday.*
 

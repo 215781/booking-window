@@ -37,7 +37,7 @@ We compared each departure's first price with its last price before departure. T
 | Paleros, 15 Aug | £6,877 | £7,896 | £5,205 | -24% |
 | [Phokaia](/mark-warner/phokaia/), 4 Aug | £10,276 | £10,276 | £5,012 | -51% |
 | Phokaia, 15 Aug | £9,206 | £9,600 | £5,255 | -43% |
-| [Aeolian Village](/mark-warner/aeolian-village/), 5 Aug | £5,767 | £6,421 | £4,189 | -27% |
+| Aeolian Village, 5 Aug | £5,767 | £6,421 | £4,189 | -27% |
 | [Lemnos](/mark-warner/lemnos/), 7 Aug | £5,842 | £6,391 | £4,366 | -25% |
 
 *Family of four, seven nights, including flights from Gatwick. Guidance only.*

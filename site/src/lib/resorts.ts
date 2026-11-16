@@ -15,7 +15,7 @@ export const SKI: Resort[] = [
   { collection: 'clubmed-ski', id: 'alpe-dhuez', slug: 'alpe-dhuez', name: "Alpe d'Huez", fullName: "Club Med Alpe d'Huez", area: 'Oisans', altitude: '1,860m', image: 'Alpe-dhuez', imageAlt: "Alpe d'Huez ski slopes", bookingUrl: 'https://www.clubmed.co.uk/r/alpe-d-huez/w', blog: 'best-time-to-book-club-med-alpe-dhuez' },
   { collection: 'clubmed-ski', id: 'la-rosiere', slug: 'la-rosiere', name: 'La Rosière', fullName: 'Club Med La Rosière', area: 'Espace San Bernardo', altitude: '1,850m', image: 'La-Rosiere', imageAlt: 'La Rosière in winter', bookingUrl: 'https://www.clubmed.co.uk/r/la-rosiere/w', blog: 'best-time-to-book-club-med-la-rosiere' },
   { collection: 'clubmed-ski', id: 'valmorel', slug: 'valmorel', name: 'Valmorel', fullName: 'Club Med Valmorel', area: 'Grand Domaine', altitude: '1,460m', image: 'Valmorel', imageAlt: 'Valmorel resort and slopes', bookingUrl: 'https://www.clubmed.co.uk/r/valmorel/w', blog: 'best-time-to-book-club-med-valmorel' },
-  { collection: 'clubmed-ski', id: 'grand-massif', slug: 'grand-massif', name: 'Grand Massif', fullName: 'Club Med Grand Massif Samoëns Morillon', area: 'Grand Massif', altitude: '', image: 'Grand-Massif', imageAlt: 'Grand Massif mountains', bookingUrl: 'https://www.clubmed.co.uk/r/grand-massif-samoens-morillon/w', blog: 'best-time-to-book-club-med-grand-massif' },
+  { collection: 'clubmed-ski', id: 'grand-massif', slug: 'grand-massif', name: 'Grand Massif', fullName: 'Club Med Grand Massif Samoëns Morillon', area: 'Samoëns-Morillon', altitude: '1,600m', image: 'Grand-Massif', imageAlt: 'Grand Massif mountains', bookingUrl: 'https://www.clubmed.co.uk/r/grand-massif-samoens-morillon/w', blog: 'best-time-to-book-club-med-grand-massif' },
   { collection: 'clubmed-ski', id: 'serre-chevalier', slug: 'serre-chevalier', name: 'Serre-Chevalier', fullName: 'Club Med Serre-Chevalier', area: 'Southern Alps', altitude: '1,400m', image: 'Serre-chevalier', imageAlt: 'Serre-Chevalier valley in winter', bookingUrl: 'https://www.clubmed.co.uk/r/serre-chevalier/w', blog: 'best-time-to-book-club-med-serre-chevalier' },
 ];
 
@@ -47,7 +47,7 @@ export const SUN: Resort[] = [
 // Mark Warner prices include return flights from London Gatwick.
 export const MARKWARNER: Resort[] = [
   { collection: 'markwarner-sun', id: 'paleros-beach-resort', slug: 'paleros', name: 'Paleros', fullName: 'Mark Warner Paleros Beach Resort', area: 'Paleros, Greece', bookingUrl: 'https://www.markwarner.co.uk/sun-holidays/greece/paleros-beach-resort/' },
-  { collection: 'markwarner-sun', id: 'aeolian-village', slug: 'aeolian-village', name: 'Aeolian Village', fullName: 'Mark Warner Aeolian Village Beach Resort', area: 'Lesvos, Greece', bookingUrl: 'https://www.markwarner.co.uk/sun-holidays/greece/aeolian-village/' },
+  // 'aeolian-village' (Lesvos) retired 16 Nov 2026: Mark Warner withdrew it (page 404s, no prices since 6 Oct).
   { collection: 'markwarner-sun', id: 'lemnos-beach-resort', slug: 'lemnos', name: 'Lemnos', fullName: 'Mark Warner Lemnos Beach Resort', area: 'Lemnos, Greece', bookingUrl: 'https://www.markwarner.co.uk/sun-holidays/greece/lemnos-beach-resort/' },
   { collection: 'markwarner-sun', id: 'phokaia-beach-resort', slug: 'phokaia', name: 'Phokaia', fullName: 'Mark Warner Phokaia Beach Resort', area: 'Foça, Turkey', bookingUrl: 'https://www.markwarner.co.uk/sun-holidays/turkey/phokaia-beach-resort/' },
 ];

@@ -38,7 +38,8 @@ COLLECTIONS = {
     },
     "markwarner-sun": {
         "csv": "prices_markwarner_summer.csv", "time": "timestamp", "dep": "start_date", "price": "price",
-        "where": lambda r: r["duration_nights"] == "7" and r["airport"] == "LGW",
+        # aeolian-village retired 16 Nov 2026 (Mark Warner withdrew it; old rows kept in the CSV)
+        "where": lambda r: r["duration_nights"] == "7" and r["airport"] == "LGW" and r["resort_id"] != "aeolian-village",
     },
 }
 

@@ -30,7 +30,7 @@ for (const f of files.filter((f) => /\.(html|js|txt|json|xml)$/.test(f))) {
 }
 // 4. Resort pages: tracked ones need real prices and a checked date; untracked ones must say so. All need JSON-LD, signup and outbound link.
 const resortPages = html.filter((f) => /\/(club-med|mark-warner)\/[^/]+\/index\.html$/.test(f));
-if (resortPages.length < 36) fails.push(`expected at least 36 resort pages, found ${resortPages.length}`); // 11 ski + 21 sun + 4 Mark Warner (La Palmyre hidden 1 Oct 2026)
+if (resortPages.length < 35) fails.push(`expected at least 35 resort pages, found ${resortPages.length}`); // 11 ski + 21 sun + 3 Mark Warner (La Palmyre hidden 1 Oct 2026; Aeolian Village retired 16 Nov 2026)
 // Club Med booking links must use a full resort path (/r/<slug>/w for winter, /y for year-round). Links without the
 // suffix, or with an old slug, show Club Med's "page not available". Slugs checked against clubmed.co.uk 1 Oct 2026.
 for (const f of html) for (const [, u] of readFileSync(f, 'utf8').matchAll(/href="(https:\/\/www\.clubmed\.co\.uk\/[^"]*)"/g))
@@ -45,7 +45,7 @@ for (const f of resortPages) {
   if (!s.includes('data-page-resort=')) fails.push(`no page context for analytics on ${n}`);
   for (const [, j] of s.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { JSON.parse(j); } catch { fails.push(`bad JSON-LD on ${n}`); } }
 }
-if (tracked < 15) fails.push(`only ${tracked} resort pages have live prices (expected 11 ski + 4 Mark Warner at least)`);
+if (tracked < 14) fails.push(`only ${tracked} resort pages have live prices (expected 11 ski + 3 Mark Warner at least)`);
 // 5. Data freshness
 const summary = JSON.parse(readFileSync(new URL('../src/data/summary.json', import.meta.url), 'utf8'));
 for (const [k, ps] of Object.entries(summary.problems)) for (const p of ps) fails.push(`data (${k}): ${p}`);

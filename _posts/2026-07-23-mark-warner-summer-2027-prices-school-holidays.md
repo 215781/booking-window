@@ -17,7 +17,7 @@ faq:
     a: "The prices we track do: seven nights with return flights from London Gatwick and resort transfers. Mark Warner beach holidays are half board as standard, with kids' clubs included."
 ---
 
-Mark Warner has released its summer 2027 beach holidays, and we have started checking prices every morning at four of its resorts: [Paleros](/mark-warner/paleros/) and [Aeolian Village](/mark-warner/aeolian-village/) and [Lemnos](/mark-warner/lemnos/) in Greece, and [Phokaia](/mark-warner/phokaia/) in Turkey.
+Mark Warner has released its summer 2027 beach holidays, and we have started checking prices every morning at four of its resorts: [Paleros](/mark-warner/paleros/) and Aeolian Village and [Lemnos](/mark-warner/lemnos/) in Greece, and [Phokaia](/mark-warner/phokaia/) in Turkey.
 
 The first week of data already answers the question most parents ask: how much more do the school holidays cost?
 
@@ -31,8 +31,11 @@ These are the prices we saw on 21 July 2026 for seven nights, two adults and two
 |---|---|---|---|---|
 | [Paleros](/mark-warner/paleros/) (Sundays) | £4,411 (27 Jun) | £7,256 (1-15 Aug) | £6,858 (22 Aug) | £4,213 (29 Aug) |
 | [Phokaia](/mark-warner/phokaia/) (Tuesdays) | £3,996 (29 Jun) | £7,094 (3-17 Aug) | £6,696 (24 Aug) | £4,051 (31 Aug) |
-| [Aeolian Village](/mark-warner/aeolian-village/) (Wednesdays) | £4,446 (30 Jun) | £7,119 (21 Jul - 18 Aug) | £7,021 (25 Aug) | £5,056 (1 Sep) |
+| Aeolian Village (Wednesdays) | £4,446 (30 Jun) | £7,119 (21 Jul - 18 Aug) | £7,021 (25 Aug) | £5,056 (1 Sep) |
 | [Lemnos](/mark-warner/lemnos/) (Fridays) | £3,905 (25 Jun) | £6,991 (23 Jul - 20 Aug) | £6,991 (20 Aug) | £5,586 (27 Aug) |
+
+*Update 16 November 2026: Mark Warner has withdrawn Aeolian Village from sale (its page now returns "not found"), so we no longer track it. The figures above are kept as a record.*
+
 
 *Prices checked 21 July 2026, guidance only. See each resort page for today's price.*
 

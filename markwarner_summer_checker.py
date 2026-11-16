@@ -3,7 +3,7 @@
 markwarner_summer_checker.py — When To Book: Mark Warner summer beach price checker (async)
 Uses aiohttp + asyncio, Semaphore(8) concurrency.
 
-4 beach resorts × 1 airport × 2 durations × 3 party sizes = 24 concurrent API calls.
+3 beach resorts × 1 airport × 2 durations × 3 party sizes = 18 concurrent API calls.
 Appends to _data/prices_markwarner_summer.csv. One git commit+push per resort.
 
 Usage:
@@ -30,14 +30,7 @@ from pathlib import Path
 # resort_id: embedded in resort page HTML as :resort-id="N"
 # Verified 2026-06-22 by fetching /sun-holidays/*/resort-slug/ and grepping :resort-id
 RESORTS = [
-    {
-        "name":      "Aeolian Village Beach Resort",
-        "slug":      "aeolian-village",
-        "resort_id": 26928,
-        "airports":  ["LGW"],
-        "country":   "Greece",
-        "url_path":  "sun-holidays/greece/aeolian-village",
-    },
+    # Aeolian Village (26928) retired 16 Nov 2026: Mark Warner withdrew it (page 404s, no prices since 6 Oct).
     {
         "name":      "Lemnos Beach Resort",
         "slug":      "lemnos-beach-resort",

@@ -22,7 +22,7 @@ SOURCES = [
     ("prices_clubmed.csv", "timestamp", "resort_id", 11, 2, "Club Med Alps ski"),
     ("prices_clubmed_ski_international.csv", "collected_at", "resort_id", 8, 2, "Club Med international ski"),
     ("prices_clubmed_summer.csv", "collected_at", "resort_id", 22, 2, "Club Med sun"),
-    ("prices_markwarner_summer.csv", "timestamp", "resort_id", 4, 2, "Mark Warner sun"),
+    ("prices_markwarner_summer.csv", "timestamp", "resort_id", 3, 2, "Mark Warner sun"),  # Aeolian Village retired 16 Nov 2026
     ("prices_markwarner.csv", "timestamp", "resort_id", 1, 2, "Mark Warner ski"),
 ]
 SIZE_WARN_MB = 85

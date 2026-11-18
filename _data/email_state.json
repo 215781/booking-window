@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-17",
+ "updated": "2026-11-18",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -67,12 +67,12 @@
    "since": "2026-11-04"
   },
   "clubmed-ski/les-arcs/february-half-term/2027-02-14": {
-   "price": 11600,
-   "since": "2026-11-17"
+   "price": 12228,
+   "since": "2026-11-18"
   },
   "clubmed-ski/les-arcs/easter-1/2027-03-28": {
-   "price": 9164,
-   "since": "2026-10-21"
+   "price": 8650,
+   "since": "2026-11-18"
   },
   "clubmed-ski/les-arcs/easter-2/2027-04-04": {
    "price": 7088,
@@ -127,8 +127,8 @@
    "since": "2026-10-22"
   },
   "clubmed-ski/alpe-dhuez/february-half-term/2027-02-14": {
-   "price": 11605,
-   "since": "2026-10-09"
+   "price": 12614,
+   "since": "2026-11-18"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
    "price": 8722,
@@ -407,8 +407,8 @@
    "since": "2026-10-07"
   },
   "clubmed-sun/cancun/easter-1/2027-03-27": {
-   "price": 4560,
-   "since": "2026-11-17"
+   "price": 5686,
+   "since": "2026-11-18"
   },
   "clubmed-sun/miches-playa-esmeralda/easter-1/2027-03-27": {
    "price": 5752,
@@ -555,8 +555,8 @@
    "since": "2026-11-02"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-4/2027-08-14": {
-   "price": 7768,
-   "since": "2026-11-02"
+   "price": 7018,
+   "since": "2026-11-18"
   },
   "clubmed-sun/la-palmeraie-marrakech/summer-5/2027-08-21": {
    "price": 6588,
@@ -899,8 +899,8 @@
    "since": "2026-11-06"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-26": {
-   "price": 11800,
-   "since": "2026-11-17"
+   "price": 12962,
+   "since": "2026-11-18"
   }
  },
  "lastAlert": {},

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-19",
+ "updated": "2026-11-20",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -31,8 +31,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/val-thorens/february-half-term/2027-02-14": {
-   "price": 9554,
-   "since": "2026-11-19"
+   "price": 10540,
+   "since": "2026-11-20"
   },
   "clubmed-ski/val-thorens/easter-1/2027-03-28": {
    "price": 10424,
@@ -147,8 +147,8 @@
    "since": "2026-11-02"
   },
   "clubmed-ski/la-rosiere/february-half-term/2027-02-14": {
-   "price": 11900,
-   "since": "2026-10-01"
+   "price": 11206,
+   "since": "2026-11-20"
   },
   "clubmed-ski/la-rosiere/easter-1/2027-03-28": {
    "price": 8530,
@@ -159,8 +159,8 @@
    "since": "2026-11-17"
   },
   "clubmed-ski/valmorel/christmas/2026-12-20": {
-   "price": 8112,
-   "since": "2026-11-19"
+   "price": 8518,
+   "since": "2026-11-20"
   },
   "clubmed-ski/valmorel/new-year/2026-12-27": {
    "price": 10422,
@@ -191,8 +191,8 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-27": {
-   "price": 12210,
-   "since": "2026-11-10"
+   "price": 10874,
+   "since": "2026-11-20"
   },
   "clubmed-ski/serre-chevalier/february-half-term/2027-02-14": {
    "price": 10480,
@@ -207,28 +207,28 @@
    "since": "2026-10-21"
   },
   "markwarner-sun/paleros-beach-resort/may-half-term/2027-05-30": {
-   "price": 7476,
-   "since": "2026-11-03"
+   "price": 6728,
+   "since": "2026-11-20"
   },
   "markwarner-sun/paleros-beach-resort/summer-1/2027-07-25": {
-   "price": 7664,
-   "since": "2026-11-03"
+   "price": 6897,
+   "since": "2026-11-20"
   },
   "markwarner-sun/paleros-beach-resort/summer-2/2027-08-01": {
-   "price": 7966,
-   "since": "2026-11-03"
+   "price": 7169,
+   "since": "2026-11-20"
   },
   "markwarner-sun/paleros-beach-resort/summer-3/2027-08-08": {
-   "price": 7966,
-   "since": "2026-11-03"
+   "price": 7169,
+   "since": "2026-11-20"
   },
   "markwarner-sun/paleros-beach-resort/summer-4/2027-08-15": {
-   "price": 7966,
-   "since": "2026-11-03"
+   "price": 7169,
+   "since": "2026-11-20"
   },
   "markwarner-sun/paleros-beach-resort/summer-5/2027-08-22": {
-   "price": 7528,
-   "since": "2026-11-03"
+   "price": 6775,
+   "since": "2026-11-20"
   },
   "markwarner-sun/aeolian-village/may-half-term/2027-06-02": {
    "price": 4146,
@@ -255,28 +255,28 @@
    "since": "2026-10-01"
   },
   "markwarner-sun/lemnos-beach-resort/may-half-term/2027-05-28": {
-   "price": 6666,
-   "since": "2026-11-12"
+   "price": 5999,
+   "since": "2026-11-20"
   },
   "markwarner-sun/lemnos-beach-resort/summer-1/2027-07-23": {
-   "price": 6591,
-   "since": "2026-11-03"
+   "price": 5837,
+   "since": "2026-11-20"
   },
   "markwarner-sun/lemnos-beach-resort/summer-2/2027-07-30": {
-   "price": 6591,
-   "since": "2026-11-03"
+   "price": 5837,
+   "since": "2026-11-20"
   },
   "markwarner-sun/lemnos-beach-resort/summer-3/2027-08-06": {
-   "price": 6591,
-   "since": "2026-11-03"
+   "price": 5837,
+   "since": "2026-11-20"
   },
   "markwarner-sun/lemnos-beach-resort/summer-4/2027-08-13": {
-   "price": 6591,
-   "since": "2026-11-03"
+   "price": 5837,
+   "since": "2026-11-20"
   },
   "markwarner-sun/lemnos-beach-resort/summer-5/2027-08-20": {
-   "price": 6591,
-   "since": "2026-11-03"
+   "price": 5837,
+   "since": "2026-11-20"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-06-01": {
    "price": 4671,
@@ -515,8 +515,8 @@
    "since": "2026-11-17"
   },
   "clubmed-sun/la-palmyre-atlantique/may-half-term/2027-05-29": {
-   "price": 2836,
-   "since": "2026-10-17"
+   "price": 3078,
+   "since": "2026-11-20"
   },
   "clubmed-sun/la-palmyre-atlantique/summer-1/2027-07-24": {
    "price": 3976,
@@ -875,28 +875,28 @@
    "since": "2026-10-30"
   },
   "markwarner-sun/phokaia-beach-resort/may-half-term/2027-05-29": {
-   "price": 7206,
-   "since": "2026-11-06"
+   "price": 6485,
+   "since": "2026-11-20"
   },
   "markwarner-sun/phokaia-beach-resort/summer-1/2027-07-24": {
-   "price": 7711,
-   "since": "2026-11-06"
+   "price": 6939,
+   "since": "2026-11-20"
   },
   "markwarner-sun/phokaia-beach-resort/summer-2/2027-07-31": {
-   "price": 7874,
-   "since": "2026-11-06"
+   "price": 7086,
+   "since": "2026-11-20"
   },
   "markwarner-sun/phokaia-beach-resort/summer-3/2027-08-07": {
-   "price": 7874,
-   "since": "2026-11-06"
+   "price": 7086,
+   "since": "2026-11-20"
   },
   "markwarner-sun/phokaia-beach-resort/summer-4/2027-08-14": {
-   "price": 7874,
-   "since": "2026-11-06"
+   "price": 7086,
+   "since": "2026-11-20"
   },
   "markwarner-sun/phokaia-beach-resort/summer-5/2027-08-21": {
-   "price": 7476,
-   "since": "2026-11-06"
+   "price": 6728,
+   "since": "2026-11-20"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-26": {
    "price": 12962,

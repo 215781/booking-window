@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-21",
+ "updated": "2026-11-22",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -131,8 +131,8 @@
    "since": "2026-11-21"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
-   "price": 8722,
-   "since": "2026-11-17"
+   "price": 7934,
+   "since": "2026-11-22"
   },
   "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
    "price": 6820,

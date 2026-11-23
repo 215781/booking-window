@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-22",
+ "updated": "2026-11-23",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -183,16 +183,16 @@
    "since": "2026-11-17"
   },
   "clubmed-ski/grand-massif/easter-1/2027-03-27": {
-   "price": 7400,
-   "since": "2026-11-17"
+   "price": 6446,
+   "since": "2026-11-23"
   },
   "clubmed-ski/serre-chevalier/christmas/2026-12-20": {
    "price": 8844,
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-27": {
-   "price": 13244,
-   "since": "2026-11-21"
+   "price": 10874,
+   "since": "2026-11-23"
   },
   "clubmed-ski/serre-chevalier/february-half-term/2027-02-14": {
    "price": 10480,

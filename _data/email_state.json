@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-23",
+ "updated": "2026-11-24",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -47,8 +47,8 @@
    "since": "2026-11-04"
   },
   "clubmed-ski/val-disere/february-half-term/2027-02-14": {
-   "price": 23846,
-   "since": "2026-10-01"
+   "price": 20046,
+   "since": "2026-11-24"
   },
   "clubmed-ski/val-disere/easter-1/2027-03-28": {
    "price": 11456,
@@ -199,8 +199,8 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
-   "price": 7948,
-   "since": "2026-11-17"
+   "price": 7160,
+   "since": "2026-11-24"
   },
   "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
    "price": 6580,

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-25",
+ "updated": "2026-11-26",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -19,12 +19,12 @@
    "since": "2026-11-17"
   },
   "clubmed-ski/tignes-val-claret/easter-2/2027-04-04": {
-   "price": 8342,
-   "since": "2026-11-17"
+   "price": 9262,
+   "since": "2026-11-26"
   },
   "clubmed-ski/val-thorens/christmas/2026-12-20": {
-   "price": 10560,
-   "since": "2026-10-01"
+   "price": 9950,
+   "since": "2026-11-26"
   },
   "clubmed-ski/val-thorens/new-year/2026-12-27": {
    "price": 12732,
@@ -47,8 +47,8 @@
    "since": "2026-11-04"
   },
   "clubmed-ski/val-disere/february-half-term/2027-02-14": {
-   "price": 20046,
-   "since": "2026-11-24"
+   "price": 23572,
+   "since": "2026-11-26"
   },
   "clubmed-ski/val-disere/easter-1/2027-03-28": {
    "price": 11456,
@@ -75,8 +75,8 @@
    "since": "2026-11-18"
   },
   "clubmed-ski/les-arcs/easter-2/2027-04-04": {
-   "price": 7088,
-   "since": "2026-11-17"
+   "price": 7794,
+   "since": "2026-11-26"
   },
   "clubmed-ski/la-plagne-2100/christmas/2026-12-20": {
    "price": 9172,
@@ -119,8 +119,8 @@
    "since": "2026-11-17"
   },
   "clubmed-ski/alpe-dhuez/christmas/2026-12-20": {
-   "price": 10658,
-   "since": "2026-10-01"
+   "price": 10044,
+   "since": "2026-11-26"
   },
   "clubmed-ski/alpe-dhuez/new-year/2026-12-27": {
    "price": 11458,
@@ -131,8 +131,8 @@
    "since": "2026-11-21"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
-   "price": 8722,
-   "since": "2026-11-25"
+   "price": 7934,
+   "since": "2026-11-26"
   },
   "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
    "price": 6820,
@@ -423,8 +423,8 @@
    "since": "2026-10-17"
   },
   "clubmed-sun/gregolimano/summer-1/2027-07-24": {
-   "price": 8364,
-   "since": "2026-10-29"
+   "price": 6574,
+   "since": "2026-11-26"
   },
   "clubmed-sun/gregolimano/summer-2/2027-07-31": {
    "price": 7314,

@@ -1,6 +1,6 @@
 {
  "version": 1,
- "updated": "2026-11-26",
+ "updated": "2026-11-27",
  "baselines": {
   "clubmed-ski/tignes-val-claret/christmas/2026-12-20": {
    "price": 11788,
@@ -67,16 +67,16 @@
    "since": "2026-11-04"
   },
   "clubmed-ski/les-arcs/february-half-term/2027-02-14": {
-   "price": 12228,
-   "since": "2026-11-18"
+   "price": 11600,
+   "since": "2026-11-27"
   },
   "clubmed-ski/les-arcs/easter-1/2027-03-28": {
    "price": 8650,
    "since": "2026-11-18"
   },
   "clubmed-ski/les-arcs/easter-2/2027-04-04": {
-   "price": 7794,
-   "since": "2026-11-26"
+   "price": 7088,
+   "since": "2026-11-27"
   },
   "clubmed-ski/la-plagne-2100/christmas/2026-12-20": {
    "price": 9172,
@@ -99,8 +99,8 @@
    "since": "2026-10-01"
   },
   "clubmed-ski/peisey-vallandry/christmas/2026-12-20": {
-   "price": 9476,
-   "since": "2026-11-17"
+   "price": 8198,
+   "since": "2026-11-27"
   },
   "clubmed-ski/peisey-vallandry/new-year/2026-12-27": {
    "price": 12054,
@@ -131,8 +131,8 @@
    "since": "2026-11-21"
   },
   "clubmed-ski/alpe-dhuez/easter-1/2027-03-28": {
-   "price": 7934,
-   "since": "2026-11-26"
+   "price": 8328,
+   "since": "2026-11-27"
   },
   "clubmed-ski/alpe-dhuez/easter-2/2027-04-04": {
    "price": 6820,
@@ -191,16 +191,16 @@
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/new-year/2026-12-27": {
-   "price": 10874,
-   "since": "2026-11-23"
+   "price": 13244,
+   "since": "2026-11-27"
   },
   "clubmed-ski/serre-chevalier/february-half-term/2027-02-14": {
    "price": 10480,
    "since": "2026-10-21"
   },
   "clubmed-ski/serre-chevalier/easter-1/2027-03-27": {
-   "price": 7160,
-   "since": "2026-11-24"
+   "price": 6764,
+   "since": "2026-11-27"
   },
   "clubmed-ski/serre-chevalier/easter-2/2027-04-03": {
    "price": 6580,
@@ -303,8 +303,8 @@
    "since": "2026-11-03"
   },
   "clubmed-ski/val-disere/christmas/2026-12-20": {
-   "price": 21678,
-   "since": "2026-10-02"
+   "price": 18222,
+   "since": "2026-11-27"
   },
   "clubmed-sun/magna-marbella/easter-2/2027-04-03": {
    "price": 4896,
@@ -331,8 +331,8 @@
    "since": "2026-11-17"
   },
   "clubmed-sun/phuket/easter-2/2027-04-03": {
-   "price": 3810,
-   "since": "2026-10-26"
+   "price": 4120,
+   "since": "2026-11-27"
   },
   "clubmed-sun/the-finolhu-villas/easter-2/2027-04-03": {
    "price": 9978,
